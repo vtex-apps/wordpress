@@ -1,0 +1,11 @@
+{
+    "store.blog": {
+      "path": "/blog"
+    },
+    "store.blog-category": {
+      "path": "/blog/category/:categoryid"
+    },
+    "store.blog-post": {
+      "path": "/blog/post/:id"
+    }
+}

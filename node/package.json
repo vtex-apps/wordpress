@@ -1,0 +1,22 @@
+{
+  "name": "wordpress",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphql": "^14.2.1",
+    "prettier": "^1.17.1",
+    "typescript": "^3.4.5"
+  },
+  "devDependencies": {
+    "@vtex/api": "^3.15.0",
+    "eslint": "5.15.1",
+    "eslint-config-vtex": "10.1.0",
+    "tslint": "^5.9.1",
+    "tslint-config-vtex": "^2.0.0"
+  }
+}

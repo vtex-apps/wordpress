@@ -1,0 +1,44 @@
+{
+    "store.blog": {
+        "before": [
+            "header.full"
+        ],
+        "required": [
+            "wordpress-list"
+        ],
+        "after": [
+            "footer"
+        ]
+    },
+    "store.blog-category": {
+        "before": [
+            "header.full"
+        ],
+        "required": [
+            "wordpress-category"
+        ],
+        "after": [
+            "footer"
+        ]
+    },
+    "store.blog-post": {
+        "before": [
+            "header.full"
+        ],
+        "required": [
+            "wordpress-post"
+        ],
+        "after": [
+            "footer"
+        ]
+    },
+    "wordpress-list": {
+        "component": "WordpressList"
+    },
+    "wordpress-category": {
+        "component": "WordpressCategory"
+    },
+    "wordpress-post": {
+        "component": "WordpressPost"
+    }
+}

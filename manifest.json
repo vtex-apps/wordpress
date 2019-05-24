@@ -1,0 +1,44 @@
+{
+    "name": "wordpress",
+    "vendor": "vtex",
+    "version": "0.1.0",
+    "title": "Wordpress",
+    "description": "Connect a Wordpress blog to a VTEX site",
+    "categories": [],
+    "registries": [
+        "smartcheckout"
+    ],
+    "builders": {
+        "node": "4.x",
+        "graphql": "1.x",
+        "react": "3.x",
+        "store": "0.x"
+    },
+    "mustUpdateAt": "2018-09-05",
+    "scripts": {
+        "postreleasy": "vtex publish --verbose"
+    },
+    "dependencies": {
+        "vtex.store": "2.x",
+        "vtex.styleguide": "9.x",
+        "vtex.store-components": "3.x",
+        "vtex.store-header": "2.x",
+        "vtex.store-footer": "2.x"
+    },
+    "policies": [
+        {
+            "name": "outbound-access",
+            "attrs": {
+                "host": "{{account}}.vtexcommercestable.com.br",
+                "path": "/api/dataentities/*"
+            }
+        },
+        {
+            "name": "outbound-access",
+            "attrs": {
+                "host": "wwgolfshops.wpengine.com",
+                "path": "/*"
+            }
+        }
+    ]
+}
