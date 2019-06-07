@@ -1,44 +1,14 @@
 {
-    "store.blog": {
-        "before": [
-            "header.full"
-        ],
-        "required": [
-            "wordpress-list"
-        ],
-        "after": [
-            "footer"
-        ]
+    "blog-all-posts.wordpress-all-posts": {
+        "component": "WordpressAllPosts"
     },
-    "store.blog-category": {
-        "before": [
-            "header.full"
-        ],
-        "required": [
-            "wordpress-category"
-        ],
-        "after": [
-            "footer"
-        ]
-    },
-    "store.blog-post": {
-        "before": [
-            "header.full"
-        ],
-        "required": [
-            "wordpress-post"
-        ],
-        "after": [
-            "footer"
-        ]
-    },
-    "wordpress-list": {
-        "component": "WordpressList"
-    },
-    "wordpress-category": {
+    "blog-category-list.wordpress-category-list": {
         "component": "WordpressCategory"
     },
-    "wordpress-post": {
+    "blog-post-details.wordpress-post-details": {
         "component": "WordpressPost"
+    },
+    "blog-category-preview.wordpress-category-preview": {
+        "component": "WordpressCategoryBlock"
     }
 }

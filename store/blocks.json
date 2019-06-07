@@ -1,0 +1,33 @@
+{
+    "store.blog-home": {
+        "blocks": [
+            "blog-category-preview.wordpress-category-preview#test",
+            "blog-category-preview.wordpress-category-preview#test2",
+            "blog-all-posts.wordpress-all-posts"
+        ]
+    },
+    "store.blog-category": {
+        "blocks": [
+            "blog-category-list.wordpress-category-list"
+        ]
+    },
+    "store.blog-post": {
+        "blocks": [
+            "blog-post-details.wordpress-post-details"
+        ]
+    },
+    "blog-category-preview.wordpress-category-preview#test": {
+        "props": {
+            "category": 5,
+            "description": "Description of category",
+            "useTextOverlays": false
+        }
+    },
+    "blog-category-preview.wordpress-category-preview#test2": {
+        "props": {
+            "category": 410,
+            "description": "Description of category",
+            "useTextOverlays": false
+        }
+    }
+}

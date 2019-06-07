@@ -1,5 +1,5 @@
 {
-    "store.blog": {
+    "store.blog-home": {
       "path": "/blog"
     },
     "store.blog-category": {

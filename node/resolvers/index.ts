@@ -12,8 +12,8 @@ export const queries = {
         offset,
         order,
         orderby,
-        slug,
-        status,
+        wpSlug,
+        wpStatus,
         categories,
         categories_exclude,
         tags,
@@ -32,8 +32,8 @@ export const queries = {
         offset: number,
         order: string,
         orderby: string,
-        slug: [string],
-        status: [string],
+        wpSlug: [string],
+        wpStatus: [string],
         categories: [number],
         categories_exclude: [number],
         tags: [number],
@@ -41,10 +41,10 @@ export const queries = {
         sticky: boolean
     }, ctx: Context) {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        const { headers, data } = await wordpress.getPosts(
+        const options = {
             page,
             per_page,
             search,
@@ -57,13 +57,16 @@ export const queries = {
             offset,
             order,
             orderby,
-            slug,
-            status,
+            wpSlug,
+            wpStatus,
             categories,
             categories_exclude,
             tags,
             tags_exclude,
-            sticky)
+            sticky
+        }
+
+        const { headers, data } = await wordpressProxy.getPosts(options)
         const posts = data
         const total_count = headers['x-wp-total']
         const result = { posts, total_count }
@@ -71,12 +74,12 @@ export const queries = {
     },
     wpPost: async (_: any, { id, password }: { id: number, password: string }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getPost(id, password)
+        return wordpressProxy.getPost(id, password)
     },
-    wpCategories: async (_:any, {
+    wpCategories: async (_: any, {
         page,
         per_page,
         search,
@@ -88,7 +91,7 @@ export const queries = {
         parent,
         post,
         slug
-    }:{
+    }: {
         page: number,
         per_page: number,
         search: string,
@@ -102,10 +105,10 @@ export const queries = {
         slug: [string]
     }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        const { headers, data } = await wordpress.getCategories(
+        const options = {
             page,
             per_page,
             search,
@@ -116,20 +119,23 @@ export const queries = {
             hide_empty,
             parent,
             post,
-            slug)
+            slug
+        }
+
+        const { headers, data } = await wordpressProxy.getCategories(options)
         const categories = data
         const total_count = headers['x-wp-total']
         const result = { categories, total_count }
         return result
     },
-    wpCategory: async (_: any, { id }:{ id: number }, ctx: Context) => {
+    wpCategory: async (_: any, { id }: { id: number }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getCategory(id)
+        return wordpressProxy.getCategory(id)
     },
-    wpTags: async (_:any, {
+    wpTags: async (_: any, {
         page,
         per_page,
         search,
@@ -141,7 +147,7 @@ export const queries = {
         hide_empty,
         post,
         slug
-    }:{
+    }: {
         page: number,
         per_page: number,
         search: string,
@@ -155,10 +161,10 @@ export const queries = {
         slug: [string]
     }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        const { headers, data } = await wordpress.getTags(
+        const options = {
             page,
             per_page,
             search,
@@ -169,18 +175,20 @@ export const queries = {
             orderby,
             hide_empty,
             post,
-            slug)
+            slug
+        }
+        const { headers, data } = await wordpressProxy.getTags(options)
         const tags = data
         const total_count = headers['x-wp-total']
         const result = { tags, total_count }
         return result
     },
-    wpTag: async (_: any, { id }:{ id: number }, ctx: Context) => {
+    wpTag: async (_: any, { id }: { id: number }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getTag(id)
+        return wordpressProxy.getTag(id)
     },
     wpPages: async (_: any, {
         page,
@@ -200,7 +208,7 @@ export const queries = {
         parent_exclude,
         slug,
         status
-    }:{
+    }: {
         page: number,
         per_page: number,
         search: string,
@@ -220,10 +228,10 @@ export const queries = {
         status: [string]
     }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        const { headers, data } =  await wordpress.getPages(
+        const options = {
             page,
             per_page,
             search,
@@ -241,7 +249,9 @@ export const queries = {
             parent_exclude,
             slug,
             status
-        )
+        }
+
+        const { headers, data } = await wordpressProxy.getPages(options)
         const pages = data
         const total_count = headers['x-wp-total']
         const result = { pages, total_count }
@@ -249,10 +259,10 @@ export const queries = {
     },
     wpPage: async (_: any, { id, password }: { id: number, password: string }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getPage(id, password)
+        return wordpressProxy.getPage(id, password)
     },
     wpComments: async (_: any, {
         page,
@@ -275,7 +285,7 @@ export const queries = {
         status,
         type,
         password
-    }:{
+    }: {
         page: number,
         per_page: number,
         search: string,
@@ -298,10 +308,10 @@ export const queries = {
         password: string
     }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        const { headers, data } = await wordpress.getComments(
+        const options = {
             page,
             per_page,
             search,
@@ -322,7 +332,9 @@ export const queries = {
             status,
             type,
             password
-        )
+        }
+
+        const { headers, data } = await wordpressProxy.getComments(options)
         const comments = data
         const total_count = headers['x-wp-total']
         const result = { comments, total_count }
@@ -330,24 +342,24 @@ export const queries = {
     },
     wpComment: async (_: any, { id, password }: { id: number, password: string }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getComment(id, password)
+        return wordpressProxy.getComment(id, password)
     },
-    wpTaxonomies: async (_: any, { type }:{ type: string }, ctx: Context) => {
+    wpTaxonomies: async (_: any, { type }: { type: string }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getTaxonomies(type)
+        return wordpressProxy.getTaxonomies(type)
     },
-    wpTaxonomy: async (_: any, { taxonomy }:{ taxonomy: string }, ctx: Context) => {
+    wpTaxonomy: async (_: any, { taxonomy }: { taxonomy: string }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getTaxonomy(taxonomy)
+        return wordpressProxy.getTaxonomy(taxonomy)
     },
     wpMedia: async (_: any, {
         page,
@@ -367,7 +379,7 @@ export const queries = {
         status,
         media_type,
         mime_type
-    }:{
+    }: {
         page: number,
         per_page: number,
         search: string,
@@ -387,10 +399,10 @@ export const queries = {
         mime_type: string
     }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        const { headers, data } = await wordpress.getMedia(
+        const options = {
             page,
             per_page,
             search,
@@ -408,18 +420,20 @@ export const queries = {
             status,
             media_type,
             mime_type
-        )
+        }
+
+        const { headers, data } = await wordpressProxy.getMedia(options)
         const media = data
         const total_count = headers['x-wp-total']
         const result = { media, total_count }
         return result
     },
-    wpMediaSingle: async (_: any, { id }:{ id: number }, ctx: Context) => {
+    wpMediaSingle: async (_: any, { id }: { id: number }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getMediaSingle(id)
+        return wordpressProxy.getMediaSingle(id)
     },
     wpUsers: async (_: any, {
         page,
@@ -432,7 +446,7 @@ export const queries = {
         orderby,
         slug,
         roles
-    }:{
+    }: {
         page: number,
         per_page: number,
         search: string,
@@ -445,10 +459,10 @@ export const queries = {
         roles: [string]
     }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        const { headers, data } = await wordpress.getUsers(
+        const options = {
             page,
             per_page,
             search,
@@ -459,52 +473,54 @@ export const queries = {
             orderby,
             slug,
             roles
-        )
+        }
+
+        const { headers, data } = await wordpressProxy.getUsers(options)
         const users = data
         const total_count = headers['x-wp-total']
         const result = { users, total_count }
         return result
     },
-    wpUser: async (_: any, { id }:{ id: number }, ctx: Context) => {
+    wpUser: async (_: any, { id }: { id: number }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getUser(id)
+        return wordpressProxy.getUser(id)
     },
     wpPostTypes: async (_: any, __: any, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getPostTypes()
+        return wordpressProxy.getPostTypes()
     },
-    wpPostType: async (_: any, { type }:{ type: string }, ctx: Context) => {
+    wpPostType: async (_: any, { type }: { type: string }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getPostType(type)
+        return wordpressProxy.getPostType(type)
     },
     wpPostStatuses: async (_: any, __: any, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getPostStatuses()
+        return wordpressProxy.getPostStatuses()
     },
-    wpPostStatus: async (_: any, { status }:{ status: string }, ctx: Context) => {
+    wpPostStatus: async (_: any, { status }: { status: string }, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getPostStatus(status)
+        return wordpressProxy.getPostStatus(status)
     },
     wpSettings: async (_: any, __: any, ctx: Context) => {
         const {
-            clients: { wordpress },
+            clients: { wordpressProxy },
         } = ctx
 
-        return wordpress.getSettings()
+        return wordpressProxy.getSettings()
     },
 }

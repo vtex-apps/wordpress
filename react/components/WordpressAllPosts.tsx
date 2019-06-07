@@ -4,8 +4,9 @@ import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner, Pagination } from 'vtex.styleguide';
 import { Container } from 'vtex.store-components';
 import WordpressTeaser from './WordpressTeaser';
+import styles from './list.css'
 
-class WordpressList extends Component<DataProps<any, any>> {
+class WordpressAllPosts extends Component<DataProps<any, any>> {
 	state = {
 		page: 1,
 		per_page: 10
@@ -13,7 +14,7 @@ class WordpressList extends Component<DataProps<any, any>> {
 	render() {
 		const { data: { fetchMore, loading, error, wpPosts } } = this.props;
 		return (
-			<Container className="pt6 pb8 bg-muted-5" style={{ maxWidth: 900}}>
+			<Container className={`${styles.listContainer} pt6 pb8`}>
 				<div className="ph3">
 					<Pagination
 						rowsOptions={[ 10, 20, 30, 40 ]}
@@ -80,10 +81,11 @@ class WordpressList extends Component<DataProps<any, any>> {
 					</div>
 				)}
 				{wpPosts != null ? (
-                    <div className="mv4 flex flex-row flex-wrap">
+                    <div className={`${styles.listFlex} mv4 flex flex-row flex-wrap`}>
                         {wpPosts.posts.map((post: PostData, index: number) => (
-							<div className="mv3 w-50 ph2">
+							<div className={`${styles.listFlexItem} mv3 w-50 ph4`}>
 								<WordpressTeaser
+									key={index}
 									title={post.title.rendered}
 									author={post.author.name}
 									category={post.categories[0].name}
@@ -94,6 +96,11 @@ class WordpressList extends Component<DataProps<any, any>> {
 									image={post.featured_media != null ? post.featured_media.source_url : ""}
 									altText={post.featured_media != null ? post.featured_media.alt_text : ""}
 									mediaType={post.featured_media != null ? post.featured_media.media_type : ""}
+									showAuthor={false}
+									showCategory={true}
+									showDate={true}
+									showExcerpt={true}
+									useTextOverlay={false}
 								/>
 							</div>
                         ))}
@@ -108,4 +115,4 @@ class WordpressList extends Component<DataProps<any, any>> {
 	}
 }
 
-export default compose(graphql(AllPosts, { options: { notifyOnNetworkStatusChange: true } }))(WordpressList);
+export default compose(graphql(AllPosts, { options: { notifyOnNetworkStatusChange: true } }))(WordpressAllPosts);

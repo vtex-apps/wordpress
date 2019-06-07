@@ -1,0 +1,5 @@
+query CategoryInfo($category: Int) {
+    wpCategory(id: $category) {
+        name
+    }
+}

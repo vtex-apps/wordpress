@@ -29,12 +29,6 @@
     "eslint-config-vtex": "10.1.0",
     "tslint": "^5.12.1",
     "tslint-config-vtex": "^2.1.0",
-    "typescript": "^3.4.3",
-    "vtex.render-runtime": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.30.0/public/_types/react",
-    "vtex.store-header": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-header@2.17.0/public/_types/react",
-    "vtex.store-components": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.37.2/public/_types/react",
-    "vtex.store-footer": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-footer@2.11.5/public/_types/react",
-    "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.48.0/public/_types/react",
-    "vtex.store": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.23.1/public/_types/react"
+    "typescript": "^3.4.3"
   }
 }

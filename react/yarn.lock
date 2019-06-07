@@ -1443,30 +1443,6 @@ util-deprecate@^1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-"vtex.render-runtime@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.30.0/public/_types/react":
-  version "8.30.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.30.0/public/_types/react#9b611bb41b91834a6d17d7de82b652598bb731b5"
-
-"vtex.store-components@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.37.2/public/_types/react":
-  version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.37.2/public/_types/react#46c6643f07aa7f6bfe7118de926b86defc5087c4"
-
-"vtex.store-footer@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-footer@2.11.5/public/_types/react":
-  version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-footer@2.11.5/public/_types/react#46c6643f07aa7f6bfe7118de926b86defc5087c4"
-
-"vtex.store-header@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-header@2.17.0/public/_types/react":
-  version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-header@2.17.0/public/_types/react#46c6643f07aa7f6bfe7118de926b86defc5087c4"
-
-"vtex.store@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.23.1/public/_types/react":
-  version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.23.1/public/_types/react#46c6643f07aa7f6bfe7118de926b86defc5087c4"
-
-"vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.48.0/public/_types/react":
-  version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.48.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
-
 which@^1.2.9:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/which/-/which-1.3.1.tgz#a45043d54f5805316da8d62f9f50918d3da70b0a"

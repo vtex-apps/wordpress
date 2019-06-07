@@ -9,6 +9,9 @@ query SinglePost($id: Int!) {
         content {
             rendered
         }
+        excerpt {
+            rendered
+        }
         categories {
             name
             id
