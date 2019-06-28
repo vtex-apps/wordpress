@@ -65,7 +65,6 @@ export const queries = {
             tags_exclude,
             sticky
         }
-
         const { headers, data } = await wordpressProxy.getPosts(options)
         const posts = data
         const total_count = headers['x-wp-total']

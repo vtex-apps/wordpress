@@ -1,4 +1,4 @@
-import { AuthType, ClientsConfig, IOClients, LRUCache } from '@vtex/api'
+import { ClientsConfig, IOClients, LRUCache } from '@vtex/api'
 import WordpressProxyDataSource from './wordpressProxy'
 
 const TIMEOUT_MS = 8000
@@ -8,8 +8,8 @@ const defaultClientOptions = {
     timeout: TIMEOUT_MS,
 }
 
-const memoryCache = new LRUCache<string, any>({ max: 5000 })
-metrics.trackCache('wordpressProxy', memoryCache)
+const cacheStorage = new LRUCache<string, any>({ max: 5000 })
+metrics.trackCache('wordpressProxy', cacheStorage)
 
 export class Clients extends IOClients {
     public get wordpressProxy(): WordpressProxyDataSource {
@@ -22,11 +22,11 @@ export const clients: ClientsConfig<Clients> = {
     options: {
         default: defaultClientOptions,
         wordpressProxy: {
-            authType: AuthType.bearer,
+            //authType: AuthType.bearer,
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            memoryCache,
+            memoryCache: cacheStorage
         },
     },
 }

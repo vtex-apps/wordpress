@@ -1,33 +1,28 @@
 import React, { Fragment } from 'react';
-import CategoryPosts from '../graphql/CategoryPosts.graphql';
+import AllPosts from '../graphql/AllPosts.graphql';
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner, Button } from 'vtex.styleguide';
 import WordpressTeaser from './WordpressTeaser';
 
-import styles from './categoryblock.css';
+import styles from './latestpostsblock.css';
 
-const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
-    ({ category, description, useTextOverlays, showDates, showAuthors, showExcerpts,
-        data: { loading, error, wpCategory } }) => {
+const WordpressLatestPostsBlock: StorefrontFunctionComponent<DataPropsExtended> =
+    ({ title, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
+        data: { loading, error, wpPosts } }) => {
         return (
-            <div className={`${styles.categoryBlockContainer} pv4 pb9`}>
+            <div className={`${styles.latestPostsBlockContainer} pv4 pb9`}>
                 {loading && (
                     <Spinner />
                 )}
                 {error && (
                     <span>Error: {error.message}</span>
                 )}
-                {(wpCategory != null && wpCategory.wpPosts != null) ? (
+                {(wpPosts != null) ? (
                     <Fragment>
-                        <h2 className={`${styles.categoryBlockTitle} t-heading-2`}>{wpCategory.name}</h2>
-                        { description != "" && (
-                            <h4 className={`${styles.categoryBlockDescription} t-heading-4`}>
-                                {description}
-                            </h4>
-                        )}
-                        <div className={`${styles.categoryBlockFlex} mv4 flex flex-row flex-wrap justify-between`}>
-                            {wpCategory.wpPosts.posts.map((post: PostData, index: number) => (
-                                <div className={`${styles.categoryBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
+                        <h2 className={`${styles.latestPostsBlockTitle} t-heading-2`}>{title}</h2>
+                        <div className={`${styles.latestPostsBlockFlex} mv4 flex flex-row flex-wrap justify-between`}>
+                            {wpPosts.posts.map((post: PostData, index: number) => (
+                                <div className={`${styles.latestPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
                                     <WordpressTeaser
                                         key={index}
                                         title={post.title.rendered}
@@ -35,10 +30,12 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
                                         id={post.id}
                                         author={post.author != null ? post.author.name : ""}
                                         excerpt={post.excerpt.rendered}
+                                        category={post.categories[0] != null ? post.categories[0].name : ""}
+                                        categoryId={post.categories[0] != null ? post.categories[0].id : undefined}
                                         image={post.featured_media != null ? post.featured_media.source_url : ""}
                                         altText={post.featured_media != null ? post.featured_media.alt_text : ""}
                                         mediaType={post.featured_media != null ? post.featured_media.media_type : ""}
-                                        showCategory={false}
+                                        showCategory={showCategories}
                                         showDate={showDates}
                                         showAuthor={showAuthors}
                                         showExcerpt={showExcerpts}
@@ -47,11 +44,6 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
                                 </div>
                             ))}
                         </div>
-                        <a href={ "/blog/category/" + category } className={`${styles.categoryBlockLink}`}>
-                            <Button variation="secondary" block>
-                                All { wpCategory.name } Posts >    
-                            </Button>
-                        </a>
                     </Fragment>
                 ) : (
                     !loading && !error && (
@@ -64,51 +56,43 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
 
     }
 
-const EnhancedWordpressCategoryBlock = compose(
-    graphql(CategoryPosts, { options: ({ category }: { category: number }) => ({
+const EnhancedWordpressLatestPostsBlock = compose(
+    graphql(AllPosts, { options: () => ({
         variables: {
-            category,
             wp_per_page: 3
         }, 
         errorPolicy: "all"
-    })
-}))(WordpressCategoryBlock)
+    }) })
+)(WordpressLatestPostsBlock)
 
-interface WPCategoryBlockProps {
-    category: number
-    description: string
+interface WPLatestPostsBlockProps {
+    title: string
     useTextOverlays: boolean
+    showCategories: boolean
     showDates: boolean
     showAuthors: boolean
     showExcerpts: boolean
 }
 
-type DataPropsExtended = WPCategoryBlockProps & DataProps<any, any>;
+type DataPropsExtended = WPLatestPostsBlockProps & DataProps<any, any>;
 
-EnhancedWordpressCategoryBlock.defaultProps = {
-    category: 1,
-    description: '',
+EnhancedWordpressLatestPostsBlock.defaultProps = {
+    title: '',
     useTextOverlays: false,
+    showCategories: true,
     showDates: true,
     showAuthors: false,
     showExcerpts: false
 }
 
-EnhancedWordpressCategoryBlock.schema = {
-    title: 'Wordpress Category Block',
-    description: 'Displays the most recent three posts from a given WP category',
+EnhancedWordpressLatestPostsBlock.schema = {
+    title: 'Wordpress Latest Posts Block',
+    description: 'Displays the most recent three posts from Wordpress',
     type: 'object',
     properties: {
-        category: {
-            title: 'Wordpress Category ID',
-            description: 'Numeric ID of desired Wordpress category',
-            type: 'number',
-            isLayout: false,
-            default: 1
-        },
-        description: {
-            title: 'Wordpress Category Description',
-            description: 'A short description to be shown at top of category block',
+        title: {
+            title: 'Block Title',
+            description: 'A title to be shown at top of latest posts block',
             type: 'string',
             isLayout: false,
             default: ''
@@ -119,6 +103,13 @@ EnhancedWordpressCategoryBlock.schema = {
             type: 'boolean',
             isLayout: false,
             default: false
+        },
+        showCategories: {
+            title: 'Show Categories',
+            description: 'Show first category of each post',
+            type: 'boolean',
+            isLayout: false,
+            default: true
         },
         showDates: {
             title: 'Show Dates',
@@ -145,4 +136,4 @@ EnhancedWordpressCategoryBlock.schema = {
 
 }
 
-export default EnhancedWordpressCategoryBlock
+export default EnhancedWordpressLatestPostsBlock

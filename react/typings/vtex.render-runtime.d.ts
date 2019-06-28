@@ -7,6 +7,15 @@ declare module 'vtex.render-runtime' {
         params?: any
     }
 
+    export interface RenderContext {
+        culture: {
+            locale: string
+            currency: string
+        }
+        getSettings: (app: string) => any
+        navigate: (options: NavigationOptions) => void
+    }
+
     export interface RenderContextProps {
         runtime: {
             navigate: (options: NavigationOptions) => void
@@ -26,7 +35,7 @@ declare module 'vtex.render-runtime' {
 
     export const ChildBlock: ComponentType<ChildBlockProps>
     export const useChildBlock = function ({ id: string }): object { }
-
+    export function useRuntime(): RenderContext
     export const Helmet: ReactElement
     export const Link: ReactType
     export const NoSSR: ReactElement

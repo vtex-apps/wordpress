@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import CategoryPosts from './graphql/CategoryPosts.graphql';
+import SearchPosts from './graphql/SearchPosts.graphql';
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner, Pagination } from 'vtex.styleguide';
 import { Container } from 'vtex.store-components';
@@ -12,23 +12,22 @@ type Params = {
 }
 type DataPropsWithParams = DataProps<any, any> & Params
 
-class WordpressCategory extends Component<DataPropsWithParams> {
+class WordpressSearchResult extends Component<DataPropsWithParams> {
 	state = {
 		page: 1,
 		per_page: 10
 	};
 	render() {
-		const { data: { fetchMore, loading, error, wpCategory: { name, wpPosts } } } = this.props;
+        const { params, data: { fetchMore, loading, error, wpPosts } } = this.props;
+        if (!params || !params.terms) return null
 		return (
 			<Fragment>
-				{name != null && (
-					<Fragment>
-						<Helmet>
-							<title>{name}</title>
-						</Helmet>
-						<h2 className={`${styles.listTitle} t-heading-2 tc`}>{name}</h2>
-					</Fragment>
-				)}
+				
+                <Helmet>
+                    <title>Article search results for "{decodeURIComponent(params.terms)}"</title>
+                </Helmet>
+                <h2 className={`${styles.listTitle} t-heading-2 tc`}>Article search results for "{decodeURIComponent(params.terms)}"</h2>
+					
 				<Container className={`${styles.listContainer} pt2 pb8`}>
 					<div className="ph3">
 						<Pagination
@@ -46,7 +45,7 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 									variables: {
 										wp_page: firstPage,
 										wp_per_page: perPage,
-										category: this.props.params.categoryid
+										terms: params.terms
 									},
 									updateQuery: (prev, { fetchMoreResult }) => {
 										if (!fetchMoreResult) return prev;
@@ -62,7 +61,7 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 										variables: {
 											wp_page: prevPage,
 											wp_per_page: this.state.per_page,
-											category: this.props.params.categoryid
+										    terms: params.terms
 										},
 										updateQuery: (prev, { fetchMoreResult }) => {
 											if (!fetchMoreResult) return prev;
@@ -78,7 +77,7 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 									variables: {
 										wp_page: nextPage,
 										wp_per_page: this.state.per_page,
-										category: this.props.params.categoryid
+										terms: params.terms
 									},
 									updateQuery: (prev, { fetchMoreResult }) => {
 										if (!fetchMoreResult) return prev;
@@ -106,6 +105,8 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 										key={index}
 										title={post.title.rendered}
 										author={post.author.name}
+										category={post.categories[0] != null ? post.categories[0].name: ""}
+										categoryId={post.categories[0] != null ? post.categories[0].id : undefined}
 										excerpt={post.excerpt.rendered}
 										date={post.date}
 										id={post.id}
@@ -113,7 +114,7 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 										altText={post.featured_media != null ? post.featured_media.alt_text : ""}
 										mediaType={post.featured_media != null ? post.featured_media.media_type : ""}
 										showAuthor={false}
-										showCategory={false}
+										showCategory={true}
 										showDate={true}
 										showExcerpt={true}
 										useTextOverlay={false}
@@ -122,11 +123,10 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 							))}
 						</div>
 					) : (
-						!loading && !error && (
 							<div>
 								<h2>No posts found.</h2>
 							</div>
-						))}
+						)}
 				</Container>
 			</Fragment>
 		);
@@ -134,12 +134,12 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 }
 
 export default compose(
-	graphql(CategoryPosts,
+	graphql(SearchPosts,
 		{
 			options: (props: DataPropsWithParams) => (
 				{
-					variables: { category: props.params.categoryid },
+					variables: { terms: props.params.terms },
 					notifyOnNetworkStatusChange: true
 				})
 		})
-)(WordpressCategory);
+)(WordpressSearchResult);

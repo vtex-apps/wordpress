@@ -25,5 +25,8 @@ query SinglePost($id: Int!) {
             }
             media_type
         }
+        tags {
+            name
+        }
     }
 }

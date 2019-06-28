@@ -27,3 +27,7 @@
 .teaserTextOverlayMeta {
     color: white;
 }
+
+.teaserTextOverlay a {
+    color: white;
+}

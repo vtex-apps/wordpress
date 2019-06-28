@@ -1,7 +1,7 @@
 {
   "name": "wordpress-integration",
   "vendor": "vtex",
-  "version": "0.1.0",
+  "version": "0.0.1-beta",
   "title": "Wordpress Integration",
   "description": "Connect a Wordpress blog to a VTEX store",
   "categories": [],
@@ -10,6 +10,7 @@
     "node": "4.x",
     "graphql": "1.x",
     "react": "3.x",
+    "messages": "1.x",
     "store": "0.x"
   },
   "mustUpdateAt": "2018-09-05",
@@ -20,7 +21,10 @@
     "vtex.blog-interfaces": "0.x",
     "vtex.store": "2.x",
     "vtex.styleguide": "9.x",
-    "vtex.store-components": "3.x"
+    "vtex.store-components": "3.x",
+    "vtex.shelf": "1.x",
+    "vtex.product-summary": "2.x",
+    "vtex.store-graphql": "2.x"
   },
   "policies": [
     {
@@ -28,6 +32,13 @@
       "attrs": {
         "host": "{{account}}.vtexcommercestable.com.br",
         "path": "/api/dataentities/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "demo.wp-api.org",
+        "path": "/*"
       }
     },
     {

@@ -83,13 +83,13 @@ class WordpressAllPosts extends Component<DataProps<any, any>> {
 				{wpPosts != null ? (
                     <div className={`${styles.listFlex} mv4 flex flex-row flex-wrap`}>
                         {wpPosts.posts.map((post: PostData, index: number) => (
-							<div className={`${styles.listFlexItem} mv3 w-50 ph4`}>
+							<div className={`${styles.listFlexItem} mv3 w-100-s w-50-l ph4`}>
 								<WordpressTeaser
 									key={index}
 									title={post.title.rendered}
-									author={post.author.name}
-									category={post.categories[0].name}
-									categoryId={post.categories[0].id}
+									author={post.author != null ? post.author.name : ""}
+									category={post.categories[0] != null ? post.categories[0].name: ""}
+									categoryId={post.categories[0] != null ? post.categories[0].id : undefined}
 									excerpt={post.excerpt.rendered}
 									date={post.date}
 									id={post.id}
@@ -106,13 +106,14 @@ class WordpressAllPosts extends Component<DataProps<any, any>> {
                         ))}
                     </div>
 				) : (
+					!loading && !error && (
 					<div>
                         <h2>No posts found.</h2>
                     </div>
-				)}
+				))}
 			</Container>
 		);
 	}
 }
 
-export default compose(graphql(AllPosts, { options: { notifyOnNetworkStatusChange: true } }))(WordpressAllPosts);
+export default compose(graphql(AllPosts, { options: { errorPolicy: "all", notifyOnNetworkStatusChange: true } }))(WordpressAllPosts);

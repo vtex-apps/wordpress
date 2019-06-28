@@ -31,7 +31,7 @@ export default class WordpressTeaser extends Component<TeaserProps> {
         const formattedDate = dateObj.toLocaleDateString("en-US", dateOptions)
         return (
             <Card noPadding className={`${styles.teaserContainer}`}>
-                {((showCategory || showDate || showAuthor) && !useTextOverlay) && (
+                {((showCategory || showDate || showAuthor) && (!useTextOverlay || mediaType != "image")) && (
                     <h5 className="mv1 ph6 pt6 pb4">
                         {(showCategory && category != undefined && categoryId != undefined) && (
                             <Fragment><a href={"/blog/category/" + categoryId}>{category}</a></Fragment>
@@ -53,7 +53,7 @@ export default class WordpressTeaser extends Component<TeaserProps> {
                 {mediaType === "image" && (
                     <Fragment>
                         {useTextOverlay ? (
-                            <a href={"/blog/post/" + id} className="tc-m db-ns relative">
+                            <a href={"/blog/post/" + id} className="tc-m db relative">
                                 <img className={`${styles.teaserImage}`} src={image} alt={altText}></img>
                                 <div className={`${styles.teaserGradientOverlay} absolute`}>
                                     <div className={`${styles.teaserTextOverlay} absolute`}>
@@ -82,7 +82,7 @@ export default class WordpressTeaser extends Component<TeaserProps> {
                             </a>
                         ) : (
                                 <Fragment>
-                                    <a href={"/blog/post/" + id} className="tc-m db-ns">
+                                    <a href={"/blog/post/" + id} className="tc-m db">
                                         <img className={`${styles.teaserImage}`} src={image} alt={altText}></img>
                                     </a>
                                     <h3 className={`${styles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
@@ -93,6 +93,14 @@ export default class WordpressTeaser extends Component<TeaserProps> {
                                 </Fragment>
                             )}
                     </Fragment>
+                )}
+
+                {mediaType != "image" && (
+                    <h3 className={`${styles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
+                        <a href={"/blog/post/" + id}>
+                            <SanitizedHTML html={title} />
+                        </a>
+                    </h3>
                 )}
 
                 {showExcerpt && (

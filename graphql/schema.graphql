@@ -173,6 +173,7 @@ type WPTag {
     slug: String
     taxonomy: WPTaxonomyType
     meta: String
+    wpPosts(page: Int = 1, per_page: Int = 10, search: String, after: String, author: [Int], author_exclude: [Int], before: String, exclude: [Int], include: [Int], offset: Int, order: WPOrder = "desc", orderby: WPOrderBy = "date", slug: [String], status: [String] = ["publish"], tags: [Int], tags_exclude: [Int], sticky: Boolean): WPPostsResult
 }
 
 type WPPage {

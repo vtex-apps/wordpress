@@ -7,6 +7,7 @@ type PostData = {
   excerpt: WPExcerpt
   categories: [WPCategory] 
   featured_media: WPMedia
+  tags: [WPTag]
 }
 type WPTitle = {
   raw: string
@@ -54,11 +55,11 @@ type WPExcerpt = {
   protected: bool
 }
 enum WPTaxonomyType {
-  "category",
-  "post_tag",
-  "nav_menu",
-  "link_category",
-  "post_format"
+  category,
+  post_tag,
+  nav_menu,
+  link_category,
+  post_format
 }
 type WPAvatarObject = {
   size24: string
@@ -126,17 +127,27 @@ type WPContentDescriptor = {
   protected: bool
 }
 enum WPOpenClosed {
-  "open",
-  "closed"
+  open,
+  closed
 }
 type WPGuid = {
   raw: string
   rendered: string
 }
 enum WPStatus {
-  "publish",
-  "future",
-  "draft",
-  "pending",
-  "private"
+  publish,
+  future,
+  draft,
+  pending,
+  private
+}
+type WPTag = {
+  id: number
+  count: number
+  description: string
+  link: string
+  name: string
+  slug: string
+  taxonomy: WPTaxonomyType
+  meta: string
 }

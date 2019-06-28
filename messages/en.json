@@ -1,0 +1,4 @@
+{
+    "admin/editor.wordpressRelatedProducts.title": "Wordpress Related Products",
+    "admin/editor.wordpressRelatedProducts.description": "Displays products tagged in a particular blog post, with the tag format 'prod-[ProductReferenceCode]'"
+}
