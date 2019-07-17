@@ -1,20 +1,35 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import AllPosts from '../graphql/AllPosts.graphql';
+import withSettings from './withSettings'
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner, Pagination } from 'vtex.styleguide';
 import { Container } from 'vtex.store-components';
 import WordpressTeaser from './WordpressTeaser';
 import styles from './list.css'
 
-class WordpressAllPosts extends Component<DataProps<any, any>> {
+interface otherProps {
+	appSettings: appSettings
+}
+
+interface appSettings {
+	titleTag: string
+}
+
+type DataPropsExtended = otherProps & DataProps<any, any>
+
+class WordpressAllPosts extends Component<DataPropsExtended> {
 	state = {
 		page: 1,
 		per_page: 10
 	};
 	render() {
-		const { data: { fetchMore, loading, error, wpPosts } } = this.props;
+		const { appSettings: { titleTag }, data: { fetchMore, loading, error, wpPosts } } = this.props;
 		return (
 			<Container className={`${styles.listContainer} pt6 pb8`}>
+				<Helmet>
+					<title>{titleTag}</title>
+				</Helmet>
 				<div className="ph3">
 					<Pagination
 						rowsOptions={[ 10, 20, 30, 40 ]}
@@ -116,4 +131,7 @@ class WordpressAllPosts extends Component<DataProps<any, any>> {
 	}
 }
 
-export default compose(graphql(AllPosts, { options: { errorPolicy: "all", notifyOnNetworkStatusChange: true } }))(WordpressAllPosts);
+export default compose(
+	withSettings,
+	graphql(AllPosts, { options: { errorPolicy: "all", notifyOnNetworkStatusChange: true } })
+	)(WordpressAllPosts);

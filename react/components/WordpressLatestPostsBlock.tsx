@@ -86,48 +86,48 @@ EnhancedWordpressLatestPostsBlock.defaultProps = {
 }
 
 EnhancedWordpressLatestPostsBlock.schema = {
-    title: 'Wordpress Latest Posts Block',
-    description: 'Displays the most recent three posts from Wordpress',
+    title: 'admin/editor.wordpressLatestPosts.title',
+    description: 'admin/editor.wordpressLatestPosts.description',
     type: 'object',
     properties: {
         title: {
-            title: 'Block Title',
-            description: 'A title to be shown at top of latest posts block',
+            title: 'admin/editor.wordpressLatestPostsTitle.title',
+            description: 'admin/editor.wordpressLatestPostsTitle.description',
             type: 'string',
             isLayout: false,
             default: ''
         },
         useTextOverlays: {
-            title: 'Use Text Overlays',
-            description: 'Overlay post title and meta info on top of post image',
+            title: 'admin/editor.wordpressOverlays.title',
+            description: 'admin/editor.wordpressOverlays.description',
             type: 'boolean',
             isLayout: false,
             default: false
         },
         showCategories: {
-            title: 'Show Categories',
-            description: 'Show first category of each post',
+            title: 'admin/editor.wordpressCategories.title',
+            description: 'admin/editor.wordpressCategories.description',
             type: 'boolean',
             isLayout: false,
             default: true
         },
         showDates: {
-            title: 'Show Dates',
-            description: 'Show date that each post was posted',
+            title: 'admin/editor.wordpressDates.title',
+            description: 'admin/editor.wordpressDates.description',
             type: 'boolean',
             isLayout: false,
             default: true
         },
         showAuthors: {
-            title: 'Show Authors',
-            description: 'Show author of each post',
+            title: 'admin/editor.wordpressAuthors.title',
+            description: 'admin/editor.wordpressAuthors.description',
             type: 'boolean',
             isLayout: false,
             default: false
         },
         showExcerpts: {
-            title: 'Show Excerpts',
-            description: 'Show excerpt for each post',
+            title: 'admin/editor.wordpressExcerpts.title',
+            description: 'admin/editor.wordpressExcerpts.description',
             type: 'boolean',
             isLayout: false,
             default: false

@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import SinglePost from './graphql/SinglePost.graphql';
+import withSettings from './components/withSettings'
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner } from 'vtex.styleguide';
 import { Container } from 'vtex.store-components';
@@ -9,10 +10,14 @@ import SanitizedHTML from 'react-sanitized-html';
 import { WPRelatedProductsContext } from './contexts/WordpressRelatedProducts'
 import styles from './components/post.css';
 
-type Params = {
-	params: any;
-};
-type DataPropsWithParams = DataProps<any, any> & Params;
+interface otherProps {
+	appSettings: appSettings
+	params: any
+}
+interface appSettings {
+	titleTag: string
+}
+type DataPropsWithParams = DataProps<any, any> & otherProps
 
 const allowedTags = [
 	'h3',
@@ -57,7 +62,7 @@ const allowedAttrs = {
 class WordpressPost extends Component<DataPropsWithParams> {
 
 	render() {
-		const { data: { loading, error, wpPost } } = this.props;
+		const { appSettings: { titleTag }, data: { loading, error, wpPost } } = this.props;
 		if (loading) {
 			return (
 				<div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
@@ -80,13 +85,12 @@ class WordpressPost extends Component<DataPropsWithParams> {
 			const productIds = tags.filter((tag: WPTag) => (tag.name && tag.name.includes("prod-"))).map((tag: WPTag) => tag.name.replace("prod-",""))
 
 			return (
-				<Fragment>
-					<Container className={`${styles.postContainer} pt6 pb8 ph3`}>
+					<Container className={`${styles.postFlex} pt6 pb8 ph3`}>
 						<Helmet>
-							<title>{title.rendered}</title>
+							<title>{titleTag != "" ? title.rendered + " | " + titleTag : title.rendered}</title>
 							<meta name="description" content={excerpt.rendered} />
 						</Helmet>
-						<div className="ph3">
+						<div className={`${styles.postContainer} ph3`}>
 							<h1 className={`${styles.postTitle} t-heading-1`}>
 								<SanitizedHTML html={title.rendered} />
 							</h1>
@@ -126,13 +130,13 @@ class WordpressPost extends Component<DataPropsWithParams> {
 								/>
 							</div>
 						</div>
-					</Container>
+					
 					<WPRelatedProductsContext.Provider value={{ productIds: productIds }}>
 						<div className={`${styles.postChildrenContainer}`}>
 							{this.props.children}
 						</div>
 					</WPRelatedProductsContext.Provider>
-				</Fragment>
+				</Container>
 			);
 		} else {
 			return null;
@@ -141,5 +145,6 @@ class WordpressPost extends Component<DataPropsWithParams> {
 }
 
 export default compose(
+	withSettings,
 	graphql(SinglePost, { options: (props: DataPropsWithParams) => ({ variables: { id: props.params.id } }) })
 )(WordpressPost);

@@ -522,4 +522,9 @@ export const queries = {
 
         return wordpressProxy.getSettings()
     },
+    appSettings: async (_: any, __:any, ctx: Context) => {
+        const appId = process.env.VTEX_APP_ID as string
+        const settings = await ctx.clients.apps.getAppSettings(appId)
+        return settings
+    }
 }

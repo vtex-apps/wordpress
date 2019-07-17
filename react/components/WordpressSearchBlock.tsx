@@ -49,12 +49,12 @@ interface WordpressSearchProps {
 }
 
 WordpressSearchBlock.schema = {
-    title: 'Wordpress Search Block',
-    description: 'Displays a search box that can be used to perform a blog article search',
+    title: 'admin/editor.wordpressSearch.title',
+    description: 'admin/editor.wordpressSearch.description',
     type: 'object',
     properties: {
         placeholder: {
-            title: 'Placeholder text',
+            title: 'admin/editor.wordpressSearchPlaceholder.title',
             type: 'string',
             isLayout: false,
             default: 'Search articles...'

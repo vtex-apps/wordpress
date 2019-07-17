@@ -468,6 +468,10 @@ type WPUsersResult {
     total_count: Int
 }
 
+type Settings {
+    titleTag: String
+}
+
 type Query {
 	wpPosts(page: Int = 1, per_page: Int = 10, search: String, after: String, author: [Int], author_exclude: [Int], before: String, exclude: [Int], include: [Int], offset: Int, order: WPOrder = "desc", orderby: WPOrderBy = "date", slug: [String], status: [String] = ["publish"], categories: [Int], categories_exclude: [Int], tags: [Int], tags_exclude: [Int], sticky: Boolean): WPPostsResult
 	wpPost(id: Int!, password: String): WPPost
@@ -490,4 +494,5 @@ type Query {
     wpPostStatuses: [WPPostStatus]
     wpPostStatus(status: String): WPPostStatus
     wpSettings: WPSettings
+    appSettings: Settings @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
 }

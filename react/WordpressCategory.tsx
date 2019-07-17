@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import CategoryPosts from './graphql/CategoryPosts.graphql';
+import withSettings from './components/withSettings'
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner, Pagination } from 'vtex.styleguide';
 import { Container } from 'vtex.store-components';
@@ -7,10 +8,14 @@ import WordpressTeaser from './components/WordpressTeaser';
 import Helmet from 'react-helmet';
 import styles from './components/list.css'
 
-type Params = {
+interface otherProps {
+	appSettings: appSettings
 	params: any
 }
-type DataPropsWithParams = DataProps<any, any> & Params
+interface appSettings {
+	titleTag: string
+}
+type DataPropsWithParams = DataProps<any, any> & otherProps
 
 class WordpressCategory extends Component<DataPropsWithParams> {
 	state = {
@@ -18,13 +23,13 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 		per_page: 10
 	};
 	render() {
-		const { data: { fetchMore, loading, error, wpCategory: { name, wpPosts } } } = this.props;
+		const { appSettings: { titleTag }, data: { fetchMore, loading, error, wpCategory: { name, wpPosts } } } = this.props;
 		return (
 			<Fragment>
 				{name != null && (
 					<Fragment>
 						<Helmet>
-							<title>{name}</title>
+							<title>{titleTag != "" ? name + " | " + titleTag : name}</title>
 						</Helmet>
 						<h2 className={`${styles.listTitle} t-heading-2 tc`}>{name}</h2>
 					</Fragment>
@@ -134,6 +139,7 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 }
 
 export default compose(
+	withSettings,
 	graphql(CategoryPosts,
 		{
 			options: (props: DataPropsWithParams) => (

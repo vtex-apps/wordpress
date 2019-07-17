@@ -22,7 +22,6 @@ export const clients: ClientsConfig<Clients> = {
     options: {
         default: defaultClientOptions,
         wordpressProxy: {
-            //authType: AuthType.bearer,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },

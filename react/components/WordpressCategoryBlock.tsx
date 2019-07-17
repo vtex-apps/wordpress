@@ -7,7 +7,7 @@ import WordpressTeaser from './WordpressTeaser';
 import styles from './categoryblock.css';
 
 const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
-    ({ category, description, useTextOverlays, showDates, showAuthors, showExcerpts,
+    ({ category, title, description, useTextOverlays, showDates, showAuthors, showExcerpts,
         data: { loading, error, wpCategory } }) => {
         return (
             <div className={`${styles.categoryBlockContainer} pv4 pb9`}>
@@ -19,7 +19,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
                 )}
                 {(wpCategory != null && wpCategory.wpPosts != null) ? (
                     <Fragment>
-                        <h2 className={`${styles.categoryBlockTitle} t-heading-2`}>{wpCategory.name}</h2>
+                        <h2 className={`${styles.categoryBlockTitle} t-heading-2`}>{title != "" ? title : wpCategory.name}</h2>
                         { description != "" && (
                             <h4 className={`${styles.categoryBlockDescription} t-heading-4`}>
                                 {description}
@@ -76,6 +76,7 @@ const EnhancedWordpressCategoryBlock = compose(
 
 interface WPCategoryBlockProps {
     category: number
+    title: string
     description: string
     useTextOverlays: boolean
     showDates: boolean
@@ -87,6 +88,7 @@ type DataPropsExtended = WPCategoryBlockProps & DataProps<any, any>;
 
 EnhancedWordpressCategoryBlock.defaultProps = {
     category: 1,
+    title: '',
     description: '',
     useTextOverlays: false,
     showDates: true,
@@ -95,48 +97,55 @@ EnhancedWordpressCategoryBlock.defaultProps = {
 }
 
 EnhancedWordpressCategoryBlock.schema = {
-    title: 'Wordpress Category Block',
-    description: 'Displays the most recent three posts from a given WP category',
+    title: 'admin/editor.wordpressCategoryBlock.title',
+    description: 'admin/editor.wordpressCategoryBlock.description',
     type: 'object',
     properties: {
         category: {
-            title: 'Wordpress Category ID',
-            description: 'Numeric ID of desired Wordpress category',
+            title: 'admin/editor.wordpressCategoryBlockCategory.title',
+            description: 'admin/editor.wordpressCategoryBlockCategory.description',
             type: 'number',
             isLayout: false,
             default: 1
         },
+        title: {
+            title: 'admin/editor.wordpressCategoryBlockTitle.title',
+            description: 'admin/editor.wordpressCategoryBlockTitle.description',
+            type: 'string',
+            isLayout: false,
+            default: ''
+        },
         description: {
-            title: 'Wordpress Category Description',
-            description: 'A short description to be shown at top of category block',
+            title: 'admin/editor.wordpressCategoryBlockDescription.title',
+            description: 'admin/editor.wordpressCategoryBlockDescription.description',
             type: 'string',
             isLayout: false,
             default: ''
         },
         useTextOverlays: {
-            title: 'Use Text Overlays',
-            description: 'Overlay post title and meta info on top of post image',
+            title: 'admin/editor.wordpressOverlays.title',
+            description: 'admin/editor.wordpressOverlays.description',
             type: 'boolean',
             isLayout: false,
             default: false
         },
         showDates: {
-            title: 'Show Dates',
-            description: 'Show date that each post was posted',
+            title: 'admin/editor.wordpressDates.title',
+            description: 'admin/editor.wordpressDates.description',
             type: 'boolean',
             isLayout: false,
             default: true
         },
         showAuthors: {
-            title: 'Show Authors',
-            description: 'Show author of each post',
+            title: 'admin/editor.wordpressAuthors.title',
+            description: 'admin/editor.wordpressAuthors.description',
             type: 'boolean',
             isLayout: false,
             default: false
         },
         showExcerpts: {
-            title: 'Show Excerpts',
-            description: 'Show excerpt for each post',
+            title: 'admin/editor.wordpressExcerpts.title',
+            description: 'admin/editor.wordpressExcerpts.description',
             type: 'boolean',
             isLayout: false,
             default: false

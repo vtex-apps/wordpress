@@ -1,7 +1,7 @@
 {
   "name": "wordpress-integration",
   "vendor": "vtex",
-  "version": "0.0.1-beta",
+  "version": "0.0.1",
   "title": "Wordpress Integration",
   "description": "Connect a Wordpress blog to a VTEX store",
   "categories": [],
@@ -26,6 +26,22 @@
     "vtex.product-summary": "2.x",
     "vtex.store-graphql": "2.x"
   },
+  "settingsSchema": {
+    "title": "Wordpress Integration",
+    "type": "object",
+    "properties": {
+      "endpoint": {
+        "title": "Wordpress URL",
+        "description": "Enter the URL of your Wordpress installation in the form http://www.example.com/",
+        "type": "string"
+      },
+      "titleTag": {
+        "title": "Title tag for blog homepage",
+        "description": "Will also be appended to inner blog pages",
+        "type": "string"
+      }
+    }
+  },
   "policies": [
     {
       "name": "outbound-access",
@@ -45,6 +61,48 @@
       "name": "outbound-access",
       "attrs": {
         "host": "wwgolfshops.wpengine.com",
+        "path": "/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "travel.redoxx.com",
+        "path": "/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "lwshoesblog.wpengine.com",
+        "path": "/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "texasboot.wpengine.com",
+        "path": "/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "ebikeshop.wpengine.com",
+        "path": "/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "lionspride.wpengine.com",
+        "path": "/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "invictastores.wpengine.com",
         "path": "/*"
       }
     }

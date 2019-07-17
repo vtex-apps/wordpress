@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import SearchPosts from './graphql/SearchPosts.graphql';
+import withSettings from './components/withSettings'
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner, Pagination } from 'vtex.styleguide';
 import { Container } from 'vtex.store-components';
@@ -7,10 +8,14 @@ import WordpressTeaser from './components/WordpressTeaser';
 import Helmet from 'react-helmet';
 import styles from './components/list.css'
 
-type Params = {
+interface otherProps {
+	appSettings: appSettings
 	params: any
 }
-type DataPropsWithParams = DataProps<any, any> & Params
+interface appSettings {
+	titleTag: string
+}
+type DataPropsWithParams = DataProps<any, any> & otherProps
 
 class WordpressSearchResult extends Component<DataPropsWithParams> {
 	state = {
@@ -18,13 +23,12 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 		per_page: 10
 	};
 	render() {
-        const { params, data: { fetchMore, loading, error, wpPosts } } = this.props;
+        const { appSettings: { titleTag }, params, data: { fetchMore, loading, error, wpPosts } } = this.props;
         if (!params || !params.terms) return null
 		return (
 			<Fragment>
-				
                 <Helmet>
-                    <title>Article search results for "{decodeURIComponent(params.terms)}"</title>
+                    <title>{titleTag != "" ? "Article search results for " + decodeURIComponent(params.terms) + " | " + titleTag : "Article search results for " + decodeURIComponent(params.terms)}</title>
                 </Helmet>
                 <h2 className={`${styles.listTitle} t-heading-2 tc`}>Article search results for "{decodeURIComponent(params.terms)}"</h2>
 					
@@ -134,6 +138,7 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 }
 
 export default compose(
+	withSettings,
 	graphql(SearchPosts,
 		{
 			options: (props: DataPropsWithParams) => (

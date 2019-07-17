@@ -1,10 +1,21 @@
-import { ExternalClient, InstanceOptions, IOContext } from '@vtex/api'
+import { ExternalClient, InstanceOptions, IOContext, Apps } from '@vtex/api'
 
 export default class WordpressProxyDataSource extends ExternalClient {
-    constructor(context: IOContext, options?: InstanceOptions) {
-        super(`http://wwgolfshops.wpengine.com/wp-json/wp/v2/`, context, options)
-    }
+    public endpoint?: string
     
+    constructor(context: IOContext, options?: InstanceOptions) {
+        super(``, context, options)
+    }
+
+    async getEndpoint(vtex: IOContext) {
+        const apps = new Apps(vtex)
+        const appId = process.env.VTEX_APP_ID as string
+        const settings = await apps.getAppSettings(appId)
+        const endpoint = settings.endpoint || "http://demo.wp-api.org/"
+        this.endpoint = endpoint + "wp-json/wp/v2/"
+        return
+    }
+
     buildArgs(wpOptions: any) {
         var returnStr = ""
         var keys = Object.keys(wpOptions)
@@ -19,140 +30,196 @@ export default class WordpressProxyDataSource extends ExternalClient {
     }
 
     public async getPosts(wpOptions?: any) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var combinedArgs = ""
-
         if (wpOptions) {
             combinedArgs = this.buildArgs(wpOptions)
         }
         
-        return this.http.getRaw(`posts` + combinedArgs, { metric: 'posts' + combinedArgs })
+        return this.http.getRaw(this.endpoint + `posts` + combinedArgs, { metric: 'posts' + combinedArgs })
     }
 
-    public getPost = (id: number, password?: string) => {
+    public async getPost(id: number, password?: string) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var formattedPassword = ""
         if (password != null) formattedPassword = "?password=" + password
         
-        return this.http.get(`posts/` + id + formattedPassword, { metric: 'post' + id + formattedPassword })
+        return this.http.get(this.endpoint + `posts/` + id + formattedPassword, { metric: 'post' + id + formattedPassword })
     }
 
     public async getCategories(wpOptions?: any) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var combinedArgs = ""
-        
         if (wpOptions) {
             combinedArgs = this.buildArgs(wpOptions)
         }
         
-        return this.http.getRaw(`categories` + combinedArgs, { metric: 'categories' + combinedArgs })
+        return this.http.getRaw(this.endpoint + `categories` + combinedArgs, { metric: 'categories' + combinedArgs })
     }
 
-    public getCategory = (id: number) => {
-        return this.http.get(`categories/` + id, { metric: 'category' + id })
+    public async getCategory(id: number) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
+        return this.http.get(this.endpoint + `categories/` + id, { metric: 'category' + id })
     }
 
     public async getTags(wpOptions?: any) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var combinedArgs = ""
-        
         if (wpOptions) {
             combinedArgs = this.buildArgs(wpOptions)
         }
         
-        return this.http.getRaw(`tags` + combinedArgs, { metric: 'tags' + combinedArgs })
+        return this.http.getRaw(this.endpoint + `tags` + combinedArgs, { metric: 'tags' + combinedArgs })
     }
 
-    public getTag = (id: number) => {
-        return this.http.get(`tags/` + id, { metric: 'tag' + id })
+    public async getTag(id: number) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
+        return this.http.get(this.endpoint + `tags/` + id, { metric: 'tag' + id })
     }
 
     public async getPages(wpOptions?: any) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var combinedArgs = ""
-        
         if (wpOptions) {
             combinedArgs = this.buildArgs(wpOptions)
         }
         
-        return this.http.getRaw(`pages` + combinedArgs, { metric: 'pages' + combinedArgs })
+        return this.http.getRaw(this.endpoint + `pages` + combinedArgs, { metric: 'pages' + combinedArgs })
     }
 
-    public getPage = (id: number, password?: string) => {
+    public async getPage(id: number, password?: string) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var formattedPassword = ""
         if (password != null) formattedPassword = "?password=" + password
         
-        return this.http.get(`pages/` + id + formattedPassword, { metric: 'page' + id + formattedPassword })
+        return this.http.get(this.endpoint + `pages/` + id + formattedPassword, { metric: 'page' + id + formattedPassword })
     }
 
     public async getComments(wpOptions?: any) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var combinedArgs = ""
-        
         if (wpOptions) {
             combinedArgs = this.buildArgs(wpOptions)
         }
         
-        return this.http.getRaw(`comments` + combinedArgs, { metric: 'comments' + combinedArgs })
+        return this.http.getRaw(this.endpoint + `comments` + combinedArgs, { metric: 'comments' + combinedArgs })
     }
 
-    public getComment = (id: number, password?: string) => {
+    public async getComment(id: number, password?: string) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var formattedPassword = ""
         if (password != null) formattedPassword = "?password=" + password
         
-        return this.http.get(`comments/` + id + formattedPassword, { metric: 'comment' + id + formattedPassword })
+        return this.http.get(this.endpoint + `comments/` + id + formattedPassword, { metric: 'comment' + id + formattedPassword })
     }
 
-    public getTaxonomies = (type?: string) => {
+    public async getTaxonomies(type?: string) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var formattedType = ""
         if (type != null) formattedType = "?type=" + type
-        return this.http.get(`taxonomies` + formattedType, { metric: 'taxonomies' + formattedType })
+        return this.http.get(this.endpoint + `taxonomies` + formattedType, { metric: 'taxonomies' + formattedType })
     }
 
-    public getTaxonomy = (taxonomy: string) => {
-        return this.http.get(`taxonomies/` + taxonomy, { metric: 'taxonomy' + taxonomy })
+    public async getTaxonomy(taxonomy: string) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
+        return this.http.get(this.endpoint + `taxonomies/` + taxonomy, { metric: 'taxonomy' + taxonomy })
     }
 
     public async getMedia(wpOptions?: any) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var combinedArgs = ""
-        
         if (wpOptions) {
             combinedArgs = this.buildArgs(wpOptions)
         }
         
-        return this.http.getRaw(`media` + combinedArgs, { metric: 'media' + combinedArgs })
+        return this.http.getRaw(this.endpoint + `media` + combinedArgs, { metric: 'media' + combinedArgs })
     }
 
-    public getMediaSingle = (id: number) => {
-        return this.http.get(`media/` + id, { metric: 'media-single' + id })
+    public async getMediaSingle(id: number) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
+        return this.http.get(this.endpoint + `media/` + id, { metric: 'media-single' + id })
     }
 
     public async getUsers(wpOptions?: any) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
         var combinedArgs = ""
-        
         if (wpOptions) {
             combinedArgs = this.buildArgs(wpOptions)
         }
         
-        return this.http.getRaw(`users` + combinedArgs, { metric: 'users' + combinedArgs })
+        return this.http.getRaw(this.endpoint + `users` + combinedArgs, { metric: 'users' + combinedArgs })
     }
 
-    public getUser = (id: number) => {
-        return this.http.get(`users/` + id, { metric: 'user' + id })
+    public async getUser(id: number) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
+        return this.http.get(this.endpoint + `users/` + id, { metric: 'user' + id })
     }
 
-    public getPostTypes = () => {
-        return this.http.get(`types`, { metric: 'post-types' })
+    public async getPostTypes() {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
+        return this.http.get(this.endpoint + `types`, { metric: 'post-types' })
     }
 
-    public getPostType = (type: string) => {
-        return this.http.get(`types/` + type, { metric: 'post-type' + type })
+    public async getPostType(type: string) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
+        return this.http.get(this.endpoint + `types/` + type, { metric: 'post-type' + type })
     }
 
-    public getPostStatuses = () => {
-        return this.http.get(`statuses`, { metric: 'post-statuses' })
+    public async getPostStatuses() {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
+        return this.http.get(this.endpoint + `statuses`, { metric: 'post-statuses' })
     }
 
-    public getPostStatus = (status: string) => {
-        return this.http.get(`statuses/` + status, { metric: 'post-status' + status })
+    public async getPostStatus(status: string) {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
+        return this.http.get(this.endpoint + `statuses/` + status, { metric: 'post-status' + status })
     }
 
-    public getSettings = () => {
-        return this.http.get(`settings`, { metric: 'settings' })
+    public async getSettings() {
+        if (typeof this.endpoint === "undefined") {
+            await this.getEndpoint(this.context)
+        }
+        return this.http.get(this.endpoint + `settings`, { metric: 'settings' })
     }
 
 }
