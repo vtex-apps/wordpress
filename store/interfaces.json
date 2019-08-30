@@ -18,6 +18,9 @@
     "blog-search.wordpress-search": {
         "component": "WordpressSearchBlock"
     },
+    "blog-search-preview.wordpress-search-preview": {
+        "component": "WordpressSearchResultBlock"
+    },
     "blog-search-list.wordpress-search-list": {
         "component": "WordpressSearchResult"
     },
@@ -33,5 +36,8 @@
     },
     "blog-related-posts.wordpress-related-posts": {
         "component": "WordpressRelatedPosts"
+    },
+    "blog-breadcrumb.wordpress-breadcrumb": {
+        "component": "WordpressBreadcrumb"
     }
 }

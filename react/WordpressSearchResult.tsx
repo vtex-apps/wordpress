@@ -9,11 +9,12 @@ import Helmet from 'react-helmet';
 import styles from './components/list.css'
 
 interface otherProps {
-	appSettings: appSettings
+	appSettings: AppSettings
 	params: any
 }
-interface appSettings {
+interface AppSettings {
 	titleTag: string
+	blogRoute: string
 }
 type DataPropsWithParams = DataProps<any, any> & otherProps
 
@@ -23,7 +24,7 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 		per_page: 10
 	};
 	render() {
-        const { appSettings: { titleTag }, params, data: { fetchMore, loading, error, wpPosts } } = this.props;
+        const { appSettings, appSettings: { titleTag }, params, data: { fetchMore, loading, error, wpPosts } } = this.props;
         if (!params || !params.terms) return null
 		return (
 			<Fragment>
@@ -57,7 +58,7 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 									}
 								});
 							}}
-							onPrevClick={(event: any) => {
+							onPrevClick={() => {
 								if (this.state.page > 1) {
 									const prevPage = this.state.page - 1;
 									this.setState({ page: this.state.page - 1 });
@@ -74,7 +75,7 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 									});
 								}
 							}}
-							onNextClick={(event: any) => {
+							onNextClick={() => {
 								const nextPage = this.state.page + 1;
 								this.setState({ page: this.state.page + 1 });
 								fetchMore({
@@ -122,6 +123,7 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 										showDate={true}
 										showExcerpt={true}
 										useTextOverlay={false}
+										settings={appSettings}
 									/>
 								</div>
 							))}

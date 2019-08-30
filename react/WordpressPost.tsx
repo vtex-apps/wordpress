@@ -16,6 +16,7 @@ interface otherProps {
 }
 interface appSettings {
 	titleTag: string
+	blogRoute: string
 }
 type DataPropsWithParams = DataProps<any, any> & otherProps
 
@@ -62,7 +63,7 @@ const allowedAttrs = {
 class WordpressPost extends Component<DataPropsWithParams> {
 
 	render() {
-		const { appSettings: { titleTag }, data: { loading, error, wpPost } } = this.props;
+		const { appSettings: { titleTag, blogRoute }, data: { loading, error, wpPost } } = this.props;
 		if (loading) {
 			return (
 				<div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
@@ -84,6 +85,8 @@ class WordpressPost extends Component<DataPropsWithParams> {
 			
 			const productIds = tags.filter((tag: WPTag) => (tag.name && tag.name.includes("prod-"))).map((tag: WPTag) => tag.name.replace("prod-",""))
 
+			const route = (blogRoute && blogRoute !== "") ? blogRoute : 'blog'
+
 			return (
 					<Container className={`${styles.postFlex} pt6 pb8 ph3`}>
 						<Helmet>
@@ -100,7 +103,7 @@ class WordpressPost extends Component<DataPropsWithParams> {
 									<span key={index}>
 										<a
 											className="link c-link hover-c-link active-c-link visited-c-link"
-											href={'/blog/category/' + cat.id}
+											href={'/' + route + '/category/' + cat.id}
 										>
 											{cat.name}
 										</a>

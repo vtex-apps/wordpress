@@ -473,26 +473,26 @@ type Settings {
 }
 
 type Query {
-	wpPosts(page: Int = 1, per_page: Int = 10, search: String, after: String, author: [Int], author_exclude: [Int], before: String, exclude: [Int], include: [Int], offset: Int, order: WPOrder = "desc", orderby: WPOrderBy = "date", slug: [String], status: [String] = ["publish"], categories: [Int], categories_exclude: [Int], tags: [Int], tags_exclude: [Int], sticky: Boolean): WPPostsResult
-	wpPost(id: Int!, password: String): WPPost
-    wpCategories(page: Int = 1, per_page: Int = 10, search: String, exclude: [Int], include: [Int], order: WPOrder, orderby: WPCatOrderBy, hide_empty: Boolean, parent: Int, post: Int, slug: [String]): WPCategoriesResult
-    wpCategory(id: Int!): WPCategory
-    wpTags(page: Int = 1, per_page: Int = 10, search: String, exclude: [Int], include: [Int], offset: Int, order: WPOrder, orderby: WPCatOrderBy, hide_empty: Boolean, post: Int, slug: [String]): WPTagsResult
-    wpTag(id: Int!): WPTag
-    wpPages(page: Int = 1, per_page: Int = 10, search: String, after: String, author: [Int], author_exclude: [Int], before: String, exclude: [Int], include: [Int], menu_order: Int, offset: Int, order: WPOrder, orderby: WPPageOrderBy, parent: [Int], parent_exclude: [Int], slug: [String], status: [String] = ["publish"]): WPPagesResult
-    wpPage(id: Int!, password: String): WPPage
-    wpComments(page: Int = 1, per_page: Int = 10, search: String, after: String, author: [Int], author_exclude: [Int], author_email: String, before: String, exclude: [Int], include: [Int], offset: Int, order: WPOrder, orderby: WPCommentOrderBy, parent: [Int], parent_exclude: [Int], post: [Int], status: String, type: String, password: String): WPCommentsResult
-    wpComment(id: Int!, password: String): WPComment
-    wpTaxonomies(type: String): [WPTaxonomy]
-    wpTaxonomy(taxonomy: String): WPTaxonomy
-    wpMedia(page: Int = 1, per_page: Int = 10, search: String, after: String, author: [Int], author_exclude: [Int], before: String, exclude: [Int], include: [Int], order: WPOrder, orderby: WPOrderBy, parent: [Int], parent_exclude: [Int], slug: [String], status: [String], media_type: WPMediaTypeFilter, mime_type: String): WPMediaResult
-    wpMediaSingle(id: Int!): WPMedia
-    wpUsers(page: Int = 1, per_page: Int = 10, search: String, exclude: [Int], include: [Int], offset: Int, order: WPOrder, orderby: WPUserOrderBy, slug: [String], roles: [String]): WPUsersResult
-    wpUser(id: Int!): WPUser
-    wpPostTypes: [WPPostType]
-    wpPostType(type: String!): WPPostType
-    wpPostStatuses: [WPPostStatus]
-    wpPostStatus(status: String): WPPostStatus
-    wpSettings: WPSettings
+	wpPosts(page: Int = 1, per_page: Int = 10, search: String, after: String, author: [Int], author_exclude: [Int], before: String, exclude: [Int], include: [Int], offset: Int, order: WPOrder = "desc", orderby: WPOrderBy = "date", slug: [String], status: [String] = ["publish"], categories: [Int], categories_exclude: [Int], tags: [Int], tags_exclude: [Int], sticky: Boolean): WPPostsResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+	wpPost(id: Int!, password: String): WPPost @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpCategories(page: Int = 1, per_page: Int = 10, search: String, exclude: [Int], include: [Int], order: WPOrder, orderby: WPCatOrderBy, hide_empty: Boolean, parent: Int, post: Int, slug: [String]): WPCategoriesResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpCategory(id: Int!): WPCategory @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpTags(page: Int = 1, per_page: Int = 10, search: String, exclude: [Int], include: [Int], offset: Int, order: WPOrder, orderby: WPCatOrderBy, hide_empty: Boolean, post: Int, slug: [String]): WPTagsResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpTag(id: Int!): WPTag @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpPages(page: Int = 1, per_page: Int = 10, search: String, after: String, author: [Int], author_exclude: [Int], before: String, exclude: [Int], include: [Int], menu_order: Int, offset: Int, order: WPOrder, orderby: WPPageOrderBy, parent: [Int], parent_exclude: [Int], slug: [String], status: [String] = ["publish"]): WPPagesResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpPage(id: Int!, password: String): WPPage @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpComments(page: Int = 1, per_page: Int = 10, search: String, after: String, author: [Int], author_exclude: [Int], author_email: String, before: String, exclude: [Int], include: [Int], offset: Int, order: WPOrder, orderby: WPCommentOrderBy, parent: [Int], parent_exclude: [Int], post: [Int], status: String, type: String, password: String): WPCommentsResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpComment(id: Int!, password: String): WPComment @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpTaxonomies(type: String): [WPTaxonomy] @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpTaxonomy(taxonomy: String): WPTaxonomy @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpMedia(page: Int = 1, per_page: Int = 10, search: String, after: String, author: [Int], author_exclude: [Int], before: String, exclude: [Int], include: [Int], order: WPOrder, orderby: WPOrderBy, parent: [Int], parent_exclude: [Int], slug: [String], status: [String], media_type: WPMediaTypeFilter, mime_type: String): WPMediaResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpMediaSingle(id: Int!): WPMedia @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpUsers(page: Int = 1, per_page: Int = 10, search: String, exclude: [Int], include: [Int], offset: Int, order: WPOrder, orderby: WPUserOrderBy, slug: [String], roles: [String]): WPUsersResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpUser(id: Int!): WPUser @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpPostTypes: [WPPostType] @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpPostType(type: String!): WPPostType @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpPostStatuses: [WPPostStatus] @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpPostStatus(status: String): WPPostStatus @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    wpSettings: WPSettings @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
     appSettings: Settings @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
 }

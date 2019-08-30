@@ -2,11 +2,12 @@ import React, { Fragment } from 'react';
 import TagPosts from '../graphql/TagPosts.graphql';
 import { compose, graphql, DataProps } from 'react-apollo';
 import WordpressTeaser from './WordpressTeaser';
+import withSettings from './withSettings';
 
 import styles from './relatedpostsblock.css';
 
 const WordpressRelatedPostsBlock: StorefrontFunctionComponent<DataPropsExtended> =
-    ({ productQuery: { product }, title, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
+    ({ productQuery: { product }, appSettings, title, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
         data: { loading, error, wpTags } }) => {
         return (
             <div className={`${styles.relatedPostsBlockContainer} pv4 pb9`}>
@@ -40,6 +41,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<DataPropsExtended>
                                         showAuthor={showAuthors}
                                         showExcerpt={showExcerpts}
                                         useTextOverlay={useTextOverlays}
+                                        settings={appSettings}
                                     />
                                 </div>
                             ))}
@@ -54,9 +56,10 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<DataPropsExtended>
     }
 
 const EnhancedWordpressRelatedPostsBlock = compose(
+    withSettings,
     graphql(TagPosts, { options: (props: DataPropsExtended) => ({
         variables: {
-            wp_per_page: 3,
+            wp_per_page: props.numberOfPosts,
             tag: "prod-" + props.productQuery.product.productReference
         }, 
         errorPolicy: "all"
@@ -65,12 +68,19 @@ const EnhancedWordpressRelatedPostsBlock = compose(
 
 interface WPRelatedPostsBlockProps {
     title: string
+    numberOfPosts: number
     useTextOverlays: boolean
     showCategories: boolean
     showDates: boolean
     showAuthors: boolean
     showExcerpts: boolean
+    appSettings: AppSettings
     productQuery: ProductQuery
+}
+
+interface AppSettings {
+	titleTag: string
+	blogRoute: string
 }
 
 interface ProductProperties {
@@ -133,6 +143,7 @@ type DataPropsExtended = WPRelatedPostsBlockProps & DataProps<any, any>;
 
 EnhancedWordpressRelatedPostsBlock.defaultProps = {
     title: 'Related Articles',
+    numberOfPosts: 3,
     useTextOverlays: false,
     showCategories: true,
     showDates: true,
@@ -151,6 +162,13 @@ EnhancedWordpressRelatedPostsBlock.schema = {
             type: 'string',
             isLayout: false,
             default: ''
+        },
+        numberOfPosts: {
+            title: 'admin/editor.wordpressNumberOfPosts.title',
+            description: 'admin/editor.wordpressNumberOfPosts.description',
+            type: 'number',
+            isLayout: false,
+            default: 3
         },
         useTextOverlays: {
             title: 'admin/editor.wordpressOverlays.title',

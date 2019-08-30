@@ -1,7 +1,7 @@
 {
   "name": "wordpress-integration",
   "vendor": "vtex",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "title": "Wordpress Integration",
   "description": "Connect a Wordpress blog to a VTEX store",
   "categories": [],
@@ -24,7 +24,8 @@
     "vtex.store-components": "3.x",
     "vtex.shelf": "1.x",
     "vtex.product-summary": "2.x",
-    "vtex.store-graphql": "2.x"
+    "vtex.store-graphql": "2.x",
+    "vtex.search-result": "3.x"
   },
   "settingsSchema": {
     "title": "Wordpress Integration",
@@ -38,6 +39,11 @@
       "titleTag": {
         "title": "Title tag for blog homepage",
         "description": "Will also be appended to inner blog pages",
+        "type": "string"
+      },
+      "blogRoute": {
+        "title": "URL path for blog homepage",
+        "description": "Example: if 'foo' is entered here, blog homepage will be at http://www.yoursite.com/foo . Make sure routes in your store-theme match this setting. If left blank, default is 'blog'",
         "type": "string"
       }
     }

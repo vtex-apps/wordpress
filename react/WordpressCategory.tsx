@@ -9,11 +9,12 @@ import Helmet from 'react-helmet';
 import styles from './components/list.css'
 
 interface otherProps {
-	appSettings: appSettings
+	appSettings: AppSettings
 	params: any
 }
-interface appSettings {
+interface AppSettings {
 	titleTag: string
+	blogRoute: string
 }
 type DataPropsWithParams = DataProps<any, any> & otherProps
 
@@ -23,7 +24,7 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 		per_page: 10
 	};
 	render() {
-		const { appSettings: { titleTag }, data: { fetchMore, loading, error, wpCategory: { name, wpPosts } } } = this.props;
+		const { appSettings, appSettings: { titleTag }, data: { fetchMore, loading, error, wpCategory: { name, wpPosts } } } = this.props;
 		return (
 			<Fragment>
 				{name != null && (
@@ -122,6 +123,7 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 										showDate={true}
 										showExcerpt={true}
 										useTextOverlay={false}
+										settings={appSettings}
 									/>
 								</div>
 							))}

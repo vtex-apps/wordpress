@@ -1,17 +1,27 @@
-import React, { Fragment } from 'react';
-import AllPosts from '../graphql/AllPosts.graphql';
+import React, { Fragment, useContext } from 'react';
+import SearchPosts from '../graphql/SearchPosts.graphql';
 import { compose, graphql, DataProps } from 'react-apollo';
-import { Spinner } from 'vtex.styleguide';
+import { Spinner, Button } from 'vtex.styleguide';
+import { QueryContext } from 'vtex.search-result';
+import { Link } from 'vtex.render-runtime';
 import WordpressTeaser from './WordpressTeaser';
 import withSettings from './withSettings';
 
-import styles from './latestpostsblock.css';
+import styles from './searchresultblock.css';
 
-const WordpressLatestPostsBlock: StorefrontFunctionComponent<DataPropsExtended> =
-    ({ appSettings, title, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
+const WordpressSearchResultBlock: StorefrontFunctionComponent<DataPropsExtended> =
+    ({ appSettings, appSettings: { blogRoute }, title, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
         data: { loading, error, wpPosts } }) => {
+
+        const { query } = useContext(QueryContext)
+
+        const route = (blogRoute && blogRoute !== "") ? blogRoute : 'blog'
+
         return (
-            <div className={`${styles.latestPostsBlockContainer} pv4 pb9`}>
+            <div className={`${styles.searchResultBlockContainer} pv4 pb9`}>
+                {(query == null || typeof query == undefined || query == "" ) && (
+                    <div>Hello</div>
+                )}
                 {loading && (
                     <Spinner />
                 )}
@@ -20,10 +30,10 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<DataPropsExtended> 
                 )}
                 {(wpPosts != null) ? (
                     <Fragment>
-                        <h2 className={`${styles.latestPostsBlockTitle} t-heading-2`}>{title}</h2>
-                        <div className={`${styles.latestPostsBlockFlex} mv4 flex flex-row flex-wrap justify-between`}>
+                        <h2 className={`${styles.searchResultBlockTitle} t-heading-2`}>{title}</h2>
+                        <div className={`${styles.searchResultBlockFlex} mv4 flex flex-row flex-wrap justify-between`}>
                             {wpPosts.posts.map((post: PostData, index: number) => (
-                                <div className={`${styles.latestPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
+                                <div className={`${styles.searchResultBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
                                     <WordpressTeaser
                                         key={index}
                                         title={post.title.rendered}
@@ -46,6 +56,11 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<DataPropsExtended> 
                                 </div>
                             ))}
                         </div>
+                        <Link to={ route + "/search/" + query } className={`${styles.searchResultBlockLink}`}>
+                            <Button variation="secondary" block>
+                                More article results for "{ query }" >    
+                            </Button>
+                        </Link>
                     </Fragment>
                 ) : (
                     !loading && !error && (
@@ -58,17 +73,20 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<DataPropsExtended> 
 
     }
 
-const EnhancedWordpressLatestPostsBlock = compose(
+
+
+const EnhancedWordpressSearchResultBlock = compose(
     withSettings,
-    graphql(AllPosts, { options: ({props}:{props: WPLatestPostsBlockProps}) => ({
+    graphql(SearchPosts, { options: ({props, query}:{props: WPSearchResultBlockProps, query: any}) => ({
         variables: {
-            wp_per_page: props.numberOfPosts
+            wp_per_page: props.numberOfPosts,
+            terms: query
         }, 
         errorPolicy: "all"
     }) })
-)(WordpressLatestPostsBlock)
+)(WordpressSearchResultBlock)
 
-interface WPLatestPostsBlockProps {
+interface WPSearchResultBlockProps {
     title: string
     numberOfPosts: number
     useTextOverlays: boolean
@@ -76,6 +94,7 @@ interface WPLatestPostsBlockProps {
     showDates: boolean
     showAuthors: boolean
     showExcerpts: boolean
+    searchQuery: SearchQuery
     appSettings: AppSettings
 }
 
@@ -84,9 +103,17 @@ interface AppSettings {
 	blogRoute: string
 }
 
-type DataPropsExtended = WPLatestPostsBlockProps & DataProps<any, any>;
+type SearchQuery = {
+    map: string
+    maxItemsPerPage: number
+    orderBy: string
+    query: string
+    treePath: string
+}
 
-EnhancedWordpressLatestPostsBlock.defaultProps = {
+type DataPropsExtended = WPSearchResultBlockProps & DataProps<any, any>;
+
+EnhancedWordpressSearchResultBlock.defaultProps = {
     title: '',
     numberOfPosts: 3,
     useTextOverlays: false,
@@ -96,14 +123,14 @@ EnhancedWordpressLatestPostsBlock.defaultProps = {
     showExcerpts: false
 }
 
-EnhancedWordpressLatestPostsBlock.schema = {
-    title: 'admin/editor.wordpressLatestPosts.title',
-    description: 'admin/editor.wordpressLatestPosts.description',
+EnhancedWordpressSearchResultBlock.schema = {
+    title: 'admin/editor.wordpressSearchResultBlock.title',
+    description: 'admin/editor.wordpressSearchResultBlock.description',
     type: 'object',
     properties: {
         title: {
-            title: 'admin/editor.wordpressLatestPostsTitle.title',
-            description: 'admin/editor.wordpressLatestPostsTitle.description',
+            title: 'admin/editor.wordpressSearchResultBlockTitle.title',
+            description: 'admin/editor.wordpressSearchResultBlockTitle.description',
             type: 'string',
             isLayout: false,
             default: ''
@@ -154,4 +181,4 @@ EnhancedWordpressLatestPostsBlock.schema = {
 
 }
 
-export default EnhancedWordpressLatestPostsBlock
+export default EnhancedWordpressSearchResultBlock
