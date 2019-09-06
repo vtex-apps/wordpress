@@ -19,22 +19,29 @@ interface TeaserProps {
     showDate: boolean,
     showExcerpt: boolean,
     useTextOverlay: boolean
+    settings: AppSettings
+}
+
+interface AppSettings {
+	titleTag: string
+	blogRoute: string
 }
 
 export default class WordpressTeaser extends Component<TeaserProps> {
 
     render() {
-        const { title, author, excerpt, category, categoryId, date, id, mediaType, image, altText,
+        const { settings: { blogRoute }, title, author, excerpt, category, categoryId, date, id, mediaType, image, altText,
             showCategory, showAuthor, showDate, showExcerpt, useTextOverlay } = this.props
         const dateObj = new Date(date)
         const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
         const formattedDate = dateObj.toLocaleDateString("en-US", dateOptions)
+        const route = (blogRoute && blogRoute !== "") ? blogRoute : 'blog'
         return (
             <Card noPadding className={`${styles.teaserContainer}`}>
                 {((showCategory || showDate || showAuthor) && (!useTextOverlay || mediaType != "image")) && (
                     <h5 className="mv1 ph6 pt6 pb4">
                         {(showCategory && category != undefined && categoryId != undefined) && (
-                            <Fragment><a href={"/blog/category/" + categoryId}>{category}</a></Fragment>
+                            <Fragment><a href={"/" + route + "/category/" + categoryId}>{category}</a></Fragment>
                         )}
                         {((showCategory && showDate) || (showCategory && showAuthor)) && (
                             <Fragment> - </Fragment>
@@ -53,7 +60,7 @@ export default class WordpressTeaser extends Component<TeaserProps> {
                 {mediaType === "image" && (
                     <Fragment>
                         {useTextOverlay ? (
-                            <a href={"/blog/post/" + id} className="tc-m db relative">
+                            <a href={"/" + route + "/post/" + id} className="tc-m db relative">
                                 <img className={`${styles.teaserImage}`} src={image} alt={altText}></img>
                                 <div className={`${styles.teaserGradientOverlay} absolute`}>
                                     <div className={`${styles.teaserTextOverlay} absolute`}>
@@ -61,7 +68,7 @@ export default class WordpressTeaser extends Component<TeaserProps> {
                                         {(showCategory || showDate || showAuthor) && (
                                             <div className={`${styles.teaserTextOverlayMeta}`}>
                                                 {(showCategory && category != undefined && categoryId != undefined) && (
-                                                    <Fragment><a href={"/blog/category/" + categoryId}>{category}</a></Fragment>
+                                                    <Fragment><a href={"/" + route + "/category/" + categoryId}>{category}</a></Fragment>
                                                 )}
                                                 {((showCategory && showDate) || (showCategory && showAuthor)) && (
                                                     <Fragment> - </Fragment>
@@ -82,11 +89,11 @@ export default class WordpressTeaser extends Component<TeaserProps> {
                             </a>
                         ) : (
                                 <Fragment>
-                                    <a href={"/blog/post/" + id} className="tc-m db">
+                                    <a href={"/" + route + "/post/" + id} className="tc-m db">
                                         <img className={`${styles.teaserImage}`} src={image} alt={altText}></img>
                                     </a>
                                     <h3 className={`${styles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
-                                        <a href={"/blog/post/" + id}>
+                                        <a href={"/" + route + "/post/" + id}>
                                             <SanitizedHTML html={title} />
                                         </a>
                                     </h3>
@@ -97,7 +104,7 @@ export default class WordpressTeaser extends Component<TeaserProps> {
 
                 {mediaType != "image" && (
                     <h3 className={`${styles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
-                        <a href={"/blog/post/" + id}>
+                        <a href={"/" + route + "/post/" + id}>
                             <SanitizedHTML html={title} />
                         </a>
                     </h3>

@@ -9,11 +9,12 @@ import WordpressTeaser from './WordpressTeaser';
 import styles from './list.css'
 
 interface otherProps {
-	appSettings: appSettings
+	appSettings: AppSettings
 }
 
-interface appSettings {
+interface AppSettings {
 	titleTag: string
+	blogRoute: string
 }
 
 type DataPropsExtended = otherProps & DataProps<any, any>
@@ -24,7 +25,7 @@ class WordpressAllPosts extends Component<DataPropsExtended> {
 		per_page: 10
 	};
 	render() {
-		const { appSettings: { titleTag }, data: { fetchMore, loading, error, wpPosts } } = this.props;
+		const { appSettings, appSettings: { titleTag }, data: { fetchMore, loading, error, wpPosts } } = this.props;
 		return (
 			<Container className={`${styles.listContainer} pt6 pb8`}>
 				<Helmet>
@@ -116,6 +117,7 @@ class WordpressAllPosts extends Component<DataPropsExtended> {
 									showDate={true}
 									showExcerpt={true}
 									useTextOverlay={false}
+									settings={appSettings}
 								/>
 							</div>
                         ))}

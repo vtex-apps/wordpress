@@ -3,12 +3,16 @@ import CategoryPosts from '../graphql/CategoryPosts.graphql';
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner, Button } from 'vtex.styleguide';
 import WordpressTeaser from './WordpressTeaser';
+import withSettings from './withSettings';
 
 import styles from './categoryblock.css';
 
 const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
-    ({ category, title, description, useTextOverlays, showDates, showAuthors, showExcerpts,
-        data: { loading, error, wpCategory } }) => {
+    ({ appSettings, appSettings: { blogRoute }, category, title, description, useTextOverlays, showDates, showAuthors, showExcerpts,
+        customLinkText, customLinkTarget, data: { loading, error, wpCategory } }) => {
+
+        const route = (blogRoute && blogRoute !== "") ? blogRoute : 'blog'
+
         return (
             <div className={`${styles.categoryBlockContainer} pv4 pb9`}>
                 {loading && (
@@ -43,13 +47,14 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
                                         showAuthor={showAuthors}
                                         showExcerpt={showExcerpts}
                                         useTextOverlay={useTextOverlays}
+                                        settings={appSettings}
                                     />
                                 </div>
                             ))}
                         </div>
-                        <a href={ "/blog/category/" + category } className={`${styles.categoryBlockLink}`}>
+                        <a href={ customLinkTarget != "" ? customLinkTarget : route + "/category/" + category } className={`${styles.categoryBlockLink}`}>
                             <Button variation="secondary" block>
-                                All { wpCategory.name } Posts >    
+                                { customLinkText != "" ? customLinkText : `All ${wpCategory.name} Posts >`}
                             </Button>
                         </a>
                     </Fragment>
@@ -65,10 +70,11 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
     }
 
 const EnhancedWordpressCategoryBlock = compose(
-    graphql(CategoryPosts, { options: ({ category }: { category: number }) => ({
+    withSettings,
+    graphql(CategoryPosts, { options: ({ category, props }: { category: number, props: WPCategoryBlockProps }) => ({
         variables: {
             category,
-            wp_per_page: 3
+            wp_per_page: props.numberOfPosts
         }, 
         errorPolicy: "all"
     })
@@ -78,10 +84,19 @@ interface WPCategoryBlockProps {
     category: number
     title: string
     description: string
+    customLinkText: string
+    customLinkTarget: string
+    numberOfPosts: number
     useTextOverlays: boolean
     showDates: boolean
     showAuthors: boolean
     showExcerpts: boolean
+    appSettings: AppSettings
+}
+
+interface AppSettings {
+	titleTag: string
+	blogRoute: string
 }
 
 type DataPropsExtended = WPCategoryBlockProps & DataProps<any, any>;
@@ -90,6 +105,9 @@ EnhancedWordpressCategoryBlock.defaultProps = {
     category: 1,
     title: '',
     description: '',
+    customLinkText: '',
+    customLinkTarget: '',
+    numberOfPosts: 3,
     useTextOverlays: false,
     showDates: true,
     showAuthors: false,
@@ -121,6 +139,27 @@ EnhancedWordpressCategoryBlock.schema = {
             type: 'string',
             isLayout: false,
             default: ''
+        },
+        customLinkText: {
+            title: 'admin/editor.wordpressCategoryBlockCustomLinkText.title',
+            description: 'admin/editor.wordpressCategoryBlockCustomLinkText.description',
+            type: 'string',
+            isLayout: false,
+            default: ''
+        },
+        customLinkTarget: {
+            title: 'admin/editor.wordpressCategoryBlockCustomLinkTarget.title',
+            description: 'admin/editor.wordpressCategoryBlockCustomLinkTarget.description',
+            type: 'string',
+            isLayout: false,
+            default: ''
+        },
+        numberOfPosts: {
+            title: 'admin/editor.wordpressNumberOfPosts.title',
+            description: 'admin/editor.wordpressNumberOfPosts.description',
+            type: 'number',
+            isLayout: false,
+            default: 3
         },
         useTextOverlays: {
             title: 'admin/editor.wordpressOverlays.title',
