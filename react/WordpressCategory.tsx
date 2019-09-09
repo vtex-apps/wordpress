@@ -24,10 +24,10 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 		per_page: 10
 	};
 	render() {
-		const { appSettings, appSettings: { titleTag }, data: { fetchMore, loading, error, wpCategory: { name, wpPosts } } } = this.props;
+		const { appSettings, appSettings: { titleTag }, data: { fetchMore, loading, error, wpCategory, wpCategory: { name, wpPosts } } } = this.props;
 		return (
 			<Fragment>
-				{name != null && (
+				{wpCategory && name && (
 					<Fragment>
 						<Helmet>
 							<title>{titleTag != "" ? name + " | " + titleTag : name}</title>
@@ -60,7 +60,7 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 									}
 								});
 							}}
-							onPrevClick={(event: any) => {
+							onPrevClick={() => {
 								if (this.state.page > 1) {
 									const prevPage = this.state.page - 1;
 									this.setState({ page: this.state.page - 1 });
@@ -77,7 +77,7 @@ class WordpressCategory extends Component<DataPropsWithParams> {
 									});
 								}
 							}}
-							onNextClick={(event: any) => {
+							onNextClick={() => {
 								const nextPage = this.state.page + 1;
 								this.setState({ page: this.state.page + 1 });
 								fetchMore({

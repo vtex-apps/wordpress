@@ -146,7 +146,8 @@ export default compose(
 			options: (props: DataPropsWithParams) => (
 				{
 					variables: { terms: props.params.terms },
-					notifyOnNetworkStatusChange: true
+					notifyOnNetworkStatusChange: true,
+					ssr: false
 				})
 		})
 )(WordpressSearchResult);

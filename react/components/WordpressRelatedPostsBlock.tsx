@@ -62,7 +62,8 @@ const EnhancedWordpressRelatedPostsBlock = compose(
             wp_per_page: props.numberOfPosts,
             tag: "prod-" + props.productQuery.product.productReference
         }, 
-        errorPolicy: "all"
+        errorPolicy: "all",
+        ssr: false
     }) })
 )(WordpressRelatedPostsBlock)
 

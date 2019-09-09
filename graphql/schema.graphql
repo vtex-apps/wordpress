@@ -470,6 +470,7 @@ type WPUsersResult {
 
 type Settings {
     titleTag: String
+    blogRoute: String
 }
 
 type Query {

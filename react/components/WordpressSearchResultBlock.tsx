@@ -77,12 +77,13 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<DataPropsExtended>
 
 const EnhancedWordpressSearchResultBlock = compose(
     withSettings,
-    graphql(SearchPosts, { options: ({props, query}:{props: WPSearchResultBlockProps, query: any}) => ({
+    graphql(SearchPosts, { options: (props: WPSearchResultBlockProps) => ({
         variables: {
             wp_per_page: props.numberOfPosts,
-            terms: query
+            terms: props.searchQuery.query
         }, 
-        errorPolicy: "all"
+        errorPolicy: "all",
+        ssr: false
     }) })
 )(WordpressSearchResultBlock)
 

@@ -71,12 +71,13 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
 
 const EnhancedWordpressCategoryBlock = compose(
     withSettings,
-    graphql(CategoryPosts, { options: ({ category, props }: { category: number, props: WPCategoryBlockProps }) => ({
+    graphql(CategoryPosts, { options: (props: WPCategoryBlockProps) => ({
         variables: {
-            category,
+            category: props.category,
             wp_per_page: props.numberOfPosts
         }, 
-        errorPolicy: "all"
+        errorPolicy: "all",
+        ssr: false
     })
 }))(WordpressCategoryBlock)
 

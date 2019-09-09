@@ -60,11 +60,12 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<DataPropsExtended> 
 
 const EnhancedWordpressLatestPostsBlock = compose(
     withSettings,
-    graphql(AllPosts, { options: ({props}:{props: WPLatestPostsBlockProps}) => ({
+    graphql(AllPosts, { options: (props: WPLatestPostsBlockProps) => ({
         variables: {
             wp_per_page: props.numberOfPosts
         }, 
-        errorPolicy: "all"
+        errorPolicy: "all",
+        ssr: false
     }) })
 )(WordpressLatestPostsBlock)
 

@@ -54,7 +54,7 @@ class WordpressAllPosts extends Component<DataPropsExtended> {
 								}
 							});
 						}}
-						onPrevClick={(event: any) => {
+						onPrevClick={() => {
 							if (this.state.page > 1) {
 								const prevPage = this.state.page - 1;
 								this.setState({ page: this.state.page - 1 });
@@ -70,7 +70,7 @@ class WordpressAllPosts extends Component<DataPropsExtended> {
 								});
 							}
 						}}
-						onNextClick={(event: any) => {
+						onNextClick={() => {
 							const nextPage = this.state.page + 1;
 							this.setState({ page: this.state.page + 1 });
 							fetchMore({
@@ -135,5 +135,5 @@ class WordpressAllPosts extends Component<DataPropsExtended> {
 
 export default compose(
 	withSettings,
-	graphql(AllPosts, { options: { errorPolicy: "all", notifyOnNetworkStatusChange: true } })
+	graphql(AllPosts, { options: { errorPolicy: "all", notifyOnNetworkStatusChange: true, ssr: false } })
 	)(WordpressAllPosts);
