@@ -3,12 +3,12 @@ import AllPosts from '../graphql/AllPosts.graphql';
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner } from 'vtex.styleguide';
 import WordpressTeaser from './WordpressTeaser';
-import withSettings from './withSettings';
+import withSettingsNoSSR from './withSettings';
 
 import styles from './latestpostsblock.css';
 
 const WordpressLatestPostsBlock: StorefrontFunctionComponent<DataPropsExtended> =
-    ({ appSettings, title, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
+    ({ appSettings, title, twoColumns, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
         data: { loading, error, wpPosts } }) => {
         return (
             <div className={`${styles.latestPostsBlockContainer} pv4 pb9`}>
@@ -22,28 +22,76 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<DataPropsExtended> 
                     <Fragment>
                         <h2 className={`${styles.latestPostsBlockTitle} t-heading-2`}>{title}</h2>
                         <div className={`${styles.latestPostsBlockFlex} mv4 flex flex-row flex-wrap justify-between`}>
-                            {wpPosts.posts.map((post: PostData, index: number) => (
-                                <div className={`${styles.latestPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
-                                    <WordpressTeaser
-                                        key={index}
-                                        title={post.title.rendered}
-                                        date={post.date}
-                                        id={post.id}
-                                        author={post.author != null ? post.author.name : ""}
-                                        excerpt={post.excerpt.rendered}
-                                        category={post.categories[0] != null ? post.categories[0].name : ""}
-                                        categoryId={post.categories[0] != null ? post.categories[0].id : undefined}
-                                        image={post.featured_media != null ? post.featured_media.source_url : ""}
-                                        altText={post.featured_media != null ? post.featured_media.alt_text : ""}
-                                        mediaType={post.featured_media != null ? post.featured_media.media_type : ""}
-                                        showCategory={showCategories}
-                                        showDate={showDates}
-                                        showAuthor={showAuthors}
-                                        showExcerpt={showExcerpts}
-                                        useTextOverlay={useTextOverlays}
-                                        settings={appSettings}
-                                    />
-                                </div>
+                            {(twoColumns) ? (
+                                <Fragment>
+                                    <div key={0} className={`${styles.latestPostsBlockFlexFirstColumnItem} mv3 ph2 w-100-s`}>
+                                        <WordpressTeaser
+                                            title={wpPosts.posts[0].title.rendered}
+                                            date={wpPosts.posts[0].date}
+                                            id={wpPosts.posts[0].id}
+                                            author={wpPosts.posts[0].author != null ? wpPosts.posts[0].author.name : ""}
+                                            excerpt={wpPosts.posts[0].excerpt.rendered}
+                                            category={wpPosts.posts[0].categories[0] != null ? wpPosts.posts[0].categories[0].name : ""}
+                                            categoryId={wpPosts.posts[0].categories[0] != null ? wpPosts.posts[0].categories[0].id : undefined}
+                                            image={wpPosts.posts[0].featured_media != null ? wpPosts.posts[0].featured_media.source_url : ""}
+                                            altText={wpPosts.posts[0].featured_media != null ? wpPosts.posts[0].featured_media.alt_text : ""}
+                                            mediaType={wpPosts.posts[0].featured_media != null ? wpPosts.posts[0].featured_media.media_type : ""}
+                                            showCategory={showCategories}
+                                            showDate={showDates}
+                                            showAuthor={showAuthors}
+                                            showExcerpt={showExcerpts}
+                                            useTextOverlay={useTextOverlays}
+                                            settings={appSettings}
+                                        />
+                                    </div>
+                                    <div className={`${styles.latestPostsBlockFlexSecondColumn} mv3 ph2 w-100-s`}>
+                                        { wpPosts.posts.slice(1).map((post: PostData, index: number) => (
+                                            <div key={index} className={`${styles.latestPostsBlockFlexSecondColumnItem} mv1 w-100-l w-100-s`}>
+                                                <WordpressTeaser
+                                                    title={post.title.rendered}
+                                                    date={post.date}
+                                                    id={post.id}
+                                                    author={post.author != null ? post.author.name : ""}
+                                                    excerpt={post.excerpt.rendered}
+                                                    category={post.categories[0] != null ? post.categories[0].name : ""}
+                                                    categoryId={post.categories[0] != null ? post.categories[0].id : undefined}
+                                                    image={post.featured_media != null ? post.featured_media.source_url : ""}
+                                                    altText={post.featured_media != null ? post.featured_media.alt_text : ""}
+                                                    mediaType={post.featured_media != null ? post.featured_media.media_type : ""}
+                                                    showCategory={showCategories}
+                                                    showDate={showDates}
+                                                    showAuthor={showAuthors}
+                                                    showExcerpt={showExcerpts}
+                                                    useTextOverlay={useTextOverlays}
+                                                    settings={appSettings}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </Fragment>
+                            ) : ( 
+                                wpPosts.posts.map((post: PostData, index: number) => (
+                                    <div key={index} className={`${styles.latestPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
+                                        <WordpressTeaser
+                                            title={post.title.rendered}
+                                            date={post.date}
+                                            id={post.id}
+                                            author={post.author != null ? post.author.name : ""}
+                                            excerpt={post.excerpt.rendered}
+                                            category={post.categories[0] != null ? post.categories[0].name : ""}
+                                            categoryId={post.categories[0] != null ? post.categories[0].id : undefined}
+                                            image={post.featured_media != null ? post.featured_media.source_url : ""}
+                                            altText={post.featured_media != null ? post.featured_media.alt_text : ""}
+                                            mediaType={post.featured_media != null ? post.featured_media.media_type : ""}
+                                            showCategory={showCategories}
+                                            showDate={showDates}
+                                            showAuthor={showAuthors}
+                                            showExcerpt={showExcerpts}
+                                            useTextOverlay={useTextOverlays}
+                                            settings={appSettings}
+                                        />
+                                    </div>
+                                )
                             ))}
                         </div>
                     </Fragment>
@@ -59,7 +107,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<DataPropsExtended> 
     }
 
 const EnhancedWordpressLatestPostsBlock = compose(
-    withSettings,
+    withSettingsNoSSR,
     graphql(AllPosts, { options: (props: WPLatestPostsBlockProps) => ({
         variables: {
             wp_per_page: props.numberOfPosts
@@ -71,6 +119,7 @@ const EnhancedWordpressLatestPostsBlock = compose(
 
 interface WPLatestPostsBlockProps {
     title: string
+    twoColumns: boolean
     numberOfPosts: number
     useTextOverlays: boolean
     showCategories: boolean
@@ -89,6 +138,7 @@ type DataPropsExtended = WPLatestPostsBlockProps & DataProps<any, any>;
 
 EnhancedWordpressLatestPostsBlock.defaultProps = {
     title: '',
+    twoColumns: false,
     numberOfPosts: 3,
     useTextOverlays: false,
     showCategories: true,
@@ -108,6 +158,13 @@ EnhancedWordpressLatestPostsBlock.schema = {
             type: 'string',
             isLayout: false,
             default: ''
+        },
+        twoColumns: {
+            title: 'admin/editor.wordpressTwoColumns.title',
+            description: 'admin/editor.wordpressTwoColumns.description',
+            type: 'boolean',
+            isLayout: false,
+            default: false
         },
         numberOfPosts: {
             title: 'admin/editor.wordpressNumberOfPosts.title',

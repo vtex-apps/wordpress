@@ -11,6 +11,8 @@
     "admin/editor.wordpressCategoryBlockCustomLinkTarget.description": "admin/editor.wordpressCategoryBlockCustomLinkTarget.description",
     "admin/editor.wordpressCategoryBlockCustomLinkText.title": "admin/editor.wordpressCategoryBlockCustomLinkText.title",
     "admin/editor.wordpressCategoryBlockCustomLinkText.description": "admin/editor.wordpressCategoryBlockCustomLinkText.description",
+    "admin/editor.wordpressTwoColumns.title": "admin/editor.wordpressTwoColumns.title",
+    "admin/editor.wordpressTwoColumns.description": "admin/editor.wordpressTwoColumns.description",
     "admin/editor.wordpressNumberOfPosts.title": "admin/editor.wordpressNumberOfPosts.title",
     "admin/editor.wordpressNumberOfPosts.description": "admin/editor.wordpressNumberOfPosts.description",
     "admin/editor.wordpressOverlays.title": "admin/editor.wordpressOverlays.title",

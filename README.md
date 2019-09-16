@@ -76,6 +76,8 @@ You may change "blog" in each route to another string of your choosing, but the 
 
 `blog-search-list.wordpress-search-list`: A paginated list of blog post search results. This must be placed on the `store.blog-search` page, as the search terms are provided by the parameter in the page route. 
 
+`search-blog-articles-preview.wordpress`: A small block showing article search results which can be added to the store's product search results page (`store.search`). 3-5 articles are shown in the block (default is 3) with a link to the full list of article search results. To display this block, a custom search layout must be used. See the [search-result documentation](https://github.com/vtex-apps/search-result) for more information.  
+
 `blog-related-products.wordpress-related-products`: A specialized wrapper for a product shelf that can be placed on the `store.blog-post` page. This allows you to tag Wordpress posts with product reference codes, and the products in question will then be displayed in the shelf. The tags must be in the format **prod-[reference code]**. For example, if your product had a reference code of "VTEX01", the tag should be "prod-VTEX01". This block must have `product-summary.shelf` as a child. 
 
 `blog-related-posts.wordpress-related-posts`: Similar to the above, but the reverse: this is a block intended to be placed as a child of `store.product` which will show teasers for 3-5 blog posts (3 by default) that are tagged with the reference code of the product being viewed. The following props can be used: 
@@ -115,6 +117,7 @@ You can see what CSS namespaces are available, and any default styles, by viewin
 - **Latest Posts Block** (`wordpress-latest-posts-preview`): [latestpostsblock.css](/react/components/latestpostsblock.css)
 - **Category Preview Block** (`wordpress-category-preview`): [categoryblock.css](/react/components/categoryblock.css)
 - **Related Posts Block** (`wordpress-related-posts`): [relatedpostsblock.css](/react/components/relatedpostsblock.css)
+- **Search Results Block** (`search-blog-articles-preview.wordpress`): [searchresultblock.css](/react/components/searchresultblock.css)
 - **Teasers** (shown in above lists and blocks): [teaser.css](/react/components/teaser.css)
 - **Posts** (`wordpress-post-details`): [post.css](/react/components/post.css)
 - **Related Products Block** (`wordpress-related-products`): [shelf.css](/react/components/shelf.css)

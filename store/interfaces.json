@@ -18,7 +18,7 @@
     "blog-search.wordpress-search": {
         "component": "WordpressSearchBlock"
     },
-    "blog-search-preview.wordpress-search-preview": {
+    "search-blog-articles-preview.wordpress": {
         "component": "WordpressSearchResultBlock"
     },
     "blog-search-list.wordpress-search-list": {

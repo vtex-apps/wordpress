@@ -10,3 +10,14 @@
 
 .latestPostsBlockFlexItem {
 }
+
+.latestPostsBlockFlexFirstColumnItem {
+    width: 66%;
+}
+
+.latestPostsBlockFlexSecondColumn {
+    width: 33%;
+}
+
+.latestPostsBlockFlexSecondColumnItem {
+}

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import TagPosts from '../graphql/TagPosts.graphql';
 import { compose, graphql, DataProps } from 'react-apollo';
 import WordpressTeaser from './WordpressTeaser';
-import withSettings from './withSettings';
+import withSettingsNoSSR from './withSettingsNoSSR';
 
 import styles from './relatedpostsblock.css';
 
@@ -23,9 +23,8 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<DataPropsExtended>
                         <h2 className={`${styles.relatedPostsBlockTitle} t-heading-2`}>{title}</h2>
                         <div className={`${styles.relatedPostsBlockFlex} mv4 flex flex-row flex-wrap justify-between`}>
                             {wpTags.tags[0].wpPosts.posts.map((post: PostData, index: number) => (
-                                <div className={`${styles.relatedPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
+                                <div key={index} className={`${styles.relatedPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
                                     <WordpressTeaser
-                                        key={index}
                                         title={post.title.rendered}
                                         date={post.date}
                                         id={post.id}
@@ -56,7 +55,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<DataPropsExtended>
     }
 
 const EnhancedWordpressRelatedPostsBlock = compose(
-    withSettings,
+    withSettingsNoSSR,
     graphql(TagPosts, { options: (props: DataPropsExtended) => ({
         variables: {
             wp_per_page: props.numberOfPosts,

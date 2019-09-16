@@ -31,14 +31,14 @@
     "tslint": "^5.12.1",
     "tslint-config-vtex": "^2.1.0",
     "typescript": "3.5.2",
-    "vtex.blog-interfaces": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.2/public/_types/react",
-    "vtex.product-summary": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.32.2/public/_types/react",
-    "vtex.render-runtime": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.46.0/public/_types/react",
-    "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.72.5/public/_types/react",
-    "vtex.search-result": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-result@3.25.2/public/_types/react",
-    "vtex.shelf": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.25.1/public/_types/react",
-    "vtex.store-components": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.61.0/public/_types/react",
-    "vtex.store": "https://wordpress--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.store@2.42.1+build1563378008/public/_types/react",
-    "vtex.store-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.102.1/public/_types/react"
+    "vtex.blog-interfaces": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.3/public/_types/react",
+    "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.78.11/public/_types/react",
+    "vtex.render-runtime": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.62.2/public/_types/react",
+    "vtex.store": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.57.0/public/_types/react",
+    "vtex.shelf": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.30.1/public/_types/react",
+    "vtex.product-summary": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.34.4/public/_types/react",
+    "vtex.store-components": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.68.7/public/_types/react",
+    "vtex.store-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.105.1/public/_types/react",
+    "vtex.search-page-context": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.1/public/_types/react"
   }
 }

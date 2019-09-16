@@ -11,6 +11,8 @@
     "admin/editor.wordpressCategoryBlockCustomLinkTarget.description": "If left blank, block will link to the standard blog category page showing a paginated list of all posts in that category",
     "admin/editor.wordpressCategoryBlockCustomLinkText.title": "Custom Link Text",
     "admin/editor.wordpressCategoryBlockCustomLinkText.description": "If left blank, link will say 'All (category) Posts >",
+    "admin/editor.wordpressTwoColumns.title": "Use Two Column Layout",
+    "admin/editor.wordpressTwoColumns.description": "First post will be shown in left column, remaining posts stacked in right column",
     "admin/editor.wordpressNumberOfPosts.title": "Number of posts to show",
     "admin/editor.wordpressNumberOfPosts.description": "Recommended to show between 3 and 5 posts",
     "admin/editor.wordpressOverlays.title": "Use Text Overlays",

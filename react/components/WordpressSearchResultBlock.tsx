@@ -1,41 +1,35 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import SearchPosts from '../graphql/SearchPosts.graphql';
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner, Button } from 'vtex.styleguide';
-import { QueryContext } from 'vtex.search-result';
 import { Link } from 'vtex.render-runtime';
 import WordpressTeaser from './WordpressTeaser';
-import withSettings from './withSettings';
+import withSettingsNoSSR from './withSettingsNoSSR';
+import withSearchContext from './withSearchContext';
 
 import styles from './searchresultblock.css';
 
 const WordpressSearchResultBlock: StorefrontFunctionComponent<DataPropsExtended> =
-    ({ appSettings, appSettings: { blogRoute }, title, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
+    ({ appSettings, appSettings: { blogRoute }, searchQuery, title, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
         data: { loading, error, wpPosts } }) => {
-
-        const { query } = useContext(QueryContext)
 
         const route = (blogRoute && blogRoute !== "") ? blogRoute : 'blog'
 
         return (
             <div className={`${styles.searchResultBlockContainer} pv4 pb9`}>
-                {(query == null || typeof query == undefined || query == "" ) && (
-                    <div>Hello</div>
-                )}
                 {loading && (
                     <Spinner />
                 )}
                 {error && (
                     <span>Error: {error.message}</span>
                 )}
-                {(wpPosts != null) ? (
+                {(searchQuery && searchQuery.productSearch && wpPosts) ? (
                     <Fragment>
-                        <h2 className={`${styles.searchResultBlockTitle} t-heading-2`}>{title}</h2>
+                        <h4 className={`${styles.searchResultBlockTitle} t-heading-2`}>{wpPosts.total_count} articles found for "{searchQuery.productSearch.titleTag}":</h4>
                         <div className={`${styles.searchResultBlockFlex} mv4 flex flex-row flex-wrap justify-between`}>
                             {wpPosts.posts.map((post: PostData, index: number) => (
-                                <div className={`${styles.searchResultBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
+                                <div key={index} className={`${styles.searchResultBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
                                     <WordpressTeaser
-                                        key={index}
                                         title={post.title.rendered}
                                         date={post.date}
                                         id={post.id}
@@ -56,17 +50,15 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<DataPropsExtended>
                                 </div>
                             ))}
                         </div>
-                        <Link to={ route + "/search/" + query } className={`${styles.searchResultBlockLink}`}>
+                        <a href={ "/" + route + "/search/" + searchQuery.productSearch.titleTag } className={`${styles.searchResultBlockLink}`}>
                             <Button variation="secondary" block>
-                                More article results for "{ query }" >    
+                                View all article results for "{ searchQuery.productSearch.titleTag }" >    
                             </Button>
-                        </Link>
+                        </a>
                     </Fragment>
                 ) : (
                     !loading && !error && (
-                        <div>
-                            <h3 className="t-heading-3">No posts found.</h3>
-                        </div>
+                        <Fragment />
                     ))}
             </div>
         );
@@ -76,11 +68,12 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<DataPropsExtended>
 
 
 const EnhancedWordpressSearchResultBlock = compose(
-    withSettings,
+    withSearchContext,
+    withSettingsNoSSR,
     graphql(SearchPosts, { options: (props: WPSearchResultBlockProps) => ({
         variables: {
             wp_per_page: props.numberOfPosts,
-            terms: props.searchQuery.query
+            terms: (props.searchQuery && props.searchQuery.productSearch) ? props.searchQuery.productSearch.titleTag : null
         }, 
         errorPolicy: "all",
         ssr: false
@@ -95,21 +88,13 @@ interface WPSearchResultBlockProps {
     showDates: boolean
     showAuthors: boolean
     showExcerpts: boolean
-    searchQuery: SearchQuery
+    searchQuery: any
     appSettings: AppSettings
 }
 
 interface AppSettings {
 	titleTag: string
 	blogRoute: string
-}
-
-type SearchQuery = {
-    map: string
-    maxItemsPerPage: number
-    orderBy: string
-    query: string
-    treePath: string
 }
 
 type DataPropsExtended = WPSearchResultBlockProps & DataProps<any, any>;

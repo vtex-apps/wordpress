@@ -1682,41 +1682,41 @@ util-deprecate@^1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-"vtex.blog-interfaces@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.2/public/_types/react":
-  version "0.0.2"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.2/public/_types/react#c47581e5eafb5379a4c6a8b64e1ecaca31defabe"
+"vtex.blog-interfaces@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.3/public/_types/react":
+  version "0.0.3"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.3/public/_types/react#79b6f7ff48a30ec9a69dd7a2aa186e9c8b3dfb4f"
 
-"vtex.product-summary@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.32.2/public/_types/react":
+"vtex.product-summary@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.34.4/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.32.2/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.34.4/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.render-runtime@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.46.0/public/_types/react":
-  version "8.46.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.46.0/public/_types/react#18e897cc52731f1ff9703f24f77a5f7e3428f404"
+"vtex.render-runtime@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.62.2/public/_types/react":
+  version "8.62.2"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.62.2/public/_types/react#9449eec2e1744531e3a9827f48c86059963a190a"
 
-"vtex.search-result@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-result@3.25.2/public/_types/react":
+"vtex.search-page-context@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.1/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-result@3.25.2/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.shelf@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.25.1/public/_types/react":
+"vtex.shelf@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.30.1/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.25.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.30.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.store-components@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.61.0/public/_types/react":
+"vtex.store-components@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.68.7/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.61.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.68.7/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.store-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.102.1/public/_types/react":
+"vtex.store-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.105.1/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.102.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.105.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.store@https://wordpress--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.store@2.42.1+build1563378008/public/_types/react":
+"vtex.store@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.57.0/public/_types/react":
   version "0.0.0"
-  resolved "https://wordpress--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.store@2.42.1+build1563378008/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.57.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.72.5/public/_types/react":
+"vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.78.11/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.72.5/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.78.11/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
 which@^1.2.9:
   version "1.3.1"

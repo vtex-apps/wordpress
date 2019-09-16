@@ -149,5 +149,5 @@ class WordpressPost extends Component<DataPropsWithParams> {
 
 export default compose(
 	withSettings,
-	graphql(SinglePost, { options: (props: DataPropsWithParams) => ({ variables: { id: props.params.id } }) })
+	graphql(SinglePost, { options: (props: DataPropsWithParams) => ({ variables: { id: props.params.id }, errorPolicy: "all" }) })
 )(WordpressPost);

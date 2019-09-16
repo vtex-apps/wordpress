@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import CategorySimple from './graphql/CategorySimple.graphql';
 import PostSimple from './graphql/PostSimple.graphql';
-import withSettings from './components/withSettings'
+import withSettingsNoSSR from './components/withSettingsNoSSR'
 import { compose, Query, DataProps } from 'react-apollo';
 import { Link } from 'vtex.render-runtime';
 import { Container } from 'vtex.store-components';
@@ -85,5 +85,5 @@ class WordpressBreadcrumb extends Component<DataPropsWithParams> {
 }
 
 export default compose(
-	withSettings
+	withSettingsNoSSR
 )(WordpressBreadcrumb);

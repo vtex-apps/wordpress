@@ -3,7 +3,7 @@ import CategoryPosts from '../graphql/CategoryPosts.graphql';
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner, Button } from 'vtex.styleguide';
 import WordpressTeaser from './WordpressTeaser';
-import withSettings from './withSettings';
+import withSettingsNoSSR from './withSettingsNoSSR';
 
 import styles from './categoryblock.css';
 
@@ -31,9 +31,8 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
                         )}
                         <div className={`${styles.categoryBlockFlex} mv4 flex flex-row flex-wrap justify-between`}>
                             {wpCategory.wpPosts.posts.map((post: PostData, index: number) => (
-                                <div className={`${styles.categoryBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
+                                <div key={index} className={`${styles.categoryBlockFlexItem} mv3 w-33-l ph2 w-100-s`}>
                                     <WordpressTeaser
-                                        key={index}
                                         title={post.title.rendered}
                                         date={post.date}
                                         id={post.id}
@@ -70,7 +69,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
     }
 
 const EnhancedWordpressCategoryBlock = compose(
-    withSettings,
+    withSettingsNoSSR,
     graphql(CategoryPosts, { options: (props: WPCategoryBlockProps) => ({
         variables: {
             category: props.category,
