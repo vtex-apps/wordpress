@@ -1,7 +1,7 @@
 {
   "name": "wordpress-integration",
   "vendor": "vtex",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "title": "Wordpress Integration",
   "description": "Connect a Wordpress blog to a VTEX store",
   "categories": [],
@@ -25,7 +25,7 @@
     "vtex.store-components": "3.x",
     "vtex.shelf": "1.x",
     "vtex.product-summary": "2.x",
-    "vtex.store-graphql": "2.x",
+    "vtex.search-graphql": "0.x",
     "vtex.search-page-context": "0.x"
   },
   "settingsSchema": {

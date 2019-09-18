@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.0.7] - 2019-09-18
+### Changed
+- Start using `search-graphql` for product queries.
+
 ## [0.0.6] - 2019-09-16
 ### Added
 - `search-blog-articles-preview` block to show article search results on product search result page
