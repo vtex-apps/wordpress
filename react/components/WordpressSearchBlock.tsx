@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
-import { InputSearch } from 'vtex.styleguide';
-import { useRuntime } from 'vtex.render-runtime';
-import styles from './search.css';
+import React, { useState } from 'react'
+import { InputSearch } from 'vtex.styleguide'
+import { useRuntime } from 'vtex.render-runtime'
+import { defineMessages } from 'react-intl'
+import styles from './search.css'
 
 const WordpressSearchBlock: StorefrontFunctionComponent<WordpressSearchProps> = ({ placeholder }) => {
-	const [ inputValue, setValue ] = useState('');
+	const [ inputValue, setValue ] = useState('')
 
-	const { navigate } = useRuntime();
+	const { navigate } = useRuntime()
 
 	const onGoToWordpressSearchPage = (e: any) => {
-		e.preventDefault();
+		e.preventDefault()
 		if (inputValue != '') {
 			const search = inputValue;
-			setValue('');
+			setValue('')
 			navigate({
 				page: 'store.blog-search-result',
 				params: { terms: search }
-			});
+			})
 		}
 	};
 
@@ -25,17 +26,17 @@ const WordpressSearchBlock: StorefrontFunctionComponent<WordpressSearchProps> = 
 			<form
 				className="mb5"
 				onSubmit={(e) => {
-					onGoToWordpressSearchPage(e);
+					onGoToWordpressSearchPage(e)
 				}}
 			>
 				<InputSearch
 					placeholder={placeholder}
 					size="large"
 					onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-						setValue(event.target.value);
+						setValue(event.target.value)
 					}}
 					onSubmit={(e: React.ChangeEvent<HTMLInputElement>) => {
-						onGoToWordpressSearchPage(e);
+						onGoToWordpressSearchPage(e)
 					}}
 				/>
 			</form>
@@ -45,16 +46,31 @@ const WordpressSearchBlock: StorefrontFunctionComponent<WordpressSearchProps> = 
 
 interface WordpressSearchProps {
 	/** Placeholder to be used on the input */
-	placeholder: string;
+	placeholder: string
 }
 
+const messages = defineMessages({
+    title: {
+      defaultMessage: '',
+      id: 'admin/editor.wordpressSearch.title',
+    },
+    description: {
+      defaultMessage: '',
+      id: 'admin/editor.wordpressSearch.description',
+	},
+	placeholderTitle: {
+		defaultMessage: '',
+		id: 'admin/editor.wordpressSearchPlaceholder.title'
+	}
+})
+
 WordpressSearchBlock.schema = {
-    title: 'admin/editor.wordpressSearch.title',
-    description: 'admin/editor.wordpressSearch.description',
+    title: messages.title.id,
+    description: messages.description.id,
     type: 'object',
     properties: {
         placeholder: {
-            title: 'admin/editor.wordpressSearchPlaceholder.title',
+            title: messages.placeholderTitle.id,
             type: 'string',
             isLayout: false,
             default: 'Search articles...'

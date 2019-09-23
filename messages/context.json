@@ -37,5 +37,7 @@
     "admin/editor.wordpressSearch.description": "admin/editor.wordpressSearch.description",
     "admin/editor.wordpressSearchPlaceholder.title": "admin/editor.wordpressSearchPlaceholder.title",
     "admin/editor.wordpressRelatedProducts.title": "admin/editor.wordpressRelatedProducts.title",
-    "admin/editor.wordpressRelatedProducts.description": "admin/editor.wordpressRelatedProducts.description"
+    "admin/editor.wordpressRelatedProducts.description": "admin/editor.wordpressRelatedProducts.description",
+    "admin/editor.wordpressSearchResultBlock.title": "admin/editor.wordpressSearchResultBlock.title",
+    "admin/editor.wordpressSearchResultBlock.description": "admin/editor.wordpressSearchResultBlock.description"
 }

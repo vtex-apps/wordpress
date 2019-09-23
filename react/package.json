@@ -15,6 +15,7 @@
     "react-apollo": "^2.5.5",
     "react-dom": "^16.8.5",
     "react-helmet": "^5.2.0",
+    "react-intl": "^2.9.0",
     "react-sanitized-html": "^2.0.0",
     "sanitize-html": "^1.20.1",
     "sanitize-html-react": "^1.13.0"
@@ -25,6 +26,7 @@
     "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.3",
     "@types/react-helmet": "^5.0.8",
+    "@types/react-intl": "^2.3.17",
     "eslint": "5.15.1",
     "eslint-config-vtex": "10.1.0",
     "eslint-config-vtex-react": "4.1.0",

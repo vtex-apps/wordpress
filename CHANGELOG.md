@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.0.8] - 2019-09-23
+### Added
+- `search-blog-articles-list` to allow paginated article search results on product search page
+- `wordpress-breadcrumb` now shows search query on article search result pages
+### Changed
+- Use `defineMessages` from `react-intl`
+### Fixed
+- Allow `h1` and `h2` tags in Wordpress blog post content
+
 ## [0.0.7] - 2019-09-18
 ### Changed
 - Start using `search-graphql` for product queries.

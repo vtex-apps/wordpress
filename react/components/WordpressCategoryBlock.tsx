@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react';
-import CategoryPosts from '../graphql/CategoryPosts.graphql';
-import { compose, graphql, DataProps } from 'react-apollo';
-import { Spinner, Button } from 'vtex.styleguide';
-import WordpressTeaser from './WordpressTeaser';
-import withSettingsNoSSR from './withSettingsNoSSR';
+import React, { Fragment } from 'react'
+import CategoryPosts from '../graphql/CategoryPosts.graphql'
+import { compose, graphql, DataProps } from 'react-apollo'
+import { defineMessages } from 'react-intl'
+import { Spinner, Button } from 'vtex.styleguide'
+import WordpressTeaser from './WordpressTeaser'
+import withSettingsNoSSR from './withSettingsNoSSR'
 
-import styles from './categoryblock.css';
+import styles from './categoryblock.css'
 
 const WordpressCategoryBlock: StorefrontFunctionComponent<DataPropsExtended> =
     ({ appSettings, appSettings: { blogRoute }, category, title, description, useTextOverlays, showDates, showAuthors, showExcerpts,
@@ -114,77 +115,168 @@ EnhancedWordpressCategoryBlock.defaultProps = {
     showExcerpts: false
 }
 
+const messages = defineMessages({
+    title: {
+      defaultMessage: '',
+      id: 'admin/editor.wordpressCategoryBlock.title',
+    },
+    description: {
+      defaultMessage: '',
+      id: 'admin/editor.wordpressCategoryBlock.description',
+    },
+    titleTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategoryBlockTitle.title'
+    },
+    titleDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategoryBlockTitle.description'
+    },
+    descriptionTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategoryBlockDescription.title'
+    },
+    descriptionDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategoryBlockDescription.description'
+    },
+    categoryTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategoryBlockCategory.title',
+    },
+    categoryDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategoryBlockCategory.description',
+    },
+    customLinkTextTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategoryBlockCustomLinkText.title'
+    },
+    customLinkTextDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategoryBlockCustomLinkText.description'
+    },
+    customLinkTargetTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategoryBlockCustomLinkTarget.title'
+    },
+    customLinkTargetDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategoryBlockCustomLinkTarget.description'
+    },
+    numberOfPostsTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressNumberOfPosts.title'
+    },
+    numberOfPostsDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressNumberOfPosts.description'
+    },
+    useTextOverlaysTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressOverlays.title'
+    },
+    useTextOverlaysDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressOverlays.description'
+    },
+    showDatesTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressDates.title'
+    },
+    showDatesDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressDates.description'
+    },  
+    showAuthorsTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressAuthors.title'
+    },
+    showAuthorsDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressAuthors.description'
+    },
+    showExcerptsTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressExcerpts.title'
+    },
+    showExcerptsDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressExcerpts.description'
+    }
+  })
+
 EnhancedWordpressCategoryBlock.schema = {
-    title: 'admin/editor.wordpressCategoryBlock.title',
-    description: 'admin/editor.wordpressCategoryBlock.description',
+    title: messages.title.id,
+    description: messages.description.id,
     type: 'object',
     properties: {
         category: {
-            title: 'admin/editor.wordpressCategoryBlockCategory.title',
-            description: 'admin/editor.wordpressCategoryBlockCategory.description',
+            title: messages.categoryTitle.id,
+            description: messages.categoryDescription.id,
             type: 'number',
             isLayout: false,
             default: 1
         },
         title: {
-            title: 'admin/editor.wordpressCategoryBlockTitle.title',
-            description: 'admin/editor.wordpressCategoryBlockTitle.description',
+            title: messages.titleTitle.id,
+            description: messages.titleDescription.id,
             type: 'string',
             isLayout: false,
             default: ''
         },
         description: {
-            title: 'admin/editor.wordpressCategoryBlockDescription.title',
-            description: 'admin/editor.wordpressCategoryBlockDescription.description',
+            title: messages.descriptionTitle.id,
+            description: messages.descriptionDescription.id,
             type: 'string',
             isLayout: false,
             default: ''
         },
         customLinkText: {
-            title: 'admin/editor.wordpressCategoryBlockCustomLinkText.title',
-            description: 'admin/editor.wordpressCategoryBlockCustomLinkText.description',
+            title: messages.customLinkTextTitle.id,
+            description: messages.customLinkTextDescription.id,
             type: 'string',
             isLayout: false,
             default: ''
         },
         customLinkTarget: {
-            title: 'admin/editor.wordpressCategoryBlockCustomLinkTarget.title',
-            description: 'admin/editor.wordpressCategoryBlockCustomLinkTarget.description',
+            title: messages.customLinkTargetTitle.id,
+            description: messages.customLinkTargetDescription.id,
             type: 'string',
             isLayout: false,
             default: ''
         },
         numberOfPosts: {
-            title: 'admin/editor.wordpressNumberOfPosts.title',
-            description: 'admin/editor.wordpressNumberOfPosts.description',
+            title: messages.numberOfPostsTitle.id,
+            description: messages.numberOfPostsDescription.id,
             type: 'number',
             isLayout: false,
             default: 3
         },
         useTextOverlays: {
-            title: 'admin/editor.wordpressOverlays.title',
-            description: 'admin/editor.wordpressOverlays.description',
+            title: messages.useTextOverlaysTitle.id,
+            description: messages.useTextOverlaysDescription.id,
             type: 'boolean',
             isLayout: false,
             default: false
         },
         showDates: {
-            title: 'admin/editor.wordpressDates.title',
-            description: 'admin/editor.wordpressDates.description',
+            title: messages.showDatesTitle.id,
+            description: messages.showDatesDescription.id,
             type: 'boolean',
             isLayout: false,
             default: true
         },
         showAuthors: {
-            title: 'admin/editor.wordpressAuthors.title',
-            description: 'admin/editor.wordpressAuthors.description',
+            title: messages.showAuthorsTitle.id,
+            description: messages.showAuthorsDescription.id,
             type: 'boolean',
             isLayout: false,
             default: false
         },
         showExcerpts: {
-            title: 'admin/editor.wordpressExcerpts.title',
-            description: 'admin/editor.wordpressExcerpts.description',
+            title: messages.showExcerptsTitle.id,
+            description: messages.showExcerptsDescription.id,
             type: 'boolean',
             isLayout: false,
             default: false

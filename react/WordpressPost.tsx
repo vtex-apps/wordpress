@@ -21,6 +21,8 @@ interface appSettings {
 type DataPropsWithParams = DataProps<any, any> & otherProps
 
 const allowedTags = [
+	'h1',
+	'h2',
 	'h3',
 	'h4',
 	'h5',

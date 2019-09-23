@@ -13,7 +13,7 @@
       "es2017",
       "dom"
     ],
-    "module": "es6",
+    "module": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,
     "target": "es2017",

@@ -21,6 +21,9 @@
     "search-blog-articles-preview.wordpress": {
         "component": "WordpressSearchResultBlock"
     },
+    "search-blog-articles-list.wordpress": {
+        "component": "WordpressProductSearchResult"
+    },
     "blog-search-list.wordpress-search-list": {
         "component": "WordpressSearchResult"
     },

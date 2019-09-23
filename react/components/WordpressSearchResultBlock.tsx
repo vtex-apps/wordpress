@@ -2,15 +2,15 @@ import React, { Fragment } from 'react';
 import SearchPosts from '../graphql/SearchPosts.graphql';
 import { compose, graphql, DataProps } from 'react-apollo';
 import { Spinner, Button } from 'vtex.styleguide';
-import { Link } from 'vtex.render-runtime';
 import WordpressTeaser from './WordpressTeaser';
 import withSettingsNoSSR from './withSettingsNoSSR';
 import withSearchContext from './withSearchContext';
+import { defineMessages } from 'react-intl'
 
 import styles from './searchresultblock.css';
 
 const WordpressSearchResultBlock: StorefrontFunctionComponent<DataPropsExtended> =
-    ({ appSettings, appSettings: { blogRoute }, searchQuery, title, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
+    ({ appSettings, appSettings: { blogRoute }, searchQuery, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
         data: { loading, error, wpPosts } }) => {
 
         const route = (blogRoute && blogRoute !== "") ? blogRoute : 'blog'
@@ -81,7 +81,6 @@ const EnhancedWordpressSearchResultBlock = compose(
 )(WordpressSearchResultBlock)
 
 interface WPSearchResultBlockProps {
-    title: string
     numberOfPosts: number
     useTextOverlays: boolean
     showCategories: boolean
@@ -100,7 +99,6 @@ interface AppSettings {
 type DataPropsExtended = WPSearchResultBlockProps & DataProps<any, any>;
 
 EnhancedWordpressSearchResultBlock.defaultProps = {
-    title: '',
     numberOfPosts: 3,
     useTextOverlays: false,
     showCategories: true,
@@ -109,56 +107,108 @@ EnhancedWordpressSearchResultBlock.defaultProps = {
     showExcerpts: false
 }
 
+const messages = defineMessages({
+    title: {
+      defaultMessage: '',
+      id: 'admin/editor.wordpressSearchResultBlock.title',
+    },
+    description: {
+      defaultMessage: '',
+      id: 'admin/editor.wordpressSearchResultBlock.description',
+    },
+    numberOfPostsTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressNumberOfPosts.title'
+    },
+    numberOfPostsDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressNumberOfPosts.description'
+    },
+    useTextOverlaysTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressOverlays.title'
+    },
+    useTextOverlaysDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressOverlays.description'
+    },
+    showCategoriesTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategories.title'
+    },
+    showCategoriesDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategories.description'
+    },
+    showDatesTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressDates.title'
+    },
+    showDatesDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressDates.description'
+    },  
+    showAuthorsTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressAuthors.title'
+    },
+    showAuthorsDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressAuthors.description'
+    },
+    showExcerptsTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressExcerpts.title'
+    },
+    showExcerptsDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressExcerpts.description'
+    }
+  })
+
 EnhancedWordpressSearchResultBlock.schema = {
-    title: 'admin/editor.wordpressSearchResultBlock.title',
-    description: 'admin/editor.wordpressSearchResultBlock.description',
+    title: messages.title.id,
+    description: messages.description.id,
     type: 'object',
     properties: {
-        title: {
-            title: 'admin/editor.wordpressSearchResultBlockTitle.title',
-            description: 'admin/editor.wordpressSearchResultBlockTitle.description',
-            type: 'string',
-            isLayout: false,
-            default: ''
-        },
         numberOfPosts: {
-            title: 'admin/editor.wordpressNumberOfPosts.title',
-            description: 'admin/editor.wordpressNumberOfPosts.description',
+            title: messages.numberOfPostsTitle.id,
+            description: messages.numberOfPostsDescription.id,
             type: 'number',
             isLayout: false,
             default: 3
         },
         useTextOverlays: {
-            title: 'admin/editor.wordpressOverlays.title',
-            description: 'admin/editor.wordpressOverlays.description',
+            title: messages.useTextOverlaysTitle.id,
+            description: messages.useTextOverlaysDescription.id,
             type: 'boolean',
             isLayout: false,
             default: false
         },
         showCategories: {
-            title: 'admin/editor.wordpressCategories.title',
-            description: 'admin/editor.wordpressCategories.description',
+            title: messages.showCategoriesTitle.id,
+            description: messages.showCategoriesDescription.id,
             type: 'boolean',
             isLayout: false,
             default: true
         },
         showDates: {
-            title: 'admin/editor.wordpressDates.title',
-            description: 'admin/editor.wordpressDates.description',
+            title: messages.showDatesTitle.id,
+            description: messages.showDatesDescription.id,
             type: 'boolean',
             isLayout: false,
             default: true
         },
         showAuthors: {
-            title: 'admin/editor.wordpressAuthors.title',
-            description: 'admin/editor.wordpressAuthors.description',
+            title: messages.showAuthorsTitle.id,
+            description: messages.showAuthorsDescription.id,
             type: 'boolean',
             isLayout: false,
             default: false
         },
         showExcerpts: {
-            title: 'admin/editor.wordpressExcerpts.title',
-            description: 'admin/editor.wordpressExcerpts.description',
+            title: messages.showExcerptsTitle.id,
+            description: messages.showExcerptsDescription.id,
             type: 'boolean',
             isLayout: false,
             default: false

@@ -37,5 +37,7 @@
     "admin/editor.wordpressSearch.description": "Displays a search box that can be used to perform a blog article search",
     "admin/editor.wordpressSearchPlaceholder.title": "Placeholder text",
     "admin/editor.wordpressRelatedProducts.title": "Wordpress Related Products",
-    "admin/editor.wordpressRelatedProducts.description": "Displays products tagged in a particular blog post, with the tag format 'prod-[ProductReferenceCode]'"
+    "admin/editor.wordpressRelatedProducts.description": "Displays products tagged in a particular blog post, with the tag format 'prod-[ProductReferenceCode]'",
+    "admin/editor.wordpressSearchResultBlock.title": "Wordpress Search Result Preview Block",
+    "admin/editor.wordpressSearchResultBlock.description": "Displays 3-5 article search results on the product search results page based on current product query, with a link to a full article search page"
 }

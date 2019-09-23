@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react';
-import AllPosts from '../graphql/AllPosts.graphql';
-import { compose, graphql, DataProps } from 'react-apollo';
-import { Spinner } from 'vtex.styleguide';
-import WordpressTeaser from './WordpressTeaser';
-import withSettingsNoSSR from './withSettings';
+import React, { Fragment } from 'react'
+import AllPosts from '../graphql/AllPosts.graphql'
+import { compose, graphql, DataProps } from 'react-apollo'
+import { defineMessages } from 'react-intl'
+import { Spinner } from 'vtex.styleguide'
+import WordpressTeaser from './WordpressTeaser'
+import withSettingsNoSSR from './withSettings'
 
-import styles from './latestpostsblock.css';
+import styles from './latestpostsblock.css'
 
 const WordpressLatestPostsBlock: StorefrontFunctionComponent<DataPropsExtended> =
     ({ appSettings, title, twoColumns, useTextOverlays, showCategories, showDates, showAuthors, showExcerpts,
@@ -147,63 +148,138 @@ EnhancedWordpressLatestPostsBlock.defaultProps = {
     showExcerpts: false
 }
 
+const messages = defineMessages({
+    title: {
+      defaultMessage: '',
+      id: 'admin/editor.wordpressLatestPosts.title',
+    },
+    description: {
+      defaultMessage: '',
+      id: 'admin/editor.wordpressLatestPosts.description',
+    },
+    titleTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressLatestPostsTitle.title'
+    },
+    titleDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressLatestPostsTitle.description'
+    },
+    twoColumnsTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressTwoColumns.title'
+    },
+    twoColumnsDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressTwoColumns.description'
+    },
+    numberOfPostsTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressNumberOfPosts.title'
+    },
+    numberOfPostsDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressNumberOfPosts.description'
+    },
+    useTextOverlaysTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressOverlays.title'
+    },
+    useTextOverlaysDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressOverlays.description'
+    },
+    showCategoriesTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategories.title'
+    },
+    showCategoriesDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressCategories.description'
+    },
+    showDatesTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressDates.title'
+    },
+    showDatesDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressDates.description'
+    },  
+    showAuthorsTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressAuthors.title'
+    },
+    showAuthorsDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressAuthors.description'
+    },
+    showExcerptsTitle: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressExcerpts.title'
+    },
+    showExcerptsDescription: {
+        defaultMessage: '',
+        id: 'admin/editor.wordpressExcerpts.description'
+    }
+  })
+
 EnhancedWordpressLatestPostsBlock.schema = {
-    title: 'admin/editor.wordpressLatestPosts.title',
-    description: 'admin/editor.wordpressLatestPosts.description',
+    title: messages.title.id,
+    description: messages.description.id,
     type: 'object',
     properties: {
         title: {
-            title: 'admin/editor.wordpressLatestPostsTitle.title',
-            description: 'admin/editor.wordpressLatestPostsTitle.description',
+            title: messages.titleTitle.id,
+            description: messages.titleDescription.id,
             type: 'string',
             isLayout: false,
             default: ''
         },
         twoColumns: {
-            title: 'admin/editor.wordpressTwoColumns.title',
-            description: 'admin/editor.wordpressTwoColumns.description',
+            title: messages.twoColumnsTitle.id,
+            description: messages.twoColumnsDescription.id,
             type: 'boolean',
             isLayout: false,
             default: false
         },
         numberOfPosts: {
-            title: 'admin/editor.wordpressNumberOfPosts.title',
-            description: 'admin/editor.wordpressNumberOfPosts.description',
+            title: messages.numberOfPostsTitle.id,    
+            description: messages.numberOfPostsDescription.id,
             type: 'number',
             isLayout: false,
             default: 3
         },
         useTextOverlays: {
-            title: 'admin/editor.wordpressOverlays.title',
-            description: 'admin/editor.wordpressOverlays.description',
+            title: messages.useTextOverlaysTitle.id,
+            description: messages.useTextOverlaysDescription.id,
             type: 'boolean',
             isLayout: false,
             default: false
         },
         showCategories: {
-            title: 'admin/editor.wordpressCategories.title',
-            description: 'admin/editor.wordpressCategories.description',
+            title: messages.showCategoriesTitle.id,
+            description: messages.showCategoriesDescription.id,
             type: 'boolean',
             isLayout: false,
             default: true
         },
         showDates: {
-            title: 'admin/editor.wordpressDates.title',
-            description: 'admin/editor.wordpressDates.description',
+            title: messages.showDatesTitle.id,
+            description: messages.showDatesDescription.id,
             type: 'boolean',
             isLayout: false,
             default: true
         },
         showAuthors: {
-            title: 'admin/editor.wordpressAuthors.title',
-            description: 'admin/editor.wordpressAuthors.description',
+            title: messages.showAuthorsTitle.id,
+            description: messages.showAuthorsDescription.id,
             type: 'boolean',
             isLayout: false,
             default: false
         },
         showExcerpts: {
-            title: 'admin/editor.wordpressExcerpts.title',
-            description: 'admin/editor.wordpressExcerpts.description',
+            title: messages.showExcerptsTitle.id,
+            description: messages.showExcerptsDescription.id,
             type: 'boolean',
             isLayout: false,
             default: false

@@ -47,6 +47,19 @@ class WordpressBreadcrumb extends Component<DataPropsWithParams> {
             )
         }
 
+        // if we're on an article search page
+        if (this.props.params && this.props.params.terms) {
+            return (
+            <Container className={`${styles.breadcrumbContainer} pt2 pb8`}>
+                <Link to={ "/" + route } className={`${styles.breadcrumbHomeLink}`}>
+                    Blog Home
+                </Link>
+                <span className={`${styles.breadcrumbSeparator}`}>&nbsp;/&nbsp;</span>
+                <span className={`${styles.breadcrumbCurrentPage}`}>Search results for "{this.props.params.terms}"</span>
+            </Container>
+            )    
+        }
+
         // if we're viewing a single blog post
         if (this.props.params && this.props.params.id) {
             return (

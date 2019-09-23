@@ -1,5 +1,6 @@
 import React from 'react'
 import { Query, DataProps } from 'react-apollo'
+import { defineMessages } from 'react-intl'
 
 import ProductsByReference from './graphql/ProductsByReference.graphql'
 import { WPRelatedProductsContext } from './contexts/WordpressRelatedProducts'
@@ -80,12 +81,23 @@ WordpressRelatedProducts.defaultProps = {
   },
 }
 
+const messages = defineMessages({
+  title: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressRelatedProducts.title',
+  },
+  description: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressRelatedProducts.description',
+  },
+})
+
 WordpressRelatedProducts.getSchema = props => {
   const productListSchema = ProductList.getSchema(props)
 
   return {
-    title: 'admin/editor.wordpressRelatedProducts.title',
-    description: 'admin/editor.wordpressRelatedProducts.description',
+    title: messages.title.id,
+    description: messages.description.id,
     type: 'object',
     properties: {
       productList: productListSchema,

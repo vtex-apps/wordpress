@@ -1,38 +1,38 @@
-import React, { Component, Fragment } from 'react';
-import SearchPosts from './graphql/SearchPosts.graphql';
-import withSettings from './components/withSettings'
-import { compose, graphql, DataProps } from 'react-apollo';
-import { Spinner, Pagination } from 'vtex.styleguide';
-import { Container } from 'vtex.store-components';
-import WordpressTeaser from './components/WordpressTeaser';
-import Helmet from 'react-helmet';
+import React, { Component, Fragment } from 'react'
+import SearchPosts from './graphql/SearchPosts.graphql'
+import withSettingsNoSSR from './components/withSettingsNoSSR'
+import withSearchContext from './components/withSearchContext'
+import { compose, graphql, DataProps } from 'react-apollo'
+import { Spinner, Pagination } from 'vtex.styleguide'
+import { Container } from 'vtex.store-components'
+import WordpressTeaser from './components/WordpressTeaser'
 import listStyles from './components/list.css'
 import searchStyles from './components/searchlist.css'
 
 interface otherProps {
 	appSettings: AppSettings
-	params: any
+	searchQuery: any
 }
 interface AppSettings {
 	titleTag: string
 	blogRoute: string
 }
-type DataPropsWithParams = DataProps<any, any> & otherProps
+type DataPropsExtended = DataProps<any, any> & otherProps
 
-class WordpressSearchResult extends Component<DataPropsWithParams> {
+class WordpressSearchResult extends Component<DataPropsExtended> {
 	state = {
 		page: 1,
 		per_page: 10
 	};
 	render() {
-        const { appSettings, appSettings: { titleTag }, params, data: { fetchMore, loading, error, wpPosts } } = this.props;
-        if (!params || !params.terms) return null
+        const { appSettings, searchQuery, data: { fetchMore, loading, error, wpPosts } } = this.props;
+		
+		if (searchQuery == null && searchQuery.productSearch == null) return null
+		
 		return (
 			<Fragment>
-                <Helmet>
-                    <title>{titleTag != "" ? "Article search results for " + decodeURIComponent(params.terms) + " | " + titleTag : "Article search results for " + decodeURIComponent(params.terms)}</title>
-                </Helmet>
-                <h2 className={`${listStyles.listTitle} ${searchStyles.searchListTitle} t-heading-2 tc`}>Article search results for "{decodeURIComponent(params.terms)}"</h2>
+               
+                <h2 className={`${listStyles.listTitle} ${searchStyles.searchListTitle} t-heading-2 tc`}>Article search results for "{searchQuery.productSearch.titleTag}"</h2>
 					
 				<Container className={`${listStyles.listContainer} ${searchStyles.searchListContainer} pt2 pb8`}>
 					<div className="ph3">
@@ -51,7 +51,7 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 									variables: {
 										wp_page: firstPage,
 										wp_per_page: perPage,
-										terms: params.terms
+										terms: searchQuery.productSearch.titleTag
 									},
 									updateQuery: (prev, { fetchMoreResult }) => {
 										if (!fetchMoreResult) return prev;
@@ -67,7 +67,7 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 										variables: {
 											wp_page: prevPage,
 											wp_per_page: this.state.per_page,
-										    terms: params.terms
+										    terms: searchQuery.productSearch.titleTag
 										},
 										updateQuery: (prev, { fetchMoreResult }) => {
 											if (!fetchMoreResult) return prev;
@@ -83,7 +83,7 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 									variables: {
 										wp_page: nextPage,
 										wp_per_page: this.state.per_page,
-										terms: params.terms
+										terms: searchQuery.productSearch.titleTag
 									},
 									updateQuery: (prev, { fetchMoreResult }) => {
 										if (!fetchMoreResult) return prev;
@@ -103,7 +103,7 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 							Error: {error.message}
 						</div>
 					)}
-					{wpPosts != null ? (
+					{wpPosts ? (
 						<div className={`${listStyles.listFlex} ${searchStyles.searchListFlex} mv4 flex flex-row flex-wrap`}>
 							{wpPosts.posts.map((post: PostData, index: number) => (
 								<div key={index} className={`${listStyles.listFlexItem} ${searchStyles.searchListFlexItem} mv3 w-100-s w-50-l ph4`}>
@@ -140,12 +140,13 @@ class WordpressSearchResult extends Component<DataPropsWithParams> {
 }
 
 export default compose(
-	withSettings,
+	withSearchContext,
+	withSettingsNoSSR,
 	graphql(SearchPosts,
 		{
-			options: (props: DataPropsWithParams) => (
+			options: (props: DataPropsExtended) => (
 				{
-					variables: { terms: props.params.terms },
+					variables: { terms: (props.searchQuery && props.searchQuery.productSearch) ? props.searchQuery.productSearch.titleTag : null },
 					notifyOnNetworkStatusChange: true,
 					ssr: false
 				})
