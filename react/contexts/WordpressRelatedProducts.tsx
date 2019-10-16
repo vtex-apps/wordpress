@@ -4,6 +4,8 @@ interface WPRelatedProductsContextInterface {
   productIds: [string?]
 }
 
-export const WPRelatedProductsContext = React.createContext<WPRelatedProductsContextInterface>({
-  productIds: []
+export const WPRelatedProductsContext = React.createContext<
+  WPRelatedProductsContextInterface
+>({
+  productIds: [],
 })

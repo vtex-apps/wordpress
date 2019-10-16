@@ -1,16 +1,17 @@
 import React, { ComponentType } from 'react'
-import {
-    SearchPageContext
-  } from 'vtex.search-page-context/SearchPageContext'
+import { SearchPageContext } from 'vtex.search-page-context/SearchPageContext'
 
-  function withSearchContext(WrappedComponent: ComponentType) {
-    return function (props: any) {
-        return ( 
-        <SearchPageContext.Consumer>
-            {({ searchQuery }:{ searchQuery: any }) => <WrappedComponent {...props} searchQuery={searchQuery} />}
-        </SearchPageContext.Consumer>
-        )
-    }
+function withSearchContext(WrappedComponent: ComponentType) {
+  // eslint-disable-next-line react/display-name
+  return function(props: any) {
+    return (
+      <SearchPageContext.Consumer>
+        {({ searchQuery }: { searchQuery: any }) => (
+          <WrappedComponent {...props} searchQuery={searchQuery} />
+        )}
+      </SearchPageContext.Consumer>
+    )
+  }
 }
 
 export default withSearchContext

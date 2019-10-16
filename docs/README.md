@@ -6,7 +6,7 @@ This app provides a way to bring in blog data from the Wordpress API and create 
 ### Setup
 After installing this app in your account, navigate to the app's settings in your admin dashboard under **Apps** > **Wordpress Integration**.
 
- *Wordpress URL* is required for the integration to function. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered.
+ *Wordpress URL* is required for the integration to function. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered. Note that an outbound-access rule for the URL must also be present in this app's [manifest](/manifest.json) for the app to be able to access the data.
 *Title tag for blog homepage* will determine the title tag for the Wordpress portions of your store.
 *URL path for blog homepage* will determine the route for the Wordpress portions of your store. This will need to match the blog routes in your `store-theme` app (more on that below).
 
@@ -36,7 +36,7 @@ Each of the above pages needs a route declared in your `store-theme`'s `store/ro
 	"path": "/blog/post/:id"
 },
 "store.blog-search-result": {
-	"path": "/blog/search/:terms"
+	"path": "/blog/search/:term"
 },
 ```
 You may change "blog" in each route to another string of your choosing, but the rest must stay the same. If you do decide to use a string other than "blog", make sure to enter it in the Wordpress Integration app settings under *URL path for blog homepage*. 
@@ -71,10 +71,20 @@ You may change "blog" in each route to another string of your choosing, but the 
  - `showAuthors`: Boolean. If false, the author of each post will not be shown. Default is false.
  - `showExcerpts`: Boolean. If false, the excerpt of each post will not be shown. Default is false.
 
-`blog-search.wordpress-search`: A search box that shoppers can use to search blog articles. When submitted, the shopper is redirected to the `store.blog-search` page. The following prop may be used:
+`blog-search.wordpress-search`: A search box that shoppers can use to search blog articles. When submitted, the shopper is redirected to the `store.blog-search-list` page. The following prop may be used:
 - `placeholder`: By default the search block will use "Search articles..." as the input placeholder, but you may enter a different string here.
 
 `blog-search-list.wordpress-search-list`: A paginated list of blog post search results. This must be placed on the `store.blog-search` page, as the search terms are provided by the parameter in the page route. 
+
+`search-blog-articles-preview.wordpress`: A small block showing 3-5 blog post search results with a link to `store.blog-search-list` for full blog post search results. This can only be placed on the main `store.search-result` page and uses the same search query as the product search component on that page. The following props can be used: 
+ - `numberOfPosts`: Integer. The number of posts to be displayed. Default is 3.
+ - `useTextOverlays`: Boolean. If true, the information (title, category, etc) for each blog post will be overlaid on the post's featured image. If false, posted date and category are shown above the image, title and excerpt are shown below. Default is false.
+ - `showCategories`:  Boolean. If false, the category of each post will not be shown. Default is true.
+ - `showDates`: Boolean. If false, the posted date of each post will not be shown. Default is true.
+ - `showAuthors`: Boolean. If false, the author of each post will not be shown. Default is false.
+ - `showExcerpts`: Boolean. If false, the excerpt of each post will not be shown. Default is false.
+
+`search-blog-articles-list.wordpress`: An alternative to the previous block. This block shows a complete paginated list of blog post search results, similar to `blog-search-list.wordpress-search-list`, but designed to be placed on the `store.search-result` product search page. It automatically uses the same search query as the product search component on that page.
 
 `blog-related-products.wordpress-related-products`: A specialized wrapper for a product shelf that can be placed on the `store.blog-post` page. This allows you to tag Wordpress posts with product reference codes, and the products in question will then be displayed in the shelf. The tags must be in the format **prod-[reference code]**. For example, if your product had a reference code of "VTEX01", the tag should be "prod-VTEX01". This block must have `product-summary.shelf` as a child. 
 
@@ -111,7 +121,8 @@ To use this CSS API, you must add the `styles` builder to your `store-theme` and
 }
 ```
 You can see what CSS namespaces are available, and any default styles, by viewing the following files:
-- **Paginated lists** (`wordpress-all-posts`, `wordpress-category-list`, `wordpress-search-list`): [list.css](/react/components/list.css)
+- **Paginated lists** (`wordpress-all-posts`, `wordpress-category-list`): [list.css](/react/components/list.css)
+- **Search list** (`wordpress-search-list`): [searchlist.css](/react/components/searchlist.css)
 - **Latest Posts Block** (`wordpress-latest-posts-preview`): [latestpostsblock.css](/react/components/latestpostsblock.css)
 - **Category Preview Block** (`wordpress-category-preview`): [categoryblock.css](/react/components/categoryblock.css)
 - **Related Posts Block** (`wordpress-related-posts`): [relatedpostsblock.css](/react/components/relatedpostsblock.css)

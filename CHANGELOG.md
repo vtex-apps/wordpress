@@ -4,34 +4,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-
 ## [Unreleased]
 
+## [0.0.9] - 2019-10-16
+
+### Fixed
+
+- Article search now uses the param `term` instead of `terms` (`terms` is reserved by `render-runtime`)
+- Applied standard VTEX prettier to react files
+- Updated documentation and deleted README.md in root folder
+
 ## [0.0.8] - 2019-09-23
+
 ### Added
+
 - `search-blog-articles-list` to allow paginated article search results on product search page
 - `wordpress-breadcrumb` now shows search query on article search result pages
+
 ### Changed
+
 - Use `defineMessages` from `react-intl`
+
 ### Fixed
+
 - Allow `h1` and `h2` tags in Wordpress blog post content
 
 ## [0.0.7] - 2019-09-18
+
 ### Changed
+
 - Start using `search-graphql` for product queries.
 
 ## [0.0.6] - 2019-09-16
+
 ### Added
+
 - `search-blog-articles-preview` block to show article search results on product search result page
+
 ### Fixed
+
 - Disabled SSR for appSettings calls except where necessary
 
 ## [0.0.5] - 2019-09-09
+
 ### Fixed
+
 - App settings query for blogRoute fixed
 - Disabled SSR for paginated lists to avoid SSR timeouts
 - General performance improvements
 
 ## [0.0.4] - 2019-08-06
+
 ### Changed
+
 - Docs migration

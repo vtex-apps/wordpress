@@ -4,116 +4,147 @@ import SanitizedHTML from 'react-sanitized-html'
 import styles from './teaser.css'
 
 interface TeaserProps {
-    title: string,
-    author: string,
-    excerpt: string,
-    category?: string,
-    categoryId?: number,
-    date: string,
-    id: number,
-    image: string,
-    altText: string,
-    mediaType: string,
-    showCategory: boolean,
-    showAuthor: boolean,
-    showDate: boolean,
-    showExcerpt: boolean,
-    useTextOverlay: boolean
-    settings: AppSettings
+  title: string
+  author: string
+  excerpt: string
+  category?: string
+  categoryId?: number
+  date: string
+  id: number
+  image: string
+  altText: string
+  mediaType: string
+  showCategory: boolean
+  showAuthor: boolean
+  showDate: boolean
+  showExcerpt: boolean
+  useTextOverlay: boolean
+  settings: AppSettings
 }
 
 interface AppSettings {
-	titleTag: string
-	blogRoute: string
+  titleTag: string
+  blogRoute: string
 }
 
 export default class WordpressTeaser extends Component<TeaserProps> {
+  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+  render() {
+    const {
+      settings: { blogRoute },
+      title,
+      author,
+      excerpt,
+      category,
+      categoryId,
+      date,
+      id,
+      mediaType,
+      image,
+      altText,
+      showCategory,
+      showAuthor,
+      showDate,
+      showExcerpt,
+      useTextOverlay,
+    } = this.props
+    const dateObj = new Date(date)
+    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+    const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
+    const route = blogRoute && blogRoute !== '' ? blogRoute : 'blog'
+    return (
+      <Card noPadding className={`${styles.teaserContainer}`}>
+        {(showCategory || showDate || showAuthor) &&
+          (!useTextOverlay || mediaType != 'image') && (
+            <h5 className="mv1 ph6 pt6 pb4">
+              {showCategory &&
+                category != undefined &&
+                categoryId != undefined && (
+                  <Fragment>
+                    <a href={'/' + route + '/category/' + categoryId}>
+                      {category}
+                    </a>
+                  </Fragment>
+                )}
+              {((showCategory && showDate) || (showCategory && showAuthor)) && (
+                <Fragment> - </Fragment>
+              )}
+              {showDate && <Fragment>{formattedDate}</Fragment>}
+              {showDate && showAuthor && <Fragment> - </Fragment>}
+              {showAuthor && <Fragment>{author}</Fragment>}
+            </h5>
+          )}
+        {mediaType === 'image' && (
+          <Fragment>
+            {useTextOverlay ? (
+              <a
+                href={'/' + route + '/post/' + id}
+                className="tc-m db relative"
+              >
+                <img
+                  className={`${styles.teaserImage}`}
+                  src={image}
+                  alt={altText}
+                ></img>
+                <div className={`${styles.teaserGradientOverlay} absolute`}>
+                  <div className={`${styles.teaserTextOverlay} absolute`}>
+                    <div className={`${styles.teaserTextOverlayTitle}`}>
+                      {title}
+                    </div>
+                    {(showCategory || showDate || showAuthor) && (
+                      <div className={`${styles.teaserTextOverlayMeta}`}>
+                        {showCategory &&
+                          category != undefined &&
+                          categoryId != undefined && (
+                            <Fragment>
+                              <a href={'/' + route + '/category/' + categoryId}>
+                                {category}
+                              </a>
+                            </Fragment>
+                          )}
+                        {((showCategory && showDate) ||
+                          (showCategory && showAuthor)) && (
+                          <Fragment> - </Fragment>
+                        )}
+                        {showDate && <Fragment>{formattedDate}</Fragment>}
+                        {showDate && showAuthor && <Fragment> - </Fragment>}
+                        {showAuthor && <Fragment>{author}</Fragment>}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </a>
+            ) : (
+              <Fragment>
+                <a href={'/' + route + '/post/' + id} className="tc-m db">
+                  <img
+                    className={`${styles.teaserImage}`}
+                    src={image}
+                    alt={altText}
+                  ></img>
+                </a>
+                <h3
+                  className={`${styles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
+                >
+                  <a href={'/' + route + '/post/' + id}>
+                    <SanitizedHTML html={title} />
+                  </a>
+                </h3>
+              </Fragment>
+            )}
+          </Fragment>
+        )}
 
-    render() {
-        const { settings: { blogRoute }, title, author, excerpt, category, categoryId, date, id, mediaType, image, altText,
-            showCategory, showAuthor, showDate, showExcerpt, useTextOverlay } = this.props
-        const dateObj = new Date(date)
-        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
-        const formattedDate = dateObj.toLocaleDateString("en-US", dateOptions)
-        const route = (blogRoute && blogRoute !== "") ? blogRoute : 'blog'
-        return (
-            <Card noPadding className={`${styles.teaserContainer}`}>
-                {((showCategory || showDate || showAuthor) && (!useTextOverlay || mediaType != "image")) && (
-                    <h5 className="mv1 ph6 pt6 pb4">
-                        {(showCategory && category != undefined && categoryId != undefined) && (
-                            <Fragment><a href={"/" + route + "/category/" + categoryId}>{category}</a></Fragment>
-                        )}
-                        {((showCategory && showDate) || (showCategory && showAuthor)) && (
-                            <Fragment> - </Fragment>
-                        )}
-                        {showDate && (
-                            <Fragment>{formattedDate}</Fragment>
-                        )}
-                        {(showDate && showAuthor) && (
-                            <Fragment> - </Fragment>
-                        )}
-                        {showAuthor && (
-                            <Fragment>{author}</Fragment>
-                        )}
-                    </h5>
-                )}
-                {mediaType === "image" && (
-                    <Fragment>
-                        {useTextOverlay ? (
-                            <a href={"/" + route + "/post/" + id} className="tc-m db relative">
-                                <img className={`${styles.teaserImage}`} src={image} alt={altText}></img>
-                                <div className={`${styles.teaserGradientOverlay} absolute`}>
-                                    <div className={`${styles.teaserTextOverlay} absolute`}>
-                                        <div className={`${styles.teaserTextOverlayTitle}`}>{title}</div>
-                                        {(showCategory || showDate || showAuthor) && (
-                                            <div className={`${styles.teaserTextOverlayMeta}`}>
-                                                {(showCategory && category != undefined && categoryId != undefined) && (
-                                                    <Fragment><a href={"/" + route + "/category/" + categoryId}>{category}</a></Fragment>
-                                                )}
-                                                {((showCategory && showDate) || (showCategory && showAuthor)) && (
-                                                    <Fragment> - </Fragment>
-                                                )}
-                                                {showDate && (
-                                                    <Fragment>{formattedDate}</Fragment>
-                                                )}
-                                                {(showDate && showAuthor) && (
-                                                    <Fragment> - </Fragment>
-                                                )}
-                                                {showAuthor && (
-                                                    <Fragment>{author}</Fragment>
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </a>
-                        ) : (
-                                <Fragment>
-                                    <a href={"/" + route + "/post/" + id} className="tc-m db">
-                                        <img className={`${styles.teaserImage}`} src={image} alt={altText}></img>
-                                    </a>
-                                    <h3 className={`${styles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
-                                        <a href={"/" + route + "/post/" + id}>
-                                            <SanitizedHTML html={title} />
-                                        </a>
-                                    </h3>
-                                </Fragment>
-                            )}
-                    </Fragment>
-                )}
+        {mediaType != 'image' && (
+          <h3 className={`${styles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
+            <a href={'/' + route + '/post/' + id}>
+              <SanitizedHTML html={title} />
+            </a>
+          </h3>
+        )}
 
-                {mediaType != "image" && (
-                    <h3 className={`${styles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
-                        <a href={"/" + route + "/post/" + id}>
-                            <SanitizedHTML html={title} />
-                        </a>
-                    </h3>
-                )}
-
-                {showExcerpt && (
-                    <SanitizedHTML className="ph6 pb6" html={excerpt} />
-                )}
-            </Card>
-        )
-    }
+        {showExcerpt && <SanitizedHTML className="ph6 pb6" html={excerpt} />}
+      </Card>
+    )
+  }
 }

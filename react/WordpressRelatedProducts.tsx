@@ -8,35 +8,41 @@ import { WPRelatedProductsContext } from './contexts/WordpressRelatedProducts'
 import { ProductList } from 'vtex.shelf'
 import styles from './components/shelf.css'
 
-const WordpressRelatedProducts: StorefrontFunctionComponent<DataPropsExtended> = ({ productList }) => {
-
+const WordpressRelatedProducts: StorefrontFunctionComponent<
+  DataPropsExtended
+> = ({ productList }) => {
   return (
     <WPRelatedProductsContext.Consumer>
       {({ productIds }) => (
-      <Query<any> query={ProductsByReference} variables={{ ids: productIds }} partialRefetch ssr={false} >
-        {({data, loading}) => {
-          if (!data) {
-            return null
-          }
-          const { productsByIdentifier } = data
-          const productListProps = {
-            products: productsByIdentifier || [],
-            loading,
-            ...productList,
-          }
-          return (
-            <div className={styles.wordpressRelatedProducts}>
-              <ProductList {...productListProps} />
-            </div>
-          )
-        }}
-      </Query>
+        <Query<any>
+          query={ProductsByReference}
+          variables={{ ids: productIds }}
+          partialRefetch
+          ssr={false}
+        >
+          {({ data, loading }) => {
+            if (!data) {
+              return null
+            }
+            const { productsByIdentifier } = data
+            const productListProps = {
+              products: productsByIdentifier || [],
+              loading,
+              ...productList,
+            }
+            return (
+              <div className={styles.wordpressRelatedProducts}>
+                <ProductList {...productListProps} />
+              </div>
+            )
+          }}
+        </Query>
       )}
     </WPRelatedProductsContext.Consumer>
   )
 }
 
-interface productListSchema {
+interface ProductListSchema {
   /** Maximum number of items in the shelf. */
   maxItems: number
   /** Maximum number of items in a page. */
@@ -57,7 +63,7 @@ interface WordpressRelatedProductsProps {
   /** Array of product reference codes from blog article tags to have related products queried */
   productIds: [string?]
   /** ProductList schema configuration */
-  productList: productListSchema
+  productList: ProductListSchema
 }
 
 type DataPropsExtended = WordpressRelatedProductsProps & DataProps<any, any>
