@@ -13,16 +13,12 @@ export default function withSettings(Component: any): any {
       } = this.props
       if (loading) {
         return (
-          <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
+          <div className="mv5 flex justify-center">
             <Spinner />
           </div>
         )
       } else if (error) {
-        return (
-          <div className="ph5" style={{ minHeight: 800 }}>
-            Error! {error.message}
-          </div>
-        )
+        return <div className="ph5">Error! {error.message}</div>
       } else if (appSettings != null) {
         return <Component appSettings={appSettings} {...rest} />
       } else {
