@@ -6,8 +6,10 @@ This app provides a way to bring in blog data from the Wordpress API and create 
 ### Setup
 After installing this app in your account, navigate to the app's settings in your admin dashboard under **Apps** > **Wordpress Integration**.
 
- *Wordpress URL* is required for the integration to function. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered. Note that an outbound-access rule for the URL must also be present in this app's [manifest](/manifest.json) for the app to be able to access the data.
+*Wordpress URL* is required for the integration to function. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered. Note that an outbound-access rule for the URL must also be present in this app's [manifest](/manifest.json) for the app to be able to access the data.
+
 *Title tag for blog homepage* will determine the title tag for the Wordpress portions of your store.
+
 *URL path for blog homepage* will determine the route for the Wordpress portions of your store. This will need to match the blog routes in your `store-theme` app (more on that below).
 
 All other configuration of Wordpress is done within your store's `store-theme`.

@@ -31,14 +31,14 @@
     "eslint": "5.15.1",
     "eslint-config-vtex-react": "4.1.0",
     "prettier": "^1.18.2",
-    "vtex.blog-interfaces": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.3/public/_types/react",
-    "vtex.product-summary": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.34.4/public/_types/react",
-    "vtex.render-runtime": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.62.2/public/_types/react",
+    "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.90.1/public/_types/react",
+    "vtex.store-components": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.78.1/public/_types/react",
+    "vtex.shelf": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.31.5/public/_types/react",
     "vtex.search-page-context": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.1/public/_types/react",
-    "vtex.shelf": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.30.1/public/_types/react",
-    "vtex.store": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.57.0/public/_types/react",
-    "vtex.store-components": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.68.7/public/_types/react",
-    "vtex.store-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.105.1/public/_types/react",
-    "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.78.11/public/_types/react"
+    "vtex.search-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.7.0/public/@types/vtex.search-graphql",
+    "vtex.render-runtime": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@8.72.2/public/@types/vtex.render-runtime",
+    "vtex.product-summary": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.42.1/public/_types/react",
+    "vtex.store": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.69.0/public/_types/react",
+    "vtex.blog-interfaces": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.5/public/@types/vtex.blog-interfaces"
   }
 }

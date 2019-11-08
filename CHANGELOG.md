@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.0.12] - 2019-11-08
+
+### Fixed
+
+- Changed the way `WordpressProductSearchResult` accesses the current search query per the new requirements of `withSearchContext`
+
+## [0.0.11] - 2019-10-24
+
+### Fixed
+
+- Fixed render issue with `withSettings` HOCs (container div was not being re-rendered after loading completed)
+
 ## [0.0.10] - 2019-10-18
 
 ### Changed

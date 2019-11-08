@@ -33,14 +33,16 @@ class WordpressSearchResult extends Component<DataPropsExtended> {
       data: { fetchMore, loading, error, wpPosts },
     } = this.props
 
-    if (searchQuery == null && searchQuery.productSearch == null) return null
+    if (!searchQuery || (searchQuery && !searchQuery.data.searchMetadata))
+      return null
 
     return (
       <Fragment>
         <h2
           className={`${listStyles.listTitle} ${searchStyles.searchListTitle} t-heading-2 tc`}
         >
-          Article search results for &quot;{searchQuery.productSearch.titleTag}
+          Article search results for &quot;
+          {searchQuery.data.searchMetadata.titleTag}
           &quot;
         </h2>
 
@@ -65,7 +67,7 @@ class WordpressSearchResult extends Component<DataPropsExtended> {
                   variables: {
                     wp_page: firstPage,
                     wp_per_page: perPage,
-                    terms: searchQuery.productSearch.titleTag,
+                    terms: searchQuery.data.searchMetadata.titleTag,
                   },
                   updateQuery: (prev, { fetchMoreResult }) => {
                     if (!fetchMoreResult) return prev
@@ -81,7 +83,7 @@ class WordpressSearchResult extends Component<DataPropsExtended> {
                     variables: {
                       wp_page: prevPage,
                       wp_per_page: this.state.per_page,
-                      terms: searchQuery.productSearch.titleTag,
+                      terms: searchQuery.data.searchMetadata.titleTag,
                     },
                     updateQuery: (prev, { fetchMoreResult }) => {
                       if (!fetchMoreResult) return prev
@@ -97,7 +99,7 @@ class WordpressSearchResult extends Component<DataPropsExtended> {
                   variables: {
                     wp_page: nextPage,
                     wp_per_page: this.state.per_page,
-                    terms: searchQuery.productSearch.titleTag,
+                    terms: searchQuery.data.searchMetadata.titleTag,
                   },
                   updateQuery: (prev, { fetchMoreResult }) => {
                     if (!fetchMoreResult) return prev
@@ -183,8 +185,8 @@ export default compose(
     options: (props: DataPropsExtended) => ({
       variables: {
         terms:
-          props.searchQuery && props.searchQuery.productSearch
-            ? props.searchQuery.productSearch.titleTag
+          props.searchQuery && props.searchQuery.data.searchMetadata
+            ? props.searchQuery.data.searchMetadata.titleTag
             : null,
       },
       notifyOnNetworkStatusChange: true,
