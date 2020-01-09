@@ -1,46 +1,62 @@
 import React, { Fragment } from 'react'
-import SearchPosts from '../graphql/SearchPosts.graphql'
-import { compose, graphql, DataProps } from 'react-apollo'
+import { useQuery } from 'react-apollo'
 import { Spinner, Button } from 'vtex.styleguide'
-import WordpressTeaser from './WordpressTeaser'
-import withSettingsNoSSR from './withSettingsNoSSR'
-import withSearchContext from './withSearchContext'
 import { defineMessages } from 'react-intl'
+import { Link } from 'vtex.render-runtime'
+import { useCssHandles } from 'vtex.css-handles'
 
-import styles from './searchresultblock.css'
+import WordpressTeaser from './WordpressTeaser'
+import withSearchContext from './withSearchContext'
+import SearchPosts from '../graphql/SearchPosts.graphql'
+import Settings from '../graphql/Settings.graphql'
 
-const WordpressSearchResultBlock: StorefrontFunctionComponent<
-  DataPropsExtended
-> = ({
-  appSettings,
-  appSettings: { blogRoute },
+const CSS_HANDLES = [
+  'searchResultBlockContainer',
+  'searchResultBlockTitle',
+  'searchResultBlockFlex',
+  'searchResultBlockFlexItem',
+  'searchResultBlockLink',
+] as const
+
+const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBlockProps> = ({
   searchQuery,
   useTextOverlays,
   showCategories,
   showDates,
   showAuthors,
   showExcerpts,
-  data: { loading, error, wpPosts },
+  numberOfPosts,
 }) => {
-  const route = blogRoute && blogRoute !== '' ? blogRoute : 'blog'
+  const handles = useCssHandles(CSS_HANDLES)
+  const { loading: loadingS, data: dataS } = useQuery(Settings)
+  const { loading, error, data } = useQuery(SearchPosts, {
+    variables: {
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      wp_per_page: numberOfPosts,
+      terms: searchQuery?.productSearch?.titleTag ?? null,
+    },
+  })
+
+  let route = dataS?.appSettings?.blogRoute
+  if (!route || route == '') route = 'blog'
 
   return (
-    <div className={`${styles.searchResultBlockContainer} pv4 pb9`}>
-      {loading && <Spinner />}
+    <div className={`${handles.searchResultBlockContainer} pv4 pb9`}>
+      {(loading || loadingS) && <Spinner />}
       {error && <span>Error: {error.message}</span>}
-      {searchQuery && searchQuery.productSearch && wpPosts ? (
+      {searchQuery?.productSearch && data?.wpPosts ? (
         <Fragment>
-          <h4 className={`${styles.searchResultBlockTitle} t-heading-2`}>
-            {wpPosts.total_count} articles found for &quot;
+          <h4 className={`${handles.searchResultBlockTitle} tc t-heading-2`}>
+            {data.wpPosts.total_count} articles found for &quot;
             {searchQuery.productSearch.titleTag}&quot;:
           </h4>
           <div
-            className={`${styles.searchResultBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
+            className={`${handles.searchResultBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
           >
-            {wpPosts.posts.map((post: PostData, index: number) => (
+            {data.wpPosts.posts.map((post: PostData, index: number) => (
               <div
                 key={index}
-                className={`${styles.searchResultBlockFlexItem} mv3 w-33-l ph2 w-100-s`}
+                className={`${handles.searchResultBlockFlexItem} mv3 w-33-l ph2 w-100-s`}
               >
                 <WordpressTeaser
                   title={post.title.rendered}
@@ -76,21 +92,21 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<
                   showAuthor={showAuthors}
                   showExcerpt={showExcerpts}
                   useTextOverlay={useTextOverlays}
-                  settings={appSettings}
+                  settings={dataS.appSettings}
                 />
               </div>
             ))}
           </div>
-          <a
-            href={'/' + route + '/search/' + searchQuery.productSearch.titleTag}
-            className={`${styles.searchResultBlockLink}`}
+          <Link
+            to={'/' + route + '/search/' + searchQuery.productSearch.titleTag}
+            className={`${handles.searchResultBlockLink}`}
           >
             <Button variation="secondary" block>
               View all article results for &quot;
               {searchQuery.productSearch.titleTag}
               &quot; &gt;
             </Button>
-          </a>
+          </Link>
         </Fragment>
       ) : (
         !loading && !error && <Fragment />
@@ -98,25 +114,6 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<
     </div>
   )
 }
-
-const EnhancedWordpressSearchResultBlock = compose(
-  withSearchContext,
-  withSettingsNoSSR,
-  graphql(SearchPosts, {
-    options: (props: WPSearchResultBlockProps) => ({
-      variables: {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        wp_per_page: props.numberOfPosts,
-        terms:
-          props.searchQuery && props.searchQuery.productSearch
-            ? props.searchQuery.productSearch.titleTag
-            : null,
-      },
-      errorPolicy: 'all',
-      ssr: false,
-    }),
-  })
-)(WordpressSearchResultBlock)
 
 interface WPSearchResultBlockProps {
   numberOfPosts: number
@@ -126,17 +123,9 @@ interface WPSearchResultBlockProps {
   showAuthors: boolean
   showExcerpts: boolean
   searchQuery: any
-  appSettings: AppSettings
 }
 
-interface AppSettings {
-  titleTag: string
-  blogRoute: string
-}
-
-type DataPropsExtended = WPSearchResultBlockProps & DataProps<any, any>
-
-EnhancedWordpressSearchResultBlock.defaultProps = {
+WordpressSearchResultBlock.defaultProps = {
   numberOfPosts: 3,
   useTextOverlays: false,
   showCategories: true,
@@ -204,7 +193,7 @@ const messages = defineMessages({
   },
 })
 
-EnhancedWordpressSearchResultBlock.schema = {
+WordpressSearchResultBlock.schema = {
   title: messages.title.id,
   description: messages.description.id,
   type: 'object',
@@ -254,4 +243,4 @@ EnhancedWordpressSearchResultBlock.schema = {
   },
 }
 
-export default EnhancedWordpressSearchResultBlock
+export default withSearchContext(WordpressSearchResultBlock)

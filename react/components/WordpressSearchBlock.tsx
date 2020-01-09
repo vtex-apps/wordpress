@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import { InputSearch } from 'vtex.styleguide'
 import { useRuntime } from 'vtex.render-runtime'
 import { defineMessages } from 'react-intl'
-import styles from './search.css'
+import { useCssHandles } from 'vtex.css-handles'
 
-const WordpressSearchBlock: StorefrontFunctionComponent<
-  WordpressSearchProps
-> = ({ placeholder }) => {
+const CSS_HANDLES = ['searchBlockContainer'] as const
+
+const WordpressSearchBlock: StorefrontFunctionComponent<WordpressSearchProps> = ({
+  placeholder,
+}) => {
+  const handles = useCssHandles(CSS_HANDLES)
   const [inputValue, setValue] = useState('')
-
   const { navigate } = useRuntime()
 
   const onGoToWordpressSearchPage = (e: any) => {
@@ -24,7 +26,7 @@ const WordpressSearchBlock: StorefrontFunctionComponent<
   }
 
   return (
-    <div className={`${styles.searchBlockContainer} relative-m w-100`}>
+    <div className={`${handles.searchBlockContainer} relative-m w-100`}>
       <form
         className="mb5"
         onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
@@ -34,7 +36,7 @@ const WordpressSearchBlock: StorefrontFunctionComponent<
         <InputSearch
           placeholder={placeholder}
           size="large"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={(event: React.ChangeEvent<any>) => {
             setValue(event.target.value)
           }}
           onSubmit={(e: React.ChangeEvent<HTMLInputElement>) => {

@@ -2503,10 +2503,10 @@ type-is@^1.6.16:
     media-typer "0.3.0"
     mime-types "~2.1.18"
 
-typescript@3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.2.tgz#a09e1dc69bc9551cadf17dba10ee42cf55e5d56c"
-  integrity sha512-7KxJovlYhTX5RaRbUdkAXN1KUZ8PwWlTzQdHV6xNqvuFOs7+WBo10TQUqT19Q/Jz2hk5v9TQDIhyLhhJY4p5AA==
+typescript@3.7.3:
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
+  integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
 
 universalify@^0.1.0:
   version "0.1.2"
@@ -2543,41 +2543,45 @@ uuid@^3.1.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
 
-"vtex.blog-interfaces@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.5/public/@types/vtex.blog-interfaces":
-  version "0.0.5"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.5/public/@types/vtex.blog-interfaces#4c1263f5ce093a80ec45711f1338262d84b24884"
+"vtex.blog-interfaces@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces":
+  version "0.0.6"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces#c25ee2ab9657266ed0deea268dab59675f5f8b69"
 
-"vtex.product-summary@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.42.1/public/_types/react":
+"vtex.css-handles@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles":
+  version "0.4.1"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles#16fe9485e8e7183b94f28496ed8cdd741c83f227"
+
+"vtex.product-summary@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.47.0/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.42.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.47.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.search-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.7.0/public/@types/vtex.search-graphql":
-  version "0.7.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.7.0/public/@types/vtex.search-graphql#e5e1d0e49e47fd8ba93591a877cc8b1fec75d834"
+"vtex.search-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.13.1/public/@types/vtex.search-graphql":
+  version "0.13.1"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.13.1/public/@types/vtex.search-graphql#caa4cbd6de24f0f48de97cd2df8e254d9703c4d0"
 
-"vtex.search-page-context@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.1/public/_types/react":
+"vtex.search-page-context@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.2/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.2/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.shelf@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.31.5/public/_types/react":
+"vtex.shelf@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.33.5/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.31.5/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.33.5/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.store-components@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.78.1/public/_types/react":
+"vtex.store-components@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.98.0/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.78.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.98.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
-"vtex.store@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.69.0/public/_types/react":
-  version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.69.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+"vtex.store@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.80.0/public/@types/vtex.store":
+  version "2.80.0"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.80.0/public/@types/vtex.store#e82fa1221247bbe13b01c727eb4a1821bbf3a14a"
 
-"vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.90.1/public/_types/react":
-  version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.90.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+"vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.103.4/public/@types/vtex.styleguide":
+  version "9.103.4"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.103.4/public/@types/vtex.styleguide#639f6ec2985497017549b0a5d0270541c7aa54cc"
 
-"vtex.wordpress-integration@https://wordpress--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@0.0.10+build1571942431/public/@types/vtex.wordpress-integration":
-  version "0.0.10"
-  resolved "https://wordpress--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@0.0.10+build1571942431/public/@types/vtex.wordpress-integration#090cb4b62a2464f8990486e1766e846c02c0ddd1"
+"vtex.wordpress-integration@https://wptest--redoxx.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@0.0.12+build1578080778/public/@types/vtex.wordpress-integration":
+  version "0.0.12"
+  resolved "https://wptest--redoxx.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@0.0.12+build1578080778/public/@types/vtex.wordpress-integration#7b8cf3b7c67bc8b4f8759562dda4217b7cc61cc8"
 
 which@^1.2.9:
   version "1.3.1"
