@@ -31,23 +31,21 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
-    skip: !searchQuery || searchQuery == '',
+    skip: !searchQuery,
     variables: {
-      terms: searchQuery?.data?.searchMetadata?.titleTag ?? null,
+      terms: searchQuery?.query ?? null,
       wp_page: 1,
       wp_per_page: 10,
     },
   })
-  if (!searchQuery || (searchQuery && !searchQuery.data.searchMetadata))
-    return null
 
-  return (
+  return searchQuery?.query ? (
     <Fragment>
       <h2
         className={`${handles.listTitle} ${handles.searchListTitle} t-heading-2 tc`}
       >
         Article search results for &quot;
-        {searchQuery.data.searchMetadata.titleTag}
+        {searchQuery.query}
         &quot;
       </h2>
 
@@ -70,7 +68,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
                 variables: {
                   wp_page: 1,
                   wp_per_page: event.target.value,
-                  terms: searchQuery.data.searchMetadata.titleTag,
+                  terms: searchQuery.query,
                 },
                 updateQuery: (prev, { fetchMoreResult }) => {
                   if (!fetchMoreResult) return prev
@@ -86,7 +84,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
                   variables: {
                     wp_page: prevPage,
                     wp_per_page: perPage,
-                    terms: searchQuery.data.searchMetadata.titleTag,
+                    terms: searchQuery.query,
                   },
                   updateQuery: (prev, { fetchMoreResult }) => {
                     if (!fetchMoreResult) return prev
@@ -102,7 +100,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
                 variables: {
                   wp_page: nextPage,
                   wp_per_page: perPage,
-                  terms: searchQuery.data.searchMetadata.titleTag,
+                  terms: searchQuery.query,
                 },
                 updateQuery: (prev, { fetchMoreResult }) => {
                   if (!fetchMoreResult) return prev
@@ -177,7 +175,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
         )}
       </Container>
     </Fragment>
-  )
+  ) : null
 }
 
 export default withSearchContext(WordpressSearchResult)

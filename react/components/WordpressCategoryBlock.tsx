@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { Fragment } from 'react'
 import { Link } from 'vtex.render-runtime'
 import { useQuery } from 'react-apollo'
@@ -28,9 +29,15 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
   showExcerpts,
   customLinkText,
   customLinkTarget,
+  numberOfPosts,
 }) => {
   const { loading: loadingS, data: dataS } = useQuery(Settings)
-  const { loading, error, data } = useQuery(CategoryPosts)
+  const { loading, error, data } = useQuery(CategoryPosts, {
+    variables: {
+      category: category,
+      wp_per_page: numberOfPosts,
+    },
+  })
   const handles = useCssHandles(CSS_HANDLES)
 
   let route = dataS?.appSettings?.blogRoute
@@ -40,7 +47,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
     <div className={`${handles.categoryBlockContainer} pv4 pb9`}>
       {(loading || loadingS) && <Spinner />}
       {error && <span>Error: {error.message}</span>}
-      {data.wpCategory?.name ? (
+      {data?.wpCategory?.name ? (
         <Fragment>
           <h2 className={`${handles.categoryBlockTitle} tc t-heading-2`}>
             {title != '' ? title : data.wpCategory.name}
@@ -97,7 +104,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
             to={
               customLinkTarget != ''
                 ? customLinkTarget
-                : route + '/category/' + category
+                : '/' + route + '/category/' + category
             }
             className={`${handles.categoryBlockLink}`}
           >

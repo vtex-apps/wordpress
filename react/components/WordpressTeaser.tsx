@@ -68,7 +68,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
           <h5 className="mv1 ph6 pt6 pb4">
             {showCategory && category != undefined && categoryId != undefined && (
               <Fragment>
-                <a href={'/' + route + '/category/' + categoryId}>{category}</a>
+                <Link to={'/' + route + '/category/' + categoryId}>
+                  {category}
+                </Link>
               </Fragment>
             )}
             {((showCategory && showDate) || (showCategory && showAuthor)) && (
