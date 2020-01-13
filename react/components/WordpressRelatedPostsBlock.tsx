@@ -28,7 +28,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
 }) => {
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data } = useQuery(TagPosts, {
-    skip: !productQuery,
+    skip: !productQuery?.product?.productReference,
     variables: {
       // eslint-disable-next-line @typescript-eslint/camelcase
       wp_per_page: numberOfPosts,
@@ -36,7 +36,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
     },
   })
   const handles = useCssHandles(CSS_HANDLES)
-  return (
+  return productQuery?.product?.productReference ? (
     <div className={`${handles.relatedPostsBlockContainer} pv4 pb9`}>
       {(loading || loadingS) && <Spinner />}
       {error && <Fragment />}
@@ -100,7 +100,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
         <Fragment />
       )}
     </div>
-  )
+  ) : null
 }
 
 interface WPRelatedPostsBlockProps {
