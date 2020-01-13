@@ -84,9 +84,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
       {mediaType === 'image' && (
         <Fragment>
           {useTextOverlay ? (
-            <Link to={'/' + route + '/post/' + id} className="tc-m db relative">
+            <div className="tc-m db relative">
               <img
-                className={`${handles.teaserImage}`}
+                className={`${handles.teaserImage} w-100`}
                 src={image}
                 alt={altText}
               ></img>
@@ -104,12 +104,19 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                   }}
                 >
                   <div
-                    className={`${handles.teaserTextOverlayTitle} t-heading-4 white fw6`}
+                    className={`${handles.teaserTextOverlayTitle} t-heading-5 white fw5 mb3`}
                   >
-                    {title}
+                    <Link
+                      to={'/' + route + '/post/' + id}
+                      className="white no-underline"
+                    >
+                      {title}
+                    </Link>
                   </div>
                   {(showCategory || showDate || showAuthor) && (
-                    <div className={`${handles.teaserTextOverlayMeta} white`}>
+                    <div
+                      className={`${handles.teaserTextOverlayMeta} white t-mini`}
+                    >
                       {showCategory &&
                         category != undefined &&
                         categoryId != undefined && (
@@ -133,7 +140,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                   )}
                 </div>
               </div>
-            </Link>
+            </div>
           ) : (
             <Fragment>
               <Link to={'/' + route + '/post/' + id} className="tc-m db">

@@ -100,14 +100,16 @@ const WordpressBreadcrumb: FunctionComponent<Props> = props => {
 
   // if we're on a category page
   if (props.params?.categoryid) {
-    ;<WordpressCategoryBreadcrumb
-      categoryId={props.params.categoryid}
-      route={route}
-    />
+    return (
+      <WordpressCategoryBreadcrumb
+        categoryId={props.params.categoryid}
+        route={route}
+      />
+    )
   }
 
   // if we're on an article search page
-  if (props.params?.terms) {
+  if (props.params?.term) {
     return (
       <Container
         className={`${handles.breadcrumbContainer} pt2 pb8`}
@@ -118,7 +120,7 @@ const WordpressBreadcrumb: FunctionComponent<Props> = props => {
         </Link>
         <span className={`${handles.breadcrumbSeparator}`}>&nbsp;/&nbsp;</span>
         <span className={`${handles.breadcrumbCurrentPage}`}>
-          Search results for &quot;{props.params.terms}&quot;
+          Search results for &quot;{props.params.term}&quot;
         </span>
       </Container>
     )
