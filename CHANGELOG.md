@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed bug preventing some blog breadcrumbs from displaying
+- Fixed double Link in blog teasers with text overlays
+
 ## [0.1.0] - 2020-01-13
 
 ### Changed
