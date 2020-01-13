@@ -12,7 +12,7 @@
     "he": "^1.2.0",
     "prettier": "^1.17.1",
     "sanitize-html": "^1.20.1",
-    "typescript": "3.5.2"
+    "typescript": "3.7.3"
   },
   "devDependencies": {
     "@vtex/api": "^3.24.1",
@@ -21,14 +21,15 @@
     "eslint-config-vtex-react": "4.1.0",
     "tslint": "^5.9.1",
     "tslint-config-vtex": "^2.0.0",
-    "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.90.1/public/_types/react",
-    "vtex.store-components": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.78.1/public/_types/react",
-    "vtex.shelf": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.31.5/public/_types/react",
-    "vtex.search-page-context": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.1/public/_types/react",
-    "vtex.search-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.7.0/public/@types/vtex.search-graphql",
-    "vtex.product-summary": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.42.1/public/_types/react",
-    "vtex.store": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.69.0/public/_types/react",
-    "vtex.blog-interfaces": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.5/public/@types/vtex.blog-interfaces",
-    "vtex.wordpress-integration": "https://wordpress--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@0.0.10+build1571942431/public/@types/vtex.wordpress-integration"
+    "vtex.store-components": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.98.0/public/_types/react",
+    "vtex.store": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.80.0/public/@types/vtex.store",
+    "vtex.search-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.13.1/public/@types/vtex.search-graphql",
+    "vtex.blog-interfaces": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces",
+    "vtex.search-page-context": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.2/public/_types/react",
+    "vtex.shelf": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.33.5/public/_types/react",
+    "vtex.css-handles": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles",
+    "vtex.product-summary": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.47.0/public/_types/react",
+    "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.103.4/public/@types/vtex.styleguide",
+    "vtex.wordpress-integration": "https://wptest--redoxx.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@0.0.12+build1578080778/public/@types/vtex.wordpress-integration"
   }
 }

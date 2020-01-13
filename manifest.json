@@ -26,7 +26,8 @@
     "vtex.shelf": "1.x",
     "vtex.product-summary": "2.x",
     "vtex.search-graphql": "0.x",
-    "vtex.search-page-context": "0.x"
+    "vtex.search-page-context": "0.x",
+    "vtex.css-handles": "0.x"
   },
   "settingsSchema": {
     "title": "Wordpress Integration",

@@ -1,18 +1,25 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { Fragment } from 'react'
-import CategoryPosts from '../graphql/CategoryPosts.graphql'
-import { compose, graphql, DataProps } from 'react-apollo'
+import { Link } from 'vtex.render-runtime'
+import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { Spinner, Button } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
+
 import WordpressTeaser from './WordpressTeaser'
-import withSettingsNoSSR from './withSettingsNoSSR'
+import CategoryPosts from '../graphql/CategoryPosts.graphql'
+import Settings from '../graphql/Settings.graphql'
 
-import styles from './categoryblock.css'
+const CSS_HANDLES = [
+  'categoryBlockContainer',
+  'categoryBlockTitle',
+  'categoryBlockDescription',
+  'categoryBlockFlex',
+  'categoryBlockFlexItem',
+  'categoryBlockLink',
+] as const
 
-const WordpressCategoryBlock: StorefrontFunctionComponent<
-  DataPropsExtended
-> = ({
-  appSettings,
-  appSettings: { blogRoute },
+const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> = ({
   category,
   title,
   description,
@@ -22,77 +29,91 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<
   showExcerpts,
   customLinkText,
   customLinkTarget,
-  data: { loading, error, wpCategory },
+  numberOfPosts,
 }) => {
-  const route = blogRoute && blogRoute !== '' ? blogRoute : 'blog'
+  const { loading: loadingS, data: dataS } = useQuery(Settings)
+  const { loading, error, data } = useQuery(CategoryPosts, {
+    variables: {
+      category: category,
+      wp_per_page: numberOfPosts,
+    },
+  })
+  const handles = useCssHandles(CSS_HANDLES)
+
+  let route = dataS?.appSettings?.blogRoute
+  if (!route || route == '') route = 'blog'
 
   return (
-    <div className={`${styles.categoryBlockContainer} pv4 pb9`}>
-      {loading && <Spinner />}
+    <div className={`${handles.categoryBlockContainer} pv4 pb9`}>
+      {(loading || loadingS) && <Spinner />}
       {error && <span>Error: {error.message}</span>}
-      {wpCategory != null && wpCategory.wpPosts != null ? (
+      {data?.wpCategory?.name ? (
         <Fragment>
-          <h2 className={`${styles.categoryBlockTitle} t-heading-2`}>
-            {title != '' ? title : wpCategory.name}
+          <h2 className={`${handles.categoryBlockTitle} tc t-heading-2`}>
+            {title != '' ? title : data.wpCategory.name}
           </h2>
           {description != '' && (
-            <h4 className={`${styles.categoryBlockDescription} t-heading-4`}>
+            <h4
+              className={`${handles.categoryBlockDescription} tc t-heading-4`}
+            >
               {description}
             </h4>
           )}
           <div
-            className={`${styles.categoryBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
+            className={`${handles.categoryBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
           >
-            {wpCategory.wpPosts.posts.map((post: PostData, index: number) => (
-              <div
-                key={index}
-                className={`${styles.categoryBlockFlexItem} mv3 w-33-l ph2 w-100-s`}
-              >
-                <WordpressTeaser
-                  title={post.title.rendered}
-                  date={post.date}
-                  id={post.id}
-                  author={post.author != null ? post.author.name : ''}
-                  excerpt={post.excerpt.rendered}
-                  image={
-                    post.featured_media != null
-                      ? post.featured_media.source_url
-                      : ''
-                  }
-                  altText={
-                    post.featured_media != null
-                      ? post.featured_media.alt_text
-                      : ''
-                  }
-                  mediaType={
-                    post.featured_media != null
-                      ? post.featured_media.media_type
-                      : ''
-                  }
-                  showCategory={false}
-                  showDate={showDates}
-                  showAuthor={showAuthors}
-                  showExcerpt={showExcerpts}
-                  useTextOverlay={useTextOverlays}
-                  settings={appSettings}
-                />
-              </div>
-            ))}
+            {data.wpCategory?.wpPosts?.posts.map(
+              (post: PostData, index: number) => (
+                <div
+                  key={index}
+                  className={`${handles.categoryBlockFlexItem} mv3 w-33-l ph2 w-100-s`}
+                >
+                  <WordpressTeaser
+                    title={post.title.rendered}
+                    date={post.date}
+                    id={post.id}
+                    author={post.author != null ? post.author.name : ''}
+                    excerpt={post.excerpt.rendered}
+                    image={
+                      post.featured_media != null
+                        ? post.featured_media.source_url
+                        : ''
+                    }
+                    altText={
+                      post.featured_media != null
+                        ? post.featured_media.alt_text
+                        : ''
+                    }
+                    mediaType={
+                      post.featured_media != null
+                        ? post.featured_media.media_type
+                        : ''
+                    }
+                    showCategory={false}
+                    showDate={showDates}
+                    showAuthor={showAuthors}
+                    showExcerpt={showExcerpts}
+                    useTextOverlay={useTextOverlays}
+                    settings={dataS.appSettings}
+                  />
+                </div>
+              )
+            )}
           </div>
-          <a
-            href={
+          <Link
+            to={
               customLinkTarget != ''
                 ? customLinkTarget
-                : route + '/category/' + category
+                : '/' + route + '/category/' + category
             }
-            className={`${styles.categoryBlockLink}`}
+            className={`${handles.categoryBlockLink}`}
           >
             <Button variation="secondary" block>
               {customLinkText != ''
                 ? customLinkText
-                : `All ${wpCategory.name} Posts >`}
+                : `All ${data.wpCategory.name} Posts >`}
             </Button>
-          </a>
+          </Link>
         </Fragment>
       ) : (
         !loading &&
@@ -106,21 +127,6 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<
   )
 }
 
-const EnhancedWordpressCategoryBlock = compose(
-  withSettingsNoSSR,
-  graphql(CategoryPosts, {
-    options: (props: WPCategoryBlockProps) => ({
-      variables: {
-        category: props.category,
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        wp_per_page: props.numberOfPosts,
-      },
-      errorPolicy: 'all',
-      ssr: false,
-    }),
-  })
-)(WordpressCategoryBlock)
-
 interface WPCategoryBlockProps {
   category: number
   title: string
@@ -132,17 +138,9 @@ interface WPCategoryBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
-  appSettings: AppSettings
 }
 
-interface AppSettings {
-  titleTag: string
-  blogRoute: string
-}
-
-type DataPropsExtended = WPCategoryBlockProps & DataProps<any, any>
-
-EnhancedWordpressCategoryBlock.defaultProps = {
+WordpressCategoryBlock.defaultProps = {
   category: 1,
   title: '',
   description: '',
@@ -246,7 +244,7 @@ const messages = defineMessages({
   },
 })
 
-EnhancedWordpressCategoryBlock.schema = {
+WordpressCategoryBlock.schema = {
   title: messages.title.id,
   description: messages.description.id,
   type: 'object',
@@ -324,4 +322,4 @@ EnhancedWordpressCategoryBlock.schema = {
   },
 }
 
-export default EnhancedWordpressCategoryBlock
+export default WordpressCategoryBlock

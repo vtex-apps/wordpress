@@ -1,45 +1,59 @@
 import React, { Fragment } from 'react'
-import TagPosts from '../graphql/TagPosts.graphql'
-import { compose, graphql, DataProps } from 'react-apollo'
+import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
+import { Spinner } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
+
 import WordpressTeaser from './WordpressTeaser'
-import withSettingsNoSSR from './withSettingsNoSSR'
+import Settings from '../graphql/Settings.graphql'
+import TagPosts from '../graphql/TagPosts.graphql'
 
-import styles from './relatedpostsblock.css'
+const CSS_HANDLES = [
+  'relatedPostsBlockContainer',
+  'relatedPostsBlockTitle',
+  'relatedPostsBlockFlex',
+  'relatedPostsBlockFlexItem',
+] as const
 
-const WordpressRelatedPostsBlock: StorefrontFunctionComponent<
-  DataPropsExtended
-> = ({
+const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBlockProps> = ({
+  productQuery,
   productQuery: { product },
-  appSettings,
   title,
   useTextOverlays,
   showCategories,
   showDates,
   showAuthors,
   showExcerpts,
-  data: { loading, error, wpTags },
+  numberOfPosts,
 }) => {
+  const { loading: loadingS, data: dataS } = useQuery(Settings)
+  const { loading, error, data } = useQuery(TagPosts, {
+    skip: !productQuery,
+    variables: {
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      wp_per_page: numberOfPosts,
+      tag: 'prod-' + productQuery?.product.productReference,
+    },
+  })
+  const handles = useCssHandles(CSS_HANDLES)
   return (
-    <div className={`${styles.relatedPostsBlockContainer} pv4 pb9`}>
-      {loading && <Fragment />}
+    <div className={`${handles.relatedPostsBlockContainer} pv4 pb9`}>
+      {(loading || loadingS) && <Spinner />}
       {error && <Fragment />}
-      {wpTags != null &&
-      wpTags.tags[0] != null &&
-      wpTags.tags[0].wpPosts != null &&
-      'prod-' + product.productReference == wpTags.tags[0].name ? (
+      {data?.wpTags?.tags[0]?.wpPosts &&
+      'prod-' + product.productReference == data.wpTags.tags[0].name ? (
         <Fragment>
-          <h2 className={`${styles.relatedPostsBlockTitle} t-heading-2`}>
+          <h2 className={`${handles.relatedPostsBlockTitle} tc t-heading-2`}>
             {title}
           </h2>
           <div
-            className={`${styles.relatedPostsBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
+            className={`${handles.relatedPostsBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
           >
-            {wpTags.tags[0].wpPosts.posts.map(
+            {data.wpTags.tags[0].wpPosts.posts.map(
               (post: PostData, index: number) => (
                 <div
                   key={index}
-                  className={`${styles.relatedPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}
+                  className={`${handles.relatedPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}
                 >
                   <WordpressTeaser
                     title={post.title.rendered}
@@ -75,7 +89,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<
                     showAuthor={showAuthors}
                     showExcerpt={showExcerpts}
                     useTextOverlay={useTextOverlays}
-                    settings={appSettings}
+                    settings={dataS.appSettings}
                   />
                 </div>
               )
@@ -89,21 +103,6 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<
   )
 }
 
-const EnhancedWordpressRelatedPostsBlock = compose(
-  withSettingsNoSSR,
-  graphql(TagPosts, {
-    options: (props: DataPropsExtended) => ({
-      variables: {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        wp_per_page: props.numberOfPosts,
-        tag: 'prod-' + props.productQuery.product.productReference,
-      },
-      errorPolicy: 'all',
-      ssr: false,
-    }),
-  })
-)(WordpressRelatedPostsBlock)
-
 interface WPRelatedPostsBlockProps {
   title: string
   numberOfPosts: number
@@ -112,13 +111,7 @@ interface WPRelatedPostsBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
-  appSettings: AppSettings
   productQuery: ProductQuery
-}
-
-interface AppSettings {
-  titleTag: string
-  blogRoute: string
 }
 
 interface ProductProperties {
@@ -177,9 +170,7 @@ interface ProductQuery {
   loading: boolean
 }
 
-type DataPropsExtended = WPRelatedPostsBlockProps & DataProps<any, any>
-
-EnhancedWordpressRelatedPostsBlock.defaultProps = {
+WordpressRelatedPostsBlock.defaultProps = {
   title: 'Related Articles',
   numberOfPosts: 3,
   useTextOverlays: false,
@@ -256,7 +247,7 @@ const messages = defineMessages({
   },
 })
 
-EnhancedWordpressRelatedPostsBlock.schema = {
+WordpressRelatedPostsBlock.schema = {
   title: messages.title.id,
   description: messages.description.id,
   type: 'object',
@@ -313,4 +304,4 @@ EnhancedWordpressRelatedPostsBlock.schema = {
   },
 }
 
-export default EnhancedWordpressRelatedPostsBlock
+export default WordpressRelatedPostsBlock

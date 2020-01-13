@@ -1,17 +1,24 @@
 import React, { Fragment } from 'react'
-import AllPosts from '../graphql/AllPosts.graphql'
-import { compose, graphql, DataProps } from 'react-apollo'
+import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { Spinner } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
+
 import WordpressTeaser from './WordpressTeaser'
-import withSettingsNoSSR from './withSettings'
+import Settings from '../graphql/Settings.graphql'
+import AllPosts from '../graphql/AllPosts.graphql'
 
-import styles from './latestpostsblock.css'
+const CSS_HANDLES = [
+  'latestPostsBlockContainer',
+  'latestPostsBlockTitle',
+  'latestPostsBlockFlex',
+  'latestPostsBlockFlexFirstColumnItem',
+  'latestPostsBlockFlexSecondColumn',
+  'latestPostsBlockFlexSecondColumnItem',
+  'latestPostsBlockFlexItem',
+] as const
 
-const WordpressLatestPostsBlock: StorefrontFunctionComponent<
-  DataPropsExtended
-> = ({
-  appSettings,
+const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockProps> = ({
   title,
   twoColumns,
   useTextOverlays,
@@ -19,78 +26,66 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<
   showDates,
   showAuthors,
   showExcerpts,
-  data: { loading, error, wpPosts },
+  numberOfPosts,
 }) => {
+  const { loading: loadingS, data: dataS } = useQuery(Settings)
+  const { loading, error, data } = useQuery(AllPosts, {
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    variables: { wp_per_page: numberOfPosts },
+  })
+  const handles = useCssHandles(CSS_HANDLES)
   return (
-    <div className={`${styles.latestPostsBlockContainer} pv4 pb9`}>
-      {loading && <Spinner />}
+    <div className={`${handles.latestPostsBlockContainer} pv4 pb9`}>
+      {(loading || loadingS) && <Spinner />}
       {error && <span>Error: {error.message}</span>}
-      {wpPosts != null ? (
+      {data?.wpPosts ? (
         <Fragment>
-          <h2 className={`${styles.latestPostsBlockTitle} t-heading-2`}>
+          <h2 className={`${handles.latestPostsBlockTitle} tc t-heading-2`}>
             {title}
           </h2>
           <div
-            className={`${styles.latestPostsBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
+            className={`${handles.latestPostsBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
           >
             {twoColumns ? (
               <Fragment>
                 <div
                   key={0}
-                  className={`${styles.latestPostsBlockFlexFirstColumnItem} mv3 ph2 w-100-s`}
+                  className={`${handles.latestPostsBlockFlexFirstColumnItem} w-two-thirds mv3 ph2 w-100-s`}
                 >
                   <WordpressTeaser
-                    title={wpPosts.posts[0].title.rendered}
-                    date={wpPosts.posts[0].date}
-                    id={wpPosts.posts[0].id}
-                    author={
-                      wpPosts.posts[0].author != null
-                        ? wpPosts.posts[0].author.name
-                        : ''
-                    }
-                    excerpt={wpPosts.posts[0].excerpt.rendered}
-                    category={
-                      wpPosts.posts[0].categories[0] != null
-                        ? wpPosts.posts[0].categories[0].name
-                        : ''
-                    }
-                    categoryId={
-                      wpPosts.posts[0].categories[0] != null
-                        ? wpPosts.posts[0].categories[0].id
-                        : undefined
-                    }
+                    title={data.wpPosts.posts[0].title.rendered}
+                    date={data.wpPosts.posts[0].date}
+                    id={data.wpPosts.posts[0].id}
+                    author={data.wpPosts.posts[0].author?.name ?? ''}
+                    excerpt={data.wpPosts.posts[0].excerpt.rendered}
+                    category={data.wpPosts.posts[0].categories[0]?.name ?? ''}
+                    categoryId={data.wpPosts.posts[0].categories[0]?.id}
                     image={
-                      wpPosts.posts[0].featured_media != null
-                        ? wpPosts.posts[0].featured_media.source_url
-                        : ''
+                      data.wpPosts.posts[0].featured_media?.source_url ?? ''
                     }
                     altText={
-                      wpPosts.posts[0].featured_media != null
-                        ? wpPosts.posts[0].featured_media.alt_text
-                        : ''
+                      data.wpPosts.posts[0].featured_media?.alt_text ?? ''
                     }
                     mediaType={
-                      wpPosts.posts[0].featured_media != null
-                        ? wpPosts.posts[0].featured_media.media_type
-                        : ''
+                      data.wpPosts.posts[0].featured_media?.media_type ?? ''
                     }
                     showCategory={showCategories}
                     showDate={showDates}
                     showAuthor={showAuthors}
                     showExcerpt={showExcerpts}
                     useTextOverlay={useTextOverlays}
-                    settings={appSettings}
+                    settings={dataS.appSettings}
                   />
                 </div>
                 <div
-                  className={`${styles.latestPostsBlockFlexSecondColumn} mv3 ph2 w-100-s`}
+                  className={`${handles.latestPostsBlockFlexSecondColumn} w-third mv3 ph2 w-100-s`}
                 >
-                  {wpPosts.posts
+                  {data.wpPosts.posts
                     .slice(1)
                     .map((post: PostData, index: number) => (
                       <div
                         key={index}
-                        className={`${styles.latestPostsBlockFlexSecondColumnItem} mv1 w-100-l w-100-s`}
+                        className={`${handles.latestPostsBlockFlexSecondColumnItem} mv1 w-100-l w-100-s`}
                       >
                         <WordpressTeaser
                           title={post.title.rendered}
@@ -128,17 +123,17 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<
                           showAuthor={showAuthors}
                           showExcerpt={showExcerpts}
                           useTextOverlay={useTextOverlays}
-                          settings={appSettings}
+                          settings={dataS.appSettings}
                         />
                       </div>
                     ))}
                 </div>
               </Fragment>
             ) : (
-              wpPosts.posts.map((post: PostData, index: number) => (
+              data.wpPosts.posts.map((post: PostData, index: number) => (
                 <div
                   key={index}
-                  className={`${styles.latestPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}
+                  className={`${handles.latestPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}
                 >
                   <WordpressTeaser
                     title={post.title.rendered}
@@ -174,7 +169,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<
                     showAuthor={showAuthors}
                     showExcerpt={showExcerpts}
                     useTextOverlay={useTextOverlays}
-                    settings={appSettings}
+                    settings={dataS.appSettings}
                   />
                 </div>
               ))
@@ -193,20 +188,6 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<
   )
 }
 
-const EnhancedWordpressLatestPostsBlock = compose(
-  withSettingsNoSSR,
-  graphql(AllPosts, {
-    options: (props: WPLatestPostsBlockProps) => ({
-      variables: {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        wp_per_page: props.numberOfPosts,
-      },
-      errorPolicy: 'all',
-      ssr: false,
-    }),
-  })
-)(WordpressLatestPostsBlock)
-
 interface WPLatestPostsBlockProps {
   title: string
   twoColumns: boolean
@@ -216,17 +197,9 @@ interface WPLatestPostsBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
-  appSettings: AppSettings
 }
 
-interface AppSettings {
-  titleTag: string
-  blogRoute: string
-}
-
-type DataPropsExtended = WPLatestPostsBlockProps & DataProps<any, any>
-
-EnhancedWordpressLatestPostsBlock.defaultProps = {
+WordpressLatestPostsBlock.defaultProps = {
   title: '',
   twoColumns: false,
   numberOfPosts: 3,
@@ -312,7 +285,7 @@ const messages = defineMessages({
   },
 })
 
-EnhancedWordpressLatestPostsBlock.schema = {
+WordpressLatestPostsBlock.schema = {
   title: messages.title.id,
   description: messages.description.id,
   type: 'object',
@@ -376,4 +349,4 @@ EnhancedWordpressLatestPostsBlock.schema = {
   },
 }
 
-export default EnhancedWordpressLatestPostsBlock
+export default WordpressLatestPostsBlock

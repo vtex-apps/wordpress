@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- All components are now FunctionComponents
+- Moved components out of root folder
+- Updated components to use React-Apollo `useQuery` hook
+- Implemented CSS Handles
+
 ## [0.0.12] - 2019-11-08
 
 ### Fixed
