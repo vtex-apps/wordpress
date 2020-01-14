@@ -1,5 +1,5 @@
-query SinglePost($id: Int!) {
-  wpPost(id: $id) {
+query SinglePostBySlug($slug: String!) {
+  wpPosts(slug: $slug) {
     title {
       rendered
     }
