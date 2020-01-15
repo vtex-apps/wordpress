@@ -113,30 +113,16 @@ const WordpressAllPosts: FunctionComponent = () => {
               <WordpressTeaser
                 title={post.title.rendered}
                 author={post.author != null ? post.author.name : ''}
-                category={
-                  post.categories[0] != null ? post.categories[0].name : ''
-                }
-                categoryId={
-                  post.categories[0] != null ? post.categories[0].id : undefined
-                }
+                category={post.categories[0]?.name ?? ''}
+                categoryId={post.categories[0]?.id ?? undefined}
+                categorySlug={post.categories[0]?.slug ?? ''}
                 excerpt={post.excerpt.rendered}
                 date={post.date}
                 id={post.id}
-                image={
-                  post.featured_media != null
-                    ? post.featured_media.source_url
-                    : ''
-                }
-                altText={
-                  post.featured_media != null
-                    ? post.featured_media.alt_text
-                    : ''
-                }
-                mediaType={
-                  post.featured_media != null
-                    ? post.featured_media.media_type
-                    : ''
-                }
+                slug={post.slug}
+                image={post.featured_media?.source_url ?? ''}
+                altText={post.featured_media?.alt_text ?? ''}
+                mediaType={post.featured_media?.media_type ?? ''}
                 showAuthor={false}
                 showCategory
                 showDate

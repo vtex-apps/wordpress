@@ -8,7 +8,7 @@ import Helmet from 'react-helmet'
 import { useCssHandles } from 'vtex.css-handles'
 
 import WordpressTeaser from './WordpressTeaser'
-import CategoryPosts from '../graphql/CategoryPosts.graphql'
+import CategoryPostsBySlug from '../graphql/CategoryPostsBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
 
 const CSS_HANDLES = [
@@ -18,36 +18,39 @@ const CSS_HANDLES = [
   'listFlexItem',
 ] as const
 
+const initialPageVars = {
+  wp_page: 1,
+  wp_per_page: 10,
+}
+
 const WordpressCategory: FunctionComponent = () => {
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
   const {
     route: { params },
   } = useRuntime()
+  const categoryVariable = { categorySlug: params.categoryslug }
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
-  const { loading, error, data, fetchMore } = useQuery(CategoryPosts, {
-    skip: !params,
-    variables: {
-      category: params.categoryid,
-      wp_page: 1,
-      wp_per_page: 10,
-    },
+  const { loading, error, data, fetchMore } = useQuery(CategoryPostsBySlug, {
+    variables: { ...categoryVariable, ...initialPageVars },
   })
 
   return (
     <Fragment>
-      {dataS && data?.wpCategory?.name && (
+      {dataS && data?.wpCategories?.categories?.length > 0 && (
         <Fragment>
           <Helmet>
             <title>
               {dataS?.appSettings?.titleTag && dataS.appSettings.titleTag != ''
-                ? data.wpCategory.name + ' | ' + dataS.appSettings.titleTag
-                : data.wpCategory.name}
+                ? data.wpCategories.categories[0].name +
+                  ' | ' +
+                  dataS.appSettings.titleTag
+                : data.wpCategories.categories[0].name}
             </title>
           </Helmet>
           <h2 className={`${handles.listTitle} t-heading-2 tc`}>
-            {data.wpCategory.name}
+            {data.wpCategories.categories[0].name}
           </h2>
         </Fragment>
       )}
@@ -62,7 +65,9 @@ const WordpressCategory: FunctionComponent = () => {
             currentItemTo={page * perPage}
             textOf="of"
             textShowRows="posts per page"
-            totalItems={data?.wpCategory?.wpPosts?.total_count ?? 0}
+            totalItems={
+              data?.wpCategories?.categories[0]?.wpPosts?.total_count ?? 0
+            }
             onRowsChange={(event: any) => {
               setPage(1)
               setPerPage(event.target.value)
@@ -70,7 +75,7 @@ const WordpressCategory: FunctionComponent = () => {
                 variables: {
                   wp_page: 1,
                   wp_per_page: event.target.value,
-                  category: params.categoryid,
+                  ...categoryVariable,
                 },
                 updateQuery: (prev, { fetchMoreResult }) => {
                   if (!fetchMoreResult) return prev
@@ -86,7 +91,7 @@ const WordpressCategory: FunctionComponent = () => {
                   variables: {
                     wp_page: prevPage,
                     wp_per_page: perPage,
-                    category: params.categoryid,
+                    ...categoryVariable,
                   },
                   updateQuery: (prev, { fetchMoreResult }) => {
                     if (!fetchMoreResult) return prev
@@ -102,7 +107,7 @@ const WordpressCategory: FunctionComponent = () => {
                 variables: {
                   wp_page: nextPage,
                   wp_per_page: perPage,
-                  category: params.categoryid,
+                  ...categoryVariable,
                 },
                 updateQuery: (prev, { fetchMoreResult }) => {
                   if (!fetchMoreResult) return prev
@@ -122,9 +127,9 @@ const WordpressCategory: FunctionComponent = () => {
             Error: {error.message}
           </div>
         )}
-        {data?.wpCategory?.wpPosts ? (
+        {data?.wpCategories?.categories?.length > 0 ? (
           <div className={`${handles.listFlex} mv4 flex flex-row flex-wrap`}>
-            {data.wpCategory.wpPosts.posts.map(
+            {data.wpCategories.categories[0].wpPosts.posts.map(
               (post: PostData, index: number) => (
                 <div
                   key={index}
@@ -136,21 +141,10 @@ const WordpressCategory: FunctionComponent = () => {
                     excerpt={post.excerpt.rendered}
                     date={post.date}
                     id={post.id}
-                    image={
-                      post.featured_media != null
-                        ? post.featured_media.source_url
-                        : ''
-                    }
-                    altText={
-                      post.featured_media != null
-                        ? post.featured_media.alt_text
-                        : ''
-                    }
-                    mediaType={
-                      post.featured_media != null
-                        ? post.featured_media.media_type
-                        : ''
-                    }
+                    slug={post.slug}
+                    image={post.featured_media?.source_url ?? ''}
+                    altText={post.featured_media?.alt_text ?? ''}
+                    mediaType={post.featured_media?.media_type ?? ''}
                     showAuthor={false}
                     showCategory={false}
                     showDate
@@ -164,6 +158,7 @@ const WordpressCategory: FunctionComponent = () => {
           </div>
         ) : (
           !loading &&
+          !loadingS &&
           !error && (
             <div>
               <h2>No posts found.</h2>

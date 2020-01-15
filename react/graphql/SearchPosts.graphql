@@ -13,6 +13,7 @@ query SearchPosts($wp_page: Int, $wp_per_page: Int, $terms: String) {
       categories {
         name
         id
+        slug
       }
       featured_media {
         source_url

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Blog post and category URLs are now based on slugs rather than numeric IDs
+
 ## [0.1.2] - 2020-01-13
 
 ### Fixed

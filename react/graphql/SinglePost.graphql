@@ -15,6 +15,7 @@ query SinglePost($id: Int!) {
     categories {
       name
       id
+      slug
     }
     date
     featured_media {

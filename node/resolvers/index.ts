@@ -15,8 +15,8 @@ export const queries = {
       offset,
       order,
       orderby,
-      wpSlug,
-      wpStatus,
+      slug,
+      status,
       categories,
       categories_exclude,
       tags,
@@ -35,8 +35,8 @@ export const queries = {
       offset: number
       order: string
       orderby: string
-      wpSlug: [string]
-      wpStatus: [string]
+      slug: [string]
+      status: [string]
       categories: [number]
       categories_exclude: [number]
       tags: [number]
@@ -62,8 +62,8 @@ export const queries = {
       offset,
       order,
       orderby,
-      wpSlug,
-      wpStatus,
+      slug,
+      status,
       categories,
       categories_exclude,
       tags,

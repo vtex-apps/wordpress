@@ -3,7 +3,7 @@ query CategoryPostsBySlug(
   $wp_per_page: Int
   $categorySlug: String!
 ) {
-  wpCategories(slug: $categorySlug) {
+  wpCategories(slug: [$categorySlug]) {
     categories {
       name
       id
@@ -21,6 +21,7 @@ query CategoryPostsBySlug(
           categories {
             name
             id
+            slug
           }
           featured_media {
             source_url
@@ -29,6 +30,7 @@ query CategoryPostsBySlug(
           }
           date
           id
+          slug
         }
         total_count
       }

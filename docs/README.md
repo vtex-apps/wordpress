@@ -19,11 +19,11 @@ The Wordpress integration is designed to work with these store pages:
 
 `store.blog-home`: The "homepage" of your blog. This can also be extended (i.e. `store.blog-home#custom`) to create additional custom blog pages, if needed.  
 
-`store.blog-category`: A listing of blog posts belonging to a particular category, derived from a category ID in the page route.
+`store.blog-category`: A listing of blog posts belonging to a particular category, derived from a category slug in the page route.
 
-`store.blog-post`: A detail view of a single blog post, derived from a post ID in the page route.
+`store.blog-post`: A detail view of a single blog post, derived from a post slug in the page route.
 
-`store.blog-search-result`: A listing of blog posts matching a search query, derived from search terms in the page route.
+`store.blog-search-result`: A listing of blog posts matching a search query, derived from a search term in the page route.
 
 Each of the above pages needs a route declared in your `store-theme`'s `store/routes.json`. These are the recommended routes to use:
 
@@ -32,10 +32,10 @@ Each of the above pages needs a route declared in your `store-theme`'s `store/ro
 	"path": "/blog"
 },
 "store.blog-category": {
-	"path": "/blog/category/:categoryid"
+	"path": "/blog/category/:categoryslug"
 },
 "store.blog-post": {
-	"path": "/blog/post/:id"
+	"path": "/blog/post/:slug"
 },
 "store.blog-search-result": {
 	"path": "/blog/search/:term"
