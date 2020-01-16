@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 interface Window extends Window {
   dataLayer: any[]
   __SETTINGS__: {
@@ -6,13 +7,14 @@ interface Window extends Window {
 }
 
 type PostData = {
-  title: WPTitle 
-  author: WPUser 
-  content: WPContent 
+  title: WPTitle
+  author: WPUser
+  content: WPContent
   date: string
   id: number
+  slug: string
   excerpt: WPExcerpt
-  categories: [WPCategory] 
+  categories: [WPCategory]
   featured_media: WPMedia
   tags: [WPTag]
 }
@@ -48,6 +50,7 @@ type WPUser = {
 }
 type WPCategory = {
   id: number
+  slug: string
   count: number
   description: string
   link: string
@@ -66,7 +69,7 @@ enum WPTaxonomyType {
   post_tag,
   nav_menu,
   link_category,
-  post_format
+  post_format,
 }
 type WPAvatarObject = {
   size24: string
@@ -135,7 +138,7 @@ type WPContentDescriptor = {
 }
 enum WPOpenClosed {
   open,
-  closed
+  closed,
 }
 type WPGuid = {
   raw: string
@@ -146,7 +149,7 @@ enum WPStatus {
   future,
   draft,
   pending,
-  private
+  private,
 }
 type WPTag = {
   id: number

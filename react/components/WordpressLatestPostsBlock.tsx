@@ -56,10 +56,16 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     title={data.wpPosts.posts[0].title.rendered}
                     date={data.wpPosts.posts[0].date}
                     id={data.wpPosts.posts[0].id}
+                    slug={data.wpPosts.posts[0].slug}
                     author={data.wpPosts.posts[0].author?.name ?? ''}
                     excerpt={data.wpPosts.posts[0].excerpt.rendered}
                     category={data.wpPosts.posts[0].categories[0]?.name ?? ''}
-                    categoryId={data.wpPosts.posts[0].categories[0]?.id}
+                    categoryId={
+                      data.wpPosts.posts[0].categories[0]?.id ?? undefined
+                    }
+                    categorySlug={
+                      data.wpPosts.posts[0].categories[0]?.slug ?? ''
+                    }
                     image={
                       data.wpPosts.posts[0].featured_media?.source_url ?? ''
                     }
@@ -91,33 +97,15 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                           title={post.title.rendered}
                           date={post.date}
                           id={post.id}
+                          slug={post.slug}
                           author={post.author != null ? post.author.name : ''}
                           excerpt={post.excerpt.rendered}
-                          category={
-                            post.categories[0] != null
-                              ? post.categories[0].name
-                              : ''
-                          }
-                          categoryId={
-                            post.categories[0] != null
-                              ? post.categories[0].id
-                              : undefined
-                          }
-                          image={
-                            post.featured_media != null
-                              ? post.featured_media.source_url
-                              : ''
-                          }
-                          altText={
-                            post.featured_media != null
-                              ? post.featured_media.alt_text
-                              : ''
-                          }
-                          mediaType={
-                            post.featured_media != null
-                              ? post.featured_media.media_type
-                              : ''
-                          }
+                          category={post.categories[0]?.name ?? ''}
+                          categoryId={post.categories[0]?.id ?? undefined}
+                          categorySlug={post.categories[0]?.slug ?? ''}
+                          image={post.featured_media?.source_url ?? ''}
+                          altText={post.featured_media?.alt_text ?? ''}
+                          mediaType={post.featured_media?.media_type ?? ''}
                           showCategory={showCategories}
                           showDate={showDates}
                           showAuthor={showAuthors}
@@ -139,31 +127,15 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     title={post.title.rendered}
                     date={post.date}
                     id={post.id}
-                    author={post.author != null ? post.author.name : ''}
+                    slug={post.slug}
+                    author={post.author?.name ?? ''}
                     excerpt={post.excerpt.rendered}
-                    category={
-                      post.categories[0] != null ? post.categories[0].name : ''
-                    }
-                    categoryId={
-                      post.categories[0] != null
-                        ? post.categories[0].id
-                        : undefined
-                    }
-                    image={
-                      post.featured_media != null
-                        ? post.featured_media.source_url
-                        : ''
-                    }
-                    altText={
-                      post.featured_media != null
-                        ? post.featured_media.alt_text
-                        : ''
-                    }
-                    mediaType={
-                      post.featured_media != null
-                        ? post.featured_media.media_type
-                        : ''
-                    }
+                    category={post.categories[0]?.name ?? ''}
+                    categoryId={post.categories[0]?.id ?? undefined}
+                    categorySlug={post.categories[0]?.slug ?? ''}
+                    image={post.featured_media?.source_url ?? ''}
+                    altText={post.featured_media?.alt_text ?? ''}
+                    mediaType={post.featured_media?.media_type ?? ''}
                     showCategory={showCategories}
                     showDate={showDates}
                     showAuthor={showAuthors}

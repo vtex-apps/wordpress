@@ -1,6 +1,6 @@
 query ProductsByReference($ids: [ID!]) {
-  productsByIdentifier( field: reference, values: $ids ) 
-  @context(provider: "vtex.search-graphql") {
+  productsByIdentifier(field: reference, values: $ids)
+    @context(provider: "vtex.search-graphql") {
     cacheId
     productId
     productName
@@ -43,5 +43,5 @@ query ProductsByReference($ids: [ID!]) {
       id
       name
     }
-  }   
+  }
 }

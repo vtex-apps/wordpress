@@ -72,23 +72,12 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
                     title={post.title.rendered}
                     date={post.date}
                     id={post.id}
+                    slug={post.slug}
                     author={post.author != null ? post.author.name : ''}
                     excerpt={post.excerpt.rendered}
-                    image={
-                      post.featured_media != null
-                        ? post.featured_media.source_url
-                        : ''
-                    }
-                    altText={
-                      post.featured_media != null
-                        ? post.featured_media.alt_text
-                        : ''
-                    }
-                    mediaType={
-                      post.featured_media != null
-                        ? post.featured_media.media_type
-                        : ''
-                    }
+                    image={post.featured_media?.source_url ?? ''}
+                    altText={post.featured_media?.alt_text ?? ''}
+                    mediaType={post.featured_media?.media_type ?? ''}
                     showCategory={false}
                     showDate={showDates}
                     showAuthor={showAuthors}

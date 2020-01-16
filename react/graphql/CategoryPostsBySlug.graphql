@@ -1,7 +1,12 @@
-query TagPosts($wp_page: Int, $wp_per_page: Int, $tag: String!) {
-  wpTags(search: $tag) {
-    tags {
+query CategoryPostsBySlug(
+  $wp_page: Int
+  $wp_per_page: Int
+  $categorySlug: String!
+) {
+  wpCategories(slug: [$categorySlug]) {
+    categories {
       name
+      id
       wpPosts(page: $wp_page, per_page: $wp_per_page) {
         posts {
           title {
@@ -25,6 +30,7 @@ query TagPosts($wp_page: Int, $wp_per_page: Int, $tag: String!) {
           }
           date
           id
+          slug
         }
         total_count
       }

@@ -1,6 +1,6 @@
 query Settings {
-    appSettings {
-        titleTag
-        blogRoute
-    }
+  appSettings {
+    titleTag
+    blogRoute
+  }
 }

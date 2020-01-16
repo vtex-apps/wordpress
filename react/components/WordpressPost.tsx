@@ -9,7 +9,7 @@ import SanitizedHTML from 'react-sanitized-html'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { WPRelatedProductsContext } from '../contexts/WordpressRelatedProducts'
-import SinglePost from '../graphql/SinglePost.graphql'
+import SinglePostBySlug from '../graphql/SinglePostBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
 
 const allowedTags = [
@@ -70,11 +70,8 @@ const WordpressPost: FunctionComponent = props => {
     route: { params },
   } = useRuntime()
   const { loading: loadingS, data: dataS } = useQuery(Settings)
-  const { loading, error, data } = useQuery(SinglePost, {
-    skip: !params,
-    variables: {
-      id: params.id,
-    },
+  const { loading, error, data } = useQuery(SinglePostBySlug, {
+    variables: { slug: params.slug },
   })
 
   if (loading || loadingS) {
@@ -89,7 +86,7 @@ const WordpressPost: FunctionComponent = props => {
         Error! {error.message}
       </div>
     )
-  } else if (data?.wpPost) {
+  } else if (data?.wpPosts?.posts) {
     const {
       title,
       date,
@@ -99,7 +96,7 @@ const WordpressPost: FunctionComponent = props => {
       featured_media,
       excerpt,
       tags,
-    } = data.wpPost
+    } = data.wpPosts.posts[0]
 
     const dateObj = new Date(date)
     const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -132,7 +129,7 @@ const WordpressPost: FunctionComponent = props => {
               <span key={index}>
                 <a
                   className="link c-link hover-c-link active-c-link visited-c-link"
-                  href={'/' + route + '/category/' + cat.id}
+                  href={'/' + route + '/category/' + cat.slug}
                 >
                   {cat.name}
                 </a>
@@ -173,7 +170,11 @@ const WordpressPost: FunctionComponent = props => {
       </Container>
     )
   } else {
-    return null
+    return (
+      <div>
+        <h2>No post found.</h2>
+      </div>
+    )
   }
 }
 

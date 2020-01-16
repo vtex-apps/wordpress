@@ -4,21 +4,21 @@ import { Container } from 'vtex.store-components'
 import { Link } from 'vtex.render-runtime'
 import { useQuery } from 'react-apollo'
 
-import PostSimple from '../graphql/PostSimple.graphql'
+import PostSimpleBySlug from '../graphql/PostSimpleBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
-import CategorySimple from '../graphql/CategorySimple.graphql'
+import CategorySimpleBySlug from '../graphql/CategorySimpleBySlug.graphql'
 
 interface Props {
   params: any
 }
 
 interface CategoryProps {
-  categoryId: string
+  categorySlug?: string
   route: string
 }
 
 interface SinglePostProps {
-  id: string
+  slug?: string
   route: string
 }
 
@@ -32,13 +32,11 @@ const CSS_HANDLES = [
 
 const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = props => {
   const handles = useCssHandles(CSS_HANDLES)
-  const { data, loading, error } = useQuery(CategorySimple, {
-    variables: {
-      category: props.categoryId,
-    },
+  const { data, loading, error } = useQuery(CategorySimpleBySlug, {
+    variables: { categorySlug: props.categorySlug },
   })
   if (loading || error) return <Fragment></Fragment>
-  if (data?.wpCategory)
+  if (data?.wpCategories?.categories?.length > 0)
     return (
       <Container className={`${handles.breadcrumbContainer} pt2 pb8`}>
         <Link
@@ -49,7 +47,7 @@ const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = props => {
         </Link>
         <span className={`${handles.breadcrumbSeparator}`}>&nbsp;/&nbsp;</span>
         <span className={`${handles.breadcrumbCurrentPage}`}>
-          {data.wpCategory.name}
+          {data.wpCategories.categories[0].name}
         </span>
       </Container>
     )
@@ -58,14 +56,12 @@ const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = props => {
 
 const WordpressSinglePostBreadcrumb: FunctionComponent<SinglePostProps> = props => {
   const handles = useCssHandles(CSS_HANDLES)
-  const { data, loading, error } = useQuery(PostSimple, {
-    variables: {
-      id: props.id,
-    },
+  const { data, loading, error } = useQuery(PostSimpleBySlug, {
+    variables: { slug: props.slug },
   })
 
   if (loading || error) return <Fragment></Fragment>
-  if (data?.wpPost)
+  if (data?.wpPosts?.posts?.length > 0)
     return (
       <Container className={`${handles.breadcrumbContainer} pt2 pb8`}>
         <Link
@@ -76,14 +72,19 @@ const WordpressSinglePostBreadcrumb: FunctionComponent<SinglePostProps> = props 
         </Link>
         <span className={`${handles.breadcrumbSeparator}`}>&nbsp;/&nbsp;</span>
         <Link
-          to={'/' + props.route + '/category/' + data.wpPost.categories[0].id}
+          to={
+            '/' +
+            props.route +
+            '/category/' +
+            data.wpPosts.posts[0].categories[0].slug
+          }
           className={`${handles.breadcrumbLink}`}
         >
-          {data.wpPost.categories[0].name}
+          {data.wpPosts.posts[0].categories[0].name}
         </Link>
         <span className={`${handles.breadcrumbSeparator}`}>&nbsp;/&nbsp;</span>
         <span className={`${handles.breadcrumbCurrentPage}`}>
-          {data.wpPost.title.rendered}
+          {data.wpPosts.posts[0].title.rendered}
         </span>
       </Container>
     )
@@ -98,11 +99,11 @@ const WordpressBreadcrumb: FunctionComponent<Props> = props => {
 
   if (loadingS) return null
 
-  // if we're on a category page
-  if (props.params?.categoryid) {
+  // if we're on a category page with a slug
+  if (props.params?.categoryslug) {
     return (
       <WordpressCategoryBreadcrumb
-        categoryId={props.params.categoryid}
+        categorySlug={props.params.categoryslug}
         route={route}
       />
     )
@@ -126,9 +127,11 @@ const WordpressBreadcrumb: FunctionComponent<Props> = props => {
     )
   }
 
-  // if we're viewing a single blog post
-  if (props.params?.id) {
-    return <WordpressSinglePostBreadcrumb id={props.params.id} route={route} />
+  // if we're viewing a single blog post with a slug
+  if (props.params?.slug) {
+    return (
+      <WordpressSinglePostBreadcrumb slug={props.params.slug} route={route} />
+    )
   }
 
   // else

@@ -9,6 +9,7 @@ const defaultClientOptions = {
 }
 
 const cacheStorage = new LRUCache<string, any>({ max: 5000 })
+// eslint-disable-next-line no-undef
 metrics.trackCache('wordpressProxy', cacheStorage)
 
 export class Clients extends IOClients {

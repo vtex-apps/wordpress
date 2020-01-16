@@ -10,8 +10,10 @@ interface TeaserProps {
   excerpt: string
   category?: string
   categoryId?: number
+  categorySlug?: string
   date: string
   id: number
+  slug: string
   image: string
   altText: string
   mediaType: string
@@ -44,9 +46,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   author,
   excerpt,
   category,
-  categoryId,
+  categorySlug,
   date,
-  id,
+  slug,
   mediaType,
   image,
   altText,
@@ -66,13 +68,15 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
       {(showCategory || showDate || showAuthor) &&
         (!useTextOverlay || mediaType != 'image') && (
           <h5 className="mv1 ph6 pt6 pb4">
-            {showCategory && category != undefined && categoryId != undefined && (
-              <Fragment>
-                <Link to={'/' + route + '/category/' + categoryId}>
-                  {category}
-                </Link>
-              </Fragment>
-            )}
+            {showCategory &&
+              category != undefined &&
+              categorySlug != undefined && (
+                <Fragment>
+                  <Link to={'/' + route + '/category/' + categorySlug}>
+                    {category}
+                  </Link>
+                </Fragment>
+              )}
             {((showCategory && showDate) || (showCategory && showAuthor)) && (
               <Fragment> - </Fragment>
             )}
@@ -107,7 +111,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                     className={`${handles.teaserTextOverlayTitle} t-heading-5 white fw5 mb3`}
                   >
                     <Link
-                      to={'/' + route + '/post/' + id}
+                      to={'/' + route + '/post/' + slug}
                       className="white no-underline"
                     >
                       {title}
@@ -119,10 +123,10 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                     >
                       {showCategory &&
                         category != undefined &&
-                        categoryId != undefined && (
+                        categorySlug != undefined && (
                           <Fragment>
                             <Link
-                              to={'/' + route + '/category/' + categoryId}
+                              to={'/' + route + '/category/' + categorySlug}
                               className={'white'}
                             >
                               {category}
@@ -143,7 +147,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
             </div>
           ) : (
             <Fragment>
-              <Link to={'/' + route + '/post/' + id} className="tc-m db">
+              <Link to={'/' + route + '/post/' + slug} className="tc-m db">
                 <img
                   className={`${handles.teaserImage}`}
                   src={image}
@@ -153,7 +157,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
               <h3
                 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
               >
-                <Link to={'/' + route + '/post/' + id}>
+                <Link to={'/' + route + '/post/' + slug}>
                   <SanitizedHTML html={title} />
                 </Link>
               </h3>
@@ -164,7 +168,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
 
       {mediaType != 'image' && (
         <h3 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
-          <Link to={'/' + route + '/post/' + id}>
+          <Link to={'/' + route + '/post/' + slug}>
             <SanitizedHTML html={title} />
           </Link>
         </h3>

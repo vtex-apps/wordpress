@@ -62,31 +62,15 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
                   title={post.title.rendered}
                   date={post.date}
                   id={post.id}
-                  author={post.author != null ? post.author.name : ''}
+                  slug={post.slug}
+                  author={post.author?.name ?? ''}
                   excerpt={post.excerpt.rendered}
-                  category={
-                    post.categories[0] != null ? post.categories[0].name : ''
-                  }
-                  categoryId={
-                    post.categories[0] != null
-                      ? post.categories[0].id
-                      : undefined
-                  }
-                  image={
-                    post.featured_media != null
-                      ? post.featured_media.source_url
-                      : ''
-                  }
-                  altText={
-                    post.featured_media != null
-                      ? post.featured_media.alt_text
-                      : ''
-                  }
-                  mediaType={
-                    post.featured_media != null
-                      ? post.featured_media.media_type
-                      : ''
-                  }
+                  category={post.categories[0]?.name ?? ''}
+                  categoryId={post.categories[0]?.id ?? undefined}
+                  categorySlug={post.categories[0]?.slug ?? ''}
+                  image={post.featured_media?.source_url ?? ''}
+                  altText={post.featured_media?.alt_text ?? ''}
+                  mediaType={post.featured_media?.media_type ?? ''}
                   showCategory={showCategories}
                   showDate={showDates}
                   showAuthor={showAuthors}
