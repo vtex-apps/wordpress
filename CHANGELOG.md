@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- WordpressCategoryBlock was still using old URL structure for link to "All (category) Posts"
+- Additional null checking for ProductQuery in WordpressRelatedPosts
+
 ## [1.0.0] - 2020-01-16
 
 ### Changed

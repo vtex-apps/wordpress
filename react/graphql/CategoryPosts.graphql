@@ -1,6 +1,7 @@
 query CategoryPosts($wp_page: Int, $wp_per_page: Int, $category: Int!) {
   wpCategory(id: $category) {
     name
+    slug
     wpPosts(page: $wp_page, per_page: $wp_per_page) {
       posts {
         title {

@@ -93,7 +93,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
             to={
               customLinkTarget != ''
                 ? customLinkTarget
-                : '/' + route + '/category/' + category
+                : '/' + route + '/category/' + data?.wpCategory?.slug
             }
             className={`${handles.categoryBlockLink}`}
           >
