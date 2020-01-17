@@ -17,7 +17,6 @@ const CSS_HANDLES = [
 
 const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBlockProps> = ({
   productQuery,
-  productQuery: { product },
   title,
   useTextOverlays,
   showCategories,
@@ -32,7 +31,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
     variables: {
       // eslint-disable-next-line @typescript-eslint/camelcase
       wp_per_page: numberOfPosts,
-      tag: 'prod-' + productQuery?.product.productReference,
+      tag: 'prod-' + productQuery?.product?.productReference,
     },
   })
   const handles = useCssHandles(CSS_HANDLES)
@@ -41,7 +40,8 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
       {(loading || loadingS) && <Spinner />}
       {error && <Fragment />}
       {data?.wpTags?.tags[0]?.wpPosts &&
-      'prod-' + product.productReference == data.wpTags.tags[0].name ? (
+      'prod-' + productQuery.product.productReference ==
+        data.wpTags.tags[0].name ? (
         <Fragment>
           <h2 className={`${handles.relatedPostsBlockTitle} tc t-heading-2`}>
             {title}
