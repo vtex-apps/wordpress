@@ -22,6 +22,7 @@ query SearchPosts($wp_page: Int, $wp_per_page: Int, $terms: String) {
       }
       date
       id
+      slug
     }
     total_count
   }

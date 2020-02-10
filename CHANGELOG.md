@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed the way `WordpressProductSearchResult` accesses the current search query
+- Added missing `slug` field in some GraphQL queries
+
 ## [1.0.1] - 2020-01-17
 
 ### Fixed

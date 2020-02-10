@@ -33,19 +33,19 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
     skip: !searchQuery,
     variables: {
-      terms: searchQuery?.query ?? null,
+      terms: searchQuery?.data?.searchMetadata?.titleTag ?? null,
       wp_page: 1,
       wp_per_page: 10,
     },
   })
 
-  return searchQuery?.query ? (
+  return searchQuery?.data?.searchMetadata?.titleTag ? (
     <Fragment>
       <h2
         className={`${handles.listTitle} ${handles.searchListTitle} t-heading-2 tc`}
       >
         Article search results for &quot;
-        {searchQuery.query}
+        {searchQuery?.data?.searchMetadata?.titleTag}
         &quot;
       </h2>
 
@@ -68,7 +68,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
                 variables: {
                   wp_page: 1,
                   wp_per_page: event.target.value,
-                  terms: searchQuery.query,
+                  terms: searchQuery.data.searchMetadata.titleTag,
                 },
                 updateQuery: (prev, { fetchMoreResult }) => {
                   if (!fetchMoreResult) return prev
@@ -84,7 +84,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
                   variables: {
                     wp_page: prevPage,
                     wp_per_page: perPage,
-                    terms: searchQuery.query,
+                    terms: searchQuery.data.searchMetadata.titleTag,
                   },
                   updateQuery: (prev, { fetchMoreResult }) => {
                     if (!fetchMoreResult) return prev
@@ -100,7 +100,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
                 variables: {
                   wp_page: nextPage,
                   wp_per_page: perPage,
-                  terms: searchQuery.query,
+                  terms: searchQuery.data.searchMetadata.titleTag,
                 },
                 updateQuery: (prev, { fetchMoreResult }) => {
                   if (!fetchMoreResult) return prev

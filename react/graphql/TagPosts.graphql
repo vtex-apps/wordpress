@@ -25,6 +25,7 @@ query TagPosts($wp_page: Int, $wp_per_page: Int, $tag: String!) {
           }
           date
           id
+          slug
         }
         total_count
       }
