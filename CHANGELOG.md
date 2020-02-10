@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.2] - 2020-02-10
+
 ### Fixed
 
 - Fixed the way `WordpressProductSearchResult` accesses the current search query
