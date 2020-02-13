@@ -113,6 +113,13 @@
         "host": "invictastores.wpengine.com",
         "path": "/*"
       }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "blogsn.localiza.com",
+        "path": "/*"
+      }
     }
   ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"

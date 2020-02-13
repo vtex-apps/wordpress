@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Outbound access for Localiza blog URL
+
 ## [1.0.2] - 2020-02-10
 
 ### Fixed
