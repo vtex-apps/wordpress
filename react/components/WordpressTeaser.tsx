@@ -1,7 +1,7 @@
 import React, { FunctionComponent, Fragment } from 'react'
 import { Card } from 'vtex.styleguide'
 import { Link } from 'vtex.render-runtime'
-import SanitizedHTML from 'react-sanitized-html'
+import insane from 'insane'
 import { useCssHandles } from 'vtex.css-handles'
 
 interface TeaserProps {
@@ -28,6 +28,12 @@ interface TeaserProps {
 interface AppSettings {
   titleTag: string
   blogRoute: string
+}
+
+const sanitizerConfigStripAll = {
+  allowedAttributes: false,
+  allowedTags: false,
+  allowedSchemes: [],
 }
 
 const CSS_HANDLES = [
@@ -63,6 +69,8 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
   const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
   const route = blogRoute && blogRoute !== '' ? blogRoute : 'blog'
+  const sanitizedTitle = insane(title, sanitizerConfigStripAll)
+  const sanitizedExcerpt = insane(excerpt, sanitizerConfigStripAll)
   return (
     <Card noPadding className={`${handles.teaserContainer}`}>
       {(showCategory || showDate || showAuthor) &&
@@ -158,7 +166,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
               >
                 <Link to={'/' + route + '/post/' + slug}>
-                  <SanitizedHTML html={title} />
+                  <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
                 </Link>
               </h3>
             </Fragment>
@@ -169,12 +177,17 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
       {mediaType != 'image' && (
         <h3 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
           <Link to={'/' + route + '/post/' + slug}>
-            <SanitizedHTML html={title} />
+            <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
           </Link>
         </h3>
       )}
 
-      {showExcerpt && <SanitizedHTML className="ph6 pb6" html={excerpt} />}
+      {showExcerpt && (
+        <div
+          className="ph6 pb6"
+          dangerouslySetInnerHTML={{ __html: sanitizedExcerpt }}
+        />
+      )}
     </Card>
   )
 }

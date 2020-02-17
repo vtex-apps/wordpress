@@ -5,53 +5,61 @@ import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
 import { Container } from 'vtex.store-components'
-import SanitizedHTML from 'react-sanitized-html'
+import insane from 'insane'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { WPRelatedProductsContext } from '../contexts/WordpressRelatedProducts'
 import SinglePostBySlug from '../graphql/SinglePostBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
 
-const allowedTags = [
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'blockquote',
-  'p',
-  'a',
-  'ul',
-  'ol',
-  'nl',
-  'li',
-  'b',
-  'i',
-  'strong',
-  'em',
-  'strike',
-  'code',
-  'hr',
-  'br',
-  'div',
-  'table',
-  'thead',
-  'caption',
-  'tbody',
-  'tr',
-  'th',
-  'td',
-  'pre',
-  'img',
-  'iframe',
-  'figure',
-]
+const sanitizerConfig = {
+  allowedTags: [
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'blockquote',
+    'p',
+    'a',
+    'ul',
+    'ol',
+    'nl',
+    'li',
+    'b',
+    'i',
+    'strong',
+    'em',
+    'strike',
+    'code',
+    'hr',
+    'br',
+    'div',
+    'table',
+    'thead',
+    'caption',
+    'tbody',
+    'tr',
+    'th',
+    'td',
+    'pre',
+    'img',
+    'iframe',
+    'figure',
+  ],
+  allowedAttributes: {
+    a: ['href', 'name', 'target'],
+    img: ['src', 'alt'],
+    iframe: ['src', 'scrolling', 'frameborder', 'width', 'height', 'id'],
+  },
+  allowedSchemes: ['http', 'https', 'mailto', 'tel'],
+}
 
-const allowedAttrs = {
-  a: ['href', 'name', 'target'],
-  img: ['src', 'alt'],
-  iframe: ['src', 'scrolling', 'frameborder', 'width', 'height', 'id'],
+const sanitizerConfigStripAll = {
+  allowedAttributes: false,
+  allowedTags: false,
+  allowedSchemes: [],
 }
 
 const CSS_HANDLES = [
@@ -109,6 +117,12 @@ const WordpressPost: FunctionComponent = props => {
     let route = dataS?.appSettings?.blogRoute
     if (!route || route == '') route = 'blog'
 
+    const titleHtml = insane(title.rendered, sanitizerConfig)
+    const captionHtml =
+      featured_media?.caption?.rendered ??
+      insane(featured_media.caption.rendered, sanitizerConfigStripAll)
+    const bodyHtml = insane(content.rendered, sanitizerConfig)
+
     return (
       <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
         <Helmet>
@@ -120,9 +134,10 @@ const WordpressPost: FunctionComponent = props => {
           <meta name="description" content={excerpt.rendered} />
         </Helmet>
         <div className={`${handles.postContainer} ph3`}>
-          <h1 className={`${handles.postTitle} t-heading-1`}>
-            <SanitizedHTML html={title.rendered} />
-          </h1>
+          <h1
+            className={`${handles.postTitle} t-heading-1`}
+            dangerouslySetInnerHTML={{ __html: titleHtml }}
+          />
           <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
             <span>Posted {formattedDate} in </span>
             {categories.map((cat: any, index: number) => (
@@ -136,30 +151,24 @@ const WordpressPost: FunctionComponent = props => {
                 {index + 1 === categories.length ? '' : ', '}
               </span>
             ))}
-            {author != null && <span> by {author.name}</span>}
+            {author && <span> by {author.name}</span>}
           </p>
-          {featured_media != null && featured_media.media_type === 'image' && (
+          {featured_media && featured_media.media_type === 'image' && (
             <div className="mw9 pb8">
               <img
                 className={`${handles.postFeaturedImage}`}
                 src={featured_media.source_url}
                 alt={featured_media.alt_text}
               />
-              {featured_media.caption != null && (
-                <SanitizedHTML
-                  html={featured_media.caption.rendered}
-                  allowedTags={[]}
-                />
+              {featured_media.caption && (
+                <span dangerouslySetInnerHTML={{ __html: captionHtml }} />
               )}
             </div>
           )}
-          <div className={`${handles.postBody}`}>
-            <SanitizedHTML
-              html={content.rendered}
-              allowedTags={allowedTags}
-              allowedAttributes={allowedAttrs}
-            />
-          </div>
+          <div
+            className={`${handles.postBody}`}
+            dangerouslySetInnerHTML={{ __html: bodyHtml }}
+          />
         </div>
 
         <WPRelatedProductsContext.Provider value={{ productIds: productIds }}>

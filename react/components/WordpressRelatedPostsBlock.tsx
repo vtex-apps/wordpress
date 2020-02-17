@@ -60,7 +60,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
                     date={post.date}
                     id={post.id}
                     slug={post.slug}
-                    author={post.author != null ? post.author.name : ''}
+                    author={post.author ? post.author.name : ''}
                     excerpt={post.excerpt.rendered}
                     category={post.categories[0]?.name ?? ''}
                     categoryId={post.categories[0]?.id ?? undefined}
