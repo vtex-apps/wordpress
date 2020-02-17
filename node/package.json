@@ -11,7 +11,6 @@
     "graphql": "^14.2.1",
     "he": "^1.2.0",
     "prettier": "^1.17.1",
-    "sanitize-html": "^1.20.1",
     "typescript": "3.7.3"
   },
   "devDependencies": {
@@ -23,14 +22,14 @@
     "eslint-config-vtex-react": "4.1.0",
     "tslint": "^5.9.1",
     "tslint-config-vtex": "^2.0.0",
-    "vtex.blog-interfaces": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces",
-    "vtex.css-handles": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles",
-    "vtex.product-summary": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.47.0/public/_types/react",
-    "vtex.search-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.13.1/public/@types/vtex.search-graphql",
-    "vtex.search-page-context": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.2/public/_types/react",
-    "vtex.shelf": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.33.5/public/_types/react",
-    "vtex.store": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.80.0/public/@types/vtex.store",
-    "vtex.store-components": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.98.0/public/_types/react",
-    "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.103.4/public/@types/vtex.styleguide"
+    "vtex.blog-interfaces": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces",
+    "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles",
+    "vtex.product-summary": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.52.0-beta.0/public/_types/react",
+    "vtex.search-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.17.1-hkignore.0/public/@types/vtex.search-graphql",
+    "vtex.search-page-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.0.3/public/_types/react",
+    "vtex.shelf": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.35.4/public/_types/react",
+    "vtex.store": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.87.2-hkignore.4/public/@types/vtex.store",
+    "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.103.0/public/_types/react",
+    "vtex.wordpress-integration": "https://wptest--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.0.3+build1581957282/public/@types/vtex.wordpress-integration"
   }
 }

@@ -1,4 +1,13 @@
 {
   "extends": "@vtex/tsconfig",
-  "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"]
+  "include": [
+    "./typings/*.d.ts",
+    "./**/*.tsx",
+    "./**/*.ts"
+  ],
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es2017"
+  }
 }

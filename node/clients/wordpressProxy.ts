@@ -49,7 +49,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
       await this.getEndpoint(this.context)
     }
     var formattedPassword = ''
-    if (password != null) formattedPassword = '?password=' + password
+    if (password) formattedPassword = '?password=' + password
 
     return this.http.get(this.endpoint + `posts/` + id + formattedPassword, {
       metric: 'post' + id + formattedPassword,
@@ -119,7 +119,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
       await this.getEndpoint(this.context)
     }
     var formattedPassword = ''
-    if (password != null) formattedPassword = '?password=' + password
+    if (password) formattedPassword = '?password=' + password
 
     return this.http.get(this.endpoint + `pages/` + id + formattedPassword, {
       metric: 'page' + id + formattedPassword,
@@ -145,7 +145,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
       await this.getEndpoint(this.context)
     }
     var formattedPassword = ''
-    if (password != null) formattedPassword = '?password=' + password
+    if (password) formattedPassword = '?password=' + password
 
     return this.http.get(this.endpoint + `comments/` + id + formattedPassword, {
       metric: 'comment' + id + formattedPassword,
@@ -157,7 +157,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
       await this.getEndpoint(this.context)
     }
     var formattedType = ''
-    if (type != null) formattedType = '?type=' + type
+    if (type) formattedType = '?type=' + type
     return this.http.get(this.endpoint + `taxonomies` + formattedType, {
       metric: 'taxonomies' + formattedType,
     })

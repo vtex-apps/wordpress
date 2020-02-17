@@ -112,7 +112,7 @@ const WordpressAllPosts: FunctionComponent = () => {
             >
               <WordpressTeaser
                 title={post.title.rendered}
-                author={post.author != null ? post.author.name : ''}
+                author={post.author ? post.author.name : ''}
                 category={post.categories[0]?.name ?? ''}
                 categoryId={post.categories[0]?.id ?? undefined}
                 categorySlug={post.categories[0]?.slug ?? ''}

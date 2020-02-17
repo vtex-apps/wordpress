@@ -73,7 +73,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
                     date={post.date}
                     id={post.id}
                     slug={post.slug}
-                    author={post.author != null ? post.author.name : ''}
+                    author={post.author ? post.author.name : ''}
                     excerpt={post.excerpt.rendered}
                     image={post.featured_media?.source_url ?? ''}
                     altText={post.featured_media?.alt_text ?? ''}
