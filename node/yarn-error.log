@@ -1,35 +1,30 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\uniteu\AppData\Roaming\npm\node_modules\vtex\node_modules\yarn\bin\yarn.js --non-interactive --ignore-engines
+  C:\Program Files\nodejs\node.exe C:\Users\Marc\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
 
 PATH: 
-  C;C:\Users\uniteu\AppData\Local\Yarn\bin;C:\cygwin64\usr\local\bin;C:\cygwin64\bin;C:\Python27;C:\Python27\Scripts;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\QuickTime\QTSystem;C:\Users\uniteu\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\WINDOWS\System32\OpenSSH;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin;C:\Program Files\OpenSSH-Win64;C:\Program Files\dotnet;C:\Users\uniteu\AppData\Local\Microsoft\WindowsApps;C:\Users\uniteu\AppData\Roaming\npm;C:\Users\uniteu\AppData\Local\Yarn\bin;C:\Users\uniteu\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\uniteu\.dotnet\tools
+  C;C:\Users\Marc\AppData\Local\Yarn\bin;C:\cygwin64\usr\local\bin;C:\cygwin64\bin;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\120\DTS\Binn;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files\Google\Google Apps Sync;C:\Program Files\Google\Google Apps Migration;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\Marc\AppData\Roaming\npm;C:\Users\Marc\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Marc\.dotnet\tools
 
 Yarn version: 
-  1.19.2
+  1.15.2
 
 Node version: 
-  11.6.0
+  10.15.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: https://wordpress--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@0.0.10+build1571942431/public/@types/vtex.wordpress-integration: Request failed "500 Internal Server Error"
-      at ResponseError.ExtendableBuiltin (C:\Users\uniteu\AppData\Roaming\npm\node_modules\vtex\node_modules\yarn\lib\cli.js:696:66)
-      at new ResponseError (C:\Users\uniteu\AppData\Roaming\npm\node_modules\vtex\node_modules\yarn\lib\cli.js:802:124)
-      at Request.<anonymous> (C:\Users\uniteu\AppData\Roaming\npm\node_modules\vtex\node_modules\yarn\lib\cli.js:66997:16)
-      at Request.emit (events.js:188:13)
-      at Request.module.exports.Request.onRequestResponse (C:\Users\uniteu\AppData\Roaming\npm\node_modules\vtex\node_modules\yarn\lib\cli.js:141463:10)
-      at ClientRequest.emit (events.js:193:15)
-      at HTTPParser.parserOnIncomingClient [as onIncoming] (_http_client.js:562:21)
-      at HTTPParser.parserOnHeadersComplete (_http_common.js:113:17)
-      at TLSSocket.socketOnData (_http_client.js:449:20)
-      at TLSSocket.emit (events.js:188:13)
+  SyntaxError: C:\cygwin64\home\Marc\wordpress\wordpress-integration\node\package.json: Unexpected token } in JSON at position 1634
+      at JSON.parse (<anonymous>)
+      at C:\Users\Marc\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\Marc\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:304:30)
+      at C:\Users\Marc\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:315:13
 
 npm manifest: 
   {
     "name": "wordpress",
-    "version": "0.1.0",
+    "version": "1.1.0",
     "description": "",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"
@@ -40,25 +35,25 @@ npm manifest:
       "graphql": "^14.2.1",
       "he": "^1.2.0",
       "prettier": "^1.17.1",
-      "sanitize-html": "^1.20.1",
       "typescript": "3.7.3"
     },
     "devDependencies": {
+      "@types/he": "^1.1.0",
+      "@types/sanitize-html": "^1.20.2",
       "@vtex/api": "^3.24.1",
       "eslint": "5.15.1",
       "eslint-config-vtex": "10.1.0",
       "eslint-config-vtex-react": "4.1.0",
       "tslint": "^5.9.1",
       "tslint-config-vtex": "^2.0.0",
-      "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.90.1/public/_types/react",
-      "vtex.store-components": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.78.1/public/_types/react",
-      "vtex.shelf": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.31.5/public/_types/react",
-      "vtex.search-page-context": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.1/public/_types/react",
-      "vtex.search-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.7.0/public/@types/vtex.search-graphql",
-      "vtex.product-summary": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.42.1/public/_types/react",
-      "vtex.store": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.69.0/public/_types/react",
-      "vtex.blog-interfaces": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.5/public/@types/vtex.blog-interfaces",
-      "vtex.wordpress-integration": "https://wordpress--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@0.0.10+build1571942431/public/@types/vtex.wordpress-integration"
+      "vtex.blog-interfaces": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces",
+      "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles",
+      "vtex.product-summary": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.52.0-beta.0/public/_types/react",
+      "vtex.search-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.17.1-hkignore.0/public/@types/vtex.search-graphql",
+      "vtex.search-page-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.0.3/public/_types/react",
+      "vtex.shelf": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.35.4/public/_types/react",
+      "vtex.store": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.87.2-hkignore.4/public/@types/vtex.store",
+      "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.103.0/public/_types/react",
     }
   }
 
@@ -190,6 +185,18 @@ Lockfile:
       "@types/keygrip" "*"
       "@types/node" "*"
   
+  "@types/domhandler@*":
+    version "2.4.1"
+    resolved "https://registry.yarnpkg.com/@types/domhandler/-/domhandler-2.4.1.tgz#7b3b347f7762180fbcb1ece1ce3dd0ebbb8c64cf"
+    integrity sha512-cfBw6q6tT5sa1gSPFSRKzF/xxYrrmeiut7E0TxNBObiLSBTuFEHibcfEe3waQPEDbqBsq+ql/TOniw65EyDFMA==
+  
+  "@types/domutils@*":
+    version "1.7.2"
+    resolved "https://registry.yarnpkg.com/@types/domutils/-/domutils-1.7.2.tgz#89422e579c165994ad5c09ce90325da596cc105d"
+    integrity sha512-Nnwy1Ztwq42SSNSZSh9EXBJGrOZPR+PQ2sRT4VZy8hnsFXfCil7YlKO2hd2360HyrtFz2qwnKQ13ENrgXNxJbw==
+    dependencies:
+      "@types/domhandler" "*"
+  
   "@types/events@*":
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
@@ -211,6 +218,20 @@ Lockfile:
       "@types/body-parser" "*"
       "@types/express-serve-static-core" "*"
       "@types/serve-static" "*"
+  
+  "@types/he@^1.1.0":
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/@types/he/-/he-1.1.0.tgz#0ddc2ae80f0814f729f0f7e5aa77b191ab4a9598"
+    integrity sha512-HyiLOiJhclRBPzcbYrNThdi0JOdq7bT4hq9jFBPQk4HGjzkwYVQnMj9IDi7qvYkg9QTly2oZ9kjm4j7d8Ic9eA==
+  
+  "@types/htmlparser2@*":
+    version "3.10.1"
+    resolved "https://registry.yarnpkg.com/@types/htmlparser2/-/htmlparser2-3.10.1.tgz#1e65ba81401d53f425c1e2ba5a3d05c90ab742c7"
+    integrity sha512-fCxmHS4ryCUCfV9+CJZY1UjkbR+6Al/EQdX5Jh03qBj9gdlPG5q+7uNoDgE/ZNXb3XNWSAQgqKIWnbRCbOyyWA==
+    dependencies:
+      "@types/domhandler" "*"
+      "@types/domutils" "*"
+      "@types/node" "*"
   
   "@types/http-assert@*":
     version "1.4.0"
@@ -265,6 +286,13 @@ Lockfile:
     version "1.2.3"
     resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
     integrity sha512-ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==
+  
+  "@types/sanitize-html@^1.20.2":
+    version "1.20.2"
+    resolved "https://registry.yarnpkg.com/@types/sanitize-html/-/sanitize-html-1.20.2.tgz#59777f79f015321334e3a9f28882f58c0a0d42b8"
+    integrity sha512-SrefiiBebGIhxEFkpbbYOwO1S6+zQLWAC4s4tipchlHq1aO9bp0xiapM7Zm0ml20MF+3OePWYdksB1xtneKPxg==
+    dependencies:
+      "@types/htmlparser2" "*"
   
   "@types/serve-static@*":
     version "1.13.2"
@@ -581,11 +609,6 @@ Lockfile:
       define-properties "^1.1.2"
       es-abstract "^1.7.0"
   
-  array-uniq@^1.0.2:
-    version "1.0.3"
-    resolved "https://registry.yarnpkg.com/array-uniq/-/array-uniq-1.0.3.tgz#af6ac877a25cc7f74e058894753858dfdb24fdb6"
-    integrity sha1-r2rId6Jcx/dOBYiUdThY39sk/bY=
-  
   ast-types-flow@0.0.7, ast-types-flow@^0.0.7:
     version "0.0.7"
     resolved "https://registry.yarnpkg.com/ast-types-flow/-/ast-types-flow-0.0.7.tgz#f70b735c6bca1a5c9c22d982c3e39e7feba3bdad"
@@ -753,7 +776,7 @@ Lockfile:
       strip-ansi "^3.0.0"
       supports-color "^2.0.0"
   
-  chalk@^2.0.0, chalk@^2.1.0, chalk@^2.3.0, chalk@^2.4.1, chalk@^2.4.2:
+  chalk@^2.0.0, chalk@^2.1.0, chalk@^2.3.0, chalk@^2.4.2:
     version "2.4.2"
     resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
     integrity sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
@@ -947,34 +970,6 @@ Lockfile:
     dependencies:
       esutils "^2.0.2"
   
-  dom-serializer@0:
-    version "0.1.1"
-    resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-0.1.1.tgz#1ec4059e284babed36eec2941d4a970a189ce7c0"
-    integrity sha512-l0IU0pPzLWSHBcieZbpOKgkIn3ts3vAh7ZuFyXNwJxJXk/c4Gwj9xaTJwIDVQCXawWD0qb3IzMGH5rglQaO0XA==
-    dependencies:
-      domelementtype "^1.3.0"
-      entities "^1.1.1"
-  
-  domelementtype@1, domelementtype@^1.3.0, domelementtype@^1.3.1:
-    version "1.3.1"
-    resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.3.1.tgz#d048c44b37b0d10a7f2a3d5fee3f4333d790481f"
-    integrity sha512-BSKB+TSpMpFI/HOxCNr1O8aMOTZ8hT3pM3GQ0w/mWRmkhEDSFJkkyzz4XQsBV44BChwGkrDfMyjVD0eA2aFV3w==
-  
-  domhandler@^2.3.0:
-    version "2.4.2"
-    resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-2.4.2.tgz#8805097e933d65e85546f726d60f5eb88b44f803"
-    integrity sha512-JiK04h0Ht5u/80fdLMCEmV4zkNh2BcoMFBmZ/91WtYZ8qVXSKjiw7fXMgFPnHcSZgOo3XdinHvmnDUeMf5R4wA==
-    dependencies:
-      domelementtype "1"
-  
-  domutils@^1.5.1:
-    version "1.7.0"
-    resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.7.0.tgz#56ea341e834e06e6748af7a1cb25da67ea9f8c2a"
-    integrity sha512-Lgd2XcJ/NjEw+7tFvfKxOzCYKZsdct5lczQ2ZaQY8Djz7pfAD3Gbp8ySJWtreII/vDlMVmxwa6pHmdxIYgttDg==
-    dependencies:
-      dom-serializer "0"
-      domelementtype "1"
-  
   emoji-regex@^7.0.1, emoji-regex@^7.0.2:
     version "7.0.3"
     resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
@@ -986,11 +981,6 @@ Lockfile:
     integrity sha512-1MkrZNvWTKCaigbn+W15elq2BB/L22nqrSY5DKlo3X6+vclJm8Bb5djXJBmEX6fS3+zCh/F4VBK5Z2KxJt4s2Q==
     dependencies:
       once "^1.4.0"
-  
-  entities@^1.1.1:
-    version "1.1.2"
-    resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
-    integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
   
   es-abstract@^1.11.0, es-abstract@^1.12.0, es-abstract@^1.5.1, es-abstract@^1.7.0:
     version "1.13.0"
@@ -1449,18 +1439,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
     integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
   
-  htmlparser2@^3.10.0:
-    version "3.10.1"
-    resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.10.1.tgz#bd679dc3f59897b6a34bb10749c855bb53a9392f"
-    integrity sha512-IgieNijUMbkDovyoKObU1DUhm1iwNYE/fuifEoEHfd1oZKZDaONBSkal7Y01shxsM49R4XaMdGez3WnF9UfiCQ==
-    dependencies:
-      domelementtype "^1.3.1"
-      domhandler "^2.3.0"
-      domutils "^1.5.1"
-      entities "^1.1.1"
-      inherits "^2.0.1"
-      readable-stream "^3.1.1"
-  
   http-errors@1.6.3:
     version "1.6.3"
     resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.6.3.tgz#8b55680bb4be283a0b5bf4ea2e38580be1d9320d"
@@ -1693,11 +1671,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/lodash.assign/-/lodash.assign-4.2.0.tgz#0d99f3ccd7a6d261d19bdaeb9245005d285808e7"
     integrity sha1-DZnzzNem0mHRm9rrkkUAXShYCOc=
   
-  lodash.clonedeep@^4.5.0:
-    version "4.5.0"
-    resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
-    integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
-  
   lodash.defaults@^4.2.0:
     version "4.2.0"
     resolved "https://registry.yarnpkg.com/lodash.defaults/-/lodash.defaults-4.2.0.tgz#d09178716ffea4dde9e5fb7b37f6f0802274580c"
@@ -1708,11 +1681,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/lodash.difference/-/lodash.difference-4.5.0.tgz#9ccb4e505d486b91651345772885a2df27fd017c"
     integrity sha1-nMtOUF1Ia5FlE0V3KIWi3yf9AXw=
   
-  lodash.escaperegexp@^4.1.2:
-    version "4.1.2"
-    resolved "https://registry.yarnpkg.com/lodash.escaperegexp/-/lodash.escaperegexp-4.1.2.tgz#64762c48618082518ac3df4ccf5d5886dae20347"
-    integrity sha1-ZHYsSGGAglGKw99Mz11YhtriA0c=
-  
   lodash.flatten@^4.4.0:
     version "4.4.0"
     resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
@@ -1722,16 +1690,6 @@ Lockfile:
     version "4.0.6"
     resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
     integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
-  
-  lodash.isstring@^4.0.1:
-    version "4.0.1"
-    resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
-    integrity sha1-1SfftUVuynzJu5XV2ur4i6VKVFE=
-  
-  lodash.mergewith@^4.6.1:
-    version "4.6.1"
-    resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.1.tgz#639057e726c3afbdb3e7d42741caa8d6e4335927"
-    integrity sha512-eWw5r+PYICtEBgrBE5hhlT6aAa75f411bgDz/ZL2KZqYV03USvucsxcHUIlGTDTECs1eunpI7HOV7U+WLDvNdQ==
   
   lodash.sortby@^4.7.0:
     version "4.7.0"
@@ -1854,11 +1812,6 @@ Lockfile:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
     integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
-  
-  number-is-nan@^1.0.0:
-    version "1.0.1"
-    resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
-    integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
   
   object-assign@^4.1.1:
     version "4.1.1"
@@ -1992,15 +1945,6 @@ Lockfile:
     version "1.0.6"
     resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
     integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
-  
-  postcss@^7.0.5:
-    version "7.0.16"
-    resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.16.tgz#48f64f1b4b558cb8b52c88987724359acb010da2"
-    integrity sha512-MOo8zNSlIqh22Uaa3drkdIAgUGEL+AD1ESiSdmElLUmE2uVDo1QloiT/IfW9qRw8Gw+Y/w69UVMGwbufMSftxA==
-    dependencies:
-      chalk "^2.4.2"
-      source-map "^0.6.1"
-      supports-color "^6.1.0"
   
   prelude-ls@~1.1.2:
     version "1.1.2"
@@ -2210,22 +2154,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
     integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
   
-  sanitize-html@^1.20.1:
-    version "1.20.1"
-    resolved "https://registry.yarnpkg.com/sanitize-html/-/sanitize-html-1.20.1.tgz#f6effdf55dd398807171215a62bfc21811bacf85"
-    integrity sha512-txnH8TQjaQvg2Q0HY06G6CDJLVYCpbnxrdO0WN8gjCKaU5J0KbyGYhZxx5QJg3WLZ1lB7XU9kDkfrCXUozqptA==
-    dependencies:
-      chalk "^2.4.1"
-      htmlparser2 "^3.10.0"
-      lodash.clonedeep "^4.5.0"
-      lodash.escaperegexp "^4.1.2"
-      lodash.isplainobject "^4.0.6"
-      lodash.isstring "^4.0.1"
-      lodash.mergewith "^4.6.1"
-      postcss "^7.0.5"
-      srcset "^1.0.0"
-      xtend "^4.0.1"
-  
   semver@5.5.0:
     version "5.5.0"
     resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
@@ -2280,23 +2208,10 @@ Lockfile:
       astral-regex "^1.0.0"
       is-fullwidth-code-point "^2.0.0"
   
-  source-map@^0.6.1:
-    version "0.6.1"
-    resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
-    integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
-  
   sprintf-js@~1.0.2:
     version "1.0.3"
     resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
     integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
-  
-  srcset@^1.0.0:
-    version "1.0.0"
-    resolved "https://registry.yarnpkg.com/srcset/-/srcset-1.0.0.tgz#a5669de12b42f3b1d5e83ed03c71046fc48f41ef"
-    integrity sha1-pWad4StC87HV6D7QPHEEb8SPQe8=
-    dependencies:
-      array-uniq "^1.0.2"
-      number-is-nan "^1.0.0"
   
   stats-lite@vtex/node-stats-lite#dist:
     version "2.2.0"
@@ -2391,13 +2306,6 @@ Lockfile:
     version "5.5.0"
     resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
     integrity sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==
-    dependencies:
-      has-flag "^3.0.0"
-  
-  supports-color@^6.1.0:
-    version "6.1.0"
-    resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-6.1.0.tgz#0764abc69c63d5ac842dd4867e8d025e880df8f3"
-    integrity sha512-qe1jfm1Mg7Nq/NSh6XE24gPXROEVsWHxC1LIx//XNlD9iw7YZQGjZNjYN7xGaEG6iKdA8EtNFW6R0gjnVXp+wQ==
     dependencies:
       has-flag "^3.0.0"
   
@@ -2571,10 +2479,10 @@ Lockfile:
       media-typer "0.3.0"
       mime-types "~2.1.18"
   
-  typescript@3.5.2:
-    version "3.5.2"
-    resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.2.tgz#a09e1dc69bc9551cadf17dba10ee42cf55e5d56c"
-    integrity sha512-7KxJovlYhTX5RaRbUdkAXN1KUZ8PwWlTzQdHV6xNqvuFOs7+WBo10TQUqT19Q/Jz2hk5v9TQDIhyLhhJY4p5AA==
+  typescript@3.7.3:
+    version "3.7.3"
+    resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
+    integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
   
   universalify@^0.1.0:
     version "0.1.2"
@@ -2611,41 +2519,41 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
     integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
   
-  "vtex.blog-interfaces@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.5/public/@types/vtex.blog-interfaces":
-    version "0.0.5"
-    resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.blog-interfaces@0.0.5/public/@types/vtex.blog-interfaces#4c1263f5ce093a80ec45711f1338262d84b24884"
+  "vtex.blog-interfaces@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces":
+    version "0.0.6"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces#c25ee2ab9657266ed0deea268dab59675f5f8b69"
   
-  "vtex.product-summary@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.42.1/public/_types/react":
+  "vtex.css-handles@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles":
+    version "0.4.1"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles#16fe9485e8e7183b94f28496ed8cdd741c83f227"
+  
+  "vtex.product-summary@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.52.0-beta.0/public/_types/react":
     version "0.0.0"
-    resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.product-summary@2.42.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.52.0-beta.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
   
-  "vtex.search-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.7.0/public/@types/vtex.search-graphql":
-    version "0.7.0"
-    resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-graphql@0.7.0/public/@types/vtex.search-graphql#e5e1d0e49e47fd8ba93591a877cc8b1fec75d834"
+  "vtex.search-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.17.1-hkignore.0/public/@types/vtex.search-graphql":
+    version "0.17.1-hkignore.0"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.17.1-hkignore.0/public/@types/vtex.search-graphql#964c7f5e7d61a9e6d64a90a4dcea23e7fe404d9b"
   
-  "vtex.search-page-context@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.1/public/_types/react":
+  "vtex.search-page-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.0.3/public/_types/react":
     version "0.0.0"
-    resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.search-page-context@0.0.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.0.3/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
   
-  "vtex.shelf@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.31.5/public/_types/react":
+  "vtex.shelf@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.35.4/public/_types/react":
     version "0.0.0"
-    resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.shelf@1.31.5/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.35.4/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
   
-  "vtex.store-components@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.78.1/public/_types/react":
+  "vtex.store-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.103.0/public/_types/react":
     version "0.0.0"
-    resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-components@3.78.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.103.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
   
-  "vtex.store@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.69.0/public/_types/react":
-    version "0.0.0"
-    resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store@2.69.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  "vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.87.2-hkignore.4/public/@types/vtex.store":
+    version "2.87.2-hkignore.4"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.87.2-hkignore.4/public/@types/vtex.store#cfa87fbb4e29328aca04c7e0f33494c7d156c4c0"
   
-  "vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.90.1/public/_types/react":
-    version "0.0.0"
-    resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@9.90.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
-  
-  "vtex.wordpress-integration@https://wordpress--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@0.0.10+build1571942431/public/@types/vtex.wordpress-integration":
-    version "0.0.10"
-    resolved "https://wordpress--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@0.0.10+build1571942431/public/@types/vtex.wordpress-integration#090cb4b62a2464f8990486e1766e846c02c0ddd1"
+  "vtex.wordpress-integration@https://wptest--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.0.3+build1581957282/public/@types/vtex.wordpress-integration":
+    version "1.0.3"
+    resolved "https://wptest--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.0.3+build1581957282/public/@types/vtex.wordpress-integration#e2f5efcc2c71d5068363ed43111566a5fa8ec70c"
   
   which@^1.2.9:
     version "1.3.1"
@@ -2685,7 +2593,7 @@ Lockfile:
     dependencies:
       async-limiter "~1.0.0"
   
-  xtend@^4.0.0, xtend@^4.0.1:
+  xtend@^4.0.0:
     version "4.0.1"
     resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
     integrity sha1-pcbVMr5lbiPbgg77lDofBJmNY68=
