@@ -1,38 +1,80 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
-import WordpressTeaser from './WordpressTeaser'
 import Settings from '../graphql/Settings.graphql'
 import TagPosts from '../graphql/TagPosts.graphql'
+import { Container } from 'vtex.store-components'
+import insane from 'insane'
 
 const CSS_HANDLES = [
   'categoryRelatedPostsBlockContainer',
   'categoryRelatedPostsBlockTitle',
   'categoryRelatedPostsBlockFlex',
-  'categoryRelatedPostsBlockFlexItem',
+  'categoryRelatedPostsBlockBody',
+  'categoryRelatedPostsBlockMeta',
+  'categoryRelatedPostsBlockImage'
 ] as const
 
+const sanitizerConfig = {
+  allowedTags: [
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'blockquote',
+    'p',
+    'a',
+    'ul',
+    'ol',
+    'nl',
+    'li',
+    'b',
+    'i',
+    'strong',
+    'section',
+    'em',
+    'strike',
+    'code',
+    'hr',
+    'br',
+    'div',
+    'table',
+    'thead',
+    'caption',
+    'tbody',
+    'tr',
+    'th',
+    'td',
+    'pre',
+    'img',
+    'iframe',
+    'figure',
+  ],
+  allowedAttributes: {
+    a: ['href', 'name', 'target'],
+    img: ['src', 'alt'],
+    iframe: ['src', 'scrolling', 'frameborder', 'width', 'height', 'id'],
+  },
+  allowedSchemes: ['http', 'https', 'mailto', 'tel'],
+}
+
 const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategoryRelatedPostsBlockProps> = ({
-  title,
-  useTextOverlays,
-  showCategories,
-  showDates,
-  showAuthors,
-  showExcerpts,
   numberOfPosts,
 }) => {
-  
-const {
-  route: { params },
-} = useRuntime()
+  const handles = useCssHandles(CSS_HANDLES)
+  const {
+    route: { params },
+  } = useRuntime()
 
-let categoryIdentifier =  params.id != null && params.id != "" && params.id != undefined ? params.id : params.department;
+  let categoryIdentifier =  typeof params.id != "undefined" && params.id != null && params.id != "" ? params.id : params.department;
 
   const { loading: loadingS, data: dataS } = useQuery(Settings)
-  const { loading, error, data } = useQuery(TagPosts, {
+  const { loading, data } = useQuery(TagPosts, {
     skip: !categoryIdentifier,
     variables: {
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -40,57 +82,47 @@ let categoryIdentifier =  params.id != null && params.id != "" && params.id != u
       tag: 'category-' + categoryIdentifier,
     },
   })
-  const handles = useCssHandles(CSS_HANDLES)
-  return categoryIdentifier ? (
-    <div className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>
+ if (data?.wpTags?.tags[0]?.wpPosts.posts) {
+
+    let route = dataS?.appSettings?.blogRoute
+    if (!route || route == '') route = 'blog'
+
+    return categoryIdentifier ? (
+      <div className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>
       {(loading || loadingS) && <Spinner />}
-      {error && <Fragment />}
       {data?.wpTags?.tags[0]?.wpPosts &&
       'category-' + categoryIdentifier ==
         data.wpTags.tags[0].name ? (
-        <Fragment>
-          <h2 className={`${handles.categoryRelatedPostsBlockTitle} tc t-heading-2`}>
-            {title}
-          </h2>
+          data?.wpTags?.tags[0]?.wpPosts.posts.map(
+            (post:PostData,index: number)=>(
+      <div key={index} className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>        
+      <Container className={`${handles.categoryRelatedPostsBlockFlex} pt6 pb8 ph3`}>
+        <div className={`${handles.categoryRelatedPostsBlockContainer} ph3`}>
+          <h1
+            className={`${handles.categoryRelatedPostsBlockTitle} t-heading-1`}
+            dangerouslySetInnerHTML={{ __html: insane(post.title.rendered, sanitizerConfig) }}
+          />
+          )}
           <div
-            className={`${handles.categoryRelatedPostsBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
-          >
-            {data.wpTags.tags[0].wpPosts.posts.map(
-              (post: PostData, index: number) => (
-                <div
-                  key={index}
-                  className={`${handles.categoryRelatedPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}
-                >
-                  <WordpressTeaser
-                    title={post.title.rendered}
-                    date={post.date}
-                    id={post.id}
-                    slug={post.slug}
-                    author={post.author ? post.author.name : ''}
-                    excerpt={post.excerpt.rendered}
-                    category={post.categories[0]?.name ?? ''}
-                    categoryId={post.categories[0]?.id ?? undefined}
-                    categorySlug={post.categories[0]?.slug ?? ''}
-                    image={post.featured_media?.source_url ?? ''}
-                    altText={post.featured_media?.alt_text ?? ''}
-                    mediaType={post.featured_media?.media_type ?? ''}
-                    showCategory={showCategories}
-                    showDate={showDates}
-                    showAuthor={showAuthors}
-                    showExcerpt={showExcerpts}
-                    useTextOverlay={useTextOverlays}
-                    settings={dataS.appSettings}
-                  />
-                </div>
-              )
-            )}
-          </div>
-        </Fragment>
-      ) : (
-        <Fragment />
-      )}
-    </div>
-  ) : null
+            className={`${handles.categoryRelatedPostsBlockBody}`}
+            dangerouslySetInnerHTML={{ __html: insane(post.content.rendered, sanitizerConfig) }}
+          />
+        </div>
+      </Container>
+      ) : null}
+      </div>
+      )
+      )
+        ): null}
+      </div>
+    ):null
+  } else {
+    return (
+      <div>
+        <h2>No post found.</h2>
+      </div>
+    )
+  }
 }
 
 interface WPCategoryRelatedPostsBlockProps {
@@ -105,7 +137,7 @@ interface WPCategoryRelatedPostsBlockProps {
 
 WordpressCategoryRelatedPostsBlock.defaultProps = {
   title: 'Related Articles',
-  numberOfPosts: 3,
+  numberOfPosts: 1,
   useTextOverlays: false,
   showCategories: true,
   showDates: true,
@@ -122,14 +154,6 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressRelatedPosts.description',
   },
-  titleTitle: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressRelatedPostsTitle.title',
-  },
-  titleDescription: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressRelatedPostsTitle.description',
-  },
   numberOfPostsTitle: {
     defaultMessage: '',
     id: 'admin/editor.wordpressNumberOfPosts.title',
@@ -137,47 +161,7 @@ const messages = defineMessages({
   numberOfPostsDescription: {
     defaultMessage: '',
     id: 'admin/editor.wordpressNumberOfPosts.description',
-  },
-  useTextOverlaysTitle: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressOverlays.title',
-  },
-  useTextOverlaysDescription: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressOverlays.description',
-  },
-  showCategoriesTitle: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressCategories.title',
-  },
-  showCategoriesDescription: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressCategories.description',
-  },
-  showDatesTitle: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressDates.title',
-  },
-  showDatesDescription: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressDates.description',
-  },
-  showAuthorsTitle: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressAuthors.title',
-  },
-  showAuthorsDescription: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressAuthors.description',
-  },
-  showExcerptsTitle: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressExcerpts.title',
-  },
-  showExcerptsDescription: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressExcerpts.description',
-  },
+  }
 })
 
 WordpressCategoryRelatedPostsBlock.schema = {
@@ -185,54 +169,12 @@ WordpressCategoryRelatedPostsBlock.schema = {
   description: messages.description.id,
   type: 'object',
   properties: {
-    title: {
-      title: messages.titleTitle.id,
-      description: messages.titleDescription.id,
-      type: 'string',
-      isLayout: false,
-      default: '',
-    },
     numberOfPosts: {
       title: messages.numberOfPostsTitle.id,
       description: messages.numberOfPostsDescription.id,
       type: 'number',
       isLayout: false,
       default: 3,
-    },
-    useTextOverlays: {
-      title: messages.useTextOverlaysTitle.id,
-      description: messages.useTextOverlaysDescription.id,
-      type: 'boolean',
-      isLayout: false,
-      default: false,
-    },
-    showCategories: {
-      title: messages.showCategoriesTitle.id,
-      description: messages.showCategoriesDescription.id,
-      type: 'boolean',
-      isLayout: false,
-      default: true,
-    },
-    showDates: {
-      title: messages.showDatesTitle.id,
-      description: messages.showDatesDescription.id,
-      type: 'boolean',
-      isLayout: false,
-      default: true,
-    },
-    showAuthors: {
-      title: messages.showAuthorsTitle.id,
-      description: messages.showAuthorsDescription.id,
-      type: 'boolean',
-      isLayout: false,
-      default: false,
-    },
-    showExcerpts: {
-      title: messages.showExcerptsTitle.id,
-      description: messages.showExcerptsDescription.id,
-      type: 'boolean',
-      isLayout: false,
-      default: false,
     },
   },
 }
