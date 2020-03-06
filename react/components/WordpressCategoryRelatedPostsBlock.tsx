@@ -1,7 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
-import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 import Settings from '../graphql/Settings.graphql'
@@ -65,16 +64,20 @@ const sanitizerConfig = {
 
 const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategoryRelatedPostsBlockProps> = ({
   numberOfPosts,
+  categoryIdentifier
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const {
     route: { params },
   } = useRuntime()
 
-  let categoryIdentifier =  typeof params.id != "undefined" && params.id != null && params.id != "" ? params.id : params.department;
+  if (categoryIdentifier == null || categoryIdentifier == "")
+  {
+        categoryIdentifier = typeof params.id != "undefined" && params.id != null && params.id != "" ? params.id : "";
+  }  
 
-  const { loading: loadingS, data: dataS } = useQuery(Settings)
-  const { loading, data } = useQuery(TagPosts, {
+  const { data: dataS } = useQuery(Settings)
+  const { data } = useQuery(TagPosts, {
     skip: !categoryIdentifier,
     variables: {
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -87,46 +90,37 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
     let route = dataS?.appSettings?.blogRoute
     if (!route || route == '') route = 'blog'
 
-    return categoryIdentifier ? (
+    return (
       <div className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>
-      {(loading || loadingS) && <Spinner />}
-      {data?.wpTags?.tags[0]?.wpPosts &&
-      'category-' + categoryIdentifier ==
-        data.wpTags.tags[0].name ? (
-          data?.wpTags?.tags[0]?.wpPosts.posts.map(
+      {(data?.wpTags?.tags[0]?.wpPosts.posts.map(
             (post:PostData,index: number)=>(
       <div key={index} className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>        
       <Container className={`${handles.categoryRelatedPostsBlockFlex} pt6 pb8 ph3`}>
-        <div className={`${handles.categoryRelatedPostsBlockContainer} ph3`}>
           <h1
             className={`${handles.categoryRelatedPostsBlockTitle} t-heading-1`}
             dangerouslySetInnerHTML={{ __html: insane(post.title.rendered, sanitizerConfig) }}
           />
-          )}
+          )
           <div
             className={`${handles.categoryRelatedPostsBlockBody}`}
             dangerouslySetInnerHTML={{ __html: insane(post.content.rendered, sanitizerConfig) }}
           />
-        </div>
       </Container>
       ) : null}
       </div>
       )
       )
-        ): null}
-      </div>
-    ):null
-  } else {
-    return (
-      <div>
-        <h2>No post found.</h2>
+        )}
       </div>
     )
+  } else {
+    return null
   }
 }
 
 interface WPCategoryRelatedPostsBlockProps {
   title: string
+  categoryIdentifier: string
   numberOfPosts: number
   useTextOverlays: boolean
   showCategories: boolean
@@ -137,6 +131,7 @@ interface WPCategoryRelatedPostsBlockProps {
 
 WordpressCategoryRelatedPostsBlock.defaultProps = {
   title: 'Related Articles',
+  categoryIdentifier: '',
   numberOfPosts: 1,
   useTextOverlays: false,
   showCategories: true,
@@ -148,19 +143,27 @@ WordpressCategoryRelatedPostsBlock.defaultProps = {
 const messages = defineMessages({
   title: {
     defaultMessage: '',
-    id: 'admin/editor.wordpressRelatedPosts.title',
+    id: 'admin/editor.wordpressCategoryRelatedPosts.title',
   },
   description: {
     defaultMessage: '',
-    id: 'admin/editor.wordpressRelatedPosts.description',
+    id: 'admin/editor.wordpressCategoryRelatedPosts.description',
   },
   numberOfPostsTitle: {
     defaultMessage: '',
-    id: 'admin/editor.wordpressNumberOfPosts.title',
+    id: 'admin/editor.wordpressRelatedCategoyNumberOfPosts.title',
   },
   numberOfPostsDescription: {
     defaultMessage: '',
-    id: 'admin/editor.wordpressNumberOfPosts.description',
+    id: 'admin/editor.wordpressRelatedCategoryNumberOfPosts.description',
+  },
+  categoryIdentifierTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressRelatedCategoyIdentifier.title',
+  },
+  categoryIdentifierDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressRelatedCategoryIdentifier.description',
   }
 })
 
@@ -176,6 +179,12 @@ WordpressCategoryRelatedPostsBlock.schema = {
       isLayout: false,
       default: 3,
     },
+    categoryIdentifier: {
+      title: messages.categoryIdentifierTitle.id,
+      description: messages.categoryIdentifierDescription.id,
+      type: 'string',
+      isLayout: false,
+    }
   },
 }
 

@@ -1,0 +1,3 @@
+import WordpressCategoryRelatedPostsBlock from './components/WordpressCategoryRelatedPostsBlock'
+
+export default WordpressCategoryRelatedPostsBlock
