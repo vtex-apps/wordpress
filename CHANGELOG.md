@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.2.0] - 2020-03-10
+
 ### Added
 
 - new block to support posts related to categories by tag, update to sanitzer configs
