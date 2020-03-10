@@ -30,6 +30,7 @@ const sanitizerConfig = {
     'b',
     'i',
     'strong',
+    'section',
     'em',
     'strike',
     'code',

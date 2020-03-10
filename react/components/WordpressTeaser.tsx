@@ -32,7 +32,7 @@ interface AppSettings {
 
 const sanitizerConfigStripAll = {
   allowedAttributes: false,
-  allowedTags: false,
+  allowedTags: ['p','div','span'],
   allowedSchemes: [],
 }
 

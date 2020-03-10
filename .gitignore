@@ -36,6 +36,9 @@ lib
 .eslintrc
 *.orig
 react/package-lock.json
+yarn-error.log
+node/yarn-error.log
+react/yarn-error.log
 
 # dontnet
 dotnet/obj/

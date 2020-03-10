@@ -29,7 +29,6 @@
     "vtex.search-page-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.0.3/public/_types/react",
     "vtex.shelf": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.35.4/public/_types/react",
     "vtex.store": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.87.2-hkignore.4/public/@types/vtex.store",
-    "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.103.0/public/_types/react",
-    "vtex.wordpress-integration": "https://wptest--worldwidegolf.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.0.3+build1581957282/public/@types/vtex.wordpress-integration"
+    "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.103.0/public/_types/react"
   }
 }
