@@ -40,7 +40,7 @@
     "blog-related-posts.wordpress-related-posts": {
         "component": "WordpressRelatedPosts"
     },
-    "blog-related-posts.WordpressCategoryRelatedPostsBlock":{
+    "blog-related-posts.wordpress-category-related-posts":{
         "component":"WordpressCategoryRelatedPostsBlock"
     },
     "blog-breadcrumb.wordpress-breadcrumb": {
