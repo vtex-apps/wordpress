@@ -178,6 +178,10 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 
 You can check if others are passing through similar issues [here](https://github.com/vtex-apps/wordpress-integration/issues). Also feel free to [open issues](https://github.com/vtex-apps/wordpress-integration/issues/new) or contribute with pull requests.
 
+**Upcoming documentation:**
+
+ - [add interface](https://github.com/vtex-apps/wordpress-integration/pull/15)
+
 ## Contributing
 
 Check it out [how to contribute](https://github.com/vtex-apps/awesome-io#contributing) with this project.
