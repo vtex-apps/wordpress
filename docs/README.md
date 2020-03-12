@@ -1,4 +1,7 @@
 # Wordpress Integration
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Description
 
@@ -175,11 +178,23 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 
 You can check if others are passing through similar issues [here](https://github.com/vtex-apps/wordpress-integration/issues). Also feel free to [open issues](https://github.com/vtex-apps/wordpress-integration/issues/new) or contribute with pull requests.
 
+**Upcoming documentation:**
+
+ - [add interface](https://github.com/vtex-apps/wordpress-integration/pull/15)
+
 ## Contributing
 
 Check it out [how to contribute](https://github.com/vtex-apps/awesome-io#contributing) with this project.
 
+## Contributors ✨
 
-**Upcoming documentation:**
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
- - [add interface](https://github.com/vtex-apps/wordpress-integration/pull/15)
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
