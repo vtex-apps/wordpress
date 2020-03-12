@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.2.1] - 2020-03-12
+
 ### Changed
 - rebase local branch onto master in preparation of new release with interfaces update
 
