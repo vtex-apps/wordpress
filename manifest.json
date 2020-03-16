@@ -54,6 +54,13 @@
     {
       "name": "outbound-access",
       "attrs": {
+        "host": "blog.bennemann.com.br",
+        "path": "/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
         "host": "{{account}}.vtexcommercestable.com.br",
         "path": "/api/dataentities/*"
       }
