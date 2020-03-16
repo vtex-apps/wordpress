@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Outbound access for Bennemann blog URL
+
 ## [1.2.1] - 2020-03-12
 
 ### Changed
