@@ -14,7 +14,7 @@ const CSS_HANDLES = [
   'categoryRelatedPostsBlockFlex',
   'categoryRelatedPostsBlockBody',
   'categoryRelatedPostsBlockMeta',
-  'categoryRelatedPostsBlockImage'
+  'categoryRelatedPostsBlockImage',
 ] as const
 
 const sanitizerConfig = {
@@ -64,17 +64,19 @@ const sanitizerConfig = {
 
 const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategoryRelatedPostsBlockProps> = ({
   numberOfPosts,
-  categoryIdentifier
+  categoryIdentifier,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const {
     route: { params },
   } = useRuntime()
 
-  if (categoryIdentifier == null || categoryIdentifier == "")
-  {
-        categoryIdentifier = typeof params.id != "undefined" && params.id != null && params.id != "" ? params.id : "";
-  }  
+  if (categoryIdentifier == null || categoryIdentifier == '') {
+    categoryIdentifier =
+      typeof params.id != 'undefined' && params.id != null && params.id != ''
+        ? params.id
+        : ''
+  }
 
   const { data: dataS } = useQuery(Settings)
   const { data } = useQuery(TagPosts, {
@@ -85,31 +87,38 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
       tag: 'category-' + categoryIdentifier,
     },
   })
- if (data?.wpTags?.tags[0]?.wpPosts.posts) {
-
+  if (data?.wpTags?.tags[0]?.wpPosts.posts) {
     let route = dataS?.appSettings?.blogRoute
     if (!route || route == '') route = 'blog'
 
     return (
       <div className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>
-      {(data?.wpTags?.tags[0]?.wpPosts.posts.map(
-            (post:PostData,index: number)=>(
-      <div key={index} className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>        
-      <Container className={`${handles.categoryRelatedPostsBlockFlex} pt6 pb8 ph3`}>
-          <h1
-            className={`${handles.categoryRelatedPostsBlockTitle} t-heading-1`}
-            dangerouslySetInnerHTML={{ __html: insane(post.title.rendered, sanitizerConfig) }}
-          />
+        {data?.wpTags?.tags[0]?.wpPosts.posts.map(
+          (post: PostData, index: number) => (
+            <div
+              key={index}
+              className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}
+            >
+              <Container
+                className={`${handles.categoryRelatedPostsBlockFlex} pt6 pb8 ph3`}
+              >
+                <h1
+                  className={`${handles.categoryRelatedPostsBlockTitle} t-heading-1`}
+                  dangerouslySetInnerHTML={{
+                    __html: insane(post.title.rendered, sanitizerConfig),
+                  }}
+                />
+                )
+                <div
+                  className={`${handles.categoryRelatedPostsBlockBody}`}
+                  dangerouslySetInnerHTML={{
+                    __html: insane(post.content.rendered, sanitizerConfig),
+                  }}
+                />
+              </Container>
+              ) : null}
+            </div>
           )
-          <div
-            className={`${handles.categoryRelatedPostsBlockBody}`}
-            dangerouslySetInnerHTML={{ __html: insane(post.content.rendered, sanitizerConfig) }}
-          />
-      </Container>
-      ) : null}
-      </div>
-      )
-      )
         )}
       </div>
     )
@@ -119,25 +128,13 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
 }
 
 interface WPCategoryRelatedPostsBlockProps {
-  title: string
   categoryIdentifier: string
   numberOfPosts: number
-  useTextOverlays: boolean
-  showCategories: boolean
-  showDates: boolean
-  showAuthors: boolean
-  showExcerpts: boolean
 }
 
 WordpressCategoryRelatedPostsBlock.defaultProps = {
-  title: 'Related Articles',
   categoryIdentifier: '',
   numberOfPosts: 1,
-  useTextOverlays: false,
-  showCategories: true,
-  showDates: true,
-  showAuthors: false,
-  showExcerpts: false,
 }
 
 const messages = defineMessages({
@@ -164,7 +161,7 @@ const messages = defineMessages({
   categoryIdentifierDescription: {
     defaultMessage: '',
     id: 'admin/editor.wordpressRelatedCategoryIdentifier.description',
-  }
+  },
 })
 
 WordpressCategoryRelatedPostsBlock.schema = {
@@ -184,7 +181,7 @@ WordpressCategoryRelatedPostsBlock.schema = {
       description: messages.categoryIdentifierDescription.id,
       type: 'string',
       isLayout: false,
-    }
+    },
   },
 }
 

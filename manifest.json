@@ -54,13 +54,6 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "blog.bennemann.com.br",
-        "path": "/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
         "host": "{{account}}.vtexcommercestable.com.br",
         "path": "/api/dataentities/*"
       }
@@ -68,64 +61,8 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "demo.wp-api.org",
-        "path": "/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "wwgolfshops.wpengine.com",
-        "path": "/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "travel.redoxx.com",
-        "path": "/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "lwshoesblog.wpengine.com",
-        "path": "/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "texasboot.wpengine.com",
-        "path": "/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "ebikeshop.wpengine.com",
-        "path": "/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "lionspride.wpengine.com",
-        "path": "/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "invictastores.wpengine.com",
-        "path": "/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "blogsn.localiza.com",
-        "path": "/*"
+        "host": "*",
+        "path": "/wp-json/wp/v2/*"
       }
     }
   ],

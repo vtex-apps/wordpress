@@ -6,7 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Simplified outbound access rule to allow any host but only at the path `/wp-json/wp/v2/*`
+- Updated docs
+
+### Removed
+
+- Removed unnecessary props from `WordpressCategoryRelatedPostsBlock`
+
 ## [1.2.3] - 2020-03-18
+
+### Fixed
+
+- Interface for `WordpressCategoryRelatedPostsBlock`
 
 ## [1.2.2] - 2020-03-16
 
@@ -17,6 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.2.1] - 2020-03-12
 
 ### Changed
+
 - rebase local branch onto master in preparation of new release with interfaces update
 
 ## [1.2.0] - 2020-03-10

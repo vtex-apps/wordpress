@@ -1,6 +1,9 @@
 # Wordpress Integration
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Description
@@ -13,7 +16,7 @@ This app provides a way to bring in blog data from the Wordpress API and create 
 
 After installing this app in your account, navigate to the app's settings in your admin dashboard under **Apps** > **Wordpress Integration**.
 
-_Wordpress URL_ is required for the integration to function. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered. Note that an outbound-access rule for the URL must also be present in this app's [manifest](/manifest.json) for the app to be able to access the data.
+_Wordpress URL_ is required for the integration to function. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered.
 
 _Title tag for blog homepage_ will determine the title tag for the Wordpress portions of your store.
 
@@ -116,6 +119,11 @@ Once the routes are set up, you may populate each blog page with blocks. The Wor
 
 `blog-breadcrumb.wordpress-breadcrumb`: A breadcrumb component intended to be placed at the top of each blog page.
 
+`blog-search-list.wordpress-category-related-posts`: A block that can be used to display the title and body of one or more posts on a store category or department page. Use case: SEO text for your store's departments. By default, when placed on a store category or department page, the block will attempt to display a WordPress post tagged `"category-{id}"`, where `{id}` is the numeric ID of your VTEX store department. The block accepts the following optional props:
+
+- `categoryIdentifier`: String. You may manually specify the ID to be used in the WordPress tag. For example, if you set this prop to "test", the block will look for a WordPress post tagged "category-test". Default is an empty string.
+- `numberOfPosts`: Integer. If you wish to display more than a single post, set this prop to the number of your choice. Default is 1.
+
 ## CSS Customization
 
 In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
@@ -180,7 +188,7 @@ You can check if others are passing through similar issues [here](https://github
 
 **Upcoming documentation:**
 
- - [add interface](https://github.com/vtex-apps/wordpress-integration/pull/15)
+- [add interface](https://github.com/vtex-apps/wordpress-integration/pull/15)
 
 ## Contributing
 
@@ -195,6 +203,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
