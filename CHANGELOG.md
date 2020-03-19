@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.3.0] - 2020-03-19
+
 ### Changed
 
 - Simplified outbound access rule to allow any host but only at the path `/wp-json/wp/v2/*`
