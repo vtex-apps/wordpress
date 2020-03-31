@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- New CSS handler `teaserTitleLink`.
+
+
 ## [1.3.0] - 2020-03-19
 
 ### Changed

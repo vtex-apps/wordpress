@@ -44,6 +44,7 @@ const CSS_HANDLES = [
   'teaserTextOverlayMeta',
   'teaserGradientOverlay',
   'teaserTitle',
+  'teaserTitleLink',
 ] as const
 
 const WordpressTeaser: FunctionComponent<TeaserProps> = ({
@@ -165,7 +166,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
               <h3
                 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
               >
-                <Link to={'/' + route + '/post/' + slug}>
+                <Link className={`${handles.teaserTitleLink}`} to={'/' + route + '/post/' + slug}>
                   <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
                 </Link>
               </h3>
@@ -176,7 +177,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
 
       {mediaType != 'image' && (
         <h3 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
-          <Link to={'/' + route + '/post/' + slug}>
+          <Link className={`${handles.teaserTitleLink}`} to={'/' + route + '/post/' + slug}>
             <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
           </Link>
         </h3>
