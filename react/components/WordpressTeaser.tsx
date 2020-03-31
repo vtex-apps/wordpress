@@ -166,9 +166,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
               <h3
                 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
               >
-                <a className={`${handles.teaserTitleLink}`} href={'/' + route + '/post/' + slug}>
+                <Link className={`${handles.teaserTitleLink}`} to={'/' + route + '/post/' + slug}>
                   <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
-                </a>
+                </Link>
               </h3>
             </Fragment>
           )}
@@ -177,9 +177,9 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
 
       {mediaType != 'image' && (
         <h3 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
-          <a className={`${handles.teaserTitleLink}`} href={'/' + route + '/post/' + slug}>
+          <Link className={`${handles.teaserTitleLink}`} to={'/' + route + '/post/' + slug}>
             <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
-          </a>
+          </Link>
         </h3>
       )}
 
