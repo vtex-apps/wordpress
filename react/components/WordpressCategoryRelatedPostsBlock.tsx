@@ -119,7 +119,7 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
                   }}
                 />
               </Container>
-              ) : null}
+              
             </div>
           )
         )}
