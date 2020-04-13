@@ -52,12 +52,15 @@ const sanitizerConfig = {
     'pre',
     'img',
     'iframe',
-    'figure',
+    'figure'
   ],
   allowedAttributes: {
-    a: ['href', 'name', 'target'],
-    img: ['src', 'alt'],
+    a: ['href', 'name', 'target', 'class'],
+    img: ['src', 'alt', 'class'],
     iframe: ['src', 'scrolling', 'frameborder', 'width', 'height', 'id'],
+    p: ['class'],
+    div: ['class'],
+    span: ['class']
   },
   allowedSchemes: ['http', 'https', 'mailto', 'tel'],
 }
@@ -108,7 +111,7 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
                     __html: insane(post.title.rendered, sanitizerConfig),
                   }}
                 />
-                )
+                
                 <div
                   className={`${handles.categoryRelatedPostsBlockBody}`}
                   dangerouslySetInnerHTML={{
@@ -116,7 +119,7 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
                   }}
                 />
               </Container>
-              ) : null}
+              
             </div>
           )
         )}
