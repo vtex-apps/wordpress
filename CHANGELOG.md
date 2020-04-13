@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.3.2] - 2020-04-13
+
 ### Fixed
 
 - fix extra parentheses problem, add extra supported class attributes on tags for WP posts of related categories
