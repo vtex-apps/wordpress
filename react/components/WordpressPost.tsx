@@ -132,7 +132,11 @@ const WordpressPost: FunctionComponent = props => {
               ? title.rendered + ' | ' + dataS.appSettings.titleTag
               : title.rendered}
           </title>
-          <meta name="description" content={excerpt.rendered} />
+          {featured_media?.media_type == "image" && featured_media?.source_url ? 
+              <meta property="og:image" content={featured_media?.source_url}/> : 
+              ""
+          }
+          <meta name="description" content={excerpt.rendered.replace(/<p>/gi,"").replace(/<\/p>/gi,"").trim()} />
         </Helmet>
         <div className={`${handles.postContainer} ph3`}>
           <h1
