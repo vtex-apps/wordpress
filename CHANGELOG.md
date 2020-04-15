@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- strip paragraph tags from wordpress meta descriptions, add support for wordpres post image meta tagging
+- Strip paragraph tags from Wordpress meta descriptions.
+
+### Added
+- Support for Wordpress post image meta tagging.
 
 ## [1.3.2] - 2020-04-13
 
