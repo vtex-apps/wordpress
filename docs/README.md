@@ -51,6 +51,9 @@ Each of the above pages needs a route declared in your `store-theme`'s `store/ro
 "store.blog-search-result": {
 	"path": "/blog/search/:term"
 },
+ "store.blog-home#page": {
+    "path": "/travel/page/:slug"
+  }
 ```
 
 You may change "blog" in each route to another string of your choosing, but the rest must stay the same. If you do decide to use a string other than "blog", make sure to enter it in the Wordpress Integration app settings under _URL path for blog homepage_.
@@ -64,6 +67,8 @@ Once the routes are set up, you may populate each blog page with blocks. The Wor
 `blog-category-list.wordpress-category-list`: A paginated list of blog posts from a specific category. This must be placed on the `store.blog-category` page, as the category ID is provided by the parameter in the page route.
 
 `blog-post-details.wordpress-post-details`: Details for a single blog post. This must be placed on the `store.blog-post` page, as the post ID is provided by the parameter in the page route.
+
+`blog-page-details.wordpress-page-details` : Details for a single blog page. This must be placed on a customized `store.blog-home#page` page to render the contents via the slug passed through the route parameter
 
 `blog-latest-posts-preview.wordpress-latest-posts-preview`: A small block showing teasers for the most recent 3-5 posts (default is 3). The following props can be used:
 

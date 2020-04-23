@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.3.4] - 2020-04-26
 
+
+### Added
+
+- Support for Wordpress pages
+
+## [1.3.3] - 2020-04-16
+
 ### Fixed
 
 - Add error handling for featured media resolver failures
