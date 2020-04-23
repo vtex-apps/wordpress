@@ -52,7 +52,7 @@ Each of the above pages needs a route declared in your `store-theme`'s `store/ro
 	"path": "/blog/search/:term"
 },
  "store.blog-home#page": {
-    "path": "/travel/page/:slug"
+    "path": "/blog/page/:slug"
   }
 ```
 
