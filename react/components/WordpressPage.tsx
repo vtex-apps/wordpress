@@ -72,7 +72,7 @@ const CSS_HANDLES = [
   'postChildrenContainer',
 ] as const
 
-const WordpressPage: FunctionComponent = _props => {
+const WordpressPage: FunctionComponent = (_props) => {
   const handles = useCssHandles(CSS_HANDLES)
   const {
     route: { params },
@@ -89,88 +89,93 @@ const WordpressPage: FunctionComponent = _props => {
       </div>
     )
   }
-   if (error) {
+  if (error) {
     return (
       <div className="ph5" style={{ minHeight: 800 }}>
         Error! {error.message}
       </div>
     )
   }
-  if(!data?.wpPages?.pages)
-  {
+  if (!data?.wpPages?.pages) {
     return (
       <div>
         <h2>No page found.</h2>
       </div>
     )
   }
-    const {
-      date,
-      title,
-      content,
-      author,
-      excerpt,
-      featured_media
-    } = data.wpPages.pages[0]
+  const {
+    date,
+    title,
+    content,
+    author,
+    excerpt,
+    featured_media,
+  } = data.wpPages.pages[0]
 
-    const dateObj = new Date(date)
-    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
-    const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
+  const dateObj = new Date(date)
+  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+  const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
 
-    let route = dataS?.appSettings?.blogRoute
-    if (!route || route == '') route = 'blog'
+  let route = dataS?.appSettings?.blogRoute
+  if (!route || route == '') route = 'blog'
 
-    const titleHtml = insane(title.rendered, sanitizerConfig)
-    const captionHtml =
-      featured_media?.caption?.rendered ??
-      insane(featured_media.caption.rendered, sanitizerConfigStripAll)
-    const bodyHtml = useMemo(() => {
-      return insane(content.rendered, sanitizerConfig)
-    }, [content.rendered, sanitizerConfig])
+  const titleHtml = insane(title.rendered, sanitizerConfig)
+  const captionHtml =
+    featured_media?.caption?.rendered ??
+    insane(featured_media.caption.rendered, sanitizerConfigStripAll)
+  const bodyHtml = useMemo(() => {
+    return insane(content.rendered, sanitizerConfig)
+  }, [content.rendered, sanitizerConfig])
 
-    return (
-      <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
-        <Helmet>
-          <title>
-            {dataS?.appSettings?.titleTag && dataS.appSettings.titleTag != ''
-              ? title.rendered + ' | ' + dataS.appSettings.titleTag
-              : title.rendered}
-          </title>
-          {featured_media?.media_type == "image" && featured_media?.source_url ? 
-              <meta property="og:image" content={featured_media?.source_url}/> : 
-              ""
-          }
-          <meta name="description" content={excerpt?.rendered?.replace(/<p>/gi,"").replace(/<\/p>/gi,"").trim()} />
-        </Helmet>
-        <div className={`${handles.postContainer} ph3`}>
-          <h1
-            className={`${handles.postTitle} t-heading-1`}
-            dangerouslySetInnerHTML={{ __html: titleHtml }}
-          />
-          <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
-            <span>Posted {formattedDate} in </span>
-            {author && <span> by {author.name}</span>}
-          </p>
-          {featured_media && featured_media.media_type === 'image' && (
-            <div className="mw9 pb8">
-              <img
-                className={`${handles.postFeaturedImage}`}
-                src={featured_media.source_url}
-                alt={featured_media.alt_text}
-              />
-              {featured_media.caption && (
-                <span dangerouslySetInnerHTML={{ __html: captionHtml }} />
-              )}
-            </div>
-          )}
-          <div
-            className={`${handles.postBody}`}
-            dangerouslySetInnerHTML={{ __html: bodyHtml }}
-          />
-        </div>
-      </Container>
-    )
-  }
+  return (
+    <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
+      <Helmet>
+        <title>
+          {dataS?.appSettings?.titleTag && dataS.appSettings.titleTag != ''
+            ? title.rendered + ' | ' + dataS.appSettings.titleTag
+            : title.rendered}
+        </title>
+        {featured_media?.media_type == 'image' && featured_media?.source_url ? (
+          <meta property="og:image" content={featured_media?.source_url} />
+        ) : (
+          ''
+        )}
+        <meta
+          name="description"
+          content={excerpt?.rendered
+            ?.replace(/<p>/gi, '')
+            .replace(/<\/p>/gi, '')
+            .trim()}
+        />
+      </Helmet>
+      <div className={`${handles.postContainer} ph3`}>
+        <h1
+          className={`${handles.postTitle} t-heading-1`}
+          dangerouslySetInnerHTML={{ __html: titleHtml }}
+        />
+        <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
+          <span>Posted {formattedDate} in </span>
+          {author && <span> by {author.name}</span>}
+        </p>
+        {featured_media && featured_media.media_type === 'image' && (
+          <div className="mw9 pb8">
+            <img
+              className={`${handles.postFeaturedImage}`}
+              src={featured_media.source_url}
+              alt={featured_media.alt_text}
+            />
+            {featured_media.caption && (
+              <span dangerouslySetInnerHTML={{ __html: captionHtml }} />
+            )}
+          </div>
+        )}
+        <div
+          className={`${handles.postBody}`}
+          dangerouslySetInnerHTML={{ __html: bodyHtml }}
+        />
+      </div>
+    </Container>
+  )
 }
 
 export default WordpressPage
