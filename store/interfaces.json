@@ -9,6 +9,10 @@
         "composition": "children",
         "component": "WordpressPost"
     },
+    "blog-page-details.wordpress-page-details": {
+        "composition": "children",
+        "component": "WordpressPage"
+    },
     "blog-latest-posts-preview.wordpress-latest-posts-preview": {
         "component": "WordpressLatestPostsBlock"
     },

@@ -1,0 +1,27 @@
+query SinglePagebySlug($slug: String!) {
+  wpPages(slug: [$slug]) {
+    pages{
+      title {
+        rendered
+      }
+      author {
+        name
+      }
+      content {
+        rendered
+      }
+      excerpt {
+        rendered
+      }
+      date
+      featured_media {
+        source_url
+        alt_text
+        caption {
+          rendered
+        }
+        media_type
+      }
+  }
+  }
+}

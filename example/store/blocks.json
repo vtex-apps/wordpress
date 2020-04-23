@@ -18,6 +18,11 @@
             "blog-post-details.wordpress-post-details"
         ]
     },
+    "store.blog-home#page":{
+        "blocks":[
+            "blog-page-details.wordpress-page-details"
+        ]
+    },
     "store.blog-search-result": {
         "blocks": [
             "blog-search-list.wordpress-search-list"
@@ -44,6 +49,11 @@
         }
     },
     "blog-post-details.wordpress-post-details": {
+        "children": [
+            "blog-related-products.wordpress-related-products"
+        ]
+    },
+    "blog-page-details.wordpress-page-details": {
         "children": [
             "blog-related-products.wordpress-related-products"
         ]
