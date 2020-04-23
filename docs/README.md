@@ -51,9 +51,9 @@ Each of the above pages needs a route declared in your `store-theme`'s `store/ro
 "store.blog-search-result": {
 	"path": "/blog/search/:term"
 },
- "store.blog-home#page": {
-    "path": "/blog/page/:slug"
-  }
+"store.blog-home#page": {
+	"path": "/blog/page/:slug"
+}
 ```
 
 You may change "blog" in each route to another string of your choosing, but the rest must stay the same. If you do decide to use a string other than "blog", make sure to enter it in the Wordpress Integration app settings under _URL path for blog homepage_.
