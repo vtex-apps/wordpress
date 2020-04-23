@@ -88,13 +88,23 @@ const WordpressPage: FunctionComponent = _props => {
         <Spinner />
       </div>
     )
-  } else if (error) {
+  }
+   if (error) {
     return (
       <div className="ph5" style={{ minHeight: 800 }}>
         Error! {error.message}
       </div>
     )
-  } else if (data?.wpPages?.pages) {
+  }
+  if(!data?.wpPages?.pages)
+  {
+    return (
+      <div>
+        <h2>No page found.</h2>
+      </div>
+    )
+  }
+  else {
     const {
       date,
       title,
@@ -158,12 +168,6 @@ const WordpressPage: FunctionComponent = _props => {
           />
         </div>
       </Container>
-    )
-  } else {
-    return (
-      <div>
-        <h2>No page found.</h2>
-      </div>
     )
   }
 }
