@@ -124,7 +124,9 @@ const WordpressPage: FunctionComponent = _props => {
     const captionHtml =
       featured_media?.caption?.rendered ??
       insane(featured_media.caption.rendered, sanitizerConfigStripAll)
-    const bodyHtml = insane(content.rendered, sanitizerConfig)
+    const bodyHtml = useMemo(() => {
+      return insane(content.rendered, sanitizerConfig)
+    }, [content.rendered, sanitizerConfig])
 
     return (
       <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
