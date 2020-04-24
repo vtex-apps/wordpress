@@ -72,7 +72,7 @@ const CSS_HANDLES = [
   'postChildrenContainer',
 ] as const
 
-const WordpressPage: FunctionComponent = (_props) => {
+const WordpressPage: FunctionComponent = _props => {
   const handles = useCssHandles(CSS_HANDLES)
   const {
     route: { params },
