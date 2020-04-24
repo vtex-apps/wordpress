@@ -104,7 +104,6 @@ const WordpressPage: FunctionComponent = _props => {
       </div>
     )
   }
-  else {
     const {
       date,
       title,
