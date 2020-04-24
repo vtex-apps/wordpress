@@ -14,10 +14,9 @@ export const pageResolvers = {
     const {
       clients: { wordpressProxy },
     } = ctx
-    if (featured_media > 0) {
-      return wordpressProxy.getMediaSingle(featured_media)
-    } else {
+    if (featured_media === 0) {
       return null
     }
+    return wordpressProxy.getMediaSingle(featured_media)
   }
 }
