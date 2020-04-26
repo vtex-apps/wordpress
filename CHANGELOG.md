@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Add error handling for featured media resolver failures
+
 ## [1.3.3] - 2020-04-16
 
 ### Fixed
@@ -13,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Strip paragraph tags from Wordpress meta descriptions.
 
 ### Added
+
 - Support for Wordpress post image meta tagging.
 
 ## [1.3.2] - 2020-04-13
@@ -26,7 +31,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - New CSS handler `teaserTitleLink`.
-
 
 ## [1.3.0] - 2020-03-19
 
