@@ -4,7 +4,12 @@ export const postResolvers = {
     const {
       clients: { wordpressProxy },
     } = ctx
-    return wordpressProxy.getUser(author)
+    try {
+      return await wordpressProxy.getUser(author)
+    } catch (e) {
+      console.error(e)
+    }
+    return null
   },
   categories: async (
     { categories }: { categories: [number] },
@@ -31,9 +36,12 @@ export const postResolvers = {
       clients: { wordpressProxy },
     } = ctx
     if (featured_media > 0) {
-      return wordpressProxy.getMediaSingle(featured_media)
-    } else {
-      return null
+      try {
+        return await wordpressProxy.getMediaSingle(featured_media)
+      } catch (e) {
+        console.error(e)
+      }
     }
+    return null
   },
 }
