@@ -121,7 +121,7 @@ const WordpressPage: FunctionComponent = _props => {
 
   const titleHtml = insane(title.rendered, sanitizerConfig)
   const captionHtml =
-    featured_media?.caption?.rendered ??
+    featured_media?.caption?.rendered &&
     insane(featured_media.caption.rendered, sanitizerConfigStripAll)
   const bodyHtml = useMemo(() => {
     return insane(content.rendered, sanitizerConfig)
