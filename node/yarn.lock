@@ -2456,9 +2456,9 @@ uuid@^3.1.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
 
-"vtex.blog-interfaces@https://wordpressmetapages--redoxx.myvtex.com/_v/private/typings/linked/v1/vtex.blog-interfaces@0.0.6+build1587492877/public/@types/vtex.blog-interfaces":
-  version "0.0.6"
-  resolved "https://wordpressmetapages--redoxx.myvtex.com/_v/private/typings/linked/v1/vtex.blog-interfaces@0.0.6+build1587492877/public/@types/vtex.blog-interfaces#1b5a36770931127e83456d25a602930e347c53ec"
+"vtex.blog-interfaces@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.1.0/public/@types/vtex.blog-interfaces":
+  version "0.1.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.1.0/public/@types/vtex.blog-interfaces#e7da0f21574a93bfc0e18122442073104f18e785"
 
 "vtex.css-handles@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.2/public/@types/vtex.css-handles":
   version "0.4.2"
@@ -2488,13 +2488,9 @@ uuid@^3.1.0:
   version "2.95.4"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.95.4/public/@types/vtex.store#c43664f5c4d3af47befa4cf850669a400b9debf7"
 
-"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.113.2/public/@types/vtex.styleguide":
-  version "9.113.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.113.2/public/@types/vtex.styleguide#4e9917c30fe1a2ae3577083e60d16ac4b52537f2"
-
-"vtex.wordpress-integration@https://wordpressmetapages--redoxx.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.3.4+build1588081339/public/@types/vtex.wordpress-integration":
-  version "1.3.4"
-  resolved "https://wordpressmetapages--redoxx.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.3.4+build1588081339/public/@types/vtex.wordpress-integration#c2c8b10734f1490284d6127f1ed90faa8dca2c9b"
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.114.0/public/@types/vtex.styleguide":
+  version "9.114.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.114.0/public/@types/vtex.styleguide#815c82157b1bc2e68d1b80bf2f835db37a9927e5"
 
 which@^1.2.9:
   version "1.3.1"
