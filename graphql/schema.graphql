@@ -227,9 +227,9 @@ type WPPage {
   parent: Int
   title: WPTitle
   content: WPContent
-  author: Int
+  author: WPUser
   excerpt: WPExcerpt
-  featured_media: Int
+  featured_media: WPMedia
   comment_status: WPOpenClosed
   ping_status: WPOpenClosed
   menu_order: Int
@@ -581,8 +581,7 @@ type Query {
     slug: [String]
     status: [String] = ["publish"]
   ): WPPagesResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
-  wpPage(id: Int!, password: String): WPPage
-    @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+  wpPage(id: Int!, password: String): WPPage @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
   wpComments(
     page: Int = 1
     per_page: Int = 10

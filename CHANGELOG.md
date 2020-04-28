@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Support for Wordpress pages
+
 ## [1.3.4] - 2020-04-26
 
 ### Fixed

@@ -1,5 +1,6 @@
 import { queries } from './resolvers/index'
 import { postResolvers } from './resolvers/postResolvers'
+import { pageResolvers } from './resolvers/pageResolvers'
 import { titleResolvers } from './resolvers/titleResolvers'
 import { excerptResolvers } from './resolvers/excerptResolvers'
 import { categoryResolvers } from './resolvers/categoryResolvers'
@@ -16,6 +17,9 @@ export default new Service({
       },
       WPPost: {
         ...postResolvers,
+      },
+      WPPage: {
+        ...pageResolvers,
       },
       WPTitle: {
         ...titleResolvers,
