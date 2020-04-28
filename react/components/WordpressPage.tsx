@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
