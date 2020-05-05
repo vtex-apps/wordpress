@@ -136,7 +136,8 @@ const WordpressPost: FunctionComponent = props => {
               <meta property="og:image" content={featured_media?.source_url}/> : 
               ""
           }
-          <meta name="description" content={excerpt?.rendered?.replace(/<p>/gi,"").replace(/<\/p>/gi,"").trim()} />
+          <meta name="description" content={excerpt?.rendered?.replace(/(<([^>]+)>)/ig, "").trim()} />
+
         </Helmet>
         <div className={`${handles.postContainer} ph3`}>
           <h1
