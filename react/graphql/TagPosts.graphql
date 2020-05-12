@@ -1,8 +1,17 @@
-query TagPosts($wp_page: Int, $wp_per_page: Int, $tag: String!) {
+query TagPosts(
+  $wp_page: Int
+  $wp_per_page: Int
+  $tag: String!
+  $customEndpoint: String
+) {
   wpTags(search: $tag) {
     tags {
       name
-      wpPosts(page: $wp_page, per_page: $wp_per_page) {
+      wpPosts(
+        page: $wp_page
+        per_page: $wp_per_page
+        customEndpoint: $customEndpoint
+      ) {
         posts {
           title {
             rendered
@@ -12,7 +21,7 @@ query TagPosts($wp_page: Int, $wp_per_page: Int, $tag: String!) {
           }
           content {
             rendered
-          } 
+          }
           excerpt {
             rendered
           }
