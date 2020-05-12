@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { Container } from 'vtex.store-components'
+
 import React, { FunctionComponent } from 'react'
 import { Helmet } from 'react-helmet'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
-import { Container } from 'vtex.store-components'
 import insane from 'insane'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -89,13 +90,15 @@ const WordpressPost: FunctionComponent = props => {
         <Spinner />
       </div>
     )
-  } else if (error) {
+  }
+  if (error) {
     return (
       <div className="ph5" style={{ minHeight: 800 }}>
         Error! {error.message}
       </div>
     )
-  } else if (data?.wpPosts?.posts) {
+  }
+  if (data?.wpPosts?.posts) {
     const {
       title,
       date,
@@ -116,7 +119,7 @@ const WordpressPost: FunctionComponent = props => {
       .map((tag: WPTag) => tag.name.replace('prod-', ''))
 
     let route = dataS?.appSettings?.blogRoute
-    if (!route || route == '') route = 'blog'
+    if (!route) route = 'blog'
 
     const titleHtml = insane(title.rendered, sanitizerConfig)
     const captionHtml =
@@ -128,16 +131,20 @@ const WordpressPost: FunctionComponent = props => {
       <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
         <Helmet>
           <title>
-            {dataS?.appSettings?.titleTag && dataS.appSettings.titleTag != ''
-              ? title.rendered + ' | ' + dataS.appSettings.titleTag
+            {dataS?.appSettings?.titleTag
+              ? `${title.rendered} | ${dataS.appSettings.titleTag}`
               : title.rendered}
           </title>
-          {featured_media?.media_type == "image" && featured_media?.source_url ? 
-              <meta property="og:image" content={featured_media?.source_url}/> : 
-              ""
-          }
-          <meta name="description" content={excerpt?.rendered?.replace(/(<([^>]+)>)/ig, "").trim()} />
-
+          {featured_media?.media_type === 'image' &&
+          featured_media?.source_url ? (
+            <meta property="og:image" content={featured_media?.source_url} />
+          ) : (
+            ''
+          )}
+          <meta
+            name="description"
+            content={excerpt?.rendered?.replace(/(<([^>]+)>)/gi, '').trim()}
+          />
         </Helmet>
         <div className={`${handles.postContainer} ph3`}>
           <h1
@@ -150,7 +157,7 @@ const WordpressPost: FunctionComponent = props => {
               <span key={index}>
                 <a
                   className="link c-link hover-c-link active-c-link visited-c-link"
-                  href={'/' + route + '/category/' + cat.slug}
+                  href={`/${route}/category/${cat.slug}`}
                 >
                   {cat.name}
                 </a>
@@ -177,20 +184,19 @@ const WordpressPost: FunctionComponent = props => {
           />
         </div>
 
-        <WPRelatedProductsContext.Provider value={{ productIds: productIds }}>
+        <WPRelatedProductsContext.Provider value={{ productIds }}>
           <div className={`${handles.postChildrenContainer}`}>
             {props.children}
           </div>
         </WPRelatedProductsContext.Provider>
       </Container>
     )
-  } else {
-    return (
-      <div>
-        <h2>No post found.</h2>
-      </div>
-    )
   }
+  return (
+    <div>
+      <h2>No post found.</h2>
+    </div>
+  )
 }
 
 export default WordpressPost

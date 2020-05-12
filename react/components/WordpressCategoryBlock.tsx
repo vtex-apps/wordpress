@@ -34,14 +34,14 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data } = useQuery(CategoryPosts, {
     variables: {
-      category: category,
+      category,
       wp_per_page: numberOfPosts,
     },
   })
   const handles = useCssHandles(CSS_HANDLES)
 
   let route = dataS?.appSettings?.blogRoute
-  if (!route || route == '') route = 'blog'
+  if (!route) route = 'blog'
 
   return (
     <div className={`${handles.categoryBlockContainer} pv4 pb9`}>
@@ -50,9 +50,9 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
       {data?.wpCategory?.name ? (
         <Fragment>
           <h2 className={`${handles.categoryBlockTitle} tc t-heading-2`}>
-            {title != '' ? title : data.wpCategory.name}
+            {title || data.wpCategory.name}
           </h2>
-          {description != '' && (
+          {description && (
             <h4
               className={`${handles.categoryBlockDescription} tc t-heading-4`}
             >
@@ -91,16 +91,12 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
           </div>
           <Link
             to={
-              customLinkTarget != ''
-                ? customLinkTarget
-                : '/' + route + '/category/' + data?.wpCategory?.slug
+              customLinkTarget || `/${route}/category/${data?.wpCategory?.slug}`
             }
             className={`${handles.categoryBlockLink}`}
           >
             <Button variation="secondary" block>
-              {customLinkText != ''
-                ? customLinkText
-                : `All ${data.wpCategory.name} Posts >`}
+              {customLinkText || `All ${data.wpCategory.name} Posts >`}
             </Button>
           </Link>
         </Fragment>

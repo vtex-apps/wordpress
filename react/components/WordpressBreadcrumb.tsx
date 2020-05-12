@@ -1,6 +1,7 @@
+import { Container } from 'vtex.store-components'
+
 import React, { FunctionComponent, Fragment } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
-import { Container } from 'vtex.store-components'
 import { Link } from 'vtex.render-runtime'
 import { useQuery } from 'react-apollo'
 
@@ -40,7 +41,7 @@ const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = props => {
     return (
       <Container className={`${handles.breadcrumbContainer} pt2 pb8`}>
         <Link
-          to={'/' + props.route}
+          to={`/${props.route}`}
           className={`${handles.breadcrumbHomeLink}`}
         >
           Blog Home
@@ -65,19 +66,14 @@ const WordpressSinglePostBreadcrumb: FunctionComponent<SinglePostProps> = props 
     return (
       <Container className={`${handles.breadcrumbContainer} pt2 pb8`}>
         <Link
-          to={'/' + props.route}
+          to={`/${props.route}`}
           className={`${handles.breadcrumbHomeLink}`}
         >
           Blog Home
         </Link>
         <span className={`${handles.breadcrumbSeparator}`}>&nbsp;/&nbsp;</span>
         <Link
-          to={
-            '/' +
-            props.route +
-            '/category/' +
-            data.wpPosts.posts[0].categories[0].slug
-          }
+          to={`/${props.route}/category/${data.wpPosts.posts[0].categories[0].slug}`}
           className={`${handles.breadcrumbLink}`}
         >
           {data.wpPosts.posts[0].categories[0].name}
@@ -95,7 +91,7 @@ const WordpressBreadcrumb: FunctionComponent<Props> = props => {
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   let route = dataS?.appSettings?.blogRoute
-  if (!route || route == '') route = 'blog'
+  if (!route) route = 'blog'
 
   if (loadingS) return null
 
@@ -116,7 +112,7 @@ const WordpressBreadcrumb: FunctionComponent<Props> = props => {
         className={`${handles.breadcrumbContainer} pt2 pb8`}
         style={{ maxWidth: '90%' }}
       >
-        <Link to={'/' + route} className={`${handles.breadcrumbHomeLink}`}>
+        <Link to={`/${route}`} className={`${handles.breadcrumbHomeLink}`}>
           Blog Home
         </Link>
         <span className={`${handles.breadcrumbSeparator}`}>&nbsp;/&nbsp;</span>
@@ -137,7 +133,7 @@ const WordpressBreadcrumb: FunctionComponent<Props> = props => {
   // else
   return (
     <Container className={`${handles.breadcrumbContainer} pt2 pb8`}>
-      <Link to={'/' + route} className={`${handles.breadcrumbHomeLink}`}>
+      <Link to={`/${route}`} className={`${handles.breadcrumbHomeLink}`}>
         Blog Home
       </Link>
     </Container>

@@ -15,14 +15,13 @@ const WordpressSearchBlock: StorefrontFunctionComponent<WordpressSearchProps> = 
 
   const onGoToWordpressSearchPage = (e: any) => {
     e.preventDefault()
-    if (inputValue != '') {
-      const search = inputValue
-      setValue('')
-      navigate({
-        page: 'store.blog-search-result',
-        params: { term: search },
-      })
-    }
+    if (!inputValue) return
+    const search = inputValue
+    setValue('')
+    navigate({
+      page: 'store.blog-search-result',
+      params: { term: search },
+    })
   }
 
   return (

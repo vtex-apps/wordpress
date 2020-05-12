@@ -1,7 +1,8 @@
+import { ProductList } from 'vtex.shelf'
+
 import React from 'react'
 import { Query, DataProps } from 'react-apollo'
 import { defineMessages } from 'react-intl'
-import { ProductList } from 'vtex.shelf'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { WPRelatedProductsContext } from '../contexts/WordpressRelatedProducts'

@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { Container } from 'vtex.store-components'
+
 import React, { FunctionComponent, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useQuery } from 'react-apollo'
 import { Spinner, Pagination } from 'vtex.styleguide'
-import { Container } from 'vtex.store-components'
 import { useCssHandles } from 'vtex.css-handles'
 
 import WordpressTeaser from './WordpressTeaser'
@@ -34,7 +35,7 @@ const WordpressAllPosts: FunctionComponent = () => {
       className={`${handles.listContainer} pt6 pb8`}
       style={{ maxWidth: '90%' }}
     >
-      {dataS?.appSettings?.titleTag && dataS.appSettings.titleTag != '' && (
+      {dataS?.appSettings?.titleTag && (
         <Helmet>
           <title>{dataS.appSettings.titleTag}</title>
         </Helmet>
@@ -62,20 +63,19 @@ const WordpressAllPosts: FunctionComponent = () => {
             })
           }}
           onPrevClick={() => {
-            if (page > 1) {
-              const prevPage = page - 1
-              setPage(page - 1)
-              fetchMore({
-                variables: {
-                  wp_page: prevPage,
-                  wp_per_page: perPage,
-                },
-                updateQuery: (prev, { fetchMoreResult }) => {
-                  if (!fetchMoreResult) return prev
-                  return fetchMoreResult
-                },
-              })
-            }
+            if (page <= 1) return
+            const prevPage = page - 1
+            setPage(page - 1)
+            fetchMore({
+              variables: {
+                wp_page: prevPage,
+                wp_per_page: perPage,
+              },
+              updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev
+                return fetchMoreResult
+              },
+            })
           }}
           onNextClick={() => {
             const nextPage = page + 1

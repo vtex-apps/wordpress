@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { Container } from 'vtex.store-components'
+
 import React, { FunctionComponent, Fragment, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { Spinner, Pagination } from 'vtex.styleguide'
-import { Container } from 'vtex.store-components'
 import { useCssHandles } from 'vtex.css-handles'
 
 import WordpressTeaser from './WordpressTeaser'
@@ -77,21 +78,20 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
               })
             }}
             onPrevClick={() => {
-              if (page > 1) {
-                const prevPage = page - 1
-                setPage(page - 1)
-                fetchMore({
-                  variables: {
-                    wp_page: prevPage,
-                    wp_per_page: perPage,
-                    terms: searchQuery.data.searchMetadata.titleTag,
-                  },
-                  updateQuery: (prev, { fetchMoreResult }) => {
-                    if (!fetchMoreResult) return prev
-                    return fetchMoreResult
-                  },
-                })
-              }
+              if (page <= 1) return
+              const prevPage = page - 1
+              setPage(page - 1)
+              fetchMore({
+                variables: {
+                  wp_page: prevPage,
+                  wp_per_page: perPage,
+                  terms: searchQuery.data.searchMetadata.titleTag,
+                },
+                updateQuery: (prev, { fetchMoreResult }) => {
+                  if (!fetchMoreResult) return prev
+                  return fetchMoreResult
+                },
+              })
             }}
             onNextClick={() => {
               const nextPage = page + 1

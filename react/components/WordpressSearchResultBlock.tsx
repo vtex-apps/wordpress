@@ -38,7 +38,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
   })
 
   let route = dataS?.appSettings?.blogRoute
-  if (!route || route == '') route = 'blog'
+  if (!route) route = 'blog'
 
   return (
     <div className={`${handles.searchResultBlockContainer} pv4 pb9`}>
@@ -82,7 +82,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
             ))}
           </div>
           <Link
-            to={'/' + route + '/search/' + searchQuery.productSearch.titleTag}
+            to={`/${route}/search/${searchQuery.productSearch.titleTag}`}
             className={`${handles.searchResultBlockLink}`}
           >
             <Button variation="secondary" block>

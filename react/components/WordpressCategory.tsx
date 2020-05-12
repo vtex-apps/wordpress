@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { Container } from 'vtex.store-components'
+
 import React, { FunctionComponent, Fragment, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner, Pagination } from 'vtex.styleguide'
-import { Container } from 'vtex.store-components'
 import Helmet from 'react-helmet'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -38,14 +39,12 @@ const WordpressCategory: FunctionComponent = () => {
 
   return (
     <Fragment>
-      {dataS && data?.wpCategories?.categories?.length > 0 && (
+      {dataS && data?.wpCategories?.categories?.length && (
         <Fragment>
           <Helmet>
             <title>
-              {dataS?.appSettings?.titleTag && dataS.appSettings.titleTag != ''
-                ? data.wpCategories.categories[0].name +
-                  ' | ' +
-                  dataS.appSettings.titleTag
+              {dataS?.appSettings?.titleTag
+                ? `${data.wpCategories.categories[0].name} | ${dataS.appSettings.titleTag}`
                 : data.wpCategories.categories[0].name}
             </title>
           </Helmet>
@@ -84,21 +83,20 @@ const WordpressCategory: FunctionComponent = () => {
               })
             }}
             onPrevClick={() => {
-              if (page > 1) {
-                const prevPage = page - 1
-                setPage(page - 1)
-                fetchMore({
-                  variables: {
-                    wp_page: prevPage,
-                    wp_per_page: perPage,
-                    ...categoryVariable,
-                  },
-                  updateQuery: (prev, { fetchMoreResult }) => {
-                    if (!fetchMoreResult) return prev
-                    return fetchMoreResult
-                  },
-                })
-              }
+              if (page <= 1) return
+              const prevPage = page - 1
+              setPage(page - 1)
+              fetchMore({
+                variables: {
+                  wp_page: prevPage,
+                  wp_per_page: perPage,
+                  ...categoryVariable,
+                },
+                updateQuery: (prev, { fetchMoreResult }) => {
+                  if (!fetchMoreResult) return prev
+                  return fetchMoreResult
+                },
+              })
             }}
             onNextClick={() => {
               const nextPage = page + 1

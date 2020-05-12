@@ -1,12 +1,14 @@
+import { Container } from 'vtex.store-components'
+
 import React from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
+import insane from 'insane'
+
 import Settings from '../graphql/Settings.graphql'
 import TagPosts from '../graphql/TagPosts.graphql'
-import { Container } from 'vtex.store-components'
-import insane from 'insane'
 
 const CSS_HANDLES = [
   'categoryRelatedPostsBlockContainer',
@@ -52,7 +54,7 @@ const sanitizerConfig = {
     'pre',
     'img',
     'iframe',
-    'figure'
+    'figure',
   ],
   allowedAttributes: {
     a: ['href', 'name', 'target', 'class'],
@@ -60,7 +62,7 @@ const sanitizerConfig = {
     iframe: ['src', 'scrolling', 'frameborder', 'width', 'height', 'id'],
     p: ['class'],
     div: ['class'],
-    span: ['class']
+    span: ['class'],
   },
   allowedSchemes: ['http', 'https', 'mailto', 'tel'],
 }
@@ -74,11 +76,8 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
     route: { params },
   } = useRuntime()
 
-  if (categoryIdentifier == null || categoryIdentifier == '') {
-    categoryIdentifier =
-      typeof params.id != 'undefined' && params.id != null && params.id != ''
-        ? params.id
-        : ''
+  if (!categoryIdentifier) {
+    categoryIdentifier = params.id || ''
   }
 
   const { data: dataS } = useQuery(Settings)
@@ -87,12 +86,12 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
     variables: {
       // eslint-disable-next-line @typescript-eslint/camelcase
       wp_per_page: numberOfPosts,
-      tag: 'category-' + categoryIdentifier,
+      tag: `category-${categoryIdentifier}`,
     },
   })
   if (data?.wpTags?.tags[0]?.wpPosts.posts) {
     let route = dataS?.appSettings?.blogRoute
-    if (!route || route == '') route = 'blog'
+    if (!route) route = 'blog'
 
     return (
       <div className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>
@@ -111,7 +110,7 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
                     __html: insane(post.title.rendered, sanitizerConfig),
                   }}
                 />
-                
+
                 <div
                   className={`${handles.categoryRelatedPostsBlockBody}`}
                   dangerouslySetInnerHTML={{
@@ -119,15 +118,13 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
                   }}
                 />
               </Container>
-              
             </div>
           )
         )}
       </div>
     )
-  } else {
-    return null
   }
+  return null
 }
 
 interface WPCategoryRelatedPostsBlockProps {

@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { Container } from 'vtex.store-components'
+
 import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
-import { Container } from 'vtex.store-components'
 import insane from 'insane'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -117,7 +118,7 @@ const WordpressPage: FunctionComponent = _props => {
   const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
 
   let route = dataS?.appSettings?.blogRoute
-  if (!route || route == '') route = 'blog'
+  if (!route) route = 'blog'
 
   const titleHtml = insane(title.rendered, sanitizerConfig)
   const captionHtml =
@@ -131,11 +132,12 @@ const WordpressPage: FunctionComponent = _props => {
     <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
       <Helmet>
         <title>
-          {dataS?.appSettings?.titleTag && dataS.appSettings.titleTag != ''
-            ? title.rendered + ' | ' + dataS.appSettings.titleTag
+          {dataS?.appSettings?.titleTag
+            ? `${title.rendered} | ${dataS.appSettings.titleTag}`
             : title.rendered}
         </title>
-        {featured_media?.media_type == 'image' && featured_media?.source_url ? (
+        {featured_media?.media_type === 'image' &&
+        featured_media?.source_url ? (
           <meta property="og:image" content={featured_media?.source_url} />
         ) : (
           ''
