@@ -1,6 +1,6 @@
 import { Container } from 'vtex.store-components'
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
@@ -70,6 +70,7 @@ const sanitizerConfig = {
 const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategoryRelatedPostsBlockProps> = ({
   numberOfPosts,
   categoryIdentifier,
+  // customEndpoint,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const {
@@ -87,6 +88,7 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
       // eslint-disable-next-line @typescript-eslint/camelcase
       wp_per_page: numberOfPosts,
       tag: `category-${categoryIdentifier}`,
+      // customEndpoint,
     },
   })
   if (data?.wpTags?.tags[0]?.wpPosts.posts) {
@@ -96,30 +98,38 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
     return (
       <div className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>
         {data?.wpTags?.tags[0]?.wpPosts.posts.map(
-          (post: PostData, index: number) => (
-            <div
-              key={index}
-              className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}
-            >
-              <Container
-                className={`${handles.categoryRelatedPostsBlockFlex} pt6 pb8 ph3`}
+          (post: PostData, index: number) => {
+            const sanitizedTitle = useMemo(() => {
+              return insane(post.title.rendered, sanitizerConfig)
+            }, [post.title.rendered, sanitizerConfig])
+            const sanitizedContent = useMemo(() => {
+              return insane(post.content.rendered, sanitizerConfig)
+            }, [post.content.rendered, sanitizerConfig])
+            return (
+              <div
+                key={index}
+                className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}
               >
-                <h1
-                  className={`${handles.categoryRelatedPostsBlockTitle} t-heading-1`}
-                  dangerouslySetInnerHTML={{
-                    __html: insane(post.title.rendered, sanitizerConfig),
-                  }}
-                />
+                <Container
+                  className={`${handles.categoryRelatedPostsBlockFlex} pt6 pb8 ph3`}
+                >
+                  <h1
+                    className={`${handles.categoryRelatedPostsBlockTitle} t-heading-1`}
+                    dangerouslySetInnerHTML={{
+                      __html: sanitizedTitle,
+                    }}
+                  />
 
-                <div
-                  className={`${handles.categoryRelatedPostsBlockBody}`}
-                  dangerouslySetInnerHTML={{
-                    __html: insane(post.content.rendered, sanitizerConfig),
-                  }}
-                />
-              </Container>
-            </div>
-          )
+                  <div
+                    className={`${handles.categoryRelatedPostsBlockBody}`}
+                    dangerouslySetInnerHTML={{
+                      __html: sanitizedContent,
+                    }}
+                  />
+                </Container>
+              </div>
+            )
+          }
         )}
       </div>
     )
@@ -130,11 +140,13 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
 interface WPCategoryRelatedPostsBlockProps {
   categoryIdentifier: string
   numberOfPosts: number
+  // customEndpoint: string
 }
 
 WordpressCategoryRelatedPostsBlock.defaultProps = {
   categoryIdentifier: '',
   numberOfPosts: 1,
+  // customEndpoint: '',
 }
 
 const messages = defineMessages({
@@ -148,7 +160,7 @@ const messages = defineMessages({
   },
   numberOfPostsTitle: {
     defaultMessage: '',
-    id: 'admin/editor.wordpressRelatedCategoyNumberOfPosts.title',
+    id: 'admin/editor.wordpressRelatedCategoryNumberOfPosts.title',
   },
   numberOfPostsDescription: {
     defaultMessage: '',
@@ -156,11 +168,19 @@ const messages = defineMessages({
   },
   categoryIdentifierTitle: {
     defaultMessage: '',
-    id: 'admin/editor.wordpressRelatedCategoyIdentifier.title',
+    id: 'admin/editor.wordpressRelatedCategoryIdentifier.title',
   },
   categoryIdentifierDescription: {
     defaultMessage: '',
     id: 'admin/editor.wordpressRelatedCategoryIdentifier.description',
+  },
+  customEndpointTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomEndpoint.title',
+  },
+  customEndpointDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomEndpoint.description',
   },
 })
 
@@ -182,6 +202,12 @@ WordpressCategoryRelatedPostsBlock.schema = {
       type: 'string',
       isLayout: false,
     },
+    // customEndpoint: {
+    //   title: messages.customEndpointTitle.id,
+    //   description: messages.customEndpointDescription.id,
+    //   type: 'string',
+    //   isLayout: false,
+    // },
   },
 }
 

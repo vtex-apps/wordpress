@@ -120,10 +120,14 @@ const WordpressPage: FunctionComponent = _props => {
   let route = dataS?.appSettings?.blogRoute
   if (!route) route = 'blog'
 
-  const titleHtml = insane(title.rendered, sanitizerConfig)
-  const captionHtml =
-    featured_media?.caption?.rendered &&
-    insane(featured_media.caption.rendered, sanitizerConfigStripAll)
+  const titleHtml = useMemo(() => {
+    return insane(title.rendered, sanitizerConfig)
+  }, [title.rendered, sanitizerConfig])
+  const captionHtml = useMemo(() => {
+    return featured_media?.caption?.rendered
+      ? insane(featured_media.caption.rendered, sanitizerConfigStripAll)
+      : null
+  }, [featured_media?.caption?.rendered, sanitizerConfigStripAll])
   const bodyHtml = useMemo(() => {
     return insane(content.rendered, sanitizerConfig)
   }, [content.rendered, sanitizerConfig])
@@ -166,7 +170,7 @@ const WordpressPage: FunctionComponent = _props => {
               src={featured_media.source_url}
               alt={featured_media.alt_text}
             />
-            {featured_media.caption && (
+            {captionHtml && (
               <span dangerouslySetInnerHTML={{ __html: captionHtml }} />
             )}
           </div>

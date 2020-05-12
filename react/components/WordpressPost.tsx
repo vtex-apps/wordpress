@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
 
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -121,11 +121,17 @@ const WordpressPost: FunctionComponent = props => {
     let route = dataS?.appSettings?.blogRoute
     if (!route) route = 'blog'
 
-    const titleHtml = insane(title.rendered, sanitizerConfig)
-    const captionHtml =
-      featured_media?.caption?.rendered &&
-      insane(featured_media.caption.rendered, sanitizerConfigStripAll)
-    const bodyHtml = insane(content.rendered, sanitizerConfig)
+    const titleHtml = useMemo(() => {
+      return insane(title.rendered, sanitizerConfig)
+    }, [title.rendered, sanitizerConfig])
+    const captionHtml = useMemo(() => {
+      return featured_media?.caption?.rendered
+        ? insane(featured_media.caption.rendered, sanitizerConfigStripAll)
+        : null
+    }, [featured_media?.caption?.rendered, sanitizerConfigStripAll])
+    const bodyHtml = useMemo(() => {
+      return insane(content.rendered, sanitizerConfig)
+    }, [content.rendered, sanitizerConfig])
 
     return (
       <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
@@ -173,7 +179,7 @@ const WordpressPost: FunctionComponent = props => {
                 src={featured_media.source_url}
                 alt={featured_media.alt_text}
               />
-              {featured_media.caption && (
+              {captionHtml && (
                 <span dangerouslySetInnerHTML={{ __html: captionHtml }} />
               )}
             </div>

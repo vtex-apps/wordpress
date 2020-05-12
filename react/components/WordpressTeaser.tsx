@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Fragment } from 'react'
+import React, { FunctionComponent, Fragment, useMemo } from 'react'
 import { Card } from 'vtex.styleguide'
 import { Link } from 'vtex.render-runtime'
 import insane from 'insane'
@@ -70,8 +70,12 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
   const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
   const route = blogRoute || 'blog'
-  const sanitizedTitle = insane(title, sanitizerConfigStripAll)
-  const sanitizedExcerpt = insane(excerpt, sanitizerConfigStripAll)
+  const sanitizedTitle = useMemo(() => {
+    return insane(title, sanitizerConfigStripAll)
+  }, [title, sanitizerConfigStripAll])
+  const sanitizedExcerpt = useMemo(() => {
+    return insane(excerpt, sanitizerConfigStripAll)
+  }, [excerpt, sanitizerConfigStripAll])
   return (
     <Card noPadding className={`${handles.teaserContainer}`}>
       {(showCategory || showDate || showAuthor) &&

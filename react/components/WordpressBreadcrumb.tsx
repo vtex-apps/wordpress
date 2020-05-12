@@ -37,7 +37,7 @@ const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = props => {
     variables: { categorySlug: props.categorySlug },
   })
   if (loading || error) return <Fragment></Fragment>
-  if (data?.wpCategories?.categories?.length > 0)
+  if (data?.wpCategories?.categories?.length)
     return (
       <Container className={`${handles.breadcrumbContainer} pt2 pb8`}>
         <Link
@@ -62,7 +62,7 @@ const WordpressSinglePostBreadcrumb: FunctionComponent<SinglePostProps> = props 
   })
 
   if (loading || error) return <Fragment></Fragment>
-  if (data?.wpPosts?.posts?.length > 0)
+  if (data?.wpPosts?.posts?.length)
     return (
       <Container className={`${handles.breadcrumbContainer} pt2 pb8`}>
         <Link

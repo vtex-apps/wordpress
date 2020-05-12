@@ -125,7 +125,7 @@ const WordpressCategory: FunctionComponent = () => {
             Error: {error.message}
           </div>
         )}
-        {data?.wpCategories?.categories?.length > 0 ? (
+        {data?.wpCategories?.categories?.length ? (
           <div className={`${handles.listFlex} mv4 flex flex-row flex-wrap`}>
             {data.wpCategories.categories[0].wpPosts.posts.map(
               (post: PostData, index: number) => (
