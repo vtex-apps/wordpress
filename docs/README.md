@@ -58,6 +58,22 @@ Each of the above pages needs a route declared in your `store-theme`'s `store/ro
 
 You may change "blog" in each route to another string of your choosing, but the rest must stay the same. If you do decide to use a string other than "blog", make sure to enter it in the Wordpress Integration app settings under _URL path for blog homepage_.
 
+Routes for `blog.home`, `blog.blog-category`, and `store.blog-search-result` can now optionally accept `:page` parameters for URL-controlled pagination of the `wordpress-all-posts`, `wordpress-category-list`, and `wordpress-search-list` blocks. For example:
+
+```json
+"store.blog-home": {
+	"path": "/blog/page/:page"
+},
+"store.blog-category": {
+	"path": "/blog/category/:categoryslug/page/:page"
+},
+"store.blog-search-result": {
+	"path": "/blog/search/:term/page/:page"
+},
+```
+
+If the `:page` parameter is not provided, pagination can alternatively be controlled by query string, for example `/blog/category/example-category?page=2` .
+
 ### Store Theme: Blocks
 
 Once the routes are set up, you may populate each blog page with blocks. The Wordpress Integration app provides the following blocks for your use:

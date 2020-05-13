@@ -8,6 +8,7 @@ declare module 'vtex.render-runtime' {
     to?: string
     params?: any
     fallbackToWindowLocation?: boolean
+    preventRemount?: boolean
   }
 
   export interface RenderContext {
@@ -74,6 +75,7 @@ declare module 'vtex.render-runtime' {
     publicEndpoint: string
     renderMajor: number
     query?: Record<string, string>
+    setQuery: (options: Record<string, string>) => void
     start: boolean
     runtimeMeta: {
       version: string
