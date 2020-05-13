@@ -5,7 +5,6 @@ import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
 import WordpressTeaser from './WordpressTeaser'
-import Settings from '../graphql/Settings.graphql'
 import AllPosts from '../graphql/AllPosts.graphql'
 
 const CSS_HANDLES = [
@@ -28,7 +27,6 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
   showExcerpts,
   numberOfPosts,
 }) => {
-  const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data } = useQuery(AllPosts, {
     // eslint-disable-next-line @typescript-eslint/camelcase
     variables: { wp_per_page: numberOfPosts },
@@ -36,7 +34,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
   const handles = useCssHandles(CSS_HANDLES)
   return (
     <div className={`${handles.latestPostsBlockContainer} pv4 pb9`}>
-      {(loading || loadingS) && <Spinner />}
+      {loading && <Spinner />}
       {error && <span>Error: {error.message}</span>}
       {data?.wpPosts ? (
         <Fragment>
@@ -80,7 +78,6 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     showAuthor={showAuthors}
                     showExcerpt={showExcerpts}
                     useTextOverlay={useTextOverlays}
-                    settings={dataS.appSettings}
                   />
                 </div>
                 <div
@@ -111,7 +108,6 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                           showAuthor={showAuthors}
                           showExcerpt={showExcerpts}
                           useTextOverlay={useTextOverlays}
-                          settings={dataS.appSettings}
                         />
                       </div>
                     ))}
@@ -141,7 +137,6 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     showAuthor={showAuthors}
                     showExcerpt={showExcerpts}
                     useTextOverlay={useTextOverlays}
-                    settings={dataS.appSettings}
                   />
                 </div>
               ))

@@ -193,7 +193,6 @@ const WordpressSearchResult: FunctionComponent = () => {
                     showDate
                     showExcerpt
                     useTextOverlay={false}
-                    settings={dataS.appSettings}
                   />
                 </div>
               ))}

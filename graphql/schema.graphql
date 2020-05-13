@@ -172,6 +172,7 @@ type WPCategory {
     tags: [Int]
     tags_exclude: [Int]
     sticky: Boolean
+    customEndpoint: String
   ): WPPostsResult
 }
 
@@ -210,6 +211,7 @@ type WPTag {
     tags: [Int]
     tags_exclude: [Int]
     sticky: Boolean
+    customEndpoint: String
   ): WPPostsResult
 }
 

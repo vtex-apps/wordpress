@@ -22,12 +22,6 @@ interface TeaserProps {
   showDate: boolean
   showExcerpt: boolean
   useTextOverlay: boolean
-  settings: AppSettings
-}
-
-interface AppSettings {
-  titleTag: string
-  blogRoute: string
 }
 
 const sanitizerConfigStripAll = {
@@ -48,7 +42,6 @@ const CSS_HANDLES = [
 ] as const
 
 const WordpressTeaser: FunctionComponent<TeaserProps> = ({
-  settings: { blogRoute },
   title,
   author,
   excerpt,
@@ -69,7 +62,6 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   const dateObj = new Date(date)
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
   const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
-  const route = blogRoute || 'blog'
   const sanitizedTitle = useMemo(() => {
     return insane(title, sanitizerConfigStripAll)
   }, [title, sanitizerConfigStripAll])
@@ -83,7 +75,10 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
           <h5 className="mv1 ph6 pt6 pb4">
             {showCategory && category && categorySlug && (
               <Fragment>
-                <Link to={`/${route}/category/${categorySlug}`}>
+                <Link
+                  page="store.blog-category"
+                  params={{ categoryslug: categorySlug, page: '1' }}
+                >
                   {category}
                 </Link>
               </Fragment>
@@ -122,7 +117,8 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                     className={`${handles.teaserTextOverlayTitle} t-heading-5 white fw5 mb3`}
                   >
                     <Link
-                      to={`/${route}/post/${slug}`}
+                      page="store.blog-post"
+                      params={{ slug }}
                       className="white no-underline"
                     >
                       {title}
@@ -135,7 +131,8 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                       {showCategory && category && categorySlug && (
                         <Fragment>
                           <Link
-                            to={`/${route}/category/${categorySlug}`}
+                            page="store.blog-category"
+                            params={{ categoryslug: categorySlug, page: '1' }}
                             className={'white'}
                           >
                             {category}
@@ -156,7 +153,11 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
             </div>
           ) : (
             <Fragment>
-              <Link to={`/${route}/post/${slug}`} className="tc-m db">
+              <Link
+                page="store.blog-post"
+                params={{ slug }}
+                className="tc-m db"
+              >
                 <img
                   className={`${handles.teaserImage}`}
                   src={image}
@@ -168,7 +169,8 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
               >
                 <Link
                   className={`${handles.teaserTitleLink}`}
-                  to={`/${route}/post/${slug}`}
+                  page="store.blog-post"
+                  params={{ slug }}
                 >
                   <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
                 </Link>
@@ -182,7 +184,8 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
         <h3 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
           <Link
             className={`${handles.teaserTitleLink}`}
-            to={`/${route}/post/${slug}`}
+            page="store.blog-post"
+            params={{ slug }}
           >
             <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
           </Link>

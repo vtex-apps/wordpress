@@ -1,13 +1,12 @@
 import { Container } from 'vtex.store-components'
 
-import React, { useMemo } from 'react'
+import React, { FunctionComponent, useMemo } from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 import insane from 'insane'
 
-import Settings from '../graphql/Settings.graphql'
 import TagPosts from '../graphql/TagPosts.graphql'
 
 const CSS_HANDLES = [
@@ -67,6 +66,44 @@ const sanitizerConfig = {
   allowedSchemes: ['http', 'https', 'mailto', 'tel'],
 }
 
+const WordpressCategoryRelatedPost: FunctionComponent<{
+  post: any
+  index: number
+}> = props => {
+  const { post, index } = props
+  const handles = useCssHandles(CSS_HANDLES)
+  const sanitizedTitle = useMemo(() => {
+    return insane(post.title.rendered, sanitizerConfig)
+  }, [post.title.rendered, sanitizerConfig])
+  const sanitizedContent = useMemo(() => {
+    return insane(post.content.rendered, sanitizerConfig)
+  }, [post.content.rendered, sanitizerConfig])
+  return (
+    <div
+      key={index}
+      className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}
+    >
+      <Container
+        className={`${handles.categoryRelatedPostsBlockFlex} pt6 pb8 ph3`}
+      >
+        <h1
+          className={`${handles.categoryRelatedPostsBlockTitle} t-heading-1`}
+          dangerouslySetInnerHTML={{
+            __html: sanitizedTitle,
+          }}
+        />
+
+        <div
+          className={`${handles.categoryRelatedPostsBlockBody}`}
+          dangerouslySetInnerHTML={{
+            __html: sanitizedContent,
+          }}
+        />
+      </Container>
+    </div>
+  )
+}
+
 const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategoryRelatedPostsBlockProps> = ({
   numberOfPosts,
   categoryIdentifier,
@@ -81,7 +118,6 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
     categoryIdentifier = params.id || ''
   }
 
-  const { data: dataS } = useQuery(Settings)
   const { data } = useQuery(TagPosts, {
     skip: !categoryIdentifier,
     variables: {
@@ -92,43 +128,11 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
     },
   })
   if (data?.wpTags?.tags[0]?.wpPosts.posts) {
-    let route = dataS?.appSettings?.blogRoute
-    if (!route) route = 'blog'
-
     return (
       <div className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}>
         {data?.wpTags?.tags[0]?.wpPosts.posts.map(
           (post: PostData, index: number) => {
-            const sanitizedTitle = useMemo(() => {
-              return insane(post.title.rendered, sanitizerConfig)
-            }, [post.title.rendered, sanitizerConfig])
-            const sanitizedContent = useMemo(() => {
-              return insane(post.content.rendered, sanitizerConfig)
-            }, [post.content.rendered, sanitizerConfig])
-            return (
-              <div
-                key={index}
-                className={`${handles.categoryRelatedPostsBlockContainer} pv4 pb9`}
-              >
-                <Container
-                  className={`${handles.categoryRelatedPostsBlockFlex} pt6 pb8 ph3`}
-                >
-                  <h1
-                    className={`${handles.categoryRelatedPostsBlockTitle} t-heading-1`}
-                    dangerouslySetInnerHTML={{
-                      __html: sanitizedTitle,
-                    }}
-                  />
-
-                  <div
-                    className={`${handles.categoryRelatedPostsBlockBody}`}
-                    dangerouslySetInnerHTML={{
-                      __html: sanitizedContent,
-                    }}
-                  />
-                </Container>
-              </div>
-            )
+            return <WordpressCategoryRelatedPost post={post} index={index} />
           }
         )}
       </div>

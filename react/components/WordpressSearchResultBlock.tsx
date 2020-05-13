@@ -8,7 +8,6 @@ import { useCssHandles } from 'vtex.css-handles'
 import WordpressTeaser from './WordpressTeaser'
 import withSearchContext from './withSearchContext'
 import SearchPosts from '../graphql/SearchPosts.graphql'
-import Settings from '../graphql/Settings.graphql'
 
 const CSS_HANDLES = [
   'searchResultBlockContainer',
@@ -28,7 +27,6 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
   numberOfPosts,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
-  const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data } = useQuery(SearchPosts, {
     variables: {
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -37,12 +35,9 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
     },
   })
 
-  let route = dataS?.appSettings?.blogRoute
-  if (!route) route = 'blog'
-
   return (
     <div className={`${handles.searchResultBlockContainer} pv4 pb9`}>
-      {(loading || loadingS) && <Spinner />}
+      {loading && <Spinner />}
       {error && <span>Error: {error.message}</span>}
       {searchQuery?.productSearch && data?.wpPosts ? (
         <Fragment>
@@ -76,13 +71,13 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
                   showAuthor={showAuthors}
                   showExcerpt={showExcerpts}
                   useTextOverlay={useTextOverlays}
-                  settings={dataS.appSettings}
                 />
               </div>
             ))}
           </div>
           <Link
-            to={`/${route}/search/${searchQuery.productSearch.titleTag}`}
+            page="store.blog-search-result"
+            params={{ term: searchQuery.productSearch.titleTag, page: '1' }}
             className={`${handles.searchResultBlockLink}`}
           >
             <Button variation="secondary" block>

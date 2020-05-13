@@ -73,37 +73,9 @@ const CSS_HANDLES = [
   'postChildrenContainer',
 ] as const
 
-const WordpressPage: FunctionComponent = _props => {
+const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
   const handles = useCssHandles(CSS_HANDLES)
-  const {
-    route: { params },
-  } = useRuntime()
   const { loading: loadingS, data: dataS } = useQuery(Settings)
-  const { loading, error, data } = useQuery(SinglePageBySlug, {
-    variables: { slug: params.slug },
-  })
-
-  if (loading || loadingS) {
-    return (
-      <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
-        <Spinner />
-      </div>
-    )
-  }
-  if (error) {
-    return (
-      <div className="ph5" style={{ minHeight: 800 }}>
-        Error! {error.message}
-      </div>
-    )
-  }
-  if (!data?.wpPages?.pages) {
-    return (
-      <div>
-        <h2>No page found.</h2>
-      </div>
-    )
-  }
   const {
     date,
     title,
@@ -111,14 +83,11 @@ const WordpressPage: FunctionComponent = _props => {
     author,
     excerpt,
     featured_media,
-  } = data.wpPages.pages[0]
+  } = props.pageData
 
   const dateObj = new Date(date)
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
   const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
-
-  let route = dataS?.appSettings?.blogRoute
-  if (!route) route = 'blog'
 
   const titleHtml = useMemo(() => {
     return insane(title.rendered, sanitizerConfig)
@@ -132,6 +101,13 @@ const WordpressPage: FunctionComponent = _props => {
     return insane(content.rendered, sanitizerConfig)
   }, [content.rendered, sanitizerConfig])
 
+  if (loadingS) {
+    return (
+      <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
+        <Spinner />
+      </div>
+    )
+  }
   return (
     <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
       <Helmet>
@@ -182,6 +158,38 @@ const WordpressPage: FunctionComponent = _props => {
       </div>
     </Container>
   )
+}
+
+const WordpressPage: FunctionComponent = _props => {
+  const {
+    route: { params },
+  } = useRuntime()
+  const { loading, error, data } = useQuery(SinglePageBySlug, {
+    variables: { slug: params.slug },
+  })
+
+  if (loading) {
+    return (
+      <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
+        <Spinner />
+      </div>
+    )
+  }
+  if (error) {
+    return (
+      <div className="ph5" style={{ minHeight: 800 }}>
+        Error! {error.message}
+      </div>
+    )
+  }
+  if (!data?.wpPages?.pages) {
+    return (
+      <div>
+        <h2>No page found.</h2>
+      </div>
+    )
+  }
+  return <WordpressPageInner pageData={data.wpPages.pages[0]} />
 }
 
 export default WordpressPage

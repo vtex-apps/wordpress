@@ -8,7 +8,6 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import WordpressTeaser from './WordpressTeaser'
 import withSearchContext from './withSearchContext'
-import Settings from '../graphql/Settings.graphql'
 import SearchPosts from '../graphql/SearchPosts.graphql'
 
 interface Props {
@@ -30,7 +29,6 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
   const handles = useCssHandles(CSS_HANDLES)
-  const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
     skip: !searchQuery,
     variables: {
@@ -111,7 +109,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
         style={{ maxWidth: '90%' }}
       >
         <div className="ph3">{paginationComponent}</div>
-        {(loading || loadingS) && (
+        {loading && (
           <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
             <Spinner />
           </div>
@@ -149,7 +147,6 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
                     showDate
                     showExcerpt
                     useTextOverlay={false}
-                    settings={dataS.appSettings}
                   />
                 </div>
               ))}

@@ -44,8 +44,8 @@
         "type": "string"
       },
       "blogRoute": {
-        "title": "URL path for blog homepage",
-        "description": "Example: if 'foo' is entered here, blog homepage will be at http://www.yoursite.com/foo . Make sure routes in your store-theme match this setting. If left blank, default is 'blog'",
+        "title": "DEPRECATED: URL path for blog homepage",
+        "description": "Blog routes should be set in store-theme and do not need to be entered here.",
         "type": "string"
       }
     }
