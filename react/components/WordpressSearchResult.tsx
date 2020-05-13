@@ -61,7 +61,7 @@ const WordpressSearchResult: FunctionComponent = () => {
           navigate({
             page: id,
             params,
-            preventRemount: true,
+            scrollOptions: false,
           })
         } else {
           setQuery({ page: '1' })
@@ -88,7 +88,7 @@ const WordpressSearchResult: FunctionComponent = () => {
           navigate({
             page: id,
             params,
-            preventRemount: true,
+            scrollOptions: false,
           })
         } else {
           setQuery({ page: prevPage.toString() })
@@ -113,7 +113,7 @@ const WordpressSearchResult: FunctionComponent = () => {
           navigate({
             page: id,
             params,
-            preventRemount: true,
+            scrollOptions: false,
           })
         } else {
           setQuery({ page: nextPage.toString() })
@@ -198,7 +198,7 @@ const WordpressSearchResult: FunctionComponent = () => {
                 </div>
               ))}
             </div>
-            <div className="ph3">{paginationComponent}</div>
+            <div className="ph3 mb7">{paginationComponent}</div>
           </Fragment>
         ) : (
           <div>

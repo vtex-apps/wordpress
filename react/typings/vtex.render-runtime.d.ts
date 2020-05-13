@@ -9,6 +9,7 @@ declare module 'vtex.render-runtime' {
     params?: any
     fallbackToWindowLocation?: boolean
     preventRemount?: boolean
+    scrollOptions?: boolean
   }
 
   export interface RenderContext {

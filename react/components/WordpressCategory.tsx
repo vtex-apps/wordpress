@@ -56,7 +56,7 @@ const WordpressCategory: FunctionComponent = () => {
           navigate({
             page: id,
             params,
-            preventRemount: true,
+            scrollOptions: false,
           })
         } else {
           setQuery({ page: '1' })
@@ -83,7 +83,7 @@ const WordpressCategory: FunctionComponent = () => {
           navigate({
             page: id,
             params,
-            preventRemount: true,
+            scrollOptions: false,
           })
         } else {
           setQuery({ page: prevPage.toString() })
@@ -108,7 +108,7 @@ const WordpressCategory: FunctionComponent = () => {
           navigate({
             page: id,
             params,
-            preventRemount: true,
+            scrollOptions: false,
           })
         } else {
           setQuery({ page: nextPage.toString() })
@@ -188,7 +188,7 @@ const WordpressCategory: FunctionComponent = () => {
                 )
               )}
             </div>
-            <div className="ph3">{PaginationComponent}</div>
+            <div className="ph3 mb7">{PaginationComponent}</div>
           </Fragment>
         ) : (
           !loading &&

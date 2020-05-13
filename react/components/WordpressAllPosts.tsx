@@ -53,7 +53,7 @@ const WordpressAllPosts: FunctionComponent = () => {
           navigate({
             page: id,
             params,
-            preventRemount: true,
+            scrollOptions: false,
           })
         } else {
           setQuery({ page: '1' })
@@ -79,7 +79,7 @@ const WordpressAllPosts: FunctionComponent = () => {
           navigate({
             page: id,
             params,
-            preventRemount: true,
+            scrollOptions: false,
           })
         } else {
           setQuery({ page: prevPage.toString() })
@@ -103,7 +103,7 @@ const WordpressAllPosts: FunctionComponent = () => {
           navigate({
             page: id,
             params,
-            preventRemount: true,
+            scrollOptions: false,
           })
         } else {
           setQuery({ page: nextPage.toString() })
@@ -174,7 +174,7 @@ const WordpressAllPosts: FunctionComponent = () => {
               </div>
             ))}
           </div>
-          <div className="ph3">{PaginationComponent}</div>
+          <div className="ph3 mb7">{PaginationComponent}</div>
         </Fragment>
       ) : (
         !loading &&
