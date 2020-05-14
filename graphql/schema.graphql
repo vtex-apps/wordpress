@@ -172,6 +172,7 @@ type WPCategory {
     tags: [Int]
     tags_exclude: [Int]
     sticky: Boolean
+    customEndpoint: String
   ): WPPostsResult
 }
 
@@ -210,6 +211,7 @@ type WPTag {
     tags: [Int]
     tags_exclude: [Int]
     sticky: Boolean
+    customEndpoint: String
   ): WPPostsResult
 }
 
@@ -531,6 +533,7 @@ type Query {
     tags: [Int]
     tags_exclude: [Int]
     sticky: Boolean
+    customEndpoint: String
   ): WPPostsResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
   wpPost(id: Int!, password: String): WPPost
     @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
@@ -581,7 +584,8 @@ type Query {
     slug: [String]
     status: [String] = ["publish"]
   ): WPPagesResult @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
-  wpPage(id: Int!, password: String): WPPage @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+  wpPage(id: Int!, password: String): WPPage
+    @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
   wpComments(
     page: Int = 1
     per_page: Int = 10

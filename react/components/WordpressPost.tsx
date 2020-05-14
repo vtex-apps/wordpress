@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { FunctionComponent } from 'react'
+import { Container } from 'vtex.store-components'
+
+import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { useQuery } from 'react-apollo'
-import { useRuntime } from 'vtex.render-runtime'
+import { useRuntime, Link } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
-import { Container } from 'vtex.store-components'
 import insane from 'insane'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -73,124 +74,144 @@ const CSS_HANDLES = [
   'postChildrenContainer',
 ] as const
 
-const WordpressPost: FunctionComponent = props => {
+const WordpressPostInner: FunctionComponent<{ postData: any }> = props => {
   const handles = useCssHandles(CSS_HANDLES)
-  const {
-    route: { params },
-  } = useRuntime()
   const { loading: loadingS, data: dataS } = useQuery(Settings)
-  const { loading, error, data } = useQuery(SinglePostBySlug, {
-    variables: { slug: params.slug },
-  })
+  const {
+    title,
+    date,
+    author,
+    categories,
+    content,
+    featured_media,
+    excerpt,
+    tags,
+  } = props.postData
 
-  if (loading || loadingS) {
+  const dateObj = new Date(date)
+  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+  const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
+
+  const productIds = tags
+    .filter((tag: WPTag) => tag.name && tag.name.includes('prod-'))
+    .map((tag: WPTag) => tag.name.replace('prod-', ''))
+
+  const titleHtml = useMemo(() => {
+    return insane(title.rendered, sanitizerConfig)
+  }, [title.rendered, sanitizerConfig])
+  const captionHtml = useMemo(() => {
+    return featured_media?.caption?.rendered
+      ? insane(featured_media.caption.rendered, sanitizerConfigStripAll)
+      : null
+  }, [featured_media?.caption?.rendered, sanitizerConfigStripAll])
+  const bodyHtml = useMemo(() => {
+    return insane(content.rendered, sanitizerConfig)
+  }, [content.rendered, sanitizerConfig])
+
+  if (loadingS)
     return (
       <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
         <Spinner />
       </div>
     )
-  } else if (error) {
+
+  return (
+    <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
+      <Helmet>
+        <title>
+          {dataS?.appSettings?.titleTag
+            ? `${title.rendered} | ${dataS.appSettings.titleTag}`
+            : title.rendered}
+        </title>
+        {featured_media?.media_type === 'image' &&
+        featured_media?.source_url ? (
+          <meta property="og:image" content={featured_media?.source_url} />
+        ) : (
+          ''
+        )}
+        <meta
+          name="description"
+          content={excerpt?.rendered?.replace(/(<([^>]+)>)/gi, '').trim()}
+        />
+      </Helmet>
+      <div className={`${handles.postContainer} ph3`}>
+        <h1
+          className={`${handles.postTitle} t-heading-1`}
+          dangerouslySetInnerHTML={{ __html: titleHtml }}
+        />
+        <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
+          <span>Posted {formattedDate} in </span>
+          {categories.map((cat: any, index: number) => (
+            <span key={index}>
+              <Link
+                page="store.blog-category"
+                params={{ categoryslug: cat.slug, page: '1' }}
+              >
+                {cat.name}
+              </Link>
+              {index + 1 === categories.length ? '' : ', '}
+            </span>
+          ))}
+          {author && <span> by {author.name}</span>}
+        </p>
+        {featured_media && featured_media.media_type === 'image' && (
+          <div className="mw9 pb8">
+            <img
+              className={`${handles.postFeaturedImage}`}
+              src={featured_media.source_url}
+              alt={featured_media.alt_text}
+            />
+            {captionHtml && (
+              <span dangerouslySetInnerHTML={{ __html: captionHtml }} />
+            )}
+          </div>
+        )}
+        <div
+          className={`${handles.postBody}`}
+          dangerouslySetInnerHTML={{ __html: bodyHtml }}
+        />
+      </div>
+
+      <WPRelatedProductsContext.Provider value={{ productIds }}>
+        <div className={`${handles.postChildrenContainer}`}>
+          {props.children}
+        </div>
+      </WPRelatedProductsContext.Provider>
+    </Container>
+  )
+}
+
+const WordpressPost: FunctionComponent = () => {
+  const {
+    route: { params },
+  } = useRuntime()
+
+  const { loading, error, data } = useQuery(SinglePostBySlug, {
+    variables: { slug: params.slug },
+  })
+
+  if (loading) {
+    return (
+      <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
+        <Spinner />
+      </div>
+    )
+  }
+  if (error) {
     return (
       <div className="ph5" style={{ minHeight: 800 }}>
         Error! {error.message}
       </div>
     )
-  } else if (data?.wpPosts?.posts) {
-    const {
-      title,
-      date,
-      author,
-      categories,
-      content,
-      featured_media,
-      excerpt,
-      tags,
-    } = data.wpPosts.posts[0]
-
-    const dateObj = new Date(date)
-    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
-    const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
-
-    const productIds = tags
-      .filter((tag: WPTag) => tag.name && tag.name.includes('prod-'))
-      .map((tag: WPTag) => tag.name.replace('prod-', ''))
-
-    let route = dataS?.appSettings?.blogRoute
-    if (!route || route == '') route = 'blog'
-
-    const titleHtml = insane(title.rendered, sanitizerConfig)
-    const captionHtml =
-      featured_media?.caption?.rendered &&
-      insane(featured_media.caption.rendered, sanitizerConfigStripAll)
-    const bodyHtml = insane(content.rendered, sanitizerConfig)
-
-    return (
-      <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
-        <Helmet>
-          <title>
-            {dataS?.appSettings?.titleTag && dataS.appSettings.titleTag != ''
-              ? title.rendered + ' | ' + dataS.appSettings.titleTag
-              : title.rendered}
-          </title>
-          {featured_media?.media_type == "image" && featured_media?.source_url ? 
-              <meta property="og:image" content={featured_media?.source_url}/> : 
-              ""
-          }
-          <meta name="description" content={excerpt?.rendered?.replace(/(<([^>]+)>)/ig, "").trim()} />
-
-        </Helmet>
-        <div className={`${handles.postContainer} ph3`}>
-          <h1
-            className={`${handles.postTitle} t-heading-1`}
-            dangerouslySetInnerHTML={{ __html: titleHtml }}
-          />
-          <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
-            <span>Posted {formattedDate} in </span>
-            {categories.map((cat: any, index: number) => (
-              <span key={index}>
-                <a
-                  className="link c-link hover-c-link active-c-link visited-c-link"
-                  href={'/' + route + '/category/' + cat.slug}
-                >
-                  {cat.name}
-                </a>
-                {index + 1 === categories.length ? '' : ', '}
-              </span>
-            ))}
-            {author && <span> by {author.name}</span>}
-          </p>
-          {featured_media && featured_media.media_type === 'image' && (
-            <div className="mw9 pb8">
-              <img
-                className={`${handles.postFeaturedImage}`}
-                src={featured_media.source_url}
-                alt={featured_media.alt_text}
-              />
-              {featured_media.caption && (
-                <span dangerouslySetInnerHTML={{ __html: captionHtml }} />
-              )}
-            </div>
-          )}
-          <div
-            className={`${handles.postBody}`}
-            dangerouslySetInnerHTML={{ __html: bodyHtml }}
-          />
-        </div>
-
-        <WPRelatedProductsContext.Provider value={{ productIds: productIds }}>
-          <div className={`${handles.postChildrenContainer}`}>
-            {props.children}
-          </div>
-        </WPRelatedProductsContext.Provider>
-      </Container>
-    )
-  } else {
-    return (
-      <div>
-        <h2>No post found.</h2>
-      </div>
-    )
   }
+  if (data?.wpPosts?.posts) {
+    return <WordpressPostInner postData={data.wpPosts.posts[0]} />
+  }
+  return (
+    <div>
+      <h2>No post found.</h2>
+    </div>
+  )
 }
 
 export default WordpressPost

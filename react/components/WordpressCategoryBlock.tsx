@@ -8,7 +8,6 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import WordpressTeaser from './WordpressTeaser'
 import CategoryPosts from '../graphql/CategoryPosts.graphql'
-import Settings from '../graphql/Settings.graphql'
 
 const CSS_HANDLES = [
   'categoryBlockContainer',
@@ -31,28 +30,24 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
   customLinkTarget,
   numberOfPosts,
 }) => {
-  const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data } = useQuery(CategoryPosts, {
     variables: {
-      category: category,
+      category,
       wp_per_page: numberOfPosts,
     },
   })
   const handles = useCssHandles(CSS_HANDLES)
 
-  let route = dataS?.appSettings?.blogRoute
-  if (!route || route == '') route = 'blog'
-
   return (
     <div className={`${handles.categoryBlockContainer} pv4 pb9`}>
-      {(loading || loadingS) && <Spinner />}
+      {loading && <Spinner />}
       {error && <span>Error: {error.message}</span>}
       {data?.wpCategory?.name ? (
         <Fragment>
           <h2 className={`${handles.categoryBlockTitle} tc t-heading-2`}>
-            {title != '' ? title : data.wpCategory.name}
+            {title || data.wpCategory.name}
           </h2>
-          {description != '' && (
+          {description && (
             <h4
               className={`${handles.categoryBlockDescription} tc t-heading-4`}
             >
@@ -83,26 +78,31 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
                     showAuthor={showAuthors}
                     showExcerpt={showExcerpts}
                     useTextOverlay={useTextOverlays}
-                    settings={dataS.appSettings}
                   />
                 </div>
               )
             )}
           </div>
-          <Link
-            to={
-              customLinkTarget != ''
-                ? customLinkTarget
-                : '/' + route + '/category/' + data?.wpCategory?.slug
-            }
-            className={`${handles.categoryBlockLink}`}
-          >
-            <Button variation="secondary" block>
-              {customLinkText != ''
-                ? customLinkText
-                : `All ${data.wpCategory.name} Posts >`}
-            </Button>
-          </Link>
+          {customLinkTarget ? (
+            <Link
+              to={customLinkTarget}
+              className={`${handles.categoryBlockLink}`}
+            >
+              <Button variation="secondary" block>
+                {customLinkText || `All ${data.wpCategory.name} Posts >`}
+              </Button>
+            </Link>
+          ) : (
+            <Link
+              page="store.blog-category"
+              params={{ categoryslug: data?.wpCategory?.slug, page: '1' }}
+              className={`${handles.categoryBlockLink}`}
+            >
+              <Button variation="secondary" block>
+                {customLinkText || `All ${data.wpCategory.name} Posts >`}
+              </Button>
+            </Link>
+          )}
         </Fragment>
       ) : (
         !loading &&

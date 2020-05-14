@@ -5,7 +5,6 @@ import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
 import WordpressTeaser from './WordpressTeaser'
-import Settings from '../graphql/Settings.graphql'
 import TagPosts from '../graphql/TagPosts.graphql'
 
 const CSS_HANDLES = [
@@ -25,22 +24,21 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
   showExcerpts,
   numberOfPosts,
 }) => {
-  const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data } = useQuery(TagPosts, {
     skip: !productQuery?.product?.productReference,
     variables: {
       // eslint-disable-next-line @typescript-eslint/camelcase
       wp_per_page: numberOfPosts,
-      tag: 'prod-' + productQuery?.product?.productReference,
+      tag: `prod-${productQuery?.product?.productReference}`,
     },
   })
   const handles = useCssHandles(CSS_HANDLES)
   return productQuery?.product?.productReference ? (
     <div className={`${handles.relatedPostsBlockContainer} pv4 pb9`}>
-      {(loading || loadingS) && <Spinner />}
+      {loading && <Spinner />}
       {error && <Fragment />}
       {data?.wpTags?.tags[0]?.wpPosts &&
-      'prod-' + productQuery.product.productReference ==
+      `prod-${productQuery.product.productReference}` ===
         data.wpTags.tags[0].name ? (
         <Fragment>
           <h2 className={`${handles.relatedPostsBlockTitle} tc t-heading-2`}>
@@ -73,7 +71,6 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
                     showAuthor={showAuthors}
                     showExcerpt={showExcerpts}
                     useTextOverlay={useTextOverlays}
-                    settings={dataS.appSettings}
                   />
                 </div>
               )

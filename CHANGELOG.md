@@ -6,9 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Support for URL-controlled pagination on certain WP components
+- Pagination controls at bottom of lists in addition to top
+- Better navigation between WP store pages to allow for more flexibility in blog routes
+- Backend support for custom endpoints (frontend support still pending)
+
+### Changed
+
+- Use `useMemo` in conjunction with any `insane` HTML sanitization calls to improve performance
+
 ## [1.4.1] - 2020-05-05
 
-## Fixed
+### Fixed
 
 - Removing html tags from the metatag description
 

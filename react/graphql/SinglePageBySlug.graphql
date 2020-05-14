@@ -1,6 +1,6 @@
 query SinglePagebySlug($slug: String!) {
   wpPages(slug: [$slug]) {
-    pages{
+    pages {
       title {
         rendered
       }
@@ -22,6 +22,6 @@ query SinglePagebySlug($slug: String!) {
         }
         media_type
       }
-  }
+    }
   }
 }

@@ -22,6 +22,7 @@ export const queries = {
       tags,
       tags_exclude,
       sticky,
+      customEndpoint,
     }: {
       page: number
       per_page: number
@@ -42,6 +43,7 @@ export const queries = {
       tags: [number]
       tags_exclude: [number]
       sticky: boolean
+      customEndpoint: string
     },
     ctx: Context
   ) {
@@ -69,6 +71,7 @@ export const queries = {
       tags,
       tags_exclude,
       sticky,
+      customEndpoint,
     }
     const { headers, data } = await wordpressProxy.getPosts(options)
     const posts = data

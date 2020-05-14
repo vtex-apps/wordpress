@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { Container } from 'vtex.store-components'
+
 import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
-import { Container } from 'vtex.store-components'
 import insane from 'insane'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -72,37 +73,9 @@ const CSS_HANDLES = [
   'postChildrenContainer',
 ] as const
 
-const WordpressPage: FunctionComponent = _props => {
+const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
   const handles = useCssHandles(CSS_HANDLES)
-  const {
-    route: { params },
-  } = useRuntime()
   const { loading: loadingS, data: dataS } = useQuery(Settings)
-  const { loading, error, data } = useQuery(SinglePageBySlug, {
-    variables: { slug: params.slug },
-  })
-
-  if (loading || loadingS) {
-    return (
-      <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
-        <Spinner />
-      </div>
-    )
-  }
-  if (error) {
-    return (
-      <div className="ph5" style={{ minHeight: 800 }}>
-        Error! {error.message}
-      </div>
-    )
-  }
-  if (!data?.wpPages?.pages) {
-    return (
-      <div>
-        <h2>No page found.</h2>
-      </div>
-    )
-  }
   const {
     date,
     title,
@@ -110,32 +83,41 @@ const WordpressPage: FunctionComponent = _props => {
     author,
     excerpt,
     featured_media,
-  } = data.wpPages.pages[0]
+  } = props.pageData
 
   const dateObj = new Date(date)
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
   const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
 
-  let route = dataS?.appSettings?.blogRoute
-  if (!route || route == '') route = 'blog'
-
-  const titleHtml = insane(title.rendered, sanitizerConfig)
-  const captionHtml =
-    featured_media?.caption?.rendered &&
-    insane(featured_media.caption.rendered, sanitizerConfigStripAll)
+  const titleHtml = useMemo(() => {
+    return insane(title.rendered, sanitizerConfig)
+  }, [title.rendered, sanitizerConfig])
+  const captionHtml = useMemo(() => {
+    return featured_media?.caption?.rendered
+      ? insane(featured_media.caption.rendered, sanitizerConfigStripAll)
+      : null
+  }, [featured_media?.caption?.rendered, sanitizerConfigStripAll])
   const bodyHtml = useMemo(() => {
     return insane(content.rendered, sanitizerConfig)
   }, [content.rendered, sanitizerConfig])
 
+  if (loadingS) {
+    return (
+      <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
+        <Spinner />
+      </div>
+    )
+  }
   return (
     <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
       <Helmet>
         <title>
-          {dataS?.appSettings?.titleTag && dataS.appSettings.titleTag != ''
-            ? title.rendered + ' | ' + dataS.appSettings.titleTag
+          {dataS?.appSettings?.titleTag
+            ? `${title.rendered} | ${dataS.appSettings.titleTag}`
             : title.rendered}
         </title>
-        {featured_media?.media_type == 'image' && featured_media?.source_url ? (
+        {featured_media?.media_type === 'image' &&
+        featured_media?.source_url ? (
           <meta property="og:image" content={featured_media?.source_url} />
         ) : (
           ''
@@ -164,7 +146,7 @@ const WordpressPage: FunctionComponent = _props => {
               src={featured_media.source_url}
               alt={featured_media.alt_text}
             />
-            {featured_media.caption && (
+            {captionHtml && (
               <span dangerouslySetInnerHTML={{ __html: captionHtml }} />
             )}
           </div>
@@ -176,6 +158,38 @@ const WordpressPage: FunctionComponent = _props => {
       </div>
     </Container>
   )
+}
+
+const WordpressPage: FunctionComponent = _props => {
+  const {
+    route: { params },
+  } = useRuntime()
+  const { loading, error, data } = useQuery(SinglePageBySlug, {
+    variables: { slug: params.slug },
+  })
+
+  if (loading) {
+    return (
+      <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
+        <Spinner />
+      </div>
+    )
+  }
+  if (error) {
+    return (
+      <div className="ph5" style={{ minHeight: 800 }}>
+        Error! {error.message}
+      </div>
+    )
+  }
+  if (!data?.wpPages?.pages) {
+    return (
+      <div>
+        <h2>No page found.</h2>
+      </div>
+    )
+  }
+  return <WordpressPageInner pageData={data.wpPages.pages[0]} />
 }
 
 export default WordpressPage
