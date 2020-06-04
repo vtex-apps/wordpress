@@ -1,10 +1,10 @@
-query SinglePagebySlug($slug: String!) {
-  wpPages(slug: [$slug]) {
+query SinglePagebySlug($slug: String!, $customDomain: String) {
+  wpPages(slug: [$slug], customDomain: $customDomain) {
     pages {
       title {
         rendered
       }
-      author {
+      author(customDomain: $customDomain) {
         name
       }
       content {
@@ -14,7 +14,7 @@ query SinglePagebySlug($slug: String!) {
         rendered
       }
       date
-      featured_media {
+      featured_media(customDomain: $customDomain) {
         source_url
         alt_text
         caption {

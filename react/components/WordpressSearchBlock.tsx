@@ -8,6 +8,7 @@ const CSS_HANDLES = ['searchBlockContainer'] as const
 
 const WordpressSearchBlock: StorefrontFunctionComponent<WordpressSearchProps> = ({
   placeholder,
+  customDomainSlug,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const [inputValue, setValue] = useState('')
@@ -20,7 +21,7 @@ const WordpressSearchBlock: StorefrontFunctionComponent<WordpressSearchProps> = 
     setValue('')
     navigate({
       page: 'store.blog-search-result',
-      params: { term: search },
+      params: { term: search, customdomainslug: customDomainSlug },
     })
   }
 
@@ -50,6 +51,7 @@ const WordpressSearchBlock: StorefrontFunctionComponent<WordpressSearchProps> = 
 interface WordpressSearchProps {
   /** Placeholder to be used on the input */
   placeholder: string
+  customDomainSlug: string
 }
 
 const messages = defineMessages({
@@ -65,6 +67,14 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressSearchPlaceholder.title',
   },
+  customDomainSlugTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.title',
+  },
+  customDomainSlugDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.description',
+  },
 })
 
 WordpressSearchBlock.schema = {
@@ -78,10 +88,18 @@ WordpressSearchBlock.schema = {
       isLayout: false,
       default: 'Search articles...',
     },
+    customDomainSlug: {
+      title: messages.customDomainSlugTitle.id,
+      description: messages.customDomainSlugDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
   },
 }
 WordpressSearchBlock.defaultProps = {
   placeholder: 'Search articles...',
+  customDomainSlug: undefined,
 }
 
 export default WordpressSearchBlock

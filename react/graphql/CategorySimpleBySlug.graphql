@@ -1,5 +1,5 @@
-query CategorySimpleBySlug($categorySlug: String!) {
-  wpCategories(slug: [$categorySlug]) {
+query CategorySimpleBySlug($categorySlug: String!, $customDomain: String) {
+  wpCategories(slug: [$categorySlug], customDomain: $customDomain) {
     categories {
       name
     }

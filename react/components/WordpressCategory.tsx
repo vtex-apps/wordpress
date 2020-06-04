@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
 
-import React, { FunctionComponent, Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useQuery } from 'react-apollo'
+import { defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner, Pagination } from 'vtex.styleguide'
 import Helmet from 'react-helmet'
@@ -11,6 +12,10 @@ import { useCssHandles } from 'vtex.css-handles'
 import WordpressTeaser from './WordpressTeaser'
 import CategoryPostsBySlug from '../graphql/CategoryPostsBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
+
+interface CategoryProps {
+  customDomains: string
+}
 
 const CSS_HANDLES = [
   'listTitle',
@@ -24,13 +29,28 @@ const initialPageVars = {
   wp_per_page: 10,
 }
 
-const WordpressCategory: FunctionComponent = () => {
+const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
+  customDomains,
+}) => {
   const {
     route: { id, params },
     query,
     setQuery,
     navigate,
   } = useRuntime()
+
+  let parsedCustomDomains = null
+  try {
+    parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
+  } catch (e) {
+    console.error(e)
+  }
+
+  const customDomain =
+    params.customdomainslug && parsedCustomDomains
+      ? parsedCustomDomains[params.customdomainslug]
+      : undefined
+
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(10)
@@ -38,7 +58,7 @@ const WordpressCategory: FunctionComponent = () => {
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(CategoryPostsBySlug, {
-    variables: { ...categoryVariable, ...initialPageVars },
+    variables: { ...categoryVariable, ...initialPageVars, customDomain },
   })
 
   const PaginationComponent = (
@@ -66,6 +86,7 @@ const WordpressCategory: FunctionComponent = () => {
           variables: {
             wp_page: 1,
             wp_per_page: event.target.value,
+            customDomain,
             ...categoryVariable,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
@@ -92,6 +113,7 @@ const WordpressCategory: FunctionComponent = () => {
           variables: {
             wp_page: prevPage,
             wp_per_page: perPage,
+            customDomain,
             ...categoryVariable,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
@@ -117,6 +139,7 @@ const WordpressCategory: FunctionComponent = () => {
           variables: {
             wp_page: nextPage,
             wp_per_page: perPage,
+            customDomain,
             ...categoryVariable,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
@@ -129,7 +152,7 @@ const WordpressCategory: FunctionComponent = () => {
   )
   return (
     <Fragment>
-      {dataS && data?.wpCategories?.categories?.length && (
+      {dataS && data?.wpCategories?.categories?.length > 0 && (
         <Fragment>
           <Helmet>
             <title>
@@ -174,6 +197,7 @@ const WordpressCategory: FunctionComponent = () => {
                       date={post.date}
                       id={post.id}
                       slug={post.slug}
+                      customDomainSlug={params.customdomainslug}
                       image={post.featured_media?.source_url ?? ''}
                       altText={post.featured_media?.alt_text ?? ''}
                       mediaType={post.featured_media?.media_type ?? ''}
@@ -201,6 +225,44 @@ const WordpressCategory: FunctionComponent = () => {
       </Container>
     </Fragment>
   )
+}
+
+const messages = defineMessages({
+  title: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCategory.title',
+  },
+  description: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCategory.description',
+  },
+  customDomainsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.title',
+  },
+  customDomainsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.description',
+  },
+})
+
+WordpressCategory.defaultProps = {
+  customDomains: undefined,
+}
+
+WordpressCategory.schema = {
+  title: messages.title.id,
+  description: messages.description.id,
+  type: 'object',
+  properties: {
+    customDomains: {
+      title: messages.customDomainsTitle.id,
+      description: messages.customDomainsDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+  },
 }
 
 export default WordpressCategory

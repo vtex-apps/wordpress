@@ -23,7 +23,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     const keys = Object.keys(wpOptions)
     const len = keys.length
     for (var i = 0; i < len; i++) {
-      if (wpOptions[keys[i]] && keys[i] !== 'customEndpoint') {
+      if (wpOptions[keys[i]] && keys[i] !== 'customDomain') {
         returnStr +=
           (returnStr != '' ? '&' : '') + keys[i] + '=' + wpOptions[keys[i]]
       }
@@ -37,26 +37,31 @@ export default class WordpressProxyDataSource extends ExternalClient {
       await this.getEndpoint(this.context)
     }
     let combinedArgs = ''
-    let apiPath = DEFAULT_API_PATH + `posts`
+    let endpoint = this.endpoint
     if (wpOptions) {
       combinedArgs = this.buildArgs(wpOptions)
-      if (wpOptions.customEndpoint) apiPath = wpOptions.customEndpoint
+      if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
-    return this.http.getRaw(this.endpoint + apiPath + combinedArgs, {
-      metric: 'posts' + combinedArgs,
-    })
+    return this.http.getRaw(
+      endpoint + DEFAULT_API_PATH + `posts` + combinedArgs,
+      {
+        metric: 'posts' + combinedArgs,
+      }
+    )
   }
 
-  public async getPost(id: number, password?: string) {
+  public async getPost(id: number, password?: string, customDomain?: string) {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    let endpoint = this.endpoint
+    if (customDomain) endpoint = customDomain
     let formattedPassword = ''
     if (password) formattedPassword = '?password=' + password
 
     return this.http.get(
-      this.endpoint + DEFAULT_API_PATH + `posts/` + id + formattedPassword,
+      endpoint + DEFAULT_API_PATH + `posts/` + id + formattedPassword,
       {
         metric: 'post' + id + formattedPassword,
       }
@@ -68,28 +73,29 @@ export default class WordpressProxyDataSource extends ExternalClient {
       await this.getEndpoint(this.context)
     }
     let combinedArgs = ''
+    let endpoint = this.endpoint
     if (wpOptions) {
       combinedArgs = this.buildArgs(wpOptions)
+      if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
     return this.http.getRaw(
-      this.endpoint + DEFAULT_API_PATH + `categories` + combinedArgs,
+      endpoint + DEFAULT_API_PATH + `categories` + combinedArgs,
       {
         metric: 'categories' + combinedArgs,
       }
     )
   }
 
-  public async getCategory(id: number) {
+  public async getCategory(id: number, customDomain?: string) {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    return this.http.get(
-      this.endpoint + DEFAULT_API_PATH + `categories/` + id,
-      {
-        metric: 'category' + id,
-      }
-    )
+    let endpoint = this.endpoint
+    if (customDomain) endpoint = customDomain
+    return this.http.get(endpoint + DEFAULT_API_PATH + `categories/` + id, {
+      metric: 'category' + id,
+    })
   }
 
   public async getTags(wpOptions?: any) {
@@ -97,23 +103,27 @@ export default class WordpressProxyDataSource extends ExternalClient {
       await this.getEndpoint(this.context)
     }
     let combinedArgs = ''
+    let endpoint = this.endpoint
     if (wpOptions) {
       combinedArgs = this.buildArgs(wpOptions)
+      if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
     return this.http.getRaw(
-      this.endpoint + DEFAULT_API_PATH + `tags` + combinedArgs,
+      endpoint + DEFAULT_API_PATH + `tags` + combinedArgs,
       {
         metric: 'tags' + combinedArgs,
       }
     )
   }
 
-  public async getTag(id: number) {
+  public async getTag(id: number, customDomain?: string) {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    return this.http.get(this.endpoint + DEFAULT_API_PATH + `tags/` + id, {
+    let endpoint = this.endpoint
+    if (customDomain) endpoint = customDomain
+    return this.http.get(endpoint + DEFAULT_API_PATH + `tags/` + id, {
       metric: 'tag' + id,
     })
   }
@@ -123,27 +133,31 @@ export default class WordpressProxyDataSource extends ExternalClient {
       await this.getEndpoint(this.context)
     }
     let combinedArgs = ''
+    let endpoint = this.endpoint
     if (wpOptions) {
       combinedArgs = this.buildArgs(wpOptions)
+      if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
     return this.http.getRaw(
-      this.endpoint + DEFAULT_API_PATH + `pages` + combinedArgs,
+      endpoint + DEFAULT_API_PATH + `pages` + combinedArgs,
       {
         metric: 'pages' + combinedArgs,
       }
     )
   }
 
-  public async getPage(id: number, password?: string) {
+  public async getPage(id: number, password?: string, customDomain?: string) {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
     let formattedPassword = ''
+    let endpoint = this.endpoint
+    if (customDomain) endpoint = customDomain
     if (password) formattedPassword = '?password=' + password
 
     return this.http.get(
-      this.endpoint + DEFAULT_API_PATH + `pages/` + id + formattedPassword,
+      endpoint + DEFAULT_API_PATH + `pages/` + id + formattedPassword,
       {
         metric: 'page' + id + formattedPassword,
       }
@@ -225,11 +239,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getMediaSingle(id: number) {
+  public async getMediaSingle(id: number, customDomain?: string) {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    return this.http.get(this.endpoint + DEFAULT_API_PATH + `media/` + id, {
+    let endpoint = this.endpoint
+    if (customDomain) endpoint = customDomain
+    return this.http.get(endpoint + DEFAULT_API_PATH + `media/` + id, {
       metric: 'media-single' + id,
     })
   }
@@ -251,11 +267,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getUser(id: number) {
+  public async getUser(id: number, customDomain?: string) {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    return this.http.get(this.endpoint + DEFAULT_API_PATH + `users/` + id, {
+    let endpoint = this.endpoint
+    if (customDomain) endpoint = customDomain
+    return this.http.get(endpoint + DEFAULT_API_PATH + `users/` + id, {
       metric: 'user' + id,
     })
   }

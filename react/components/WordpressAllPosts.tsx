@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
 
-import React, { Fragment, FunctionComponent, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner, Pagination } from 'vtex.styleguide'
@@ -19,7 +20,15 @@ const CSS_HANDLES = [
   'listFlexItem',
 ] as const
 
-const WordpressAllPosts: FunctionComponent = () => {
+interface AllPostsProps {
+  customDomain: string
+  customDomainSlug: string
+}
+
+const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
+  customDomain,
+  customDomainSlug,
+}) => {
   const {
     route: { id, params },
     query,
@@ -35,6 +44,7 @@ const WordpressAllPosts: FunctionComponent = () => {
     variables: {
       wp_page: 1,
       wp_per_page: 10,
+      customDomain,
     },
   })
 
@@ -63,6 +73,7 @@ const WordpressAllPosts: FunctionComponent = () => {
           variables: {
             wp_page: 1,
             wp_per_page: event.target.value,
+            customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
@@ -88,6 +99,7 @@ const WordpressAllPosts: FunctionComponent = () => {
           variables: {
             wp_page: prevPage,
             wp_per_page: perPage,
+            customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
@@ -112,6 +124,7 @@ const WordpressAllPosts: FunctionComponent = () => {
           variables: {
             wp_page: nextPage,
             wp_per_page: perPage,
+            customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
@@ -161,6 +174,7 @@ const WordpressAllPosts: FunctionComponent = () => {
                   date={post.date}
                   id={post.id}
                   slug={post.slug}
+                  customDomainSlug={customDomainSlug}
                   image={post.featured_media?.source_url ?? ''}
                   altText={post.featured_media?.alt_text ?? ''}
                   mediaType={post.featured_media?.media_type ?? ''}
@@ -185,6 +199,60 @@ const WordpressAllPosts: FunctionComponent = () => {
       )}
     </Container>
   )
+}
+
+const messages = defineMessages({
+  title: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAllPosts.title',
+  },
+  description: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressAllPosts.description',
+  },
+  customDomainTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.title',
+  },
+  customDomainDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.description',
+  },
+  customDomainSlugTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.title',
+  },
+  customDomainSlugDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.description',
+  },
+})
+
+WordpressAllPosts.defaultProps = {
+  customDomain: undefined,
+  customDomainSlug: undefined,
+}
+
+WordpressAllPosts.schema = {
+  title: messages.title.id,
+  description: messages.description.id,
+  type: 'object',
+  properties: {
+    customDomain: {
+      title: messages.customDomainTitle.id,
+      description: messages.customDomainDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    customDomainSlug: {
+      title: messages.customDomainSlugTitle.id,
+      description: messages.customDomainSlugDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+  },
 }
 
 export default WordpressAllPosts

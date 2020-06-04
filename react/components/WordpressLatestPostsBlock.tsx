@@ -26,10 +26,12 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
   showAuthors,
   showExcerpts,
   numberOfPosts,
+  customDomain,
+  customDomainSlug,
 }) => {
   const { loading, error, data } = useQuery(AllPosts, {
     // eslint-disable-next-line @typescript-eslint/camelcase
-    variables: { wp_per_page: numberOfPosts },
+    variables: { wp_per_page: numberOfPosts, customDomain },
   })
   const handles = useCssHandles(CSS_HANDLES)
   return (
@@ -55,6 +57,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     date={data.wpPosts.posts[0].date}
                     id={data.wpPosts.posts[0].id}
                     slug={data.wpPosts.posts[0].slug}
+                    customDomainSlug={customDomainSlug}
                     author={data.wpPosts.posts[0].author?.name ?? ''}
                     excerpt={data.wpPosts.posts[0].excerpt.rendered}
                     category={data.wpPosts.posts[0].categories[0]?.name ?? ''}
@@ -95,6 +98,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                           date={post.date}
                           id={post.id}
                           slug={post.slug}
+                          customDomainSlug={customDomainSlug}
                           author={post.author ? post.author.name : ''}
                           excerpt={post.excerpt.rendered}
                           category={post.categories[0]?.name ?? ''}
@@ -124,6 +128,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     date={post.date}
                     id={post.id}
                     slug={post.slug}
+                    customDomainSlug={customDomainSlug}
                     author={post.author?.name ?? ''}
                     excerpt={post.excerpt.rendered}
                     category={post.categories[0]?.name ?? ''}
@@ -164,6 +169,8 @@ interface WPLatestPostsBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
+  customDomain: string
+  customDomainSlug: string
 }
 
 WordpressLatestPostsBlock.defaultProps = {
@@ -175,6 +182,8 @@ WordpressLatestPostsBlock.defaultProps = {
   showDates: true,
   showAuthors: false,
   showExcerpts: false,
+  customDomain: undefined,
+  customDomainSlug: undefined,
 }
 
 const messages = defineMessages({
@@ -250,6 +259,22 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressExcerpts.description',
   },
+  customDomainTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.title',
+  },
+  customDomainDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.description',
+  },
+  customDomainSlugTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.title',
+  },
+  customDomainSlugDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.description',
+  },
 })
 
 WordpressLatestPostsBlock.schema = {
@@ -312,6 +337,20 @@ WordpressLatestPostsBlock.schema = {
       type: 'boolean',
       isLayout: false,
       default: false,
+    },
+    customDomain: {
+      title: messages.customDomainTitle.id,
+      description: messages.customDomainDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    customDomainSlug: {
+      title: messages.customDomainSlugTitle.id,
+      description: messages.customDomainSlugDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
     },
   },
 }

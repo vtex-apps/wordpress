@@ -29,11 +29,14 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
   customLinkText,
   customLinkTarget,
   numberOfPosts,
+  customDomain,
+  customDomainSlug,
 }) => {
   const { loading, error, data } = useQuery(CategoryPosts, {
     variables: {
       category,
       wp_per_page: numberOfPosts,
+      customDomain,
     },
   })
   const handles = useCssHandles(CSS_HANDLES)
@@ -68,6 +71,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
                     date={post.date}
                     id={post.id}
                     slug={post.slug}
+                    customDomainSlug={customDomainSlug}
                     author={post.author ? post.author.name : ''}
                     excerpt={post.excerpt.rendered}
                     image={post.featured_media?.source_url ?? ''}
@@ -95,7 +99,11 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
           ) : (
             <Link
               page="store.blog-category"
-              params={{ categoryslug: data?.wpCategory?.slug, page: '1' }}
+              params={{
+                categoryslug: data?.wpCategory?.slug,
+                page: '1',
+                customdomainslug: customDomainSlug,
+              }}
               className={`${handles.categoryBlockLink}`}
             >
               <Button variation="secondary" block>
@@ -108,7 +116,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
         !loading &&
         !error && (
           <div>
-            <h3 className="t-heading-3">No posts found.</h3>
+            <h3 className="t-heading-3 tc">No posts found.</h3>
           </div>
         )
       )}
@@ -127,6 +135,8 @@ interface WPCategoryBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
+  customDomain: string
+  customDomainSlug: string
 }
 
 WordpressCategoryBlock.defaultProps = {
@@ -140,6 +150,8 @@ WordpressCategoryBlock.defaultProps = {
   showDates: true,
   showAuthors: false,
   showExcerpts: false,
+  customDomain: undefined,
+  customDomainSlug: undefined,
 }
 
 const messages = defineMessages({
@@ -231,6 +243,22 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressExcerpts.description',
   },
+  customDomainTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.title',
+  },
+  customDomainDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.description',
+  },
+  customDomainSlugTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.title',
+  },
+  customDomainSlugDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.description',
+  },
 })
 
 WordpressCategoryBlock.schema = {
@@ -307,6 +335,20 @@ WordpressCategoryBlock.schema = {
       type: 'boolean',
       isLayout: false,
       default: false,
+    },
+    customDomain: {
+      title: messages.customDomainTitle.id,
+      description: messages.customDomainDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    customDomainSlug: {
+      title: messages.customDomainSlugTitle.id,
+      description: messages.customDomainSlugDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
     },
   },
 }

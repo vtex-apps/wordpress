@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
 
-import React, { FunctionComponent, Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useQuery } from 'react-apollo'
+import { defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner, Pagination } from 'vtex.styleguide'
 import Helmet from 'react-helmet'
@@ -11,6 +12,10 @@ import { useCssHandles } from 'vtex.css-handles'
 import WordpressTeaser from './WordpressTeaser'
 import SearchPosts from '../graphql/SearchPosts.graphql'
 import Settings from '../graphql/Settings.graphql'
+
+interface SearchProps {
+  customDomains: string
+}
 
 const CSS_HANDLES = [
   'listTitle',
@@ -23,13 +28,27 @@ const CSS_HANDLES = [
   'searchListFlexItem',
 ] as const
 
-const WordpressSearchResult: FunctionComponent = () => {
+const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
+  customDomains,
+}) => {
   const {
     route: { id, params },
     query,
     setQuery,
     navigate,
   } = useRuntime()
+
+  let parsedCustomDomains = null
+  try {
+    parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
+  } catch (e) {
+    console.error(e)
+  }
+  const customDomain =
+    params.customdomainslug && parsedCustomDomains
+      ? parsedCustomDomains[params.customdomainslug]
+      : undefined
+
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(10)
@@ -41,6 +60,7 @@ const WordpressSearchResult: FunctionComponent = () => {
       terms: params.term,
       wp_page: 1,
       wp_per_page: 10,
+      customDomain,
     },
   })
 
@@ -72,6 +92,7 @@ const WordpressSearchResult: FunctionComponent = () => {
             wp_page: 1,
             wp_per_page: event.target.value,
             terms: params.term,
+            customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
@@ -98,6 +119,7 @@ const WordpressSearchResult: FunctionComponent = () => {
             wp_page: prevPage,
             wp_per_page: perPage,
             terms: params.term,
+            customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
@@ -123,6 +145,7 @@ const WordpressSearchResult: FunctionComponent = () => {
             wp_page: nextPage,
             wp_per_page: perPage,
             terms: params.term,
+            customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
@@ -181,6 +204,7 @@ const WordpressSearchResult: FunctionComponent = () => {
                     category={post.categories[0]?.name ?? ''}
                     categoryId={post.categories[0]?.id ?? undefined}
                     categorySlug={post.categories[0]?.slug ?? ''}
+                    customDomainSlug={params.customdomainslug}
                     excerpt={post.excerpt.rendered}
                     date={post.date}
                     id={post.id}
@@ -207,6 +231,44 @@ const WordpressSearchResult: FunctionComponent = () => {
       </Container>
     </Fragment>
   )
+}
+
+const messages = defineMessages({
+  title: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSearchResult.title',
+  },
+  description: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSearchResult.description',
+  },
+  customDomainsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomains.title',
+  },
+  customDomainsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomains.description',
+  },
+})
+
+WordpressSearchResult.defaultProps = {
+  customDomains: undefined,
+}
+
+WordpressSearchResult.schema = {
+  title: messages.title.id,
+  description: messages.description.id,
+  type: 'object',
+  properties: {
+    customDomains: {
+      title: messages.customDomainsTitle.id,
+      description: messages.customDomainsDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+  },
 }
 
 export default WordpressSearchResult

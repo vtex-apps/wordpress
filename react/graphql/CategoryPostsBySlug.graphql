@@ -2,28 +2,33 @@ query CategoryPostsBySlug(
   $wp_page: Int
   $wp_per_page: Int
   $categorySlug: String!
+  $customDomain: String
 ) {
-  wpCategories(slug: [$categorySlug]) {
+  wpCategories(slug: [$categorySlug], customDomain: $customDomain) {
     categories {
       name
       id
-      wpPosts(page: $wp_page, per_page: $wp_per_page) {
+      wpPosts(
+        page: $wp_page
+        per_page: $wp_per_page
+        customDomain: $customDomain
+      ) {
         posts {
           title {
             rendered
           }
-          author {
+          author(customDomain: $customDomain) {
             name
           }
           excerpt {
             rendered
           }
-          categories {
+          categories(customDomain: $customDomain) {
             name
             id
             slug
           }
-          featured_media {
+          featured_media(customDomain: $customDomain) {
             source_url
             alt_text
             media_type
