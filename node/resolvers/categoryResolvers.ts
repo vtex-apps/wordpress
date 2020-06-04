@@ -20,6 +20,7 @@ export const categoryResolvers = {
       tags,
       tags_exclude,
       sticky,
+      customDomain,
     }: {
       page: number
       per_page: number
@@ -38,6 +39,7 @@ export const categoryResolvers = {
       tags: [number]
       tags_exclude: [number]
       sticky: boolean
+      customDomain: string
     },
     ctx: Context
   ) => {
@@ -63,6 +65,7 @@ export const categoryResolvers = {
       tags,
       tags_exclude,
       sticky,
+      customDomain,
     }
     const { headers, data } = await wordpressProxy.getPosts(options)
     const posts = data

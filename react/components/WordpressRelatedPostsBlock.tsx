@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import { useQuery } from 'react-apollo'
+import { ProductContext } from 'vtex.product-context'
 import { defineMessages } from 'react-intl'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
@@ -15,7 +16,6 @@ const CSS_HANDLES = [
 ] as const
 
 const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBlockProps> = ({
-  productQuery,
   title,
   useTextOverlays,
   showCategories,
@@ -23,23 +23,26 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
   showAuthors,
   showExcerpts,
   numberOfPosts,
+  customDomain,
+  customDomainSlug,
 }) => {
+  const { product } = useContext(ProductContext) as any
   const { loading, error, data } = useQuery(TagPosts, {
-    skip: !productQuery?.product?.productReference,
+    skip: !product?.productReference,
     variables: {
       // eslint-disable-next-line @typescript-eslint/camelcase
       wp_per_page: numberOfPosts,
-      tag: `prod-${productQuery?.product?.productReference}`,
+      tag: `prod-${product?.productReference}`,
+      customDomain,
     },
   })
   const handles = useCssHandles(CSS_HANDLES)
-  return productQuery?.product?.productReference ? (
+  return product?.productReference ? (
     <div className={`${handles.relatedPostsBlockContainer} pv4 pb9`}>
       {loading && <Spinner />}
       {error && <Fragment />}
       {data?.wpTags?.tags[0]?.wpPosts &&
-      `prod-${productQuery.product.productReference}` ===
-        data.wpTags.tags[0].name ? (
+      `prod-${product.productReference}` === data.wpTags.tags[0].name ? (
         <Fragment>
           <h2 className={`${handles.relatedPostsBlockTitle} tc t-heading-2`}>
             {title}
@@ -63,6 +66,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
                     category={post.categories[0]?.name ?? ''}
                     categoryId={post.categories[0]?.id ?? undefined}
                     categorySlug={post.categories[0]?.slug ?? ''}
+                    customDomainSlug={customDomainSlug}
                     image={post.featured_media?.source_url ?? ''}
                     altText={post.featured_media?.alt_text ?? ''}
                     mediaType={post.featured_media?.media_type ?? ''}
@@ -93,6 +97,8 @@ interface WPRelatedPostsBlockProps {
   showAuthors: boolean
   showExcerpts: boolean
   productQuery: ProductQuery
+  customDomain: string
+  customDomainSlug: string
 }
 
 interface ProductProperties {
@@ -159,6 +165,8 @@ WordpressRelatedPostsBlock.defaultProps = {
   showDates: true,
   showAuthors: false,
   showExcerpts: false,
+  customDomain: undefined,
+  customDomainSlug: undefined,
 }
 
 const messages = defineMessages({
@@ -226,6 +234,22 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressExcerpts.description',
   },
+  customDomainTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.title',
+  },
+  customDomainDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.description',
+  },
+  customDomainSlugTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.title',
+  },
+  customDomainSlugDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.description',
+  },
 })
 
 WordpressRelatedPostsBlock.schema = {
@@ -281,6 +305,20 @@ WordpressRelatedPostsBlock.schema = {
       type: 'boolean',
       isLayout: false,
       default: false,
+    },
+    customDomain: {
+      title: messages.customDomainTitle.id,
+      description: messages.customDomainDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    customDomainSlug: {
+      title: messages.customDomainSlugTitle.id,
+      description: messages.customDomainSlugDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
     },
   },
 }

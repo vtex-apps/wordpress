@@ -145,6 +145,110 @@ Once the routes are set up, you may populate each blog page with blocks. The Wor
 - `categoryIdentifier`: String. You may manually specify the ID to be used in the WordPress tag. For example, if you set this prop to "test", the block will look for a WordPress post tagged "category-test". Default is an empty string.
 - `numberOfPosts`: Integer. If you wish to display more than a single post, set this prop to the number of your choice. Default is 1.
 
+## (Optional) Support for multiple WordPress installations
+
+Starting with version 1.6.0 of this app, blog content from multiple WordPress installations is supported. To accomplish this, a `customdomainslug` parameter must be added to your store-theme's blog routes, and your WordPress blocks must be updated with various props. These steps are not required if you only wish to display blog content from a single WordPress domain.
+
+### Store-theme example
+
+`store/routes.json`:
+
+```json
+"store.blog-home": {
+	"path": "/blog"
+},
+"store.blog-category": {
+	"path": "/:customdomainslug/category/:categoryslug"
+},
+"store.blog-post": {
+	"path": "/:customdomainslug/post/:slug"
+},
+"store.blog-search-result": {
+	"path": "/:customdomainslug/search/:term"
+},
+"store.blog-home#page": {
+	"path": "/:customdomainslug/page/:slug"
+}
+```
+
+Note that the blog homepage should continue to use a specific path. It can be `blog` as in the example, or a different string of your choice. All other routes should use the `:customdomainslug` dynamic parameter.
+
+**Blocks that use the URL params to load blog data** will need to be given a prop called `customDomains`. These blocks are:
+
+`blog-category-list.wordpress-category-list`
+`blog-post-details.wordpress-post-details`
+`blog-post-details.wordpress-page-details`
+`blog-search-list.wordpress-search-list`
+`blog-breadcrumb.wordpress-breadcrumb`
+
+The value of the `customDomains` prop should be a JSON list of domain "slugs" and the domain that each slug represents. The first entry should be your "default" slug and domain. For example, if you wanted URLs with the slug `blog` to load content from `http://www.blog.com/` and URLs with the slug `other-blog` to load content from `http://www.otherblog.com/`, you would give each block a prop like this:
+
+```json
+{
+  "props": {
+    "customDomains": "{ \"blog\":\"http://www.blog.com/\",\"other-blog\":\"http://www.otherblog.com/\" }"
+  }
+}
+```
+
+Make sure to follow the format of the example value, including the brackets and escaped double quotes.
+
+**Blocks that do not use URL params** should be given a different set of props. These blocks are:
+
+`blog-all-posts.wordpress-all-posts`
+`blog-latest-posts-preview.wordpress-latest-posts-preview`
+`blog-category-preview.wordpress-category-preview`
+`blog-search.wordpress-search`
+`search-blog-articles-preview.wordpress`
+`search-blog-articles-list.wordpress`
+`blog-related-posts.wordpress-related-posts`
+`blog-search-list.wordpress-category-related-posts`
+
+These blocks will accept two props: `customDomainSlug` and `customDomain`.
+
+`customDomainSlug` must be provided for all blocks when using multiple WordPress installations. `customDomain` only needs to be provided for blocks that are **not** using the "default" WordPress domain from the app settings.
+
+Continuing the example from above, any block that shows content from the "default" WordPress domain should receive a `customDomainSlug` prop with a value of `blog`. Any block that shows content from the secondary WordPress domain should receive a `customDomainSlug` prop with a value of `other-blog` and a `customDomain` prop with a value of `http://www.other-blog.com/`.
+
+Example:
+
+```json
+"store.blog-home": {
+    "blocks": [
+      "blog-search.wordpress-search",
+      "blog-latest-posts-preview.wordpress-latest-posts-preview",
+      "blog-category-preview.wordpress-category-preview#test",
+      "blog-all-posts.wordpress-all-posts"
+    ]
+  },
+  "blog-search.wordpress-search": {
+    "props": {
+      "customDomainSlug": "blog"
+    }
+  },
+  "blog-latest-posts-preview.wordpress-latest-posts-preview": {
+    "props": {
+      "title": "Latest Posts",
+      "useTextOverlays": true,
+      "customDomainSlug": "blog"
+    }
+  },
+  "blog-category-preview.wordpress-category-preview#test": {
+    "props": {
+      "category": 5,
+      "description": "Description of category",
+      "useTextOverlays": false,
+      "customDomain": "http://www.otherblog.com/",
+      "customDomainSlug": "other-blog"
+    }
+  },
+  "blog-all-posts.wordpress-all-posts": {
+    "props": {
+      "customDomainSlug": "blog"
+    }
+  },
+```
+
 ## CSS Customization
 
 In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).

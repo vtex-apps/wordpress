@@ -11,6 +11,7 @@ interface TeaserProps {
   category?: string
   categoryId?: number
   categorySlug?: string
+  customDomainSlug?: string
   date: string
   id: number
   slug: string
@@ -47,6 +48,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   excerpt,
   category,
   categorySlug,
+  customDomainSlug,
   date,
   slug,
   mediaType,
@@ -77,7 +79,11 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
               <Fragment>
                 <Link
                   page="store.blog-category"
-                  params={{ categoryslug: categorySlug, page: '1' }}
+                  params={{
+                    categoryslug: categorySlug,
+                    customdomainslug: customDomainSlug,
+                    page: '1',
+                  }}
                 >
                   {category}
                 </Link>
@@ -118,7 +124,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                   >
                     <Link
                       page="store.blog-post"
-                      params={{ slug }}
+                      params={{ slug, customdomainslug: customDomainSlug }}
                       className="white no-underline"
                     >
                       {title}
@@ -132,7 +138,11 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                         <Fragment>
                           <Link
                             page="store.blog-category"
-                            params={{ categoryslug: categorySlug, page: '1' }}
+                            params={{
+                              categoryslug: categorySlug,
+                              customdomainslug: customDomainSlug,
+                              page: '1',
+                            }}
                             className={'white'}
                           >
                             {category}
@@ -155,7 +165,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
             <Fragment>
               <Link
                 page="store.blog-post"
-                params={{ slug }}
+                params={{ slug, customdomainslug: customDomainSlug }}
                 className="tc-m db"
               >
                 <img
@@ -170,7 +180,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                 <Link
                   className={`${handles.teaserTitleLink}`}
                   page="store.blog-post"
-                  params={{ slug }}
+                  params={{ slug, customdomainslug: customDomainSlug }}
                 >
                   <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
                 </Link>
@@ -185,7 +195,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
           <Link
             className={`${handles.teaserTitleLink}`}
             page="store.blog-post"
-            params={{ slug }}
+            params={{ slug, customdomainslug: customDomainSlug }}
           >
             <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
           </Link>

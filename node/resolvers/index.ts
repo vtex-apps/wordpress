@@ -22,7 +22,7 @@ export const queries = {
       tags,
       tags_exclude,
       sticky,
-      customEndpoint,
+      customDomain,
     }: {
       page: number
       per_page: number
@@ -43,7 +43,7 @@ export const queries = {
       tags: [number]
       tags_exclude: [number]
       sticky: boolean
-      customEndpoint: string
+      customDomain: string
     },
     ctx: Context
   ) {
@@ -71,7 +71,7 @@ export const queries = {
       tags,
       tags_exclude,
       sticky,
-      customEndpoint,
+      customDomain,
     }
     const { headers, data } = await wordpressProxy.getPosts(options)
     const posts = data
@@ -104,6 +104,7 @@ export const queries = {
       parent,
       post,
       slug,
+      customDomain,
     }: {
       page: number
       per_page: number
@@ -116,6 +117,7 @@ export const queries = {
       parent: number
       post: number
       slug: [string]
+      customDomain: string
     },
     ctx: Context
   ) => {
@@ -135,6 +137,7 @@ export const queries = {
       parent,
       post,
       slug,
+      customDomain,
     }
 
     const { headers, data } = await wordpressProxy.getCategories(options)
@@ -143,12 +146,22 @@ export const queries = {
     const result = { categories, total_count }
     return result
   },
-  wpCategory: async (_: any, { id }: { id: number }, ctx: Context) => {
+  wpCategory: async (
+    _: any,
+    { id, customDomain }: { id: number; customDomain: string },
+    ctx: Context
+  ) => {
     const {
       clients: { wordpressProxy },
     } = ctx
-
-    return wordpressProxy.getCategory(id)
+    try {
+      const result = await wordpressProxy.getCategory(id, customDomain)
+      if (!result) return null
+      return result
+    } catch (e) {
+      console.error(e)
+    }
+    return null
   },
   wpTags: async (
     _: any,
@@ -164,6 +177,7 @@ export const queries = {
       hide_empty,
       post,
       slug,
+      customDomain,
     }: {
       page: number
       per_page: number
@@ -176,6 +190,7 @@ export const queries = {
       hide_empty: boolean
       post: number
       slug: [string]
+      customDomain: string
     },
     ctx: Context
   ) => {
@@ -195,6 +210,7 @@ export const queries = {
       hide_empty,
       post,
       slug,
+      customDomain,
     }
     const { headers, data } = await wordpressProxy.getTags(options)
     const tags = data
@@ -229,6 +245,7 @@ export const queries = {
       parent_exclude,
       slug,
       status,
+      customDomain,
     }: {
       page: number
       per_page: number
@@ -247,6 +264,7 @@ export const queries = {
       parent_exclude: [string]
       slug: [string]
       status: [string]
+      customDomain: string
     },
     ctx: Context
   ) => {
@@ -272,6 +290,7 @@ export const queries = {
       parent_exclude,
       slug,
       status,
+      customDomain,
     }
 
     const { headers, data } = await wordpressProxy.getPages(options)

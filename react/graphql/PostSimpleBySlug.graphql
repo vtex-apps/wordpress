@@ -1,10 +1,10 @@
-query PostSimpleBySlug($slug: String!) {
-  wpPosts(slug: [$slug]) {
+query PostSimpleBySlug($slug: String!, $customDomain: String) {
+  wpPosts(slug: [$slug], customDomain: $customDomain) {
     posts {
       title {
         rendered
       }
-      categories {
+      categories(customDomain: $customDomain) {
         name
         id
         slug

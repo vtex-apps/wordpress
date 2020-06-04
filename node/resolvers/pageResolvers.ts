@@ -1,13 +1,20 @@
 /* eslint-disable @typescript-eslint/camelcase */
 export const pageResolvers = {
-  author: async ({ author }: { author: number }, _: any, ctx: Context) => {
+  author: async (
+    { author, customDomain }: { author: number; customDomain: string },
+    _: any,
+    ctx: Context
+  ) => {
     const {
       clients: { wordpressProxy },
     } = ctx
-    return wordpressProxy.getUser(author)
+    return wordpressProxy.getUser(author, customDomain)
   },
   featured_media: async (
-    { featured_media }: { featured_media: number },
+    {
+      featured_media,
+      customDomain,
+    }: { featured_media: number; customDomain: string },
     _: any,
     ctx: Context
   ) => {
@@ -17,6 +24,6 @@ export const pageResolvers = {
     if (featured_media === 0) {
       return null
     }
-    return wordpressProxy.getMediaSingle(featured_media)
-  }
+    return wordpressProxy.getMediaSingle(featured_media, customDomain)
+  },
 }

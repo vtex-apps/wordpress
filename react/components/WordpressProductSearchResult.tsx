@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
 
-import React, { FunctionComponent, Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
+import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { Spinner, Pagination } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
@@ -12,6 +13,8 @@ import SearchPosts from '../graphql/SearchPosts.graphql'
 
 interface Props {
   searchQuery: any
+  customDomain: string
+  customDomainSlug: string
 }
 
 const CSS_HANDLES = [
@@ -25,7 +28,11 @@ const CSS_HANDLES = [
   'searchListFlexItem',
 ] as const
 
-const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
+const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
+  searchQuery,
+  customDomain,
+  customDomainSlug,
+}) => {
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
   const handles = useCssHandles(CSS_HANDLES)
@@ -35,6 +42,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
       terms: searchQuery?.data?.searchMetadata?.titleTag ?? null,
       wp_page: 1,
       wp_per_page: 10,
+      customDomain,
     },
   })
 
@@ -54,6 +62,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
             wp_page: 1,
             wp_per_page: event.target.value,
             terms: searchQuery.data.searchMetadata.titleTag,
+            customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
@@ -70,6 +79,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
             wp_page: prevPage,
             wp_per_page: perPage,
             terms: searchQuery.data.searchMetadata.titleTag,
+            customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
@@ -85,6 +95,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
             wp_page: nextPage,
             wp_per_page: perPage,
             terms: searchQuery.data.searchMetadata.titleTag,
+            customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult) return prev
@@ -135,6 +146,7 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
                     category={post.categories[0]?.name ?? ''}
                     categoryId={post.categories[0]?.id ?? undefined}
                     categorySlug={post.categories[0]?.slug ?? ''}
+                    customDomainSlug={customDomainSlug}
                     excerpt={post.excerpt.rendered}
                     date={post.date}
                     id={post.id}
@@ -161,6 +173,60 @@ const WordpressSearchResult: FunctionComponent<Props> = ({ searchQuery }) => {
       </Container>
     </Fragment>
   ) : null
+}
+
+const messages = defineMessages({
+  title: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSearchResult.title',
+  },
+  description: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSearchResult.description',
+  },
+  customDomainTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.title',
+  },
+  customDomainDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.description',
+  },
+  customDomainSlugTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.title',
+  },
+  customDomainSlugDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.description',
+  },
+})
+
+WordpressSearchResult.defaultProps = {
+  customDomain: undefined,
+  customDomainSlug: undefined,
+}
+
+WordpressSearchResult.schema = {
+  title: messages.title.id,
+  description: messages.description.id,
+  type: 'object',
+  properties: {
+    customDomain: {
+      title: messages.customDomainTitle.id,
+      description: messages.customDomainDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    customDomainSlug: {
+      title: messages.customDomainSlugTitle.id,
+      description: messages.customDomainSlugDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+  },
 }
 
 export default withSearchContext(WordpressSearchResult)

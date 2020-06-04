@@ -3,6 +3,7 @@ import { Container } from 'vtex.store-components'
 
 import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
+import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
@@ -11,6 +12,10 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import SinglePageBySlug from '../graphql/SinglePageBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
+
+interface PageProps {
+  customDomains: string
+}
 
 const sanitizerConfig = {
   allowedTags: [
@@ -76,6 +81,15 @@ const CSS_HANDLES = [
 const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
+
+  if (!props.pageData) {
+    return (
+      <div className={`${handles.postContainer} ph3`}>
+        <h2>No page found.</h2>
+      </div>
+    )
+  }
+
   const {
     date,
     title,
@@ -160,12 +174,27 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
   )
 }
 
-const WordpressPage: FunctionComponent = _props => {
+const WordpressPage: StorefrontFunctionComponent<PageProps> = ({
+  customDomains,
+}) => {
   const {
     route: { params },
   } = useRuntime()
+
+  let parsedCustomDomains = null
+  try {
+    parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
+  } catch (e) {
+    console.error(e)
+  }
+
+  const customDomain =
+    params.customdomainslug && parsedCustomDomains
+      ? parsedCustomDomains[params.customdomainslug]
+      : undefined
+
   const { loading, error, data } = useQuery(SinglePageBySlug, {
-    variables: { slug: params.slug },
+    variables: { slug: params.slug, customDomain },
   })
 
   if (loading) {
@@ -190,6 +219,44 @@ const WordpressPage: FunctionComponent = _props => {
     )
   }
   return <WordpressPageInner pageData={data.wpPages.pages[0]} />
+}
+
+const messages = defineMessages({
+  title: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressPage.title',
+  },
+  description: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressPage.description',
+  },
+  customDomainsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomains.title',
+  },
+  customDomainsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomains.description',
+  },
+})
+
+WordpressPage.defaultProps = {
+  customDomains: undefined,
+}
+
+WordpressPage.schema = {
+  title: messages.title.id,
+  description: messages.description.id,
+  type: 'object',
+  properties: {
+    customDomains: {
+      title: messages.customDomainsTitle.id,
+      description: messages.customDomainsDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+  },
 }
 
 export default WordpressPage

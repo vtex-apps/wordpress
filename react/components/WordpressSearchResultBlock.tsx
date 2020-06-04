@@ -25,6 +25,8 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
   showAuthors,
   showExcerpts,
   numberOfPosts,
+  customDomain,
+  customDomainSlug,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { loading, error, data } = useQuery(SearchPosts, {
@@ -32,6 +34,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
       // eslint-disable-next-line @typescript-eslint/camelcase
       wp_per_page: numberOfPosts,
       terms: searchQuery?.productSearch?.titleTag ?? null,
+      customDomain,
     },
   })
 
@@ -58,6 +61,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
                   date={post.date}
                   id={post.id}
                   slug={post.slug}
+                  customDomainSlug={customDomainSlug}
                   author={post.author?.name ?? ''}
                   excerpt={post.excerpt.rendered}
                   category={post.categories[0]?.name ?? ''}
@@ -77,7 +81,11 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
           </div>
           <Link
             page="store.blog-search-result"
-            params={{ term: searchQuery.productSearch.titleTag, page: '1' }}
+            params={{
+              term: searchQuery.productSearch.titleTag,
+              page: '1',
+              customdomainslug: customDomainSlug,
+            }}
             className={`${handles.searchResultBlockLink}`}
           >
             <Button variation="secondary" block>
@@ -102,6 +110,8 @@ interface WPSearchResultBlockProps {
   showAuthors: boolean
   showExcerpts: boolean
   searchQuery: any
+  customDomain: string
+  customDomainSlug: string
 }
 
 WordpressSearchResultBlock.defaultProps = {
@@ -111,6 +121,8 @@ WordpressSearchResultBlock.defaultProps = {
   showDates: true,
   showAuthors: false,
   showExcerpts: false,
+  customDomain: undefined,
+  customDomainSlug: undefined,
 }
 
 const messages = defineMessages({
@@ -170,6 +182,22 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressExcerpts.description',
   },
+  customDomainTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.title',
+  },
+  customDomainDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomain.description',
+  },
+  customDomainSlugTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.title',
+  },
+  customDomainSlugDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomainSlug.description',
+  },
 })
 
 WordpressSearchResultBlock.schema = {
@@ -218,6 +246,20 @@ WordpressSearchResultBlock.schema = {
       type: 'boolean',
       isLayout: false,
       default: false,
+    },
+    customDomain: {
+      title: messages.customDomainTitle.id,
+      description: messages.customDomainDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    customDomainSlug: {
+      title: messages.customDomainSlugTitle.id,
+      description: messages.customDomainSlugDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
     },
   },
 }

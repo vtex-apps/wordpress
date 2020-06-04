@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 export const tagResolvers = {
   wpPosts: async (
-    { id }: { id: number },
+    { id, customDomain }: { id: number; customDomain: string },
     {
       page,
       per_page,
@@ -63,6 +63,7 @@ export const tagResolvers = {
       categories_exclude,
       tags: [id],
       sticky,
+      customDomain,
     }
     const { headers, data } = await wordpressProxy.getPosts(options)
     const posts = data

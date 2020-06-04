@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Support for multiple WordPress installations
+
+### Fixed
+
+- `WordpressRelatedPosts` block now uses `useProduct` to get product reference code
+
 ## [1.5.0] - 2020-05-14
 
 ### Added

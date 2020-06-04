@@ -3,6 +3,7 @@ import { Container } from 'vtex.store-components'
 
 import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
+import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime, Link } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
@@ -12,6 +13,10 @@ import { useCssHandles } from 'vtex.css-handles'
 import { WPRelatedProductsContext } from '../contexts/WordpressRelatedProducts'
 import SinglePostBySlug from '../graphql/SinglePostBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
+
+interface PostProps {
+  customDomains: string
+}
 
 const sanitizerConfig = {
   allowedTags: [
@@ -74,9 +79,21 @@ const CSS_HANDLES = [
   'postChildrenContainer',
 ] as const
 
-const WordpressPostInner: FunctionComponent<{ postData: any }> = props => {
+const WordpressPostInner: FunctionComponent<{
+  postData: any
+  customDomainSlug?: string
+}> = props => {
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
+
+  if (!props.postData) {
+    return (
+      <div className={`${handles.postContainer} ph3`}>
+        <h2>No post found.</h2>
+      </div>
+    )
+  }
+
   const {
     title,
     date,
@@ -145,7 +162,11 @@ const WordpressPostInner: FunctionComponent<{ postData: any }> = props => {
             <span key={index}>
               <Link
                 page="store.blog-category"
-                params={{ categoryslug: cat.slug, page: '1' }}
+                params={{
+                  categoryslug: cat.slug,
+                  page: '1',
+                  customdomainslug: props.customDomainSlug,
+                }}
               >
                 {cat.name}
               </Link>
@@ -181,13 +202,27 @@ const WordpressPostInner: FunctionComponent<{ postData: any }> = props => {
   )
 }
 
-const WordpressPost: FunctionComponent = () => {
+const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
+  customDomains,
+}) => {
   const {
     route: { params },
   } = useRuntime()
 
+  let parsedCustomDomains = null
+  try {
+    parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
+  } catch (e) {
+    console.error(e)
+  }
+
+  const customDomain =
+    params.customdomainslug && parsedCustomDomains
+      ? parsedCustomDomains[params.customdomainslug]
+      : undefined
+
   const { loading, error, data } = useQuery(SinglePostBySlug, {
-    variables: { slug: params.slug },
+    variables: { slug: params.slug, customDomain },
   })
 
   if (loading) {
@@ -205,13 +240,56 @@ const WordpressPost: FunctionComponent = () => {
     )
   }
   if (data?.wpPosts?.posts) {
-    return <WordpressPostInner postData={data.wpPosts.posts[0]} />
+    return (
+      <WordpressPostInner
+        postData={data.wpPosts.posts[0]}
+        customDomainSlug={params.customdomainslug}
+      />
+    )
   }
   return (
     <div>
       <h2>No post found.</h2>
     </div>
   )
+}
+
+const messages = defineMessages({
+  title: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressPost.title',
+  },
+  description: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressPost.description',
+  },
+  customDomainsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomains.title',
+  },
+  customDomainsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomains.description',
+  },
+})
+
+WordpressPost.defaultProps = {
+  customDomains: undefined,
+}
+
+WordpressPost.schema = {
+  title: messages.title.id,
+  description: messages.description.id,
+  type: 'object',
+  properties: {
+    customDomains: {
+      title: messages.customDomainsTitle.id,
+      description: messages.customDomainsDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+  },
 }
 
 export default WordpressPost
