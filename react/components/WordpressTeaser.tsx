@@ -82,7 +82,6 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                   params={{
                     categoryslug: categorySlug,
                     customdomainslug: customDomainSlug,
-                    page: '1',
                   }}
                 >
                   {category}
@@ -141,7 +140,6 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                             params={{
                               categoryslug: categorySlug,
                               customdomainslug: customDomainSlug,
-                              page: '1',
                             }}
                             className={'white'}
                           >

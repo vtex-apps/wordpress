@@ -34,6 +34,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
 }) => {
   const {
     route: { id, params },
+    pages,
     query,
     setQuery,
     navigate,
@@ -71,7 +72,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
       totalItems={data?.wpCategories?.categories[0]?.wpPosts?.total_count ?? 0}
       onRowsChange={(event: any) => {
         setPage(1)
-        if (params.page) {
+        if (pages[id].path.indexOf(':page') > 0) {
           params.page = '1'
           navigate({
             page: id,
@@ -99,7 +100,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
         if (page <= 1) return
         const prevPage = page - 1
         setPage(prevPage)
-        if (params.page) {
+        if (pages[id].path.indexOf(':page') > 0) {
           params.page = prevPage.toString()
           navigate({
             page: id,
@@ -125,7 +126,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
       onNextClick={() => {
         const nextPage = page + 1
         setPage(nextPage)
-        if (params.page) {
+        if (pages[id].path.indexOf(':page') > 0) {
           params.page = nextPage.toString()
           navigate({
             page: id,
