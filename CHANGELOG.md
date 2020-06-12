@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Improvements to URL-controlled pagination
+
 ## [1.6.0] - 2020-06-04
 
 ### Added

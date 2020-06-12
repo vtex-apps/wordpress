@@ -50,25 +50,30 @@ Each of the above pages needs a route declared in your `store-theme`'s `store/ro
 },
 "store.blog-search-result": {
 	"path": "/blog/search/:term"
-},
+}
+```
+
+You may change "blog" in each route to another string of your choosing.
+
+If you wish to display WordPress "pages" on your store site in addition to posts, you can add a route like this:
+
+```json
 "store.blog-home#page": {
 	"path": "/blog/page/:slug"
 }
 ```
 
-You may change "blog" in each route to another string of your choosing, but the rest must stay the same. If you do decide to use a string other than "blog", make sure to enter it in the Wordpress Integration app settings under _URL path for blog homepage_.
-
-Routes for `blog.home`, `blog.blog-category`, and `store.blog-search-result` can now optionally accept `:page` parameters for URL-controlled pagination of the `wordpress-all-posts`, `wordpress-category-list`, and `wordpress-search-list` blocks. For example:
+**As of version 1.5.0**, routes for `blog.home`, `blog.blog-category`, and `store.blog-search-result` can now optionally accept `:page` parameters for URL-controlled pagination of the `wordpress-all-posts`, `wordpress-category-list`, and `wordpress-search-list` blocks. For example:
 
 ```json
 "store.blog-home": {
-	"path": "/blog/page/:page"
+	"path": "/blog(/page/:page)"
 },
 "store.blog-category": {
-	"path": "/blog/category/:categoryslug/page/:page"
+	"path": "/blog/category/:categoryslug(/page/:page)"
 },
 "store.blog-search-result": {
-	"path": "/blog/search/:term/page/:page"
+	"path": "/blog/search/:term(/page/:page)"
 },
 ```
 

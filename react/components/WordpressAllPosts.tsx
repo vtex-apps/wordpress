@@ -31,6 +31,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
 }) => {
   const {
     route: { id, params },
+    pages,
     query,
     setQuery,
     navigate,
@@ -58,7 +59,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       totalItems={data?.wpPosts?.total_count ?? 0}
       onRowsChange={(event: any) => {
         setPage(1)
-        if (params.page) {
+        if (pages[id].path.indexOf(':page') > 0) {
           params.page = '1'
           navigate({
             page: id,
@@ -85,7 +86,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
         if (page <= 1) return
         const prevPage = page - 1
         setPage(prevPage)
-        if (params.page) {
+        if (pages[id].path.indexOf(':page') > 0) {
           params.page = prevPage.toString()
           navigate({
             page: id,
@@ -110,7 +111,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       onNextClick={() => {
         const nextPage = page + 1
         setPage(nextPage)
-        if (params.page) {
+        if (pages[id].path.indexOf(':page') > 0) {
           params.page = nextPage.toString()
           navigate({
             page: id,
