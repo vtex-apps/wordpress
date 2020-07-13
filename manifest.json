@@ -30,6 +30,13 @@
     "vtex.search-page-context": "0.x",
     "vtex.css-handles": "0.x"
   },
+  "billingOptions": {
+    "termsURL": "https://compliance.vtex.com/gdpr/policies/vtex-privacy-policy",
+    "support": {
+      "url": "https://support.vtex.com/hc/requests"
+    },
+    "free": true
+  },
   "settingsSchema": {
     "title": "Wordpress Integration",
     "type": "object",
@@ -42,11 +49,6 @@
       "titleTag": {
         "title": "Title tag for blog homepage",
         "description": "Will also be appended to inner blog pages",
-        "type": "string"
-      },
-      "blogRoute": {
-        "title": "DEPRECATED: URL path for blog homepage",
-        "description": "Blog routes should be set in store-theme and do not need to be entered here.",
         "type": "string"
       }
     }
