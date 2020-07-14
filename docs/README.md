@@ -14,15 +14,23 @@ This app provides a way to bring in blog data from the Wordpress API and create 
 
 ### Setup
 
-After installing this app in your account, navigate to the app's settings in your admin dashboard under **Apps** > **Wordpress Integration**.
+After installing this app in your account, navigate to the app's settings in your admin dashboard under **Apps** > **My Apps** > **Wordpress Integration**.
 
 _Wordpress URL_ is required for the integration to function. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered.
 
 _Title tag for blog homepage_ will determine the title tag for the Wordpress portions of your store.
 
-_URL path for blog homepage_ will determine the route for the Wordpress portions of your store. This will need to match the blog routes in your `store-theme` app (more on that below).
-
 All other configuration of Wordpress is done within your store's `store-theme`.
+
+### Store Theme: Dependencies
+
+After installing the app in your account, add it as a `peerDependency` in your `store-theme`:
+
+```json
+"peerDependencies": {
+  "vtex.wordpress-integration": "2.x"
+}
+```
 
 ### Store Theme: Routes
 
@@ -63,7 +71,7 @@ If you wish to display WordPress "pages" on your store site in addition to posts
 }
 ```
 
-**As of version 1.5.0**, routes for `blog.home`, `blog.blog-category`, and `store.blog-search-result` can now optionally accept `:page` parameters for URL-controlled pagination of the `wordpress-all-posts`, `wordpress-category-list`, and `wordpress-search-list` blocks. For example:
+**As of version 1.5.0**, routes for `store.blog-home`, `store.blog-category`, and `store.blog-search-result` can now optionally accept `:page` parameters for URL-controlled pagination of the `wordpress-all-posts`, `wordpress-category-list`, and `wordpress-search-list` blocks. For example:
 
 ```json
 "store.blog-home": {
@@ -83,72 +91,84 @@ If the `:page` parameter is not provided, pagination can alternatively be contro
 
 Once the routes are set up, you may populate each blog page with blocks. The Wordpress Integration app provides the following blocks for your use:
 
-`blog-all-posts.wordpress-all-posts`: A paginated list of all blog posts, starting with the most recent. Recommended to be placed on `store.blog-home`.
+- `blog-all-posts.wordpress-all-posts`: A paginated list of all blog posts, starting with the most recent. Recommended to be placed on `store.blog-home`.
 
-`blog-category-list.wordpress-category-list`: A paginated list of blog posts from a specific category. This must be placed on the `store.blog-category` page, as the category ID is provided by the parameter in the page route.
+- `blog-category-list.wordpress-category-list`: A paginated list of blog posts from a specific category. This must be placed on the `store.blog-category` page, as the category slug is provided by the parameter in the page route.
 
-`blog-post-details.wordpress-post-details`: Details for a single blog post. This must be placed on the `store.blog-post` page, as the post ID is provided by the parameter in the page route.
+- `blog-post-details.wordpress-post-details`: Details for a single blog post. This must be placed on the `store.blog-post` page, as the post slug is provided by the parameter in the page route.
 
-`blog-page-details.wordpress-page-details` : Details for a single blog page. This must be placed on a customized `store.blog-home#page` page to render the contents via the slug passed through the route parameter
+- `blog-page-details.wordpress-page-details` : Details for a single blog page. This must be placed on a customized `store.blog-home#page` page to render the contents via the slug passed through the route parameter
 
-`blog-latest-posts-preview.wordpress-latest-posts-preview`: A small block showing teasers for the most recent 3-5 posts (default is 3). The following props can be used:
+- `blog-latest-posts-preview.wordpress-latest-posts-preview`: A small block showing teasers for the most recent 3-5 posts (default is 3). The following props can be used:
 
-- `title`: String. A title to be displayed above the block. Defaults to an empty string.
-- `numberOfPosts`: Integer. The number of posts to be displayed. Default is 3.
-- `useTextOverlays`: Boolean. If true, the information (title, category, etc) for each blog post will be overlaid on the post's featured image. If false, posted date and category are shown above the image, title and excerpt are shown below. Default is false.
-- `showCategories`: Boolean. If false, the category of each post will not be shown. Default is true.
-- `showDates`: Boolean. If false, the posted date of each post will not be shown. Default is true.
-- `showAuthors`: Boolean. If false, the author of each post will not be shown. Default is false.
-- `showExcerpts`: Boolean. If false, the excerpt of each post will not be shown. Default is false.
+| Prop Name         | Description                                                                                                                                                                                                        | Type    | Default value  |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | -------------- |
+| `title`           | A title to be displayed above the block.                                                                                                                                                                           | String  | (empty string) |
+| `numberOfPosts`   | The number of posts to be displayed.                                                                                                                                                                               | Integer | 3              |
+| `useTextOverlays` | If true, the information (title, category, etc) for each blog post will be overlaid on the post's featured image. If false, posted date and category are shown above the image, title and excerpt are shown below. | Boolean | false          |
+| `showCategories`  | If false, the category of each post will not be shown.                                                                                                                                                             | Boolean | true           |
+| `showDates`       | If false, the posted date of each post will not be shown                                                                                                                                                           | Boolean | true           |
+| `showAuthors`     | If false, the author of each post will not be shown.                                                                                                                                                               | Boolean | false          |
+| `showExcerpts`    | If false, the excerpt of each post will not be shown.                                                                                                                                                              | Boolean | false          |
 
-`blog-category-preview.wordpress-category-preview`: A small block showing teasers for the most recent 3-5 posts from a specific category (default is 3). The category ID must be provided as a prop. The following props can be used:
+- `blog-category-preview.wordpress-category-preview`: A small block showing teasers for the most recent 3-5 posts from a specific category (default is 3). The category ID must be provided as a prop. The following props can be used:
 
-- `category`: Integer. The numeric ID of the category in the Wordpress system. Defaults to 0.
-- `title`: String. A title to be displayed above the block. Defaults to an empty string.
-- `description`: String. A "subheader" for the block, to be displayed below the title. Defaults to an empty string.
-- `customLinkText`: String. The category block includes a link to the `store.blog-category` page for that category. By default the text for the link is "All [category] Posts >", but you may enter custom link text here.
-- `customLinkTarget`: String. If you would like the aforementioned link to direct the user somewhere other than the `store.blog-category` page, you may enter a different target here.
-- `numberOfPosts`: Integer. The number of posts to be displayed. Default is 3.
-- `useTextOverlays`: Boolean. If true, the information (title, category, etc) for each blog post will be overlaid on the post's featured image. If false, posted date and category are shown above the image, title and excerpt are shown below. Default is false.
-- `showDates`: Boolean. If false, the posted date of each post will not be shown. Default is true.
-- `showAuthors`: Boolean. If false, the author of each post will not be shown. Default is false.
-- `showExcerpts`: Boolean. If false, the excerpt of each post will not be shown. Default is false.
+| Prop Name          | Description                                                                                                                                                                                                        | Type    | Default value  |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | -------------- |
+| `category`         | The numeric ID of the category in the WordPress system.                                                                                                                                                            | Integer | 0              |
+| `title`            | A title to be displayed above the block.                                                                                                                                                                           | String  | (empty string) |
+| `description`      | A "subheader" for the block, to be displayed below the title.                                                                                                                                                      | String  | (empty string) |
+| `customLinkText`   | The category block includes a link to the `store.blog-category` page for that category. By default the text for the link is "All [category] Posts >", but you may enter custom link text here.                     | String  | (empty string) |
+| `customLinkTarget` | If you would like the aforementioned link to direct the user somewhere other than the `store.blog-category` page, you may enter a different target here.                                                           | String  | (empty string) |
+| `numberOfPosts`    | The number of posts to be displayed.                                                                                                                                                                               | Integer | 3              |
+| `useTextOverlays`  | If true, the information (title, category, etc) for each blog post will be overlaid on the post's featured image. If false, posted date and category are shown above the image, title and excerpt are shown below. | Boolean | false          |
+| `showDates`        | If false, the posted date of each post will not be shown                                                                                                                                                           | Boolean | true           |
+| `showAuthors`      | If false, the author of each post will not be shown.                                                                                                                                                               | Boolean | false          |
+| `showExcerpts`     | If false, the excerpt of each post will not be shown.                                                                                                                                                              | Boolean | false          |
 
-`blog-search.wordpress-search`: A search box that shoppers can use to search blog articles. When submitted, the shopper is redirected to the `store.blog-search-list` page. The following prop may be used:
+- `blog-search.wordpress-search`: A search box that shoppers can use to search blog articles. When submitted, the shopper is redirected to the `store.blog-search-list` page. The following prop may be used:
 
-- `placeholder`: By default the search block will use "Search articles..." as the input placeholder, but you may enter a different string here.
+| Prop Name     | Description                                                                                                                    | Type   | Default value  |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------ | -------------- |
+| `placeholder` | By default the search block will use "Search articles..." as the input placeholder, but you may enter a different string here. | String | (empty string) |
 
-`blog-search-list.wordpress-search-list`: A paginated list of blog post search results. This must be placed on the `store.blog-search` page, as the search terms are provided by the parameter in the page route.
+- `blog-search-list.wordpress-search-list`: A paginated list of blog post search results. This must be placed on the `store.blog-search` page, as the search terms are provided by the parameter in the page route.
 
-`search-blog-articles-preview.wordpress`: A small block showing 3-5 blog post search results with a link to `store.blog-search-list` for full blog post search results. This can only be placed on the main `store.search-result` page and uses the same search query as the product search component on that page. The following props can be used:
+- `search-blog-articles-preview.wordpress`: A small block showing 3-5 blog post search results with a link to `store.blog-search-list` for full blog post search results. This can only be placed on the main `store.search-result` page and uses the same search query as the product search component on that page. The following props can be used:
 
-- `numberOfPosts`: Integer. The number of posts to be displayed. Default is 3.
-- `useTextOverlays`: Boolean. If true, the information (title, category, etc) for each blog post will be overlaid on the post's featured image. If false, posted date and category are shown above the image, title and excerpt are shown below. Default is false.
-- `showCategories`: Boolean. If false, the category of each post will not be shown. Default is true.
-- `showDates`: Boolean. If false, the posted date of each post will not be shown. Default is true.
-- `showAuthors`: Boolean. If false, the author of each post will not be shown. Default is false.
-- `showExcerpts`: Boolean. If false, the excerpt of each post will not be shown. Default is false.
+| Prop Name         | Description                                                                                                                                                                                                        | Type    | Default value |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | ------------- |
+| `numberOfPosts`   | The number of posts to be displayed.                                                                                                                                                                               | Integer | 3             |
+| `useTextOverlays` | If true, the information (title, category, etc) for each blog post will be overlaid on the post's featured image. If false, posted date and category are shown above the image, title and excerpt are shown below. | Boolean | false         |
+| `showCategories`  | If false, the category of each post will not be shown.                                                                                                                                                             | Boolean | true          |
+| `showDates`       | If false, the posted date of each post will not be shown                                                                                                                                                           | Boolean | true          |
+| `showAuthors`     | If false, the author of each post will not be shown.                                                                                                                                                               | Boolean | false         |
+| `showExcerpts`    | If false, the excerpt of each post will not be shown.                                                                                                                                                              | Boolean | false         |
 
-`search-blog-articles-list.wordpress`: An alternative to the previous block. This block shows a complete paginated list of blog post search results, similar to `blog-search-list.wordpress-search-list`, but designed to be placed on the `store.search-result` product search page. It automatically uses the same search query as the product search component on that page.
+- `search-blog-articles-list.wordpress`: An alternative to the previous block. This block shows a complete paginated list of blog post search results, similar to `blog-search-list.wordpress-search-list`, but designed to be placed on the `store.search-result` product search page. It automatically uses the same search query as the product search component on that page.
 
-`blog-related-products.wordpress-related-products`: A specialized wrapper for a product shelf that can be placed on the `store.blog-post` page. This allows you to tag Wordpress posts with product reference codes, and the products in question will then be displayed in the shelf. The tags must be in the format **prod-[reference code]**. For example, if your product had a reference code of "VTEX01", the tag should be "prod-VTEX01". This block must have `product-summary.shelf` as a child.
+- `blog-related-products.wordpress-related-products`: A specialized wrapper for a product shelf that can be placed on the `store.blog-post` page. This allows you to tag Wordpress posts with product reference codes, and the products in question will then be displayed in the shelf. The tags must be in the format **prod-[reference code]**. For example, if your product had a reference code of "VTEX01", the tag should be "prod-VTEX01". This block must have `product-summary.shelf` as a child.
 
-`blog-related-posts.wordpress-related-posts`: Similar to the above, but the reverse: this is a block intended to be placed as a child of `store.product` which will show teasers for 3-5 blog posts (3 by default) that are tagged with the reference code of the product being viewed. The following props can be used:
+- `blog-related-posts.wordpress-related-posts`: Similar to the above, but the reverse: this is a block intended to be placed as a child of `store.product` which will show teasers for 3-5 blog posts (3 by default) that are tagged with the reference code of the product being viewed. The following props can be used:
 
-- `title`: String. A title to be displayed above the block. Defaults to an empty string.
-- `numberOfPosts`: Integer. The number of posts to be displayed. Default is 3.
-- `useTextOverlays`: Boolean. If true, the information (title, category, etc) for each blog post will be overlaid on the post's featured image. If false, posted date and category are shown above the image, title and excerpt are shown below. Default is false.
-- `showCategories`: Boolean. If false, the category of each post will not be shown. Default is true.
-- `showDates`: Boolean. If false, the posted date of each post will not be shown. Default is true.
-- `showAuthors`: Boolean. If false, the author of each post will not be shown. Default is false.
-- `showExcerpts`: Boolean. If false, the excerpt of each post will not be shown. Default is false.
+| Prop Name         | Description                                                                                                                                                                                                        | Type    | Default value  |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | -------------- |
+| `title`           | A title to be displayed above the block.                                                                                                                                                                           | String  | (empty string) |
+| `numberOfPosts`   | The number of posts to be displayed.                                                                                                                                                                               | Integer | 3              |
+| `useTextOverlays` | If true, the information (title, category, etc) for each blog post will be overlaid on the post's featured image. If false, posted date and category are shown above the image, title and excerpt are shown below. | Boolean | false          |
+| `showCategories`  | If false, the category of each post will not be shown.                                                                                                                                                             | Boolean | true           |
+| `showDates`       | If false, the posted date of each post will not be shown                                                                                                                                                           | Boolean | true           |
+| `showAuthors`     | If false, the author of each post will not be shown.                                                                                                                                                               | Boolean | false          |
+| `showExcerpts`    | If false, the excerpt of each post will not be shown.                                                                                                                                                              | Boolean | false          |
 
-`blog-breadcrumb.wordpress-breadcrumb`: A breadcrumb component intended to be placed at the top of each blog page.
+- `blog-breadcrumb.wordpress-breadcrumb`: A breadcrumb component intended to be placed at the top of each blog page.
 
-`blog-search-list.wordpress-category-related-posts`: A block that can be used to display the title and body of one or more posts on a store category or department page. Use case: SEO text for your store's departments. By default, when placed on a store category or department page, the block will attempt to display a WordPress post tagged `"category-{id}"`, where `{id}` is the numeric ID of your VTEX store department. The block accepts the following optional props:
+- `blog-search-list.wordpress-category-related-posts`: A block that can be used to display the title and body of one or more posts on a store category or department page. Use case: SEO text for your store's departments. By default, when placed on a store category or department page, the block will attempt to display a WordPress post tagged `"category-{id}"`, where `{id}` is the numeric ID of your VTEX store department. The block accepts the following optional props:
 
-- `categoryIdentifier`: String. You may manually specify the ID to be used in the WordPress tag. For example, if you set this prop to "test", the block will look for a WordPress post tagged "category-test". Default is an empty string.
-- `numberOfPosts`: Integer. If you wish to display more than a single post, set this prop to the number of your choice. Default is 1.
+| Prop Name            | Description                                                                                                                                                                    | Type    | Default value  |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | -------------- |
+| `categoryIdentifier` | You may manually specify the ID to be used in the WordPress tag. For example, if you set this prop to "test", the block will look for a WordPress post tagged "category-test". | String  | (empty string) |
+| `numberOfPosts`      | The number of posts to be displayed.                                                                                                                                           | Integer | 1              |
 
 ## (Optional) Support for multiple WordPress installations
 
