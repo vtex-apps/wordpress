@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- pt-BR and es-AR descriptions
+
+### Changed
+
+- Update app store assets
+
 ## [2.0.0] - 2020-07-14
 
 ### Changed
