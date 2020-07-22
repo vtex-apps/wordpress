@@ -36,6 +36,7 @@ query CategoryPostsBySlug(
           date
           id
           slug
+          link
         }
         total_count
       }

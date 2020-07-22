@@ -31,7 +31,6 @@
     "vtex.shelf": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.38.1/public/_types/react",
     "vtex.store": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.95.5/public/@types/vtex.store",
     "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.115.0/public/_types/react",
-    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.119.0/public/@types/vtex.styleguide",
-    "vtex.wordpress-integration": "https://beta--sanovita.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.5.0+build1590679437/public/@types/vtex.wordpress-integration"
+    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.119.0/public/@types/vtex.styleguide"
   }
 }

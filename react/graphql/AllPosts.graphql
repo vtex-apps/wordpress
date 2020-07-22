@@ -23,6 +23,7 @@ query AllPosts($wp_page: Int, $wp_per_page: Int, $customDomain: String) {
       date
       id
       slug
+      link
     }
     total_count
   }

@@ -175,6 +175,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
                   date={post.date}
                   id={post.id}
                   slug={post.slug}
+                  link={post.link}
                   customDomainSlug={customDomainSlug}
                   image={post.featured_media?.source_url ?? ''}
                   altText={post.featured_media?.alt_text ?? ''}
@@ -184,6 +185,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
                   showDate
                   showExcerpt
                   useTextOverlay={false}
+                  absoluteLinks={false}
                 />
               </div>
             ))}

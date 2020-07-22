@@ -33,6 +33,7 @@ query SearchPosts(
       date
       id
       slug
+      link
     }
     total_count
   }

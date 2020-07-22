@@ -38,6 +38,7 @@ query TagPosts(
           date
           id
           slug
+          link
         }
         total_count
       }
