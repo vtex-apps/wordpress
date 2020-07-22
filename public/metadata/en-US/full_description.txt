@@ -13,4 +13,6 @@ VTEX IO's WordPress Integration app provides a way to bring in blog data from a 
 `"peerDependencies": {
   "vtex.wordpress-integration": "2.x"
 }`
-5. In your store-theme, add the **routes** and **blocks** for your store's WordPress content. For detailed instructions, please see the [full documentation on GitHub](https://github.com/vtex-apps/wordpress-integration).
+5. In your store-theme, add the **routes** and **blocks** for your store's WordPress content.
+
+For detailed instructions, please see the [full documentation on GitHub](https://github.com/vtex-apps/wordpress-integration).
