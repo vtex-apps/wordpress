@@ -25,6 +25,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
   showDates,
   showAuthors,
   showExcerpts,
+  absoluteLinks,
   numberOfPosts,
   customDomain,
   customDomainSlug,
@@ -57,6 +58,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     date={data.wpPosts.posts[0].date}
                     id={data.wpPosts.posts[0].id}
                     slug={data.wpPosts.posts[0].slug}
+                    link={data.wpPosts.posts[0].link}
                     customDomainSlug={customDomainSlug}
                     author={data.wpPosts.posts[0].author?.name ?? ''}
                     excerpt={data.wpPosts.posts[0].excerpt.rendered}
@@ -80,6 +82,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     showDate={showDates}
                     showAuthor={showAuthors}
                     showExcerpt={showExcerpts}
+                    absoluteLinks={absoluteLinks}
                     useTextOverlay={useTextOverlays}
                   />
                 </div>
@@ -98,6 +101,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                           date={post.date}
                           id={post.id}
                           slug={post.slug}
+                          link={post.link}
                           customDomainSlug={customDomainSlug}
                           author={post.author ? post.author.name : ''}
                           excerpt={post.excerpt.rendered}
@@ -111,6 +115,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                           showDate={showDates}
                           showAuthor={showAuthors}
                           showExcerpt={showExcerpts}
+                          absoluteLinks={absoluteLinks}
                           useTextOverlay={useTextOverlays}
                         />
                       </div>
@@ -128,6 +133,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     date={post.date}
                     id={post.id}
                     slug={post.slug}
+                    link={post.link}
                     customDomainSlug={customDomainSlug}
                     author={post.author?.name ?? ''}
                     excerpt={post.excerpt.rendered}
@@ -141,6 +147,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     showDate={showDates}
                     showAuthor={showAuthors}
                     showExcerpt={showExcerpts}
+                    absoluteLinks={absoluteLinks}
                     useTextOverlay={useTextOverlays}
                   />
                 </div>
@@ -169,6 +176,7 @@ interface WPLatestPostsBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
+  absoluteLinks: boolean
   customDomain: string
   customDomainSlug: string
 }
@@ -183,6 +191,7 @@ WordpressLatestPostsBlock.defaultProps = {
   showAuthors: false,
   showExcerpts: false,
   customDomain: undefined,
+  absoluteLinks: false,
   customDomainSlug: undefined,
 }
 
@@ -259,6 +268,14 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressExcerpts.description',
   },
+  absoluteLinksTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.absoluteLinks.title',
+  },
+  absoluteLinksDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.absoluteLinks.description',
+  },
   customDomainTitle: {
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomain.title',
@@ -334,6 +351,13 @@ WordpressLatestPostsBlock.schema = {
     showExcerpts: {
       title: messages.showExcerptsTitle.id,
       description: messages.showExcerptsDescription.id,
+      type: 'boolean',
+      isLayout: false,
+      default: false,
+    },
+    absoluteLinks: {
+      title: messages.absoluteLinksTitle.id,
+      description: messages.absoluteLinksDescription.id,
       type: 'boolean',
       isLayout: false,
       default: false,

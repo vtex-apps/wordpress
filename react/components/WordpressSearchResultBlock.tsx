@@ -24,6 +24,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
   showDates,
   showAuthors,
   showExcerpts,
+  absoluteLinks,
   numberOfPosts,
   customDomain,
   customDomainSlug,
@@ -61,6 +62,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
                   date={post.date}
                   id={post.id}
                   slug={post.slug}
+                  link={post.link}
                   customDomainSlug={customDomainSlug}
                   author={post.author?.name ?? ''}
                   excerpt={post.excerpt.rendered}
@@ -74,6 +76,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
                   showDate={showDates}
                   showAuthor={showAuthors}
                   showExcerpt={showExcerpts}
+                  absoluteLinks={absoluteLinks}
                   useTextOverlay={useTextOverlays}
                 />
               </div>
@@ -109,6 +112,7 @@ interface WPSearchResultBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
+  absoluteLinks: boolean
   searchQuery: any
   customDomain: string
   customDomainSlug: string
@@ -121,6 +125,7 @@ WordpressSearchResultBlock.defaultProps = {
   showDates: true,
   showAuthors: false,
   showExcerpts: false,
+  absoluteLinks: false,
   customDomain: undefined,
   customDomainSlug: undefined,
 }
@@ -181,6 +186,14 @@ const messages = defineMessages({
   showExcerptsDescription: {
     defaultMessage: '',
     id: 'admin/editor.wordpressExcerpts.description',
+  },
+  absoluteLinksTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.absoluteLinks.title',
+  },
+  absoluteLinksDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.absoluteLinks.description',
   },
   customDomainTitle: {
     defaultMessage: '',
@@ -243,6 +256,13 @@ WordpressSearchResultBlock.schema = {
     showExcerpts: {
       title: messages.showExcerptsTitle.id,
       description: messages.showExcerptsDescription.id,
+      type: 'boolean',
+      isLayout: false,
+      default: false,
+    },
+    absoluteLinks: {
+      title: messages.absoluteLinksTitle.id,
+      description: messages.absoluteLinksDescription.id,
       type: 'boolean',
       isLayout: false,
       default: false,

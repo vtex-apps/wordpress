@@ -151,6 +151,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
                     date={post.date}
                     id={post.id}
                     slug={post.slug}
+                    link={post.link}
                     image={post.featured_media?.source_url ?? ''}
                     altText={post.featured_media?.alt_text ?? ''}
                     mediaType={post.featured_media?.media_type ?? ''}
@@ -159,6 +160,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
                     showDate
                     showExcerpt
                     useTextOverlay={false}
+                    absoluteLinks={false}
                   />
                 </div>
               ))}

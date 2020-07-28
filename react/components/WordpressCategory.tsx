@@ -198,6 +198,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
                       date={post.date}
                       id={post.id}
                       slug={post.slug}
+                      link={post.link}
                       customDomainSlug={params.customdomainslug}
                       image={post.featured_media?.source_url ?? ''}
                       altText={post.featured_media?.alt_text ?? ''}
@@ -207,6 +208,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
                       showDate
                       showExcerpt
                       useTextOverlay={false}
+                      absoluteLinks={false}
                     />
                   </div>
                 )

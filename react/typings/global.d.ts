@@ -13,6 +13,7 @@ type PostData = {
   date: string
   id: number
   slug: string
+  link: string
   excerpt: WPExcerpt
   categories: [WPCategory]
   featured_media: WPMedia

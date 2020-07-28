@@ -26,6 +26,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
   showDates,
   showAuthors,
   showExcerpts,
+  absoluteLinks,
   customLinkText,
   customLinkTarget,
   numberOfPosts,
@@ -71,6 +72,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
                     date={post.date}
                     id={post.id}
                     slug={post.slug}
+                    link={post.link}
                     customDomainSlug={customDomainSlug}
                     author={post.author ? post.author.name : ''}
                     excerpt={post.excerpt.rendered}
@@ -82,6 +84,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
                     showAuthor={showAuthors}
                     showExcerpt={showExcerpts}
                     useTextOverlay={useTextOverlays}
+                    absoluteLinks={absoluteLinks}
                   />
                 </div>
               )
@@ -134,6 +137,7 @@ interface WPCategoryBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
+  absoluteLinks: boolean
   customDomain: string
   customDomainSlug: string
 }
@@ -149,6 +153,7 @@ WordpressCategoryBlock.defaultProps = {
   showDates: true,
   showAuthors: false,
   showExcerpts: false,
+  absoluteLinks: false,
   customDomain: undefined,
   customDomainSlug: undefined,
 }
@@ -242,6 +247,14 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressExcerpts.description',
   },
+  absoluteLinksTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.absoluteLinks.title',
+  },
+  absoluteLinksDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.absoluteLinks.description',
+  },
   customDomainTitle: {
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomain.title',
@@ -331,6 +344,13 @@ WordpressCategoryBlock.schema = {
     showExcerpts: {
       title: messages.showExcerptsTitle.id,
       description: messages.showExcerptsDescription.id,
+      type: 'boolean',
+      isLayout: false,
+      default: false,
+    },
+    absoluteLinks: {
+      title: messages.absoluteLinksTitle.id,
+      description: messages.absoluteLinksDescription.id,
       type: 'boolean',
       isLayout: false,
       default: false,

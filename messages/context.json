@@ -31,6 +31,8 @@
   "admin/editor.wordpressAuthors.description": "admin/editor.wordpressAuthors.description",
   "admin/editor.wordpressExcerpts.title": "admin/editor.wordpressExcerpts.title",
   "admin/editor.wordpressExcerpts.description": "admin/editor.wordpressExcerpts.description",
+  "admin/editor.absoluteLinks.title": "admin/editor.absoluteLinks.title",
+  "admin/editor.absoluteLinks.description": "admin/editor.absoluteLinks.description",
   "admin/editor.wordpressCategories.title": "admin/editor.wordpressCategories.title",
   "admin/editor.wordpressCategories.description": "admin/editor.wordpressCategories.description",
   "admin/editor.wordpressLatestPosts.title": "admin/editor.wordpressLatestPosts.title",

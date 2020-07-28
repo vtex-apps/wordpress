@@ -15,6 +15,7 @@ interface TeaserProps {
   date: string
   id: number
   slug: string
+  link: string
   image: string
   altText: string
   mediaType: string
@@ -22,6 +23,7 @@ interface TeaserProps {
   showAuthor: boolean
   showDate: boolean
   showExcerpt: boolean
+  absoluteLinks: boolean
   useTextOverlay: boolean
 }
 
@@ -51,6 +53,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   customDomainSlug,
   date,
   slug,
+  link,
   mediaType,
   image,
   altText,
@@ -58,6 +61,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   showAuthor,
   showDate,
   showExcerpt,
+  absoluteLinks,
   useTextOverlay,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
@@ -121,13 +125,23 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                   <div
                     className={`${handles.teaserTextOverlayTitle} t-heading-5 white fw5 mb3`}
                   >
-                    <Link
-                      page="store.blog-post"
-                      params={{ slug, customdomainslug: customDomainSlug }}
-                      className="white no-underline"
-                    >
-                      {title}
-                    </Link>
+                    {absoluteLinks ? (
+                        <Link
+                        to={link}
+                        target="_blank"
+                        className="white no-underline"
+                      >
+                        {title}
+                      </Link>
+                    ) : (
+                        <Link
+                        page="store.blog-post"
+                        params={{ slug, customdomainslug: customDomainSlug }}
+                        className="white no-underline"
+                      >
+                        {title}
+                      </Link>
+                    )}
                   </div>
                   {(showCategory || showDate || showAuthor) && (
                     <div
@@ -161,7 +175,20 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
             </div>
           ) : (
             <Fragment>
-              <Link
+              {absoluteLinks ? (
+                <Link
+                to={link}
+                target="_blank"
+                className="tc-m db"
+              >
+                <img
+                  className={`${handles.teaserImage}`}
+                  src={image}
+                  alt={altText}
+                ></img>
+              </Link>
+              ):(
+                <Link
                 page="store.blog-post"
                 params={{ slug, customdomainslug: customDomainSlug }}
                 className="tc-m db"
@@ -172,16 +199,27 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                   alt={altText}
                 ></img>
               </Link>
+               )}
               <h3
                 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}
               >
-                <Link
+                {absoluteLinks ? (
+                  <Link
+                  className={`${handles.teaserTitleLink}`}
+                  to={link}
+                  target="_blank"
+                >
+                  <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
+                </Link>
+                ):(
+                  <Link
                   className={`${handles.teaserTitleLink}`}
                   page="store.blog-post"
                   params={{ slug, customdomainslug: customDomainSlug }}
                 >
                   <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
                 </Link>
+                )}
               </h3>
             </Fragment>
           )}
@@ -190,13 +228,23 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
 
       {mediaType !== 'image' && (
         <h3 className={`${handles.teaserTitle} t-heading-3 mv0 pt4 pb6 ph6`}>
-          <Link
+          {absoluteLinks ? (
+            <Link
+            className={`${handles.teaserTitleLink}`}
+            to={link}
+            target="_blank"
+          >
+            <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
+          </Link>
+          ) : (
+            <Link
             className={`${handles.teaserTitleLink}`}
             page="store.blog-post"
             params={{ slug, customdomainslug: customDomainSlug }}
           >
             <span dangerouslySetInnerHTML={{ __html: sanitizedTitle }} />
           </Link>
+          )}
         </h3>
       )}
 

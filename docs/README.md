@@ -110,6 +110,7 @@ Once the routes are set up, you may populate each blog page with blocks. The Wor
 | `showDates`       | If false, the posted date of each post will not be shown                                                                                                                                                           | Boolean | true           |
 | `showAuthors`     | If false, the author of each post will not be shown.                                                                                                                                                               | Boolean | false          |
 | `showExcerpts`    | If false, the excerpt of each post will not be shown.                                                                                                                                                              | Boolean | false          |
+| `absoluteLinks`    | If true, the links from each blog post will point to the external blog in a new tab.                                                                                                                                                              | Boolean | false         |
 
 - `blog-category-preview.wordpress-category-preview`: A small block showing teasers for the most recent 3-5 posts from a specific category (default is 3). The category ID must be provided as a prop. The following props can be used:
 
@@ -125,6 +126,7 @@ Once the routes are set up, you may populate each blog page with blocks. The Wor
 | `showDates`        | If false, the posted date of each post will not be shown                                                                                                                                                           | Boolean | true           |
 | `showAuthors`      | If false, the author of each post will not be shown.                                                                                                                                                               | Boolean | false          |
 | `showExcerpts`     | If false, the excerpt of each post will not be shown.                                                                                                                                                              | Boolean | false          |
+| `absoluteLinks`    | If true, the links from each blog post will point to the external blog in a new tab.                                                                                                                                                              | Boolean | false         |
 
 - `blog-search.wordpress-search`: A search box that shoppers can use to search blog articles. When submitted, the shopper is redirected to the `store.blog-search-list` page. The following prop may be used:
 
@@ -144,6 +146,7 @@ Once the routes are set up, you may populate each blog page with blocks. The Wor
 | `showDates`       | If false, the posted date of each post will not be shown                                                                                                                                                           | Boolean | true          |
 | `showAuthors`     | If false, the author of each post will not be shown.                                                                                                                                                               | Boolean | false         |
 | `showExcerpts`    | If false, the excerpt of each post will not be shown.                                                                                                                                                              | Boolean | false         |
+| `absoluteLinks`    | If true, the links from each blog post will point to the external blog in a new tab.                                                                                                                                                              | Boolean | false         |
 
 - `search-blog-articles-list.wordpress`: An alternative to the previous block. This block shows a complete paginated list of blog post search results, similar to `blog-search-list.wordpress-search-list`, but designed to be placed on the `store.search-result` product search page. It automatically uses the same search query as the product search component on that page.
 
@@ -160,6 +163,7 @@ Once the routes are set up, you may populate each blog page with blocks. The Wor
 | `showDates`       | If false, the posted date of each post will not be shown                                                                                                                                                           | Boolean | true           |
 | `showAuthors`     | If false, the author of each post will not be shown.                                                                                                                                                               | Boolean | false          |
 | `showExcerpts`    | If false, the excerpt of each post will not be shown.                                                                                                                                                              | Boolean | false          |
+| `absoluteLinks`    | If true, the links from each blog post will point to the external blog in a new tab.                                                                                                                                                              | Boolean | false         |
 
 - `blog-breadcrumb.wordpress-breadcrumb`: A breadcrumb component intended to be placed at the top of each blog page.
 
