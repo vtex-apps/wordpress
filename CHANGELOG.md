@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.2] - 2020-07-28
+
 ### Added
 
 - `absoluteLinks` prop to some components, to allow linking to blog posts on external WP site
