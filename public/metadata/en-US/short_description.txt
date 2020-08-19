@@ -1,1 +1,1 @@
-Display WordPress posts, categories, pages, and other content within your VTEX IO store.
+Display WordPress content within your VTEX IO store.

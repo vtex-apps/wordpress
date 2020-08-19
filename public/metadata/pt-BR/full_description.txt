@@ -1,18 +1,8 @@
 ## Sobre
 
-O aplicativo Integração WordPress fornece uma forma de trazer dados de um blog WordPress e criar uma "homepage" de blog, páginas de categoria, e páginas de publicação de blogs na loja VTEX IO, usando o cabeçalho, rodapé e estilo da sua loja existente.
+Faça uma integração com o WordPress para levar dados de um blog para a sua loja VTEX IO e criar uma página inicial do blog, páginas de categorias e páginas de postagens do blog.
 
-## Instalação e Configuração
-
-1. Instale esta aplicação a partir da VTEX App Store;
-2. No painel do admin, clique em `Apps > My Apps` e depois clique em `Integração WordPress`;
-3. Configure as seguintes definições:
-- É necessário a `URL Wordpress` para que a integração funcione. Este deve ser o domínio onde o "endpoint" da API do WordPress está e o WordPress é administrado.
-- A "Title tag for blog homepage" determinará a tag de título para as porções do WordPress da sua loja.
-4. No seu store-theme, adicione esta aplicação como uma dependência em `manifest.json`:
-`"peerDependencies": {
-  "vtex.wordpress-integration": "2.x"
-}`
-5. No seu store-theme, adicione as **rotas*** e **blocos*** para o conteúdo WordPress da sua loja.
-
-Para instruções detalhadas, consulte a [documentação completa no GitHub](https://github.com/vtex-apps/wordpress-integration).
+## Funcionalidades
+- Página inicial, categorias, postagens do blog e componentes de busca
+- Associe as postagens do blog aos produtos e vice-versa, utilizando o sistema de tags do WordPress
+- Exiba o conteúdo de várias instalações do WordPress na mesma loja VTEX

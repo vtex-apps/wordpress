@@ -1,1 +1,1 @@
-Inclua posts, categorias, páginas, e outros conteúdos WordPress dentro da sua loja VTEX IO.
+Inclua conteúdos WordPress dentro da sua loja VTEX IO.
