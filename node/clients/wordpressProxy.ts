@@ -9,12 +9,11 @@ export default class WordpressProxyDataSource extends ExternalClient {
     super(``, context, options)
   }
 
-  private async getEndpoint(vtex: IOContext) {
+  private getEndpoint= async (vtex: IOContext) => {
     const apps = new Apps(vtex)
     const appId = process.env.VTEX_APP_ID as string
     const settings = await apps.getAppSettings(appId)
-    const endpoint = settings.endpoint || 'http://demo.wp-api.org/'
-    this.endpoint = endpoint.replace('https://', 'http://')
+    this.endpoint = settings.endpoint || 'http://demo.wp-api.org/'
     return
   }
 
@@ -32,7 +31,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     return returnStr
   }
 
-  public async getPosts(wpOptions?: any) {
+  public getPosts = async (wpOptions?: any) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -51,7 +50,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getPost(id: number, password?: string, customDomain?: string) {
+  public getPost = async (id: number, password?: string, customDomain?: string) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -68,7 +67,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getCategories(wpOptions?: any) {
+  public getCategories = async (wpOptions?: any) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -87,18 +86,19 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getCategory(id: number, customDomain?: string) {
+  public getCategory = async (id: number, customDomain?: string) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
     let endpoint = this.endpoint
     if (customDomain) endpoint = customDomain
+
     return this.http.get(endpoint + DEFAULT_API_PATH + `categories/` + id, {
       metric: 'category' + id,
     })
   }
 
-  public async getTags(wpOptions?: any) {
+  public getTags = async (wpOptions?: any) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -108,7 +108,6 @@ export default class WordpressProxyDataSource extends ExternalClient {
       combinedArgs = this.buildArgs(wpOptions)
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
-
     return this.http.getRaw(
       endpoint + DEFAULT_API_PATH + `tags` + combinedArgs,
       {
@@ -128,7 +127,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     })
   }
 
-  public async getPages(wpOptions?: any) {
+  public getPages= async (wpOptions?: any) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -147,7 +146,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getPage(id: number, password?: string, customDomain?: string) {
+  public getPage = async (id: number, password?: string, customDomain?: string) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -164,7 +163,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getComments(wpOptions?: any) {
+  public getComments = async (wpOptions?: any) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -181,7 +180,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getComment(id: number, password?: string) {
+  public getComment = async (id: number, password?: string) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -196,7 +195,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getTaxonomies(type?: string) {
+  public getTaxonomies = async (type?: string) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -210,7 +209,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getTaxonomy(taxonomy: string) {
+  public getTaxonomy = async (taxonomy: string) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -222,7 +221,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getMedia(wpOptions?: any) {
+  public getMedia = async (wpOptions?: any) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -239,7 +238,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getMediaSingle(id: number, customDomain?: string) {
+  public getMediaSingle = async (id: number, customDomain?: string) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -250,7 +249,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     })
   }
 
-  public async getUsers(wpOptions?: any) {
+  public getUsers = async (wpOptions?: any) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -267,7 +266,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getUser(id: number, customDomain?: string) {
+  public getUser = async (id: number, customDomain?: string) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -278,7 +277,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     })
   }
 
-  public async getPostTypes() {
+  public getPostTypes = async () => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -287,7 +286,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     })
   }
 
-  public async getPostType(type: string) {
+  public getPostType = async (type: string) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -296,7 +295,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     })
   }
 
-  public async getPostStatuses() {
+  public getPostStatuses = async () => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -305,7 +304,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     })
   }
 
-  public async getPostStatus(status: string) {
+  public getPostStatus = async (status: string) => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
@@ -317,7 +316,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
     )
   }
 
-  public async getSettings() {
+  public getSettings = async () => {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
