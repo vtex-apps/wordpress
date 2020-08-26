@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- ES and PT internationalization
+
+### Changed
+
+- Update app store descriptions
+
+### Fixed
+
+- Add billingOptions type and availableCountries
+
 ## [2.0.2] - 2020-07-28
 
 ### Added

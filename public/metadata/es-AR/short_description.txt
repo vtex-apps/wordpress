@@ -1,1 +1,1 @@
-Incluye publicaciones, categorías, páginas y otros contenidos de WordPress en tu tienda VTEX IO.
+Incluye contenidos de WordPress en tu tienda VTEX IO.
