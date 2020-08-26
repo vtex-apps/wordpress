@@ -1,7 +1,7 @@
 {
   "name": "wordpress-integration",
   "vendor": "vtex",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "title": "Wordpress Integration",
   "description": "Connect a Wordpress blog to a VTEX store",
   "categories": [],
@@ -37,7 +37,9 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": ["*"]
+    "availableCountries": [
+      "*"
+    ]
   },
   "settingsSchema": {
     "title": "Wordpress Integration",
