@@ -5,6 +5,10 @@
     "blog-category-list.wordpress-category-list": {
         "component": "WordpressCategory"
     },
+    "blog-post-container.wordpress-post-container": {
+        "composition": "children",
+        "component": "WordpressPostContainer"
+    },
     "blog-post-details.wordpress-post-details": {
         "composition": "children",
         "component": "WordpressPost"

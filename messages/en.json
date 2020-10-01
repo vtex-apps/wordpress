@@ -52,6 +52,8 @@
   "admin/editor.wordpressAllPosts.description": "Displays a paginated list of all blog posts, most recent first",
   "admin/editor.wordpressPage.title": "Wordpress Page Block",
   "admin/editor.wordpressPage.description": "Dynamically displays a Wordpress 'page' based on the 'slug' parameter from the store route",
+  "admin/editor.wordpressPostContainer.title": "Wordpress Post Container Block",
+  "admin/editor.wordpressPostContainer.description": "Provides child blocks with the Wordpress 'post' data based on the 'slug' parameter from the store route",
   "admin/editor.wordpressPost.title": "Wordpress Post Block",
   "admin/editor.wordpressPost.description": "Dynamically displays a Wordpress 'post' based on the 'slug' parameter from the store route",
   "admin/editor.wordpressCategory.title": "Wordpress Category Block",

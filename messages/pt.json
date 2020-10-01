@@ -52,6 +52,8 @@
   "admin/editor.wordpressAllPosts.description": "Exibe uma lista paginada de todos os posts do blog, os mais recentes primeiro",
   "admin/editor.wordpressPage.title": "Bloco de Página do Wordpress",
   "admin/editor.wordpressPage.description": "Exibe dinamicamente uma 'página' do Wordpress com base no parâmetro 'slug' da rota da loja",
+  "admin/editor.wordpressPostContainer.title": "",
+  "admin/editor.wordpressPostContainer.description": "",
   "admin/editor.wordpressPost.title": "Bloco de Post do Wordpress",
   "admin/editor.wordpressPost.description": "Exibe dinamicamente um 'post' do Wordpress com base no parâmetro 'slug' da rota da loja",
   "admin/editor.wordpressCategory.title": "Bloco de Categoria do Wordpress",

@@ -52,6 +52,8 @@
   "admin/editor.wordpressAllPosts.description": "Muestra una lista paginada de todas las publicaciones del blog, empezando por la más reciente",
   "admin/editor.wordpressPage.title": "Bloque de Página de WordPress",
   "admin/editor.wordpressPage.description": "Muestra dinámicamente una 'página' de WordPress según el parámetro 'slug' de la ruta de la tienda",
+  "admin/editor.wordpressPostContainer.title": "",
+  "admin/editor.wordpressPostContainer.description": "",
   "admin/editor.wordpressPost.title": "Bloque de Publicaciones de WordPress",
   "admin/editor.wordpressPost.description": "Muestra dinámicamente una 'publicación' de WordPress según el parámetro 'slug' de la ruta de la tienda",
   "admin/editor.wordpressCategory.title": "Bloque de Categoría de WordPress",
