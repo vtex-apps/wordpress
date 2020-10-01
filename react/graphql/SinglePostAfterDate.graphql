@@ -1,0 +1,10 @@
+query SinglePostAfterDate($date: String!, $customDomain: String) {
+  wpPosts(after: $date, order: asc, per_page: 1, customDomain: $customDomain) {
+    posts {
+      title {
+        rendered
+      }
+      slug
+    }
+  }
+}

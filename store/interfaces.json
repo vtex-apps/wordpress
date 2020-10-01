@@ -13,6 +13,9 @@
         "composition": "children",
         "component": "WordpressPost"
     },
+    "blog-post-navigation.wordpress-post-navigation": {
+        "component": "WordpressNavigation"
+    },
     "blog-page-details.wordpress-page-details": {
         "composition": "children",
         "component": "WordpressPage"
