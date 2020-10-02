@@ -58,10 +58,6 @@
   "admin/editor.wordpressPost.description": "Muestra dinámicamente una 'publicación' de WordPress según el parámetro 'slug' de la ruta de la tienda",
   "admin/editor.wordpressPostNavigation.title": "",
   "admin/editor.wordpressPostNavigation.description": "",
-  "admin/editor.wordpressPostNavigationCustomPrevText.title": "",
-  "admin/editor.wordpressPostNavigationCustomPrevText.description": "",
-  "admin/editor.wordpressPostNavigationCustomNextText.title": "",
-  "admin/editor.wordpressPostNavigationCustomNextText.description": "",
   "admin/editor.wordpressCategory.title": "Bloque de Categoría de WordPress",
   "admin/editor.wordpressCategory.description": "Muestra dinámicamente una lista paginada de publicaciones de una categoría de WordPress según el parámetro 'categoryslug' de la ruta de la tienda",
   "admin/editor.wordpressSearchResult.title": "Bloque de Resultado de Búsqueda de WordPress",
@@ -71,5 +67,7 @@
   "admin/editor.wordpressCustomDomainSlug.title": "Slug de Dominio Personalizado (opcional)",
   "admin/editor.wordpressCustomDomainSlug.description": "Ingresar el slug de la URL que representará a este dominio de WordPress",
   "admin/editor.wordpressBreadcrumb.title": "Navegación de WordPress",
-  "admin/editor.wordpressBreadcrumb.description": "Muestra una navegación específica para las páginas de su blog VTEX; es decir, 'Página de Inicio del Blog / (categoría) / (título de la publicación)' "
+  "admin/editor.wordpressBreadcrumb.description": "Muestra una navegación específica para las páginas de su blog VTEX; es decir, 'Página de Inicio del Blog / (categoría) / (título de la publicación)' ",
+  "store/wordpress-integration.wordpressPostNavigation.next": "Next Article >",
+  "store/wordpress-integration.wordpressPostNavigation.previous": "< Previous Article"
 }

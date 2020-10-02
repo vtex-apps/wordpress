@@ -2,7 +2,7 @@ import { Container } from 'vtex.store-components'
 
 import React, { useContext } from 'react'
 import { useQuery } from 'react-apollo'
-import { defineMessages } from 'react-intl'
+import { defineMessages, FormattedMessage } from 'react-intl'
 import { Link } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -17,15 +17,7 @@ const CSS_HANDLES = [
   'postNavigationLink',
 ] as const
 
-interface WPPostNavigationProps {
-  customPrevText?: string
-  customNextText?: string
-}
-
-const WordpressPostNavigation: StorefrontFunctionComponent<WPPostNavigationProps> = ({
-  customPrevText,
-  customNextText,
-}) => {
+const WordpressPostNavigation: StorefrontFunctionComponent = () => {
   const { query } = useContext(WPPostContainerContext)
 
   if (!query || query.loading || query.error) {
@@ -54,7 +46,9 @@ const WordpressPostNavigation: StorefrontFunctionComponent<WPPostNavigationProps
         <div className={`${handles.postNavigationFlexItem}`}>
           {slugPrev && (
             <div>
-              <div>{customPrevText || `< Previous Article`}</div>
+              <div>
+                <FormattedMessage id="store/wordpress-integration.wordpressPostNavigation.previous" />
+              </div>
               <div>
                 <Link
                   page="store.blog-post"
@@ -75,7 +69,9 @@ const WordpressPostNavigation: StorefrontFunctionComponent<WPPostNavigationProps
         >
           {slugNext && (
             <div>
-              <div>{customNextText || `Next Article >`}</div>
+              <div>
+                <FormattedMessage id="store/wordpress-integration.wordpressPostNavigation.next" />
+              </div>
               <div>
                 <Link
                   page="store.blog-post"
@@ -102,49 +98,12 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressPostNavigation.description',
   },
-  customPrevTextTitle: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressPostNavigationCustomPrevText.title',
-  },
-  customPrevTextDescription: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressPostNavigationCustomPrevText.description',
-  },
-  customNextTextTitle: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressPostNavigationCustomNextText.title',
-  },
-  customNextTextDescription: {
-    defaultMessage: '',
-    id: 'admin/editor.wordpressPostNavigationCustomNextText.description',
-  },
 })
-
-WordpressPostNavigation.defaultProps = {
-  customPrevText: '',
-  customNextText: '',
-}
 
 WordpressPostNavigation.schema = {
   title: messages.title.id,
   description: messages.description.id,
   type: 'object',
-  properties: {
-    customPrevText: {
-      title: messages.customPrevTextTitle.id,
-      description: messages.customPrevTextDescription.id,
-      type: 'string',
-      isLayout: false,
-      default: '',
-    },
-    customNextText: {
-      title: messages.customNextTextTitle.id,
-      description: messages.customNextTextDescription.id,
-      type: 'string',
-      isLayout: false,
-      default: '',
-    },
-  },
 }
 
 export default WordpressPostNavigation

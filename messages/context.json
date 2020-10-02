@@ -60,10 +60,6 @@
   "admin/editor.wordpressPost.description": "admin/editor.wordpressPost.description",
   "admin/editor.wordpressPostNavigation.title": "admin/editor.wordpressPostNavigation.title",
   "admin/editor.wordpressPostNavigation.description": "admin/editor.wordpressPostNavigation.description",
-  "admin/editor.wordpressPostNavigationCustomPrevText.title": "admin/editor.wordpressPostNavigationCustomPrevText.title",
-  "admin/editor.wordpressPostNavigationCustomPrevText.description": "admin/editor.wordpressPostNavigationCustomPrevText.description",
-  "admin/editor.wordpressPostNavigationCustomNextText.title": "admin/editor.wordpressPostNavigationCustomNextText.title",
-  "admin/editor.wordpressPostNavigationCustomNextText.description": "admin/editor.wordpressPostNavigationCustomNextText.description",
   "admin/editor.wordpressCategory.title": "admin/editor.wordpressCategory.title",
   "admin/editor.wordpressCategory.description": "admin/editor.wordpressCategory.description",
   "admin/editor.wordpressSearchResult.title": "admin/editor.wordpressSearchResult.title",
@@ -73,5 +69,7 @@
   "admin/editor.wordpressCustomDomainSlug.title": "admin/editor.wordpressCustomDomainSlug.title",
   "admin/editor.wordpressCustomDomainSlug.description": "admin/editor.wordpressCustomDomainSlug.description",
   "admin/editor.wordpressBreadcrumb.title": "admin/editor.wordpressBreadcrumb.title",
-  "admin/editor.wordpressBreadcrumb.description": "admin/editor.wordpressBreadcrumb.description"
+  "admin/editor.wordpressBreadcrumb.description": "admin/editor.wordpressBreadcrumb.description",
+  "store/wordpress-integration.wordpressPostNavigation.next": "store/wordpress-integration.wordpressPostNavigation.next",
+  "store/wordpress-integration.wordpressPostNavigation.previous": "store/wordpress-integration.wordpressPostNavigation.previous"
 }
