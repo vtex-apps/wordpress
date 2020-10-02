@@ -52,8 +52,12 @@
   "admin/editor.wordpressAllPosts.description": "Exibe uma lista paginada de todos os posts do blog, os mais recentes primeiro",
   "admin/editor.wordpressPage.title": "Bloco de Página do Wordpress",
   "admin/editor.wordpressPage.description": "Exibe dinamicamente uma 'página' do Wordpress com base no parâmetro 'slug' da rota da loja",
+  "admin/editor.wordpressPostContainer.title": "",
+  "admin/editor.wordpressPostContainer.description": "",
   "admin/editor.wordpressPost.title": "Bloco de Post do Wordpress",
   "admin/editor.wordpressPost.description": "Exibe dinamicamente um 'post' do Wordpress com base no parâmetro 'slug' da rota da loja",
+  "admin/editor.wordpressPostNavigation.title": "",
+  "admin/editor.wordpressPostNavigation.description": "",
   "admin/editor.wordpressCategory.title": "Bloco de Categoria do Wordpress",
   "admin/editor.wordpressCategory.description": "Exibe dinamicamente uma lista paginada de posts de uma categoria do Wordpress com base no parâmetro 'categoryslug' da rota da loja",
   "admin/editor.wordpressSearchResult.title": "Bloco de Resultados de Busca do Wordpress",
@@ -63,5 +67,7 @@
   "admin/editor.wordpressCustomDomainSlug.title": "Slug de Domínio Personalizado (opcional)",
   "admin/editor.wordpressCustomDomainSlug.description": "Insira o slug de URL que representará este domínio Wordpress",
   "admin/editor.wordpressBreadcrumb.title": "Breadcrumb Wordpress",
-  "admin/editor.wordpressBreadcrumb.description": "Mostra um breadcrumb específico para as páginas do seu blog VTEX, ou seja, 'Página Inicial do Blog / (categoria) / (título do post)' "
+  "admin/editor.wordpressBreadcrumb.description": "Mostra um breadcrumb específico para as páginas do seu blog VTEX, ou seja, 'Página Inicial do Blog / (categoria) / (título do post)' ",
+  "store/wordpress-integration.wordpressPostNavigation.next": "Next Article >",
+  "store/wordpress-integration.wordpressPostNavigation.previous": "< Previous Article"
 }

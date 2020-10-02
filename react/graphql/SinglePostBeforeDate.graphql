@@ -1,0 +1,10 @@
+query SinglePostBeforeDate($date: String!, $customDomain: String) {
+  wpPosts(before: $date, per_page: 1, customDomain: $customDomain) {
+    posts {
+      title {
+        rendered
+      }
+      slug
+    }
+  }
+}

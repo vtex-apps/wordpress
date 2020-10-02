@@ -313,6 +313,10 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `postFeaturedImage`                    |
 | `postBody`                             |
 | `postChildrenContainer`                |
+| `postNavigationContainer`              |
+| `postNavigationFlex`                   |
+| `postNavigationFlexItem`               |
+| `postNavigationLink`                   |
 | `relatedPostsBlockContainer`           |
 | `relatedPostsBlockTitle`               |
 | `relatedPostsBlockFlex`                |

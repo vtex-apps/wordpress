@@ -5,9 +5,16 @@
     "blog-category-list.wordpress-category-list": {
         "component": "WordpressCategory"
     },
+    "blog-post-container.wordpress": {
+        "composition": "children",
+        "component": "WordpressPostContainer"
+    },
     "blog-post-details.wordpress-post-details": {
         "composition": "children",
         "component": "WordpressPost"
+    },
+    "blog-post-navigation.wordpress": {
+        "component": "WordpressNavigation"
     },
     "blog-page-details.wordpress-page-details": {
         "composition": "children",

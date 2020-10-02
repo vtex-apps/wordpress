@@ -52,8 +52,12 @@
   "admin/editor.wordpressAllPosts.description": "Displays a paginated list of all blog posts, most recent first",
   "admin/editor.wordpressPage.title": "Wordpress Page Block",
   "admin/editor.wordpressPage.description": "Dynamically displays a Wordpress 'page' based on the 'slug' parameter from the store route",
+  "admin/editor.wordpressPostContainer.title": "Wordpress Post Container Block",
+  "admin/editor.wordpressPostContainer.description": "Provides child blocks with the Wordpress 'post' data based on the 'slug' parameter from the store route",
   "admin/editor.wordpressPost.title": "Wordpress Post Block",
   "admin/editor.wordpressPost.description": "Dynamically displays a Wordpress 'post' based on the 'slug' parameter from the store route",
+  "admin/editor.wordpressPostNavigation.title": "Wordpress Post Navigation Block",
+  "admin/editor.wordpressPostNavigation.description": "Displays links to the most recently published Wordpress articles before and after the currently viewed article's published date",
   "admin/editor.wordpressCategory.title": "Wordpress Category Block",
   "admin/editor.wordpressCategory.description": "Dynamically displays a paginated list of posts from a Wordpress category based on the 'categoryslug' parameter from the store route",
   "admin/editor.wordpressSearchResult.title": "Wordpress Search Result Block",
@@ -63,5 +67,7 @@
   "admin/editor.wordpressCustomDomainSlug.title": "Custom Domain Slug (optional)",
   "admin/editor.wordpressCustomDomainSlug.description": "Enter the URL slug that will represent this Wordpress domain",
   "admin/editor.wordpressBreadcrumb.title": "Wordpress Breadcrumb",
-  "admin/editor.wordpressBreadcrumb.description": "Displays a breadcrumb specific to your VTEX blog pages, i.e. 'Blog Home / (category) / (title of post)' "
+  "admin/editor.wordpressBreadcrumb.description": "Displays a breadcrumb specific to your VTEX blog pages, i.e. 'Blog Home / (category) / (title of post)' ",
+  "store/wordpress-integration.wordpressPostNavigation.next": "Next Article >",
+  "store/wordpress-integration.wordpressPostNavigation.previous": "< Previous Article"
 }
