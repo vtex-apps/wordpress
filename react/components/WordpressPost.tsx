@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
 
-import React, { FunctionComponent, useContext, useMemo } from 'react'
+import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
-import { Link } from 'vtex.render-runtime'
+import { useRuntime, Link } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
 import insane from 'insane'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { WPRelatedProductsContext } from '../contexts/WordpressRelatedProducts'
-import { WPPostContainerContext } from '../contexts/WordpressPostContainer'
+import SinglePostBySlug from '../graphql/SinglePostBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
 
 interface PostProps {
@@ -201,36 +201,51 @@ const WordpressPostInner: FunctionComponent<{
   )
 }
 
-const WordpressPost: StorefrontFunctionComponent<PostProps> = () => {
-  const { query, params } = useContext(WPPostContainerContext)
+const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
+  customDomains,
+}) => {
+  const {
+    route: { params },
+  } = useRuntime()
 
-  if (query) {
-    const { loading, error, data } = query
-
-    if (loading) {
-      return (
-        <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
-          <Spinner />
-        </div>
-      )
-    }
-    if (error) {
-      return (
-        <div className="ph5" style={{ minHeight: 800 }}>
-          Error! {error.message}
-        </div>
-      )
-    }
-    if (data?.wpPosts?.posts) {
-      return (
-        <WordpressPostInner
-          postData={data.wpPosts.posts[0]}
-          customDomainSlug={params.customdomainslug}
-        />
-      )
-    }
+  let parsedCustomDomains = null
+  try {
+    parsedCustomDomains = customDomains ? JSON.parse(customDomains) : null
+  } catch (e) {
+    console.error(e)
   }
 
+  const customDomain =
+    params.customdomainslug && parsedCustomDomains
+      ? parsedCustomDomains[params.customdomainslug]
+      : undefined
+
+  const { loading, error, data } = useQuery(SinglePostBySlug, {
+    variables: { slug: params.slug, customDomain },
+  })
+
+  if (loading) {
+    return (
+      <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
+        <Spinner />
+      </div>
+    )
+  }
+  if (error) {
+    return (
+      <div className="ph5" style={{ minHeight: 800 }}>
+        Error! {error.message}
+      </div>
+    )
+  }
+  if (data?.wpPosts?.posts) {
+    return (
+      <WordpressPostInner
+        postData={data.wpPosts.posts[0]}
+        customDomainSlug={params.customdomainslug}
+      />
+    )
+  }
   return (
     <div>
       <h2>No post found.</h2>
@@ -247,11 +262,33 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressPost.description',
   },
+  customDomainsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomains.title',
+  },
+  customDomainsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressCustomDomains.description',
+  },
 })
+
+WordpressPost.defaultProps = {
+  customDomains: undefined,
+}
 
 WordpressPost.schema = {
   title: messages.title.id,
   description: messages.description.id,
   type: 'object',
+  properties: {
+    customDomains: {
+      title: messages.customDomainsTitle.id,
+      description: messages.customDomainsDescription.id,
+      type: 'string',
+      isLayout: false,
+      default: '',
+    },
+  },
 }
+
 export default WordpressPost

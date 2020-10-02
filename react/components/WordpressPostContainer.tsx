@@ -32,7 +32,7 @@ const WordpressPostContainer: StorefrontFunctionComponent<PostProps> = props => 
   })
 
   return (
-    <WPPostContainerContext.Provider value={{ query, params }}>
+    <WPPostContainerContext.Provider value={{ query }}>
       <div>{props.children}</div>
     </WPPostContainerContext.Provider>
   )

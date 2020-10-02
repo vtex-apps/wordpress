@@ -9,12 +9,10 @@ interface WPPostContainerContextInterface {
       customDomain: any
     }
   > | null
-  params: { slug?: string; customdomainslug?: string }
 }
 
 export const WPPostContainerContext = React.createContext<
   WPPostContainerContextInterface
 >({
   query: null,
-  params: {},
 })
