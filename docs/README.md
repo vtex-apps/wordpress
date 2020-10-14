@@ -63,7 +63,7 @@ It is time to create the store pages that will host the blog content. Before per
 | `store.blog-post`          | A detail view of a single blog post, derived from a post slug in the page route.  |
 | `store.blog-search-result` | A listing of blog posts matching a search query, derived from a search term in the page route. | 
 
-You may change `blog` in each path to another string of your choosing. If you wish to display WordPress pages on your store site in addition to posts, for example, you can add a route like the one showed below:
+If you wish to display WordPress **pages** on your store site in addition to **posts**, you can add a route like the one shown below:
 
 ```json
 "store.blog-home#page": {
@@ -371,4 +371,3 @@ Thanks goes to these wonderful people:
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 <!-- DOCS-IGNORE:end -->
-
