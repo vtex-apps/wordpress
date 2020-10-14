@@ -252,7 +252,7 @@ Blocks that do not use URL params should be given a different set of props, name
 
 `customDomainSlug` must be provided for *all* blocks when using multiple WordPress installations. `customDomain`, in turn, only needs to be provided for blocks that are *not* using the default WordPress domain from the app settings.
 
-In practice, any block that shows content from the "default" WordPress domain should receive the `customDomainSlug` prop with a value of `blog`. Blocks that show content from the secondary WordPress domain should receive a `customDomainSlug` prop with a value of `other-blog` and a `customDomain` prop with a value of `http://www.other-blog.com/` also. For example:
+Continuing the example from above, any block that shows content from the "default" WordPress domain should receive the `customDomainSlug` prop with a value of `blog`. Blocks that show content from the secondary WordPress domain should receive a `customDomainSlug` prop with a value of `other-blog` and a `customDomain` prop with a value of `http://www.other-blog.com/` also. For example:
 
 ```json
 "store.blog-home": {
