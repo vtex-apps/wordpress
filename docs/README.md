@@ -125,7 +125,7 @@ The Wordpress Integration app provides the following blocks for your use:
 | `showExcerpts`    | `boolean` | Whether the post excerpts should be shown (`true`) or not (`false`). | `false`  |
 | `absoluteLinks`   | `boolean` | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`). | `false` |  
 
-## `blog-category-preview.wordpress-category-preview` props
+#### `blog-category-preview.wordpress-category-preview` props
 
 | Prop Name          | Type    | Description                             | Default value  |
 | ------------------ | ------------ | ---------------------------------- | -------------- |
