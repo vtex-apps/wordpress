@@ -56,6 +56,8 @@ It is time to create the store pages that will host the blog content. Before per
 }
 ```
 
+:information_source: *You may change `blog` in each route to another string of your choosing.*	
+
 | Blog page                       | Description                                                                                                |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `store.blog-home`          |  The homepage of your blog. This can also be extended (i.e. `store.blog-home#custom`) to create additional custom blog pages, if needed. |
