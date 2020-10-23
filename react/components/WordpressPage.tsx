@@ -150,7 +150,7 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
           dangerouslySetInnerHTML={{ __html: titleHtml }}
         />
         <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
-          <span>Posted {formattedDate} in </span>
+          <span>Posted {formattedDate} </span>
           {author && <span> by {author.name}</span>}
         </p>
         {featured_media && featured_media.media_type === 'image' && (
