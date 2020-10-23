@@ -31,6 +31,8 @@
   "admin/editor.wordpressAuthors.description": "Mostrar el autor de cada post",
   "admin/editor.wordpressExcerpts.title": "Mostrar Extractos",
   "admin/editor.wordpressExcerpts.description": "Mostrar extracto de cada post",
+  "admin/editor.absoluteLinks.title": "Use Absolute Links",
+  "admin/editor.absoluteLinks.description": "Link to external WordPress URL instead of relative store URL",
   "admin/editor.wordpressCategories.title": "Mostrar Categorías",
   "admin/editor.wordpressCategories.description": "Mostrar la primera categoría de cada post",
   "admin/editor.wordpressLatestPosts.title": "Bloque de los Últimos Posts de WordPress",

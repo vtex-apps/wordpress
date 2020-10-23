@@ -229,9 +229,9 @@ type WPPage {
   parent: Int
   title: WPTitle
   content: WPContent
-  author: WPUser
+  author(customDomain: String): WPUser
   excerpt: WPExcerpt
-  featured_media: WPMedia
+  featured_media(customDomain: String): WPMedia
   comment_status: WPOpenClosed
   ping_status: WPOpenClosed
   menu_order: Int

@@ -6,13 +6,33 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- WordPress page GraphQL queries now work correctly
+
 ## [2.1.3] - 2020-10-20
+
+### Changed
+
+- Update ES messages
 
 ## [2.1.2] - 2020-10-20
 
+### Changed
+
+- Update PT messages
+
 ## [2.1.1] - 2020-10-14
 
+### Changed
+
+- Update docs
+
 ## [2.1.0] - 2020-10-02
+
+### Added
+
+- `blog-post-navigation.wordpress` and `blog-post-container.wordpress` blocks
 
 ## [2.0.3] - 2020-08-26
 
