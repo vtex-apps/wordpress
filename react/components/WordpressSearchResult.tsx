@@ -58,15 +58,16 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
     skip: !params,
     variables: {
-      terms: params.term,
+      terms: params.term || params.term_id,
       wp_page: 1,
       wp_per_page: 10,
       customDomain,
     },
   })
 
-  if (!params || !params.term) return null
+  if (!params?.term || !params?.term_id) return null
 
+  const term = params.term || params.term_id
   const paginationComponent = (
     <Pagination
       rowsOptions={[10, 20, 30, 40]}
@@ -92,7 +93,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
           variables: {
             wp_page: 1,
             wp_per_page: event.target.value,
-            terms: params.term,
+            terms: term,
             customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
@@ -119,7 +120,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
           variables: {
             wp_page: prevPage,
             wp_per_page: perPage,
-            terms: params.term,
+            terms: term,
             customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
@@ -145,7 +146,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
           variables: {
             wp_page: nextPage,
             wp_per_page: perPage,
-            terms: params.term,
+            terms: term,
             customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
@@ -161,16 +162,16 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
       <Helmet>
         <title>
           {dataS?.appSettings?.titleTag
-            ? `Article search results for ${decodeURIComponent(
-                params.term
-              )} | ${dataS.appSettings.titleTag}`
-            : `Article search results for ${decodeURIComponent(params.term)}`}
+            ? `Article search results for ${decodeURIComponent(term)} | ${
+                dataS.appSettings.titleTag
+              }`
+            : `Article search results for ${decodeURIComponent(term)}`}
         </title>
       </Helmet>
       <h2
         className={`${handles.listTitle} ${handles.searchListTitle} t-heading-2 tc`}
       >
-        Article search results for &quot;{decodeURIComponent(params.term)}
+        Article search results for &quot;{decodeURIComponent(term)}
         &quot;
       </h2>
 
