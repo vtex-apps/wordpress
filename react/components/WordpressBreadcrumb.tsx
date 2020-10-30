@@ -85,6 +85,7 @@ const WordpressSinglePostBreadcrumb: FunctionComponent<SinglePostProps> = ({
           page="store.blog-category"
           params={{
             categoryslug: data.wpPosts.posts[0].categories[0].slug,
+            categoryslug_id: data.wpPosts.posts[0].categories[0].slug,
             customdomainslug: customDomainSlug,
           }}
           className={`${handles.breadcrumbLink}`}

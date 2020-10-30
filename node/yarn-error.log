@@ -1,25 +1,35 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Marc\AppData\Local\Yarn\Data\global\node_modules\yarn\bin\yarn.js --non-interactive --ignore-engines
+  C:\Program Files\nodejs\node.exe C:\Users\Gustavo Vasconcellos\AppData\Roaming\npm\node_modules\vtex\node_modules\yarn\bin\yarn.js --non-interactive --ignore-engines
 
 PATH: 
-  C;C:\Users\Marc\AppData\Local\Yarn\bin;C:\cygwin64\usr\local\bin;C:\cygwin64\bin;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\120\DTS\Binn;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files\Google\Google Apps Sync;C:\Program Files\Google\Google Apps Migration;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\Marc\AppData\Roaming\npm;C:\Users\Marc\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Marc\.dotnet\tools
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Gustavo Vasconcellos\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\nodejs;C:\Users\Gustavo Vasconcellos\AppData\Local\Microsoft\WindowsApps;C:\Users\Gustavo Vasconcellos\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Gustavo Vasconcellos\AppData\Local\Android\Sdk\platform-tools;C:\Users\Gustavo Vasconcellos\AppData\Local\Microsoft\WindowsApps;C:\Users\Gustavo Vasconcellos\AppData\Roaming\npm
 
 Yarn version: 
-  1.21.1
+  1.22.4
 
 Node version: 
-  10.15.0
+  14.15.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\cygwin64\home\Marc\wordpress\wordpress-integration\node\node_modules\eslint-config-vtex-react\node_modules\eslint-config-prettier\node_modules\.bin\eslint'
+  Error: https://beta--sanovita.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.5.0+build1590679437/public/@types/vtex.wordpress-integration: Request failed "500 Internal Server Error"
+      at ResponseError.ExtendableBuiltin (C:\Users\Gustavo Vasconcellos\AppData\Roaming\npm\node_modules\vtex\node_modules\yarn\lib\cli.js:696:66)
+      at new ResponseError (C:\Users\Gustavo Vasconcellos\AppData\Roaming\npm\node_modules\vtex\node_modules\yarn\lib\cli.js:802:124)
+      at Request.<anonymous> (C:\Users\Gustavo Vasconcellos\AppData\Roaming\npm\node_modules\vtex\node_modules\yarn\lib\cli.js:67057:16)
+      at Request.emit (events.js:315:20)
+      at Request.module.exports.Request.onRequestResponse (C:\Users\Gustavo Vasconcellos\AppData\Roaming\npm\node_modules\vtex\node_modules\yarn\lib\cli.js:141625:10)
+      at ClientRequest.emit (events.js:315:20)
+      at HTTPParser.parserOnIncomingClient (_http_client.js:641:27)
+      at HTTPParser.parserOnHeadersComplete (_http_common.js:126:17)
+      at TLSSocket.socketOnData (_http_client.js:509:22)
+      at TLSSocket.emit (events.js:315:20)
 
 npm manifest: 
   {
     "name": "wordpress",
-    "version": "1.1.0",
+    "version": "1.6.1",
     "description": "",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,7 +40,7 @@ npm manifest:
       "graphql": "^14.2.1",
       "he": "^1.2.0",
       "prettier": "^1.17.1",
-      "typescript": "3.8.3"
+      "typescript": "3.9.7"
     },
     "devDependencies": {
       "@types/he": "^1.1.0",
@@ -41,14 +51,17 @@ npm manifest:
       "eslint-config-vtex-react": "4.1.0",
       "tslint": "^5.9.1",
       "tslint-config-vtex": "^2.0.0",
-      "vtex.blog-interfaces": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces",
-      "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles",
-      "vtex.product-summary": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.52.0-beta.0/public/_types/react",
-      "vtex.search-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.17.1-hkignore.0/public/@types/vtex.search-graphql",
+      "vtex.blog-interfaces": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.1.0/public/@types/vtex.blog-interfaces",
+      "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.2/public/@types/vtex.css-handles",
+      "vtex.product-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-context@0.7.1/public/@types/vtex.product-context",
+      "vtex.product-summary": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.54.1/public/_types/react",
+      "vtex.search-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.27.0/public/_types/react",
       "vtex.search-page-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.0.3/public/_types/react",
-      "vtex.shelf": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.35.4/public/_types/react",
-      "vtex.store": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.87.2-hkignore.4/public/@types/vtex.store",
-      "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.103.0/public/_types/react"
+      "vtex.shelf": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.38.1/public/_types/react",
+      "vtex.store": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.95.5/public/@types/vtex.store",
+      "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.115.0/public/_types/react",
+      "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.119.0/public/@types/vtex.styleguide",
+      "vtex.wordpress-integration": "https://beta--sanovita.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.5.0+build1590679437/public/@types/vtex.wordpress-integration"
     }
   }
 
@@ -2474,10 +2487,10 @@ Lockfile:
       media-typer "0.3.0"
       mime-types "~2.1.18"
   
-  typescript@3.7.3:
-    version "3.7.3"
-    resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
-    integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
+  typescript@3.8.3:
+    version "3.8.3"
+    resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
+    integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
   
   universalify@^0.1.0:
     version "0.1.2"
@@ -2514,37 +2527,49 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
     integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
   
-  "vtex.blog-interfaces@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces":
-    version "0.0.6"
-    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.0.6/public/@types/vtex.blog-interfaces#c25ee2ab9657266ed0deea268dab59675f5f8b69"
+  "vtex.blog-interfaces@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.1.0/public/@types/vtex.blog-interfaces":
+    version "0.1.0"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.1.0/public/@types/vtex.blog-interfaces#e7da0f21574a93bfc0e18122442073104f18e785"
   
-  "vtex.css-handles@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles":
-    version "0.4.1"
-    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles#16fe9485e8e7183b94f28496ed8cdd741c83f227"
+  "vtex.css-handles@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.2/public/@types/vtex.css-handles":
+    version "0.4.2"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.2/public/@types/vtex.css-handles#62ee61d1bb9efdc919e5cf4bb44fabcf9050d255"
   
-  "vtex.product-summary@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.52.0-beta.0/public/_types/react":
+  "vtex.product-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-context@0.7.1/public/@types/vtex.product-context":
+    version "0.7.1"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-context@0.7.1/public/@types/vtex.product-context#2476a5831bdd066e4ce99e0a004480b0ee445007"
+  
+  "vtex.product-summary@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.54.1/public/_types/react":
     version "0.0.0"
-    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.52.0-beta.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.54.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
   
-  "vtex.search-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.17.1-hkignore.0/public/@types/vtex.search-graphql":
-    version "0.17.1-hkignore.0"
-    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.17.1-hkignore.0/public/@types/vtex.search-graphql#964c7f5e7d61a9e6d64a90a4dcea23e7fe404d9b"
+  "vtex.search-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.27.0/public/_types/react":
+    version "0.0.0"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-graphql@0.27.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
   
   "vtex.search-page-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.0.3/public/_types/react":
     version "0.0.0"
     resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.0.3/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
   
-  "vtex.shelf@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.35.4/public/_types/react":
+  "vtex.shelf@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.38.1/public/_types/react":
     version "0.0.0"
-    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.35.4/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.38.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
   
-  "vtex.store-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.103.0/public/_types/react":
+  "vtex.store-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.115.0/public/_types/react":
     version "0.0.0"
-    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.103.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.115.0/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
   
-  "vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.87.2-hkignore.4/public/@types/vtex.store":
-    version "2.87.2-hkignore.4"
-    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.87.2-hkignore.4/public/@types/vtex.store#cfa87fbb4e29328aca04c7e0f33494c7d156c4c0"
+  "vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.95.5/public/@types/vtex.store":
+    version "2.95.5"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.95.5/public/@types/vtex.store#70c2cad82c4653015dd5d1a1c9ceede4a21308b8"
+  
+  "vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.119.0/public/@types/vtex.styleguide":
+    version "9.119.0"
+    resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.119.0/public/@types/vtex.styleguide#e403de99f313f6ac4b065afad0079711b0992163"
+  
+  "vtex.wordpress-integration@https://beta--sanovita.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.5.0+build1590679437/public/@types/vtex.wordpress-integration":
+    version "1.5.0"
+    resolved "https://beta--sanovita.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@1.5.0+build1590679437/public/@types/vtex.wordpress-integration#d977369cfe464fe39575ef43dbf6432fb7203008"
   
   which@^1.2.9:
     version "1.3.1"
