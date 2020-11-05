@@ -164,6 +164,7 @@ const WordpressPostInner: FunctionComponent<{
                 page="store.blog-category"
                 params={{
                   categoryslug: cat.slug,
+                  categoryslug_id: cat.slug,
                   customdomainslug: props.customDomainSlug,
                 }}
               >
@@ -221,7 +222,7 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
       : undefined
 
   const { loading, error, data } = useQuery(SinglePostBySlug, {
-    variables: { slug: params.slug, customDomain },
+    variables: { slug: params.slug || params.slug_id, customDomain },
   })
 
   if (loading) {

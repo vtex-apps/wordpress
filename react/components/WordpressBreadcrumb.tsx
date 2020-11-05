@@ -85,6 +85,7 @@ const WordpressSinglePostBreadcrumb: FunctionComponent<SinglePostProps> = ({
           page="store.blog-category"
           params={{
             categoryslug: data.wpPosts.posts[0].categories[0].slug,
+            categoryslug_id: data.wpPosts.posts[0].categories[0].slug,
             customdomainslug: customDomainSlug,
           }}
           className={`${handles.breadcrumbLink}`}
@@ -119,17 +120,17 @@ const WordpressBreadcrumb: StorefrontFunctionComponent<Props> = ({
       : undefined
 
   // if we're on a category page with a slug
-  if (params?.categoryslug) {
+  if (params?.categoryslug || params?.categoryslug_id) {
     return (
       <WordpressCategoryBreadcrumb
-        categorySlug={params.categoryslug}
+        categorySlug={params.categoryslug || params.categoryslug_id}
         customDomain={customDomain}
       />
     )
   }
 
   // if we're on an article search page
-  if (params?.term) {
+  if (params?.term || params?.term_id) {
     return (
       <Container
         className={`${handles.breadcrumbContainer} pt2 pb8`}
@@ -146,17 +147,17 @@ const WordpressBreadcrumb: StorefrontFunctionComponent<Props> = ({
         </Link>
         <span className={`${handles.breadcrumbSeparator}`}>&nbsp;/&nbsp;</span>
         <span className={`${handles.breadcrumbCurrentPage}`}>
-          Search results for &quot;{params.term}&quot;
+          Search results for &quot;{params.term || params.term_id}&quot;
         </span>
       </Container>
     )
   }
 
   // if we're viewing a single blog post with a slug
-  if (params?.slug) {
+  if (params?.slug || params?.slug_id) {
     return (
       <WordpressSinglePostBreadcrumb
-        slug={params.slug}
+        slug={params.slug || params.slug_id}
         customDomain={customDomain}
         customDomainSlug={params.customdomainslug}
       />
