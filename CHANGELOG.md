@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.1] - 2020-11-09
+
 ### Changed
 
 - Add CSS handles for post date, author, and category link in teasers
