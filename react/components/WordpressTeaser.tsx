@@ -42,6 +42,7 @@ const CSS_HANDLES = [
   'teaserGradientOverlay',
   'teaserTitle',
   'teaserTitleLink',
+  'teaserBody',
   'teaserCategoryLink',
   'teaserAuthor',
   'teaserDate',
@@ -277,7 +278,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
 
       {showExcerpt && (
         <div
-          className="ph6 pb6"
+          className={`${handles.teaserBody} ph6 pb6`}
           dangerouslySetInnerHTML={{ __html: sanitizedExcerpt }}
         />
       )}
