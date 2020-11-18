@@ -104,6 +104,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
               page="store.blog-category"
               params={{
                 categoryslug: data?.wpCategory?.slug,
+                categoryslug_id: data?.wpCategory?.slug,
                 customdomainslug: customDomainSlug,
               }}
               className={`${handles.categoryBlockLink}`}

@@ -18,6 +18,7 @@ interface PostProps {
   customDomains: string
 }
 
+const allowClass = ['class']
 const sanitizerConfig = {
   allowedTags: [
     'h1',
@@ -56,9 +57,48 @@ const sanitizerConfig = {
     'figure',
   ],
   allowedAttributes: {
-    a: ['href', 'name', 'target'],
-    img: ['src', 'alt'],
-    iframe: ['src', 'scrolling', 'frameborder', 'width', 'height', 'id'],
+    h1: allowClass,
+    h2: allowClass,
+    h3: allowClass,
+    h4: allowClass,
+    h5: allowClass,
+    h6: allowClass,
+    blockquote: allowClass,
+    p: allowClass,
+    a: ['class', 'href', 'name', 'target', 'rel'],
+    ul: allowClass,
+    ol: allowClass,
+    nl: allowClass,
+    li: allowClass,
+    b: allowClass,
+    i: allowClass,
+    strong: allowClass,
+    section: allowClass,
+    em: allowClass,
+    strike: allowClass,
+    code: allowClass,
+    hr: allowClass,
+    br: allowClass,
+    div: allowClass,
+    table: allowClass,
+    thead: allowClass,
+    caption: allowClass,
+    tbody: allowClass,
+    tr: allowClass,
+    th: allowClass,
+    td: allowClass,
+    pre: allowClass,
+    img: ['class', 'src', 'alt'],
+    iframe: [
+      'class',
+      'src',
+      'scrolling',
+      'frameborder',
+      'width',
+      'height',
+      'id',
+    ],
+    figure: allowClass,
   },
   allowedSchemes: ['http', 'https', 'mailto', 'tel'],
 }
@@ -68,6 +108,8 @@ const sanitizerConfigStripAll = {
   allowedTags: false,
   allowedSchemes: [],
 }
+
+const classRegex = /(class=")([^"]*)(")/g
 
 const CSS_HANDLES = [
   'postFlex',
@@ -122,7 +164,16 @@ const WordpressPostInner: FunctionComponent<{
       : null
   }, [featured_media?.caption?.rendered, sanitizerConfigStripAll])
   const bodyHtml = useMemo(() => {
-    return insane(content.rendered, sanitizerConfig)
+    let html = insane(content.rendered, sanitizerConfig)
+    // eslint-disable-next-line max-params
+    html = html.replace(classRegex, (_, $1, $2, $3) => {
+      const classArray = $2.split(' ')
+      const newClasses = classArray.map(
+        (item: string) => `vtex-wordpress-integration-2-x-${item}`
+      )
+      return `${$1}${newClasses.join(' ')}${$3}`
+    })
+    return html
   }, [content.rendered, sanitizerConfig])
 
   if (loadingS)
@@ -164,6 +215,7 @@ const WordpressPostInner: FunctionComponent<{
                 page="store.blog-category"
                 params={{
                   categoryslug: cat.slug,
+                  categoryslug_id: cat.slug,
                   customdomainslug: props.customDomainSlug,
                 }}
               >
@@ -221,7 +273,7 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
       : undefined
 
   const { loading, error, data } = useQuery(SinglePostBySlug, {
-    variables: { slug: params.slug, customDomain },
+    variables: { slug: params.slug || params.slug_id, customDomain },
   })
 
   if (loading) {
