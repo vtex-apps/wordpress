@@ -86,6 +86,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
             page="store.blog-search-result"
             params={{
               term: searchQuery.productSearch.titleTag,
+              term_id: searchQuery.productSearch.titleTag,
               page: '1',
               customdomainslug: customDomainSlug,
             }}

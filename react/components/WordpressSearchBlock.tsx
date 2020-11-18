@@ -21,7 +21,11 @@ const WordpressSearchBlock: StorefrontFunctionComponent<WordpressSearchProps> = 
     setValue('')
     navigate({
       page: 'store.blog-search-result',
-      params: { term: search, customdomainslug: customDomainSlug },
+      params: {
+        term: search,
+        term_id: search,
+        customdomainslug: customDomainSlug,
+      },
     })
   }
 

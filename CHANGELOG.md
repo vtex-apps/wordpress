@@ -6,9 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [2.2.2] - 2020-11-18
+### Changed
 
-## [2.2.2] - 2020-11-17
+- Prefix CSS classes in WordPress post and page body HTML to enable them as CSS handles
+- Identify pages on Site Editor with `_id` on runtime params and links
+- Update docs
+
+## [2.2.2] - 2020-11-18
 
 ### Changed
 

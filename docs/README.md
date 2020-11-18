@@ -46,17 +46,17 @@ It is time to create the store pages that will host the blog content. Before per
 	"path": "/blog"
 },
 "store.blog-category": {
-	"path": "/blog/category/:categoryslug"
+	"path": "/blog/category/:categoryslug_id"
 },
 "store.blog-post": {
-	"path": "/blog/post/:slug"
+	"path": "/blog/post/:slug_id"
 },
 "store.blog-search-result": {
-	"path": "/blog/search/:term"
+	"path": "/blog/search/:term_id"
 }
 ```
 
-:information_source: _You may change `blog` in each route to another string of your choosing._
+:information*source: \_You may change `blog` in each route to another string of your choosing.*
 
 | Blog page                  | Description                                                                                                                             |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
@@ -68,7 +68,7 @@ It is time to create the store pages that will host the blog content. Before per
 If you wish to display WordPress **pages** on your store site in addition to **posts**, you can add a route like the one shown below:
 
 ```json
-"store.blog-home#page": {
+"store.custom#blog-page": {
 	"path": "/blog/page/:slug"
 }
 ```
@@ -80,10 +80,10 @@ In addition to that, you can optionally add `:page` parameters for URL-controlle
 	"path": "/blog(/page/:page)"
 },
 "store.blog-category": {
-	"path": "/blog/category/:categoryslug(/page/:page)"
+	"path": "/blog/category/:categoryslug_id(/page/:page)"
 },
 "store.blog-search-result": {
-	"path": "/blog/search/:term(/page/:page)"
+	"path": "/blog/search/:term_id(/page/:page)"
 },
 ```
 
@@ -187,7 +187,7 @@ Starting with version 1.6.0 of this app, blog content from **multiple WordPress 
 
 To accomplish this, a `customdomainslug` parameter must be added to your blog routes, and your WordPress blocks must be updated with various props.
 
-:information_source: _This configuration is not required if you only wish to display blog content from a single WordPress domain._
+:information*source: \_This configuration is not required if you only wish to display blog content from a single WordPress domain.*
 
 #### Step 1 - Adding the `customdomainslug` parameter
 
@@ -200,16 +200,16 @@ It is time to create the store pages that will host the blog content. Before per
 	"path": "/blog"
 },
 "store.blog-category": {
-	"path": "/:customdomainslug/category/:categoryslug"
+	"path": "/:customdomainslug/category/:categoryslug_id"
 },
 "store.blog-post": {
-	"path": "/:customdomainslug/post/:slug"
+	"path": "/:customdomainslug/post/:slug_id"
 },
 "store.blog-search-result": {
-	"path": "/:customdomainslug/search/:term"
+	"path": "/:customdomainslug/search/:term_id"
 },
-"store.blog-home#page": {
-	"path": "/:customdomainslug/page/:slug"
+"store.custom#blog-page": {
+	"path": "/:customdomainslug/page/:slug_id"
 }
 ```
 
@@ -239,7 +239,7 @@ For example, if you wanted URLs with the slug `blog` to load content from `http:
 }
 ```
 
-:information_source: _Make sure to follow the format of the example value, including the brackets and escaped double quotes._
+:information*source: \_Make sure to follow the format of the example value, including the brackets and escaped double quotes.*
 
 Blocks that do not use URL params should be given a different set of props, namely `customDomainSlug` and `customDomain`. These blocks are:
 
@@ -293,7 +293,7 @@ Continuing the example from above, any block that shows content from the "defaul
   },
 ```
 
-:information_source: _Make sure to follow the format of the example value, including the brackets and escaped double quotes._
+:information*source: \_Make sure to follow the format of the example value, including the brackets and escaped double quotes.*
 
 ## Customization
 
