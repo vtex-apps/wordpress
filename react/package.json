@@ -1,6 +1,6 @@
 {
   "name": "wordpress",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "",
   "scripts": {
     "test": "vtex-scripts test"
