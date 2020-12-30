@@ -1,0 +1,14 @@
+{
+  "name": "WordPress Integration",
+  "headline": "Display WordPress content within your VTEX IO store.",
+  "overview": "Integrate with WordPress to bring blog data to your VTEX IO store and create a blog \"homepage\", category pages, and blog post pages.",
+  "features": [
+    "Homepage, category, blog post, and search components",
+    "Associate blog posts to products and vice versa utilizing WordPress’s tag system",
+    "Display content from multiple WordPress installations on the same VTEX store"
+  ],
+  "websiteURL": "https://vtex.com/",
+  "support": {
+      "url": "https://support.vtex.com/hc/requests"
+    }
+}

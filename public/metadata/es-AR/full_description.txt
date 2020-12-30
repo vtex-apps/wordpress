@@ -1,8 +1,0 @@
-## Sobre
-
-Integre con WordPress para traer los datos del blog a su tienda VTEX IO y crear una "página de inicio", páginas de categorías y páginas de publicaciones del blog. 
-
-## Características
-- Página de inicio, categoría, publicaciones del blog y componentes de búsqueda.
-- Asocia las publicaciones del blog con los productos y viceversa utilizando el sistema de tags de WordPress.
-- Muestra el contenido de múltiples instalaciones de WordPress en la misma tienda VTEX.
