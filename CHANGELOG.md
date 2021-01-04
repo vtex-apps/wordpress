@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Fix manifest and add image following App Store standards
+
 ## [2.3.1] - 2020-12-30
 
 ### Fixed
