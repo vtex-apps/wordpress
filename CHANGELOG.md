@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.6.3] - 2021-01-12
+
 ### Fixed
 
 - Params conditional on search results component
