@@ -6,12 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Params conditional on search results component
+
 ## [1.6.2] - 2020-11-05
 
 ### Added
 
 - Identify pages on Site Editor with `_id` on runtime params and links
-  
+
 ## [1.6.1] - 2020-06-12
 
 ### Changed

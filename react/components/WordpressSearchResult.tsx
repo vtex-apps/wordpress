@@ -65,7 +65,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
     },
   })
 
-  if (!params?.term || !params?.term_id) return null
+  if (!params?.term && !params?.term_id) return null
 
   const term = params.term || params.term_id
   const paginationComponent = (
