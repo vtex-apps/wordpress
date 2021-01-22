@@ -14,7 +14,7 @@ const cacheStorage = new LRUCache<string, any>({ max: 5000 })
 metrics.trackCache('wordpressProxy', cacheStorage)
 
 export class Clients extends IOClients {
-  public get wordpressProxy(): WordpressProxyDataSource {
+  public get wordpressProxy() {
     return this.getOrSet('wordpressProxy', WordpressProxyDataSource)
   }
 }

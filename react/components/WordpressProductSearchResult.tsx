@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-
 import React, { Fragment, useState } from 'react'
 import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'

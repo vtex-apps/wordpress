@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-
 import React, { Fragment, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { defineMessages } from 'react-intl'
@@ -35,7 +34,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
     query,
     setQuery,
     navigate,
-  } = useRuntime()
+  } = useRuntime() as any
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(10)

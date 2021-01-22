@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-
 import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { defineMessages } from 'react-intl'
@@ -258,7 +257,7 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
 }) => {
   const {
     route: { params },
-  } = useRuntime()
+  } = useRuntime() as any
 
   let parsedCustomDomains = null
   try {

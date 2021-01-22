@@ -7,7 +7,7 @@
   "categories": [],
   "registries": [],
   "builders": {
-    "node": "4.x",
+    "node": "6.x",
     "graphql": "1.x",
     "react": "3.x",
     "messages": "1.x",
