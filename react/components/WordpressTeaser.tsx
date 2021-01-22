@@ -40,6 +40,7 @@ const CSS_HANDLES = [
   'teaserTextOverlayTitle',
   'teaserTextOverlayMeta',
   'teaserGradientOverlay',
+  'teaserHeader',
   'teaserTitle',
   'teaserTitleLink',
   'teaserBody',
@@ -83,7 +84,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
     <Card noPadding className={`${handles.teaserContainer}`}>
       {(showCategory || showDate || showAuthor) &&
         (!useTextOverlay || mediaType !== 'image') && (
-          <h5 className="mv1 ph6 pt6 pb4">
+          <h5 className={`${handles.teaserHeader} mv1 ph6 pt6 pb4`}>
             {showCategory && category && categorySlug && (
               <Fragment>
                 <Link

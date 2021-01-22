@@ -1,4 +1,5 @@
 import { ClientsConfig, IOClients, LRUCache } from '@vtex/api'
+
 import WordpressProxyDataSource from './wordpressProxy'
 
 const TIMEOUT_MS = 8000

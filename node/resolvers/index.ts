@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 export const queries = {
-  wpPosts: async function(
+  wpPosts: async (
     _: any,
     {
       page,
@@ -46,7 +46,7 @@ export const queries = {
       customDomain: string
     },
     ctx: Context
-  ) {
+  ) => {
     const {
       clients: { wordpressProxy },
     } = ctx

@@ -4,8 +4,9 @@ const DEFAULT_API_PATH = 'wp-json/wp/v2/'
 
 export default class WordpressProxyDataSource extends ExternalClient {
   public endpoint?: string
+  public apiPath?: string
 
-  public constructor(context: IOContext, options?: InstanceOptions) {
+  constructor(context: IOContext, options?: InstanceOptions) {
     super(``, context, options)
   }
 
@@ -15,20 +16,35 @@ export default class WordpressProxyDataSource extends ExternalClient {
     const settings = await apps.getAppSettings(appId)
     const endpoint = settings.endpoint || 'http://demo.wp-api.org/'
     this.endpoint = endpoint.replace('https://', 'http://')
-    return
   }
 
-  private buildArgs(wpOptions: any) {
+  private async getApiPath(vtex: IOContext) {
+    const apps = new Apps(vtex)
+    const appId = process.env.VTEX_APP_ID as string
+    const settings = await apps.getAppSettings(appId)
+    const apiPath = settings.apiPath || DEFAULT_API_PATH
+    this.apiPath = apiPath
+  }
+
+  private async buildArgs(wpOptions: any) {
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let returnStr = ''
     const keys = Object.keys(wpOptions)
     const len = keys.length
-    for (var i = 0; i < len; i++) {
+    for (let i = 0; i < len; i++) {
       if (wpOptions[keys[i]] && keys[i] !== 'customDomain') {
-        returnStr +=
-          (returnStr != '' ? '&' : '') + keys[i] + '=' + wpOptions[keys[i]]
+        returnStr += `${(returnStr ? '&' : '') + keys[i]}=${wpOptions[keys[i]]}`
       }
     }
-    if (returnStr != '') returnStr = '?' + returnStr
+    if (returnStr) {
+      if (this.apiPath && this.apiPath.indexOf('?') >= 0) {
+        returnStr = `&${returnStr}`
+      } else {
+        returnStr = `?${returnStr}`
+      }
+    }
     return returnStr
   }
 
@@ -36,34 +52,43 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let combinedArgs = ''
-    let endpoint = this.endpoint
+    let { endpoint } = this
     if (wpOptions) {
-      combinedArgs = this.buildArgs(wpOptions)
+      combinedArgs = await this.buildArgs(wpOptions)
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
-    return this.http.getRaw(
-      endpoint + DEFAULT_API_PATH + `posts` + combinedArgs,
-      {
-        metric: 'posts' + combinedArgs,
-      }
-    )
+    return this.http.getRaw(`${endpoint}${this.apiPath}posts${combinedArgs}`, {
+      metric: `posts${combinedArgs}`,
+    })
   }
 
   public async getPost(id: number, password?: string, customDomain?: string) {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    let endpoint = this.endpoint
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
+    let { endpoint } = this
     if (customDomain) endpoint = customDomain
     let formattedPassword = ''
-    if (password) formattedPassword = '?password=' + password
+    if (password) {
+      if (this.apiPath && this.apiPath.indexOf('?') >= 0) {
+        formattedPassword = `&password=${password}`
+      } else {
+        formattedPassword = `?password=${password}`
+      }
+    }
 
     return this.http.get(
-      endpoint + DEFAULT_API_PATH + `posts/` + id + formattedPassword,
+      `${endpoint}${this.apiPath}posts/${id}${formattedPassword}`,
       {
-        metric: 'post' + id + formattedPassword,
+        metric: `post${id}${formattedPassword}`,
       }
     )
   }
@@ -72,17 +97,20 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let combinedArgs = ''
-    let endpoint = this.endpoint
+    let { endpoint } = this
     if (wpOptions) {
-      combinedArgs = this.buildArgs(wpOptions)
+      combinedArgs = await this.buildArgs(wpOptions)
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
     return this.http.getRaw(
-      endpoint + DEFAULT_API_PATH + `categories` + combinedArgs,
+      `${endpoint}${this.apiPath}categories${combinedArgs}`,
       {
-        metric: 'categories' + combinedArgs,
+        metric: `categories${combinedArgs}`,
       }
     )
   }
@@ -91,10 +119,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    let endpoint = this.endpoint
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
+    let { endpoint } = this
     if (customDomain) endpoint = customDomain
-    return this.http.get(endpoint + DEFAULT_API_PATH + `categories/` + id, {
-      metric: 'category' + id,
+    return this.http.get(`${endpoint}${this.apiPath}categories/${id}`, {
+      metric: `category${id}`,
     })
   }
 
@@ -102,29 +133,32 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let combinedArgs = ''
-    let endpoint = this.endpoint
+    let { endpoint } = this
     if (wpOptions) {
-      combinedArgs = this.buildArgs(wpOptions)
+      combinedArgs = await this.buildArgs(wpOptions)
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
-    return this.http.getRaw(
-      endpoint + DEFAULT_API_PATH + `tags` + combinedArgs,
-      {
-        metric: 'tags' + combinedArgs,
-      }
-    )
+    return this.http.getRaw(`${endpoint}${this.apiPath}tags${combinedArgs}`, {
+      metric: `tags${combinedArgs}`,
+    })
   }
 
   public async getTag(id: number, customDomain?: string) {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    let endpoint = this.endpoint
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
+    let { endpoint } = this
     if (customDomain) endpoint = customDomain
-    return this.http.get(endpoint + DEFAULT_API_PATH + `tags/` + id, {
-      metric: 'tag' + id,
+    return this.http.get(`${endpoint}${this.apiPath}tags/${id}`, {
+      metric: `tag${id}`,
     })
   }
 
@@ -132,34 +166,43 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let combinedArgs = ''
-    let endpoint = this.endpoint
+    let { endpoint } = this
     if (wpOptions) {
-      combinedArgs = this.buildArgs(wpOptions)
+      combinedArgs = await this.buildArgs(wpOptions)
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
-    return this.http.getRaw(
-      endpoint + DEFAULT_API_PATH + `pages` + combinedArgs,
-      {
-        metric: 'pages' + combinedArgs,
-      }
-    )
+    return this.http.getRaw(`${endpoint}${this.apiPath}pages${combinedArgs}`, {
+      metric: `pages${combinedArgs}`,
+    })
   }
 
   public async getPage(id: number, password?: string, customDomain?: string) {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let formattedPassword = ''
-    let endpoint = this.endpoint
+    let { endpoint } = this
     if (customDomain) endpoint = customDomain
-    if (password) formattedPassword = '?password=' + password
+    if (password) {
+      if (this.apiPath && this.apiPath.indexOf('?') >= 0) {
+        formattedPassword = `&password=${password}`
+      } else {
+        formattedPassword = `?password=${password}`
+      }
+    }
 
     return this.http.get(
-      endpoint + DEFAULT_API_PATH + `pages/` + id + formattedPassword,
+      `${endpoint}${this.apiPath}pages/${id}${formattedPassword}`,
       {
-        metric: 'page' + id + formattedPassword,
+        metric: `page${id}${formattedPassword}`,
       }
     )
   }
@@ -168,15 +211,18 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let combinedArgs = ''
     if (wpOptions) {
-      combinedArgs = this.buildArgs(wpOptions)
+      combinedArgs = await this.buildArgs(wpOptions)
     }
 
     return this.http.getRaw(
-      this.endpoint + DEFAULT_API_PATH + `comments` + combinedArgs,
+      `${this.endpoint}${this.apiPath}comments${combinedArgs}`,
       {
-        metric: 'comments' + combinedArgs,
+        metric: `comments${combinedArgs}`,
       }
     )
   }
@@ -185,13 +231,22 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let formattedPassword = ''
-    if (password) formattedPassword = '?password=' + password
+    if (password) {
+      if (this.apiPath && this.apiPath.indexOf('?') >= 0) {
+        formattedPassword = `&password=${password}`
+      } else {
+        formattedPassword = `?password=${password}`
+      }
+    }
 
     return this.http.get(
-      this.endpoint + DEFAULT_API_PATH + `comments/` + id + formattedPassword,
+      `${this.endpoint}${this.apiPath}comments/${id}${formattedPassword}`,
       {
-        metric: 'comment' + id + formattedPassword,
+        metric: `comment${id}${formattedPassword}`,
       }
     )
   }
@@ -200,12 +255,21 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let formattedType = ''
-    if (type) formattedType = '?type=' + type
+    if (type) {
+      if (this.apiPath && this.apiPath.indexOf('?') >= 0) {
+        formattedType = `&type=${type}`
+      } else {
+        formattedType = `?type=${type}`
+      }
+    }
     return this.http.get(
-      this.endpoint + DEFAULT_API_PATH + `taxonomies` + formattedType,
+      `${this.endpoint}${this.apiPath}taxonomies${formattedType}`,
       {
-        metric: 'taxonomies' + formattedType,
+        metric: `taxonomies${formattedType}`,
       }
     )
   }
@@ -214,10 +278,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     return this.http.get(
-      this.endpoint + DEFAULT_API_PATH + `taxonomies/` + taxonomy,
+      `${this.endpoint}${this.apiPath}taxonomies/${taxonomy}`,
       {
-        metric: 'taxonomy' + taxonomy,
+        metric: `taxonomy${taxonomy}`,
       }
     )
   }
@@ -226,15 +293,18 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let combinedArgs = ''
     if (wpOptions) {
-      combinedArgs = this.buildArgs(wpOptions)
+      combinedArgs = await this.buildArgs(wpOptions)
     }
 
     return this.http.getRaw(
-      this.endpoint + DEFAULT_API_PATH + `media` + combinedArgs,
+      `${this.endpoint}${this.apiPath}media${combinedArgs}`,
       {
-        metric: 'media' + combinedArgs,
+        metric: `media${combinedArgs}`,
       }
     )
   }
@@ -243,10 +313,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    let endpoint = this.endpoint
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
+    let { endpoint } = this
     if (customDomain) endpoint = customDomain
-    return this.http.get(endpoint + DEFAULT_API_PATH + `media/` + id, {
-      metric: 'media-single' + id,
+    return this.http.get(`${endpoint}${this.apiPath}media/${id}`, {
+      metric: `media-single${id}`,
     })
   }
 
@@ -254,15 +327,18 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
     let combinedArgs = ''
     if (wpOptions) {
-      combinedArgs = this.buildArgs(wpOptions)
+      combinedArgs = await this.buildArgs(wpOptions)
     }
 
     return this.http.getRaw(
-      this.endpoint + DEFAULT_API_PATH + `users` + combinedArgs,
+      `${this.endpoint}${this.apiPath}users${combinedArgs}`,
       {
-        metric: 'users' + combinedArgs,
+        metric: `users${combinedArgs}`,
       }
     )
   }
@@ -271,10 +347,13 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    let endpoint = this.endpoint
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
+    let { endpoint } = this
     if (customDomain) endpoint = customDomain
-    return this.http.get(endpoint + DEFAULT_API_PATH + `users/` + id, {
-      metric: 'user' + id,
+    return this.http.get(`${endpoint}${this.apiPath}users/${id}`, {
+      metric: `user${id}`,
     })
   }
 
@@ -282,7 +361,10 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    return this.http.get(this.endpoint + DEFAULT_API_PATH + `types`, {
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
+    return this.http.get(`${this.endpoint}${this.apiPath}types`, {
       metric: 'post-types',
     })
   }
@@ -291,8 +373,11 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    return this.http.get(this.endpoint + DEFAULT_API_PATH + `types/` + type, {
-      metric: 'post-type' + type,
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
+    return this.http.get(`${this.endpoint}${this.apiPath}types/${type}`, {
+      metric: `post-type${type}`,
     })
   }
 
@@ -300,7 +385,10 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    return this.http.get(this.endpoint + DEFAULT_API_PATH + `statuses`, {
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
+    return this.http.get(`${this.endpoint}${this.apiPath}statuses`, {
       metric: 'post-statuses',
     })
   }
@@ -309,19 +397,22 @@ export default class WordpressProxyDataSource extends ExternalClient {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    return this.http.get(
-      this.endpoint + DEFAULT_API_PATH + `statuses/` + status,
-      {
-        metric: 'post-status' + status,
-      }
-    )
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
+    return this.http.get(`${this.endpoint}${this.apiPath}statuses/${status}`, {
+      metric: `post-status${status}`,
+    })
   }
 
   public async getSettings() {
     if (!this.endpoint) {
       await this.getEndpoint(this.context)
     }
-    return this.http.get(this.endpoint + DEFAULT_API_PATH + `settings`, {
+    if (!this.apiPath) {
+      await this.getApiPath(this.context)
+    }
+    return this.http.get(`${this.endpoint}${this.apiPath}settings`, {
       metric: 'settings',
     })
   }
