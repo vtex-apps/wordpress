@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-
 import React, { Fragment, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
@@ -37,7 +36,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
     query,
     setQuery,
     navigate,
-  } = useRuntime()
+  } = useRuntime() as any
 
   let parsedCustomDomains = null
   try {

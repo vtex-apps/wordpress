@@ -1,4 +1,5 @@
 import { ClientsConfig, IOClients, LRUCache } from '@vtex/api'
+
 import WordpressProxyDataSource from './wordpressProxy'
 
 const TIMEOUT_MS = 8000
@@ -13,7 +14,7 @@ const cacheStorage = new LRUCache<string, any>({ max: 5000 })
 metrics.trackCache('wordpressProxy', cacheStorage)
 
 export class Clients extends IOClients {
-  public get wordpressProxy(): WordpressProxyDataSource {
+  public get wordpressProxy() {
     return this.getOrSet('wordpressProxy', WordpressProxyDataSource)
   }
 }

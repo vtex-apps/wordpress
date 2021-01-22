@@ -7,7 +7,7 @@
   "categories": [],
   "registries": [],
   "builders": {
-    "node": "4.x",
+    "node": "6.x",
     "graphql": "1.x",
     "react": "3.x",
     "messages": "1.x",
@@ -37,9 +37,7 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "settingsSchema": {
     "title": "Wordpress Integration",
@@ -48,6 +46,11 @@
       "endpoint": {
         "title": "Wordpress URL",
         "description": "Enter the URL of your Wordpress installation in the form http://www.example.com/",
+        "type": "string"
+      },
+      "apiPath": {
+        "title": "Custom API path",
+        "description": "The app expects to access the Wordpress API at the above domain using the path 'wp-json/wp/v2/' but you may override this by entering a different path here. It should have a slash at the end but not at the beginning.",
         "type": "string"
       },
       "titleTag": {

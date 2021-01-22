@@ -1,5 +1,4 @@
 import { Container } from 'vtex.store-components'
-
 import React, { FunctionComponent, Fragment } from 'react'
 import { defineMessages } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'

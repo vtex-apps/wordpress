@@ -1,5 +1,4 @@
 import { Container } from 'vtex.store-components'
-
 import React, { FunctionComponent, useMemo } from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
@@ -112,7 +111,7 @@ const WordpressCategoryRelatedPostsBlock: StorefrontFunctionComponent<WPCategory
   const handles = useCssHandles(CSS_HANDLES)
   const {
     route: { params },
-  } = useRuntime()
+  } = useRuntime() as any
 
   if (!categoryIdentifier) {
     categoryIdentifier = params.id || ''

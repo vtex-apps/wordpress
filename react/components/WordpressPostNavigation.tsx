@@ -1,5 +1,4 @@
 import { Container } from 'vtex.store-components'
-
 import React, { useContext } from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages, FormattedMessage } from 'react-intl'
@@ -24,7 +23,7 @@ const WordpressPostNavigation: StorefrontFunctionComponent = () => {
     return null
   }
 
-  const customDomain = query.variables.customDomain
+  const { customDomain } = query.variables
   const date = query.data?.wpPosts?.posts[0]?.date
 
   const { data: dataNext } = useQuery(SinglePostAfterDate, {

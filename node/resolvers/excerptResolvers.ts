@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 import he = require('he')
 
 export const excerptResolvers = {

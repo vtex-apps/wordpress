@@ -6,9 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- App setting to specify an API base path other than `wp-json/v2/wp/`
+- CSS handle for Wordpress Teaser header
+
+### Changed
+
+- Update to Node 6.x builder
+
 ## [2.3.1] - 2020-12-30
 
 ### Fixed
+
 - Public metadata information following App Store standards
 
 ## [2.3.0] - 2020-11-18
