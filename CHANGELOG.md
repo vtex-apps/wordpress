@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.0] - 2021-01-22
+
 ### Added
 
 - App setting to specify an API base path other than `wp-json/v2/wp/`
