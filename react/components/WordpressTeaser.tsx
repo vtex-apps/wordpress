@@ -1,6 +1,6 @@
 import React, { FunctionComponent, Fragment, useMemo } from 'react'
 import { Card } from 'vtex.styleguide'
-import { Link } from 'vtex.render-runtime'
+import { Link, useRuntime } from 'vtex.render-runtime'
 import insane from 'insane'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -71,9 +71,13 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
   useTextOverlay,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
+  const {
+    culture: { locale },
+  } = useRuntime()
+
   const dateObj = new Date(date)
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
-  const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
+  const formattedDate = dateObj.toLocaleDateString(locale, dateOptions)
   const sanitizedTitle = useMemo(() => {
     return insane(title, sanitizerConfigStripAll)
   }, [title, sanitizerConfigStripAll])

@@ -24,7 +24,6 @@
     "vtex.shelf": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.44.2/public/_types/react",
     "vtex.store": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.110.0/public/@types/vtex.store",
     "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.140.0/public/@types/vtex.store-components",
-    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.0/public/@types/vtex.styleguide",
-    "vtex.wordpress-integration": "https://arthur--arteni.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.3.1+build1611344561/public/@types/vtex.wordpress-integration"
+    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.0/public/@types/vtex.styleguide"
   }
 }

@@ -1550,10 +1550,6 @@ vary@^1.1.2:
   version "9.135.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.0/public/@types/vtex.styleguide#3884521971a1c0f9b3773231b135e1e4abf9020f"
 
-"vtex.wordpress-integration@https://arthur--arteni.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.3.1+build1611344561/public/@types/vtex.wordpress-integration":
-  version "2.3.1"
-  resolved "https://arthur--arteni.myvtex.com/_v/private/typings/linked/v1/vtex.wordpress-integration@2.3.1+build1611344561/public/@types/vtex.wordpress-integration#0afb3c1ed4e0f02aa11d0fea69f13952789616e0"
-
 wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"

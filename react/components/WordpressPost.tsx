@@ -125,6 +125,10 @@ const WordpressPostInner: FunctionComponent<{
   customDomainSlug?: string
 }> = props => {
   const handles = useCssHandles(CSS_HANDLES)
+  const {
+    culture: { locale },
+  } = useRuntime()
+
   const { loading: loadingS, data: dataS } = useQuery(Settings)
 
   if (!props.postData) {
@@ -148,7 +152,7 @@ const WordpressPostInner: FunctionComponent<{
 
   const dateObj = new Date(date)
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
-  const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
+  const formattedDate = dateObj.toLocaleDateString(locale, dateOptions)
 
   const productIds = tags
     .filter((tag: WPTag) => tag.name && tag.name.includes('prod-'))

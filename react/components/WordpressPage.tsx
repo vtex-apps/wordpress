@@ -121,6 +121,9 @@ const CSS_HANDLES = [
 
 const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
   const handles = useCssHandles(CSS_HANDLES)
+  const {
+    culture: { locale },
+  } = useRuntime()
   const { loading: loadingS, data: dataS } = useQuery(Settings)
 
   if (!props.pageData) {
@@ -142,7 +145,7 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
 
   const dateObj = new Date(date)
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
-  const formattedDate = dateObj.toLocaleDateString('en-US', dateOptions)
+  const formattedDate = dateObj.toLocaleDateString(locale, dateOptions)
 
   const titleHtml = useMemo(() => {
     return insane(title.rendered, sanitizerConfig)
