@@ -35,6 +35,7 @@ const sanitizerConfigStripAll = {
 
 const CSS_HANDLES = [
   'teaserContainer',
+  'teaserImageContainer',
   'teaserImage',
   'teaserTextOverlay',
   'teaserTextOverlayTitle',
@@ -215,7 +216,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
           ) : (
             <Fragment>
               {absoluteLinks ? (
-                <Link to={link} target="_blank" className="tc-m db">
+                <Link to={link} target="_blank" className={`${handles.teaserImageContainer} tc-m db`}>
                   <img
                     className={`${handles.teaserImage}`}
                     src={image}
@@ -230,7 +231,7 @@ const WordpressTeaser: FunctionComponent<TeaserProps> = ({
                     slug_id: slug,
                     customdomainslug: customDomainSlug,
                   }}
-                  className="tc-m db"
+                  className={`${handles.teaserImageContainer} tc-m db`}
                 >
                   <img
                     className={`${handles.teaserImage}`}
