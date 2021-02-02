@@ -257,6 +257,7 @@ const WordpressPostInner: FunctionComponent<{
 }
 
 const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
+  children,
   customDomains,
 }) => {
   const {
@@ -296,6 +297,7 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
   if (data?.wpPosts?.posts) {
     return (
       <WordpressPostInner
+        children={children}
         postData={data.wpPosts.posts[0]}
         customDomainSlug={params.customdomainslug}
       />
