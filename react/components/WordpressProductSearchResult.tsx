@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-import React, { Fragment, useState } from 'react'
+import React, { ChangeEvent, Fragment, useState } from 'react'
 import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { Spinner, Pagination } from 'vtex.styleguide'
@@ -53,13 +53,13 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
       textOf="of"
       textShowRows="posts per page"
       totalItems={data?.wpPosts?.total_count ?? 0}
-      onRowsChange={(event: any) => {
+      onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         setPage(1)
-        setPerPage(event.target.value)
+        setPerPage(+value)
         fetchMore({
           variables: {
             wp_page: 1,
-            wp_per_page: event.target.value,
+            wp_per_page: +value,
             terms: searchQuery.data.searchMetadata.titleTag,
             customDomain,
           },

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-import React, { Fragment, useState } from 'react'
+import React, { ChangeEvent, Fragment, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
@@ -71,7 +71,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
       textOf="of"
       textShowRows="posts per page"
       totalItems={data?.wpCategories?.categories[0]?.wpPosts?.total_count ?? 0}
-      onRowsChange={(event: any) => {
+      onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         setPage(1)
         if (pages[id].path.indexOf(':page') > 0) {
           params.page = '1'
@@ -83,11 +83,11 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
         } else {
           setQuery({ page: '1' })
         }
-        setPerPage(event.target.value)
+        setPerPage(+value)
         fetchMore({
           variables: {
             wp_page: 1,
-            wp_per_page: event.target.value,
+            wp_per_page: +value,
             customDomain,
             ...categoryVariable,
           },

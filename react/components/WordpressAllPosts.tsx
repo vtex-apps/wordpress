@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
+import type { ChangeEvent } from 'react'
 import React, { Fragment, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { defineMessages } from 'react-intl'
@@ -56,7 +57,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       textOf="of"
       textShowRows="posts per page"
       totalItems={data?.wpPosts?.total_count ?? 0}
-      onRowsChange={(event: any) => {
+      onRowsChange={({target: {value}}: ChangeEvent<HTMLInputElement> ) => {
         setPage(1)
         if (pages[id].path.indexOf(':page') > 0) {
           params.page = '1'
@@ -68,11 +69,11 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
         } else {
           setQuery({ page: '1' })
         }
-        setPerPage(event.target.value)
+        setPerPage(+value)
         fetchMore({
           variables: {
             wp_page: 1,
-            wp_per_page: event.target.value,
+            wp_per_page: +value,
             customDomain,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
