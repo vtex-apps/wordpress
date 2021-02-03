@@ -1,7 +1,7 @@
 {
   "name": "wordpress-integration",
   "vendor": "vtex",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "title": "Wordpress Integration",
   "description": "Connect a Wordpress blog to a VTEX store",
   "categories": [],
