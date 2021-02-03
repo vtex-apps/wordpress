@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- CSS handle for Wordpress Teaser image container
+
 ## [2.4.2] - 2021-02-02
 
 ### Fixed
