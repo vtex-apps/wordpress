@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add Blog posts and categories to sitemap
+
 ### Fixed
 
 - Support sku-selector inside related product shelf

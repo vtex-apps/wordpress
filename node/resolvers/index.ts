@@ -1,3 +1,5 @@
+import { LogLevel } from '@vtex/api'
+
 /* eslint-disable @typescript-eslint/camelcase */
 export const queries = {
   wpPosts: async (
@@ -26,30 +28,41 @@ export const queries = {
     }: {
       page: number
       per_page: number
-      search: string
-      after: string
-      author: [number]
-      author_exclude: [number]
-      before: string
-      exclude: [number]
-      include: [number]
-      offset: number
+      search?: string
+      after?: string
+      author?: [number]
+      author_exclude?: [number]
+      before?: string
+      exclude?: [number]
+      include?: [number]
+      offset?: number
       order: string
       orderby: string
-      slug: [string]
+      slug?: [string]
       status: [string]
-      categories: [number]
-      categories_exclude: [number]
-      tags: [number]
-      tags_exclude: [number]
-      sticky: boolean
-      customDomain: string
+      categories?: [number]
+      categories_exclude?: [number]
+      tags?: [number]
+      tags_exclude?: [number]
+      sticky?: boolean
+      customDomain?: string
     },
     ctx: Context
-  ) => {
+  ): Promise<{ posts: WpPost[]; total_count: string }> => {
     const {
-      clients: { wordpressProxy },
+      clients: { wordpressProxy, sitemap },
+      vtex: { logger },
     } = ctx
+
+    try {
+      const hasSitemap = await sitemap.hasSitemap()
+
+      if (!hasSitemap) {
+        sitemap.saveIndex()
+      }
+    } catch (err) {
+      logger.log(err, LogLevel.Error)
+    }
 
     const options = {
       page,
@@ -108,16 +121,16 @@ export const queries = {
     }: {
       page: number
       per_page: number
-      search: string
-      exclude: [number]
-      include: [number]
-      order: string
-      orderby: string
-      hide_empty: boolean
-      parent: number
-      post: number
-      slug: [string]
-      customDomain: string
+      search?: string
+      exclude?: [number]
+      include?: [number]
+      order?: string
+      orderby?: string
+      hide_empty?: boolean
+      parent?: number
+      post?: number
+      slug?: [string]
+      customDomain?: string
     },
     ctx: Context
   ) => {
@@ -181,16 +194,16 @@ export const queries = {
     }: {
       page: number
       per_page: number
-      search: string
-      exclude: [number]
-      include: [number]
-      offset: number
-      order: string
-      orderby: string
-      hide_empty: boolean
-      post: number
-      slug: [string]
-      customDomain: string
+      search?: string
+      exclude?: [number]
+      include?: [number]
+      offset?: number
+      order?: string
+      orderby?: string
+      hide_empty?: boolean
+      post?: number
+      slug?: [string]
+      customDomain?: string
     },
     ctx: Context
   ) => {

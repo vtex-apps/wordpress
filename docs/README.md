@@ -24,8 +24,9 @@ In your VTEX account's admin, perform the following actions:
 2. Select the **Wordpress Integration** app box.
 3. In the Settings section, enter your **Wordpress URL**. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered.
 4. If your Wordpress installation's API is hosted under a path other than `wp-json/wp/v2/`, enter the path in the **Wordpress API path** field. For example, if the `posts` endpoint looks like `https://example.wordpress.com/index.php?rest_route=/wp/v2/posts`, enter `index.php?rest_route=/wp/v2/` here. If unsure, leave the field blank.
-5. Enter then the **Title tag for block homepage** which will determine the title tag for the Wordpress portions of your store.
-6. Save your changes.
+5. Enter the **Title tag for block homepage** which will determine the title tag for the Wordpress portions of your store.
+6. Enter the **Store blog home path** which is used to include Wordpress posts in the stores sitemap and be indexed by search engines.
+7. Save your changes.
 
 ### Step 3 - Creating the blog pages
 

@@ -23,6 +23,7 @@
     "vtex.store": "2.x",
     "vtex.styleguide": "9.x",
     "vtex.store-components": "3.x",
+    "vtex.store-sitemap": "2.x",
     "vtex.shelf": "1.x",
     "vtex.product-summary": "2.x",
     "vtex.product-context": "0.x",
@@ -59,6 +60,11 @@
         "title": "Title tag for blog homepage",
         "description": "Will also be appended to inner blog pages",
         "type": "string"
+      },
+      "blogPath": {
+        "title": "Store blog home path",
+        "description": "The app adds blog URLs to the sitemap, allowing for these pages to be index by search engines. Enter the path used to the store's blog home page, as found in the theme's `routes.json` file. Enter the string used without a beginning or ending slash, if '/blog', simply enter 'blog'",
+        "type": "string"
       }
     }
   },
@@ -76,6 +82,9 @@
         "host": "*",
         "path": "/wp-json/wp/v2/*"
       }
+    },
+    {
+      "name": "vtex.store-sitemap:resolve-graphql"
     }
   ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
