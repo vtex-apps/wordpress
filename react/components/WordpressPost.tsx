@@ -43,6 +43,7 @@ const sanitizerConfig = {
     'hr',
     'br',
     'div',
+    'span',
     'table',
     'thead',
     'caption',
