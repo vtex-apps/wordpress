@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Support span tag in post html data
+
 ## [2.5.0] - 2021-02-05
 
 ### Added
@@ -17,6 +21,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support sku-selector inside related product shelf
 
 ## [2.4.4] - 2021-02-03
+
+### Fixed
+
+- Added App Store metadata information
 
 ## [2.4.3] - 2021-02-03
 
