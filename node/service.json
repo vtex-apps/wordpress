@@ -1,0 +1,16 @@
+{
+  "stack": "nodejs",
+  "memory": 1024,
+  "ttl": 300,
+  "timeout": 60,
+  "routes": {
+    "postsSitemap": {
+      "path": "/sitemap/blog-posts.xml",
+      "public": true
+    },
+    "categoriesSitemap": {
+      "path": "/sitemap/blog-categories.xml",
+      "public": true
+    }
+  }
+}

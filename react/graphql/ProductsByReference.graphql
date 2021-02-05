@@ -38,6 +38,11 @@ query ProductsByReference($ids: [ID!]) {
           ListPrice
         }
       }
+      variations {
+        originalName
+        name
+        values
+      }
     }
     productClusters {
       id

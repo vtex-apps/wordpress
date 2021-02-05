@@ -1,6 +1,7 @@
 import { Service } from '@vtex/api'
 
 import { queries } from './resolvers/index'
+import { routes } from './resolvers/routes'
 import { postResolvers } from './resolvers/postResolvers'
 import { pageResolvers } from './resolvers/pageResolvers'
 import { titleResolvers } from './resolvers/titleResolvers'
@@ -11,6 +12,9 @@ import { clients } from './clients'
 
 export default new Service({
   clients,
+  routes: {
+    ...routes,
+  },
   graphql: {
     resolvers: {
       Query: {

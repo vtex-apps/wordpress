@@ -39,6 +39,7 @@ const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = ({
   const handles = useCssHandles(CSS_HANDLES)
   const { data, loading, error } = useQuery(CategorySimpleBySlug, {
     variables: { categorySlug, customDomain },
+    skip: !categorySlug,
   })
   if (loading || error) return <Fragment></Fragment>
   if (data?.wpCategories?.categories?.length)
