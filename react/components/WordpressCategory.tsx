@@ -61,6 +61,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(CategoryPostsBySlug, {
     variables: { ...categoryVariable, ...initialPageVars, customDomain },
+    skip: !categoryVariable.categorySlug,
   })
 
   const PaginationComponent = (
