@@ -115,8 +115,8 @@ const WordpressBreadcrumb: StorefrontFunctionComponent<Props> = ({
   }
 
   const customDomain =
-    params.customdomainslug && parsedCustomDomains
-      ? parsedCustomDomains[params.customdomainslug]
+    params?.customdomainslug && parsedCustomDomains
+      ? parsedCustomDomains[params?.customdomainslug]
       : undefined
 
   // if we're on a category page with a slug

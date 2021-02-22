@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- `WordpressBreadcrumb` component: handle undefined `params` object
+
 ## [2.5.1] - 2021-02-05
 
 ### Fixed
