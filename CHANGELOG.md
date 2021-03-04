@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fetch all Post/Categories query in sitemap generation endpoint
+- Add sitemap entries to all sitemaps when multiple bindings are used
+
 ## [2.5.2] - 2021-02-22
 
 ### Fixed

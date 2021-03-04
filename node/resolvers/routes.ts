@@ -11,7 +11,7 @@ export const routes = {
       const quantity = API_MAX_QUANTITY
       let page = 1
       let total = 0
-      let offset = 0
+      let runningTotal = 0
 
       const sitemapContent = []
 
@@ -45,12 +45,13 @@ export const routes = {
           }
 
           total = parseInt(response?.total_count, 10) || 0
-          offset += API_MAX_QUANTITY
-        } while (total > offset)
+          runningTotal += API_MAX_QUANTITY
+          page += 1
+        } while (total > runningTotal)
 
         const sitemap = `
-          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-           ${sitemapContent.join('')}</urlset>`
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        ${sitemapContent.join('')}</urlset>`
 
         ctx.set('Content-Type', 'text/xml')
         ctx.body = sitemap
@@ -68,7 +69,7 @@ export const routes = {
       const quantity = API_MAX_QUANTITY
       let page = 1
       let total = 0
-      let offset = 0
+      let runningTotal = 0
 
       const sitemapContent = []
 
@@ -102,8 +103,9 @@ export const routes = {
           }
 
           total = parseInt(response?.total_count, 10) || 0
-          offset += API_MAX_QUANTITY
-        } while (total > offset)
+          runningTotal += API_MAX_QUANTITY
+          page += 1
+        } while (total > runningTotal)
 
         const sitemap = `
           <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">

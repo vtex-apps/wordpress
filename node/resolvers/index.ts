@@ -55,10 +55,10 @@ export const queries = {
     } = ctx
 
     try {
-      const hasSitemap = await sitemap.hasSitemap()
+      const hasSitemap = await sitemap.hasSitemap(ctx)
 
       if (!hasSitemap) {
-        sitemap.saveIndex()
+        sitemap.saveIndex(ctx)
       }
     } catch (err) {
       logger.log(err, LogLevel.Error)
