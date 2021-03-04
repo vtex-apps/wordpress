@@ -25,8 +25,10 @@ In your VTEX account's admin, perform the following actions:
 3. In the Settings section, enter your **Wordpress URL**. This should be the domain where the Wordpress API endpoint is hosted and Wordpress is administered.
 4. If your Wordpress installation's API is hosted under a path other than `wp-json/wp/v2/`, enter the path in the **Wordpress API path** field. For example, if the `posts` endpoint looks like `https://example.wordpress.com/index.php?rest_route=/wp/v2/posts`, enter `index.php?rest_route=/wp/v2/` here. If unsure, leave the field blank.
 5. Enter the **Title tag for block homepage** which will determine the title tag for the Wordpress portions of your store.
-6. Enter the **Store blog home path** which is used to include Wordpress posts in the stores sitemap and be indexed by search engines.
+6. Enter the **Store blog home path** which is used to include Wordpress posts in the sitemap and be indexed by search engines. For example, the path to your store's blog is www.my-store.com/blog, you would enter 'blog'.
 7. Save your changes.
+
+:information_source: _The settings option `Create Sitemap Entries` will likely not need to be modified. This setting tells the app to create the initial sitemap entries. Once this is done, the app programmatically updates this setting to prevent duplicate sitemap entires._
 
 ### Step 3 - Creating the blog pages
 
@@ -58,7 +60,7 @@ It is time to create the store pages that will host the blog content. Before per
 }
 ```
 
-:information*source: \_You may change `blog` in each route to another string of your choosing.*
+:information_source: _You may change `blog` in each route to another string of your choosing._
 
 | Blog page                  | Description                                                                                                                             |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
@@ -189,7 +191,7 @@ Starting with version 1.6.0 of this app, blog content from **multiple WordPress 
 
 To accomplish this, a `customdomainslug` parameter must be added to your blog routes, and your WordPress blocks must be updated with various props.
 
-:information*source: \_This configuration is not required if you only wish to display blog content from a single WordPress domain.*
+:information_source: _This configuration is not required if you only wish to display blog content from a single WordPress domain._
 
 #### Step 1 - Adding the `customdomainslug` parameter
 
@@ -241,7 +243,7 @@ For example, if you wanted URLs with the slug `blog` to load content from `http:
 }
 ```
 
-:information*source: \_Make sure to follow the format of the example value, including the brackets and escaped double quotes.*
+:information_source: _Make sure to follow the format of the example value, including the brackets and escaped double quotes._
 
 Blocks that do not use URL params should be given a different set of props, namely `customDomainSlug` and `customDomain`. These blocks are:
 
@@ -295,7 +297,7 @@ Continuing the example from above, any block that shows content from the "defaul
   },
 ```
 
-:information*source: \_Make sure to follow the format of the example value, including the brackets and escaped double quotes.*
+:information_source: _Make sure to follow the format of the example value, including the brackets and escaped double quotes._
 
 ## Customization
 
