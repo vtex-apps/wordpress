@@ -38,9 +38,7 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "settingsSchema": {
     "title": "Wordpress Integration",
@@ -65,6 +63,12 @@
         "title": "Store blog home path",
         "description": "The app adds blog URLs to the sitemap, allowing for these pages to be index by search engines. Enter the path used to the store's blog home page, as found in the theme's `routes.json` file. Enter the string used without a beginning or ending slash, if '/blog', simply enter 'blog'",
         "type": "string"
+      },
+      "initializeSitemap": {
+        "title": "Create Sitemap Entries",
+        "description": "Create the initial sitemap entries (/blog-posts and /blog-categories) in the stores root sitemap. If setting up the app for the first time, leave this enabled so the sitemap is updated with these entries. If this is not the first time you have set up the Wordpress app, ensure the sitemap entries are not in your sitemap before changing this setting, it could result in duplicate sitemap entries.",
+        "type": "boolean",
+        "default": true
       }
     }
   },
@@ -85,6 +89,9 @@
     },
     {
       "name": "vtex.store-sitemap:resolve-graphql"
+    },
+    {
+      "name": "update-app-settings"
     }
   ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
