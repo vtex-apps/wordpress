@@ -8,7 +8,12 @@ export const pageResolvers = {
     const {
       clients: { wordpressProxy },
     } = ctx
-    return wordpressProxy.getUser(author, customDomain)
+    try {
+      return await wordpressProxy.getUser(author, customDomain)
+    } catch (e) {
+      console.error(e)
+    }
+    return null
   },
   featured_media: async (
     {
@@ -21,9 +26,13 @@ export const pageResolvers = {
     const {
       clients: { wordpressProxy },
     } = ctx
-    if (featured_media === 0) {
-      return null
+    if (featured_media > 0) {
+      try {
+        return await wordpressProxy.getMediaSingle(featured_media, customDomain)
+      } catch (e) {
+        console.error(e)
+      }
     }
-    return wordpressProxy.getMediaSingle(featured_media, customDomain)
+    return null
   },
 }
