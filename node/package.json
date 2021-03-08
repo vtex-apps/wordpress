@@ -1,6 +1,6 @@
 {
   "name": "wordpress",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
