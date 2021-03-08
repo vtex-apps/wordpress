@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Implement try/catch for author and featured_media page resolvers so that pages can still be displayed if author or media details can't be accessed
+
 ## [2.5.3] - 2021-03-04
 
 ### Fixed
