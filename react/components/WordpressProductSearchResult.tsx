@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-import React, { ChangeEvent, Fragment, useState } from 'react'
+import React, { ChangeEvent, Fragment, useState, useEffect } from 'react'
 import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { Spinner, Pagination } from 'vtex.styleguide'
@@ -44,6 +44,13 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
       customDomain,
     },
   })
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }, [page])
 
   const paginationComponent = (
     <Pagination

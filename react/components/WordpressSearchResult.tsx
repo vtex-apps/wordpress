@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-import React, { ChangeEvent, Fragment, useState } from 'react'
+import React, { ChangeEvent, Fragment, useState, useEffect } from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
@@ -63,6 +63,13 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
       customDomain,
     },
   })
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }, [page])
 
   if (!params?.term && !params?.term_id) return null
 

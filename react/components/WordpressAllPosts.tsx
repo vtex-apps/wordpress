@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
 import type { ChangeEvent } from 'react'
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
@@ -48,6 +48,13 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
       customDomain,
     },
   })
+  
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }, [page])
 
   const PaginationComponent = (
     <Pagination
