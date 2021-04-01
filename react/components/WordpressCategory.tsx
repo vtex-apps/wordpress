@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-import React, { ChangeEvent, Fragment, useState, useEffect } from 'react'
+import React, { ChangeEvent, Fragment, useState, useEffect, useRef } from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
@@ -64,11 +64,11 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
     skip: !categoryVariable.categorySlug,
   })
 
+  const containerRef = useRef<null | HTMLElement>(null)
+  const executeScroll = () => containerRef.current?.scrollIntoView()
+
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
+    executeScroll()
   }, [page])
 
   const PaginationComponent = (
@@ -179,6 +179,7 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
       <Container
         className={`${handles.listContainer} pt2 pb8`}
         style={{ maxWidth: '90%' }}
+        ref={containerRef}
       >
         <div className="ph3">{PaginationComponent}</div>
         {(loading || loadingS) && (
