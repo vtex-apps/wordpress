@@ -65,10 +65,14 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   })
 
   const containerRef = useRef<null | HTMLElement>(null)
-  const executeScroll = () => containerRef.current?.scrollIntoView()
 
   useEffect(() => {
-    executeScroll()
+    if (containerRef.current) {
+      window.scrollTo({
+        top: containerRef.current.getBoundingClientRect().top + window.pageYOffset, 
+        behavior: 'smooth'
+      });
+    }
   }, [page])
 
   const PaginationComponent = (
