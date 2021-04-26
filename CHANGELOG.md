@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.6.0] - 2021-04-26
+
 ### Added
 
 - Scroll to top when page change
