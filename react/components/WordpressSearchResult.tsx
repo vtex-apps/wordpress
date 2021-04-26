@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-import React, { ChangeEvent, Fragment, useState } from 'react'
+import React, {
+  ChangeEvent,
+  Fragment,
+  useState,
+  useEffect,
+  useRef,
+} from 'react'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
@@ -63,6 +69,26 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
       customDomain,
     },
   })
+
+  const containerRef = useRef<null | HTMLElement>(null)
+  const initialPageLoad = useRef(true)
+
+  useEffect(() => {
+    if (initialPageLoad.current) {
+      initialPageLoad.current = false
+
+      return
+    }
+    if (containerRef.current) {
+      window.scrollTo({
+        top:
+          containerRef.current.getBoundingClientRect().top +
+          window.pageYOffset -
+          100,
+        behavior: 'smooth',
+      })
+    }
+  }, [page])
 
   if (!params?.term && !params?.term_id) return null
 
@@ -178,6 +204,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
       <Container
         className={`${handles.listContainer} ${handles.searchListContainer} pt2 pb8`}
         style={{ maxWidth: '90%' }}
+        ref={containerRef}
       >
         <div className="ph3">{paginationComponent}</div>
         {(loading || loadingS) && (
