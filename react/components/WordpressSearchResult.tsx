@@ -65,8 +65,14 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   })
 
   const containerRef = useRef<null | HTMLElement>(null)
+  const initialPageLoad = useRef(true)
 
   useEffect(() => {
+    if (initialPageLoad.current) {
+      initialPageLoad.current = false
+
+      return
+    }
     if (containerRef.current) {
       window.scrollTo({
         top: containerRef.current.getBoundingClientRect().top + window.pageYOffset, 
