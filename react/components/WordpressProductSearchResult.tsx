@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-import React, { ChangeEvent, Fragment, useState, useEffect, useRef } from 'react'
+import React, {
+  ChangeEvent,
+  Fragment,
+  useState,
+  useEffect,
+  useRef,
+} from 'react'
 import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { Spinner, Pagination } from 'vtex.styleguide'
@@ -56,9 +62,12 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
     }
     if (containerRef.current) {
       window.scrollTo({
-        top: containerRef.current.getBoundingClientRect().top + window.pageYOffset, 
-        behavior: 'smooth'
-      });
+        top:
+          containerRef.current.getBoundingClientRect().top +
+          window.pageYOffset -
+          100,
+        behavior: 'smooth',
+      })
     }
   }, [page])
 

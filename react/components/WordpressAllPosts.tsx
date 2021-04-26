@@ -61,8 +61,8 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
     
     if (containerRef.current) {
       window.scrollTo({
-        top: containerRef.current.getBoundingClientRect().top + window.pageYOffset, 
-        behavior: 'smooth'
+        top: containerRef.current.getBoundingClientRect().top + window.pageYOffset - 100, 
+        behavior: 'smooth',
       });
     }
   }, [page])
