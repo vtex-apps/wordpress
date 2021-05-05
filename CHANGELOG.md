@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Use getTags and getCategories in Post resolver to prevent too many requests error from the WordPress API
+
 ## [2.6.0] - 2021-04-26
 
 ### Added

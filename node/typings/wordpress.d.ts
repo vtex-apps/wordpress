@@ -24,3 +24,22 @@ interface WpPost {
   tags: string[]
   _links: any
 }
+
+interface WpTag {
+  id: number
+  count: number
+  description: string
+  link: string
+  name: string
+  slug: string
+  taxonomy: string
+  meta: Meta
+}
+
+interface WpCategory extends WpTag {
+  parent: number
+}
+
+interface Meta {
+  [key: string]: string
+}
