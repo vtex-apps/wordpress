@@ -107,7 +107,7 @@ export default class WordpressProxyDataSource extends ExternalClient {
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
-    return this.http.getRaw(
+    return this.http.getRaw<WpCategory[]>(
       `${endpoint}${this.apiPath}categories${combinedArgs}`,
       {
         metric: `categories${combinedArgs}`,
@@ -143,9 +143,12 @@ export default class WordpressProxyDataSource extends ExternalClient {
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
-    return this.http.getRaw(`${endpoint}${this.apiPath}tags${combinedArgs}`, {
-      metric: `tags${combinedArgs}`,
-    })
+    return this.http.getRaw<WpTag[]>(
+      `${endpoint}${this.apiPath}tags${combinedArgs}`,
+      {
+        metric: `tags${combinedArgs}`,
+      }
+    )
   }
 
   public async getTag(id: number, customDomain?: string) {

@@ -38,9 +38,7 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "settingsSchema": {
     "title": "Wordpress Integration",
@@ -48,7 +46,7 @@
     "properties": {
       "endpoint": {
         "title": "Wordpress URL",
-        "description": "Enter the URL of your Wordpress installation in the form http://www.example.com/",
+        "description": "Enter the URL of your Wordpress installation in the form https://www.example.com/ (Only HTTPS is supported)",
         "type": "string"
       },
       "apiPath": {
