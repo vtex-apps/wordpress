@@ -119,6 +119,7 @@ const CSS_HANDLES = [
   'postFeaturedImage',
   'postBody',
   'postChildrenContainer',
+  'postCategoryLink',
 ] as const
 
 const WordpressPostInner: FunctionComponent<{
@@ -216,6 +217,7 @@ const WordpressPostInner: FunctionComponent<{
           {categories.map((cat: any, index: number) => (
             <span key={index}>
               <Link
+                className={handles.postCategoryLink}
                 page="store.blog-category"
                 params={{
                   categoryslug: cat.slug,

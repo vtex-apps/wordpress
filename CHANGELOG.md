@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- CSS handle for post category links in post titles
+
 ## [2.6.1] - 2021-05-05
 
 ### Fixed
