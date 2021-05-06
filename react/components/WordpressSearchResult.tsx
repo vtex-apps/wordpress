@@ -20,6 +20,7 @@ import Settings from '../graphql/Settings.graphql'
 
 interface SearchProps {
   customDomains: string
+  postsPerPage: number
 }
 
 const CSS_HANDLES = [
@@ -35,6 +36,7 @@ const CSS_HANDLES = [
 
 const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   customDomains,
+  postsPerPage,
 }) => {
   const {
     route: { id, params },
@@ -57,7 +59,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
 
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
-  const [perPage, setPerPage] = useState(10)
+  const [perPage, setPerPage] = useState(postsPerPage)
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
@@ -96,7 +98,12 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
 
   const paginationComponent = (
     <Pagination
-      rowsOptions={[10, 20, 30, 40]}
+      rowsOptions={[
+        postsPerPage,
+        postsPerPage * 2,
+        postsPerPage * 3,
+        postsPerPage * 4,
+      ]}
       currentItemFrom={(page - 1) * perPage + 1}
       currentItemTo={page * perPage}
       textOf="of"
@@ -285,6 +292,7 @@ const messages = defineMessages({
 
 WordpressSearchResult.defaultProps = {
   customDomains: undefined,
+  postsPerPage: 10,
 }
 
 WordpressSearchResult.schema = {

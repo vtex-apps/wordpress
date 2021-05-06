@@ -185,6 +185,21 @@ The Wordpress Integration app provides the following blocks for your use:
 | `categoryIdentifier` | You may manually specify the ID to be used in the WordPress tag. For example, if you set this prop to "test", the block will look for a WordPress post tagged "category-test". | String                               | (empty string) |
 | `numberOfPosts`      | `number`                                                                                                                                                                       | The number of posts to be displayed. | `3`            |
 
+### Paginated List Customization
+
+Blocks that use a paginated list accept some common props that allow customization of the paginated list behavior.
+
+These blocks include:
+
+- `blog-all-posts.wordpress-all-posts`
+- `blog-category-list.wordpress-category-list`
+- `blog-search-list.wordpress-search-list`
+- `search-blog-articles-list.wordpress`
+
+| Prop Name      | Description                                            | Type   | Default value |
+| -------------- | ------------------------------------------------------ | ------ | ------------- |
+| `postsPerPage` | Number of posts to be displayed in the paginated list. | Number | `10`          |
+
 ### Advanced configuration
 
 Starting with version 1.6.0 of this app, blog content from **multiple WordPress installations** is supported.

@@ -20,6 +20,7 @@ interface Props {
   searchQuery: any
   customDomain: string
   customDomainSlug: string
+  postsPerPage: number
 }
 
 const CSS_HANDLES = [
@@ -37,16 +38,17 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
   searchQuery,
   customDomain,
   customDomainSlug,
+  postsPerPage,
 }) => {
   const [page, setPage] = useState(1)
-  const [perPage, setPerPage] = useState(10)
+  const [perPage, setPerPage] = useState(postsPerPage)
   const handles = useCssHandles(CSS_HANDLES)
   const { loading, error, data, fetchMore } = useQuery(SearchPosts, {
     skip: !searchQuery,
     variables: {
       terms: searchQuery?.data?.searchMetadata?.titleTag ?? null,
       wp_page: 1,
-      wp_per_page: 10,
+      wp_per_page: perPage,
       customDomain,
     },
   })
@@ -73,7 +75,12 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
 
   const paginationComponent = (
     <Pagination
-      rowsOptions={[10, 20, 30, 40]}
+      rowsOptions={[
+        postsPerPage,
+        postsPerPage * 2,
+        postsPerPage * 3,
+        postsPerPage * 4,
+      ]}
       currentItemFrom={(page - 1) * perPage + 1}
       currentItemTo={page * perPage}
       textOf="of"
@@ -233,6 +240,7 @@ const messages = defineMessages({
 WordpressSearchResult.defaultProps = {
   customDomain: undefined,
   customDomainSlug: undefined,
+  postsPerPage: 10,
 }
 
 WordpressSearchResult.schema = {

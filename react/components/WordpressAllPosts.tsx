@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
-import type { ChangeEvent } from 'react'
-import React, { Fragment, useState, useEffect, useRef } from 'react'
+import React, {
+  ChangeEvent,
+  Fragment,
+  useState,
+  useEffect,
+  useRef,
+} from 'react'
 import { Helmet } from 'react-helmet'
 import { defineMessages } from 'react-intl'
 import { useQuery } from 'react-apollo'
@@ -23,11 +28,13 @@ const CSS_HANDLES = [
 interface AllPostsProps {
   customDomain: string
   customDomainSlug: string
+  postsPerPage: number
 }
 
 const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
   customDomain,
   customDomainSlug,
+  postsPerPage,
 }) => {
   const {
     route: { id, params },
@@ -38,13 +45,13 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
   } = useRuntime() as any
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
-  const [perPage, setPerPage] = useState(10)
+  const [perPage, setPerPage] = useState(postsPerPage)
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(AllPosts, {
     variables: {
       wp_page: 1,
-      wp_per_page: 10,
+      wp_per_page: perPage,
       customDomain,
     },
   })
@@ -54,29 +61,36 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
 
   useEffect(() => {
     if (initialPageLoad.current) {
-      initialPageLoad.current = false;
+      initialPageLoad.current = false
 
       return
     }
-    
+
     if (containerRef.current) {
       window.scrollTo({
-        top: containerRef.current.getBoundingClientRect().top + window.pageYOffset - 100, 
+        top:
+          containerRef.current.getBoundingClientRect().top +
+          window.pageYOffset -
+          100,
         behavior: 'smooth',
-      });
+      })
     }
   }, [page])
 
-
   const PaginationComponent = (
     <Pagination
-      rowsOptions={[10, 20, 30, 40]}
+      rowsOptions={[
+        postsPerPage,
+        postsPerPage * 2,
+        postsPerPage * 3,
+        postsPerPage * 4,
+      ]}
       currentItemFrom={(page - 1) * perPage + 1}
       currentItemTo={page * perPage}
       textOf="of"
       textShowRows="posts per page"
       totalItems={data?.wpPosts?.total_count ?? 0}
-      onRowsChange={({target: {value}}: ChangeEvent<HTMLInputElement> ) => {
+      onRowsChange={({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         setPage(1)
         if (pages[id].path.indexOf(':page') > 0) {
           params.page = '1'
@@ -254,6 +268,7 @@ const messages = defineMessages({
 WordpressAllPosts.defaultProps = {
   customDomain: undefined,
   customDomainSlug: undefined,
+  postsPerPage: 10,
 }
 
 WordpressAllPosts.schema = {

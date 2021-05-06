@@ -20,6 +20,7 @@ import Settings from '../graphql/Settings.graphql'
 
 interface CategoryProps {
   customDomains: string
+  postsPerPage: number
 }
 
 const CSS_HANDLES = [
@@ -29,13 +30,9 @@ const CSS_HANDLES = [
   'listFlexItem',
 ] as const
 
-const initialPageVars = {
-  wp_page: 1,
-  wp_per_page: 10,
-}
-
 const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   customDomains,
+  postsPerPage,
 }) => {
   const {
     route: { id, params },
@@ -59,14 +56,19 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
 
   const initialPage = params.page ?? query?.page ?? '1'
   const [page, setPage] = useState(parseInt(initialPage, 10))
-  const [perPage, setPerPage] = useState(10)
+  const [perPage, setPerPage] = useState(postsPerPage)
   const categoryVariable = {
     categorySlug: params.categoryslug || params.categoryslug_id,
   }
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)
   const { loading, error, data, fetchMore } = useQuery(CategoryPostsBySlug, {
-    variables: { ...categoryVariable, ...initialPageVars, customDomain },
+    variables: {
+      ...categoryVariable,
+      wp_page: 1,
+      wp_per_page: perPage,
+      customDomain,
+    },
     skip: !categoryVariable.categorySlug,
   })
 
@@ -92,7 +94,12 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
 
   const PaginationComponent = (
     <Pagination
-      rowsOptions={[10, 20, 30, 40]}
+      rowsOptions={[
+        postsPerPage,
+        postsPerPage * 2,
+        postsPerPage * 3,
+        postsPerPage * 4,
+      ]}
       currentItemFrom={(page - 1) * perPage + 1}
       currentItemTo={page * perPage}
       textOf="of"
@@ -280,6 +287,7 @@ const messages = defineMessages({
 
 WordpressCategory.defaultProps = {
   customDomains: undefined,
+  postsPerPage: 10,
 }
 
 WordpressCategory.schema = {
