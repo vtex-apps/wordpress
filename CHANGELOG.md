@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add block prop to customize posts per page in paginated lists
+- CSS handle for post category links in post titles
+
 ## [2.6.1] - 2021-05-05
 
 ### Fixed
