@@ -213,7 +213,7 @@ const WordpressPostInner: FunctionComponent<{
           dangerouslySetInnerHTML={{ __html: titleHtml }}
         />
         <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
-          <span>Posted {formattedDate} in </span>
+          <span>Postado {formattedDate} em </span>
           {categories.map((cat: any, index: number) => (
             <span key={index}>
               <Link
@@ -230,7 +230,7 @@ const WordpressPostInner: FunctionComponent<{
               {index + 1 === categories.length ? '' : ', '}
             </span>
           ))}
-          {author && <span> by {author.name}</span>}
+          {author && <span> por {author.name}</span>}
         </p>
         {featured_media && featured_media.media_type === 'image' && (
           <div className="mw9 pb8">
