@@ -72,6 +72,6 @@
   "admin/editor.wordpressBreadcrumb.description": "admin/editor.wordpressBreadcrumb.description",
   "store/wordpress-integration.wordpressPostNavigation.next": "store/wordpress-integration.wordpressPostNavigation.next",
   "store/wordpress-integration.wordpressPostNavigation.previous": "store/wordpress-integration.wordpressPostNavigation.previous",
-  "wordpress.posted": "wordpress.posted",
-  "wordpress.post.author": "wordpress.post.author"  
+  "store/wordpress-integration.wordpressPost.postedIn": "store/wordpress-integration.wordpressPost.postedIn",
+  "store/wordpress-integration.wordpressPost.byAuthor": "store/wordpress-integration.wordpressPost.byAuthor" 
 }
