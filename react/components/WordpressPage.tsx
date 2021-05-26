@@ -217,7 +217,7 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
           <span> 
             <formattedMessage 
               id="store/wordpress-integration.wordpressPage.byAuthor"
-              defaultMessage="by {author.name}" 
+              defaultMessage="by {name}" 
               values={{
                 name: author.name
               }}

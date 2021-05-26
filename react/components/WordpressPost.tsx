@@ -242,7 +242,7 @@ const WordpressPostInner: FunctionComponent<{
             <span>
               <FormattedMessage
                 id="store/wordpress-integration.wordpressPost.byAuthor"
-                defaultMessage="by {author.name}"
+                defaultMessage="by {name}"
                 values={{
                   name:author.name
                 }}

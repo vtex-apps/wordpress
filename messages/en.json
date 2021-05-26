@@ -73,7 +73,7 @@
   "store/wordpress-integration.wordpressPostNavigation.next": "Next Article >",
   "store/wordpress-integration.wordpressPostNavigation.previous": "< Previous Article",
   "store/wordpress-integration.wordpressPost.postedIn": "Posted {formattedDate} by",
-  "store/wordpress-integration.wordpressPost.byAuthor": "by {author.name}",
+  "store/wordpress-integration.wordpressPost.byAuthor": "by {name}",
   "store/wordpress-integration.wordpressPage.posted": "Posted {formattedDate}",
-  "store/wordpress-integration.wordpressPage.byAuthor": "by {author.name}"
+  "store/wordpress-integration.wordpressPage.byAuthor": "by {name}"
 }
