@@ -204,8 +204,25 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
           dangerouslySetInnerHTML={{ __html: titleHtml }}
         />
         <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
-          <span>Postado {formattedDate} </span>
-          {author && <span> por {author.name}</span>}
+          <span>
+            <formattedMessage                   
+              id="store/wordpress-integration.wordpressPage.posted"
+              defaultMessage= "Posted {formattedDate}"
+              values={{
+                formattedDate
+              }}
+            /> 
+          </span>
+          {author && 
+          <span> 
+            <formattedMessage 
+              id="store/wordpress-integration.wordpressPage.byAuthor"
+              defaultMessage="by {author.name}" 
+              values={{
+                name: author.name
+              }}
+            />
+          </span>}
         </p>
         {featured_media && featured_media.media_type === 'image' && (
           <div className="mw9 pb8">

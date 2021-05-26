@@ -73,5 +73,7 @@
   "store/wordpress-integration.wordpressPostNavigation.next": "store/wordpress-integration.wordpressPostNavigation.next",
   "store/wordpress-integration.wordpressPostNavigation.previous": "store/wordpress-integration.wordpressPostNavigation.previous",
   "store/wordpress-integration.wordpressPost.postedIn": "store/wordpress-integration.wordpressPost.postedIn",
-  "store/wordpress-integration.wordpressPost.byAuthor": "store/wordpress-integration.wordpressPost.byAuthor" 
+  "store/wordpress-integration.wordpressPost.byAuthor": "store/wordpress-integration.wordpressPost.byAuthor",
+  "store/wordpress-integration.wordpressPage.posted": "store/wordpress-integration.wordpressPage.posted",
+  "store/wordpress-integration.wordpressPage.byAuthor": "store/wordpress-integration.wordpressPage.byAuthor"
 }
