@@ -2,7 +2,7 @@
 import { Container } from 'vtex.store-components'
 import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
-import { defineMessages } from 'react-intl'
+import { defineMessages, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime, Link } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
@@ -213,7 +213,15 @@ const WordpressPostInner: FunctionComponent<{
           dangerouslySetInnerHTML={{ __html: titleHtml }}
         />
         <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
-          <span>Postado {formattedDate} em </span>
+          <span>
+            <FormattedMessage
+              id="wordpress.posted"
+              defaultMessage="Posted {formattedDate} by"
+              values={{
+                formattedDate
+              }}
+            />
+          </span>
           {categories.map((cat: any, index: number) => (
             <span key={index}>
               <Link
@@ -230,7 +238,16 @@ const WordpressPostInner: FunctionComponent<{
               {index + 1 === categories.length ? '' : ', '}
             </span>
           ))}
-          {author && <span> por {author.name}</span>}
+          {author && 
+            <span>
+              <FormattedMessage
+                id="wordpress.post.author"
+                defaultMessage="by {author.name}"
+                values={{
+                  name:author.name
+                }}
+              />
+            </span>}
         </p>
         {featured_media && featured_media.media_type === 'image' && (
           <div className="mw9 pb8">

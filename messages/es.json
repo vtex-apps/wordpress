@@ -71,5 +71,7 @@
   "admin/editor.wordpressBreadcrumb.title": "Navegación de WordPress",
   "admin/editor.wordpressBreadcrumb.description": "Muestra una navegación específica para las páginas de su blog VTEX; es decir, 'Página de Inicio del Blog / (categoría) / (título del post)' ",
   "store/wordpress-integration.wordpressPostNavigation.next": "Siguiente Artículo >",
-  "store/wordpress-integration.wordpressPostNavigation.previous": "< Artículo Anterior"
+  "store/wordpress-integration.wordpressPostNavigation.previous": "< Artículo Anterior",
+  "wordpress.posted": "Publicado {formattedDate} en",
+  "wordpress.post.author": "por {author.name}"
 }
