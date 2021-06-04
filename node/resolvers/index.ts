@@ -1,5 +1,7 @@
 import { LogLevel } from '@vtex/api'
 
+import addCSShandles from '../utils/jsdom'
+
 /* eslint-disable @typescript-eslint/camelcase */
 export const queries = {
   wpPosts: async (
@@ -88,6 +90,9 @@ export const queries = {
     }
     const { headers, data } = await wordpressProxy.getPosts(options)
     const posts = data
+    if (data.length) {
+      posts[0].content.rendered = addCSShandles(data[0].content.rendered)
+    }
     const total_count = headers['x-wp-total']
     const result = { posts, total_count }
     return result
@@ -308,6 +313,9 @@ export const queries = {
 
     const { headers, data } = await wordpressProxy.getPages(options)
     const pages = data
+    if (data.length) {
+      pages[0].content.rendered = addCSShandles(data[0].content.rendered)
+    }
     const total_count = headers['x-wp-total']
     const result = { pages, total_count }
     return result

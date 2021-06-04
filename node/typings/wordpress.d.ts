@@ -10,7 +10,7 @@ interface WpPost {
   type: 'post'
   link: string
   title: any
-  content: any
+  content: Content
   excerpt: any
   author: number
   featured_media: number
@@ -23,6 +23,11 @@ interface WpPost {
   categories: string[]
   tags: string[]
   _links: any
+}
+
+interface Content {
+  rendered: string
+  protected: boolean
 }
 
 interface WpTag {

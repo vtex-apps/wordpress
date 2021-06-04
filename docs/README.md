@@ -347,6 +347,7 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `postTitle`                            |
 | `postMeta`                             |
 | `postFeaturedImage`                    |
+| `postFeaturedImageContainer`           |
 | `postBody`                             |
 | `postCategoryLink`                     |
 | `postChildrenContainer`                |
@@ -383,6 +384,7 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `teaserTextOverlayMeta`                |
 | `teaserTitle`                          |
 | `teaserTitleLink`                      |
+| `wordpressContentLink`                 |
 | `wordpressRelatedProducts`             |
 
 <!-- DOCS-IGNORE:start -->

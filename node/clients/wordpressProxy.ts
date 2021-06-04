@@ -62,9 +62,12 @@ export default class WordpressProxyDataSource extends ExternalClient {
       if (wpOptions.customDomain) endpoint = wpOptions.customDomain
     }
 
-    return this.http.getRaw(`${endpoint}${this.apiPath}posts${combinedArgs}`, {
-      metric: `posts${combinedArgs}`,
-    })
+    return this.http.getRaw<WpPost[]>(
+      `${endpoint}${this.apiPath}posts${combinedArgs}`,
+      {
+        metric: `posts${combinedArgs}`,
+      }
+    )
   }
 
   public async getPost(id: number, password?: string, customDomain?: string) {

@@ -9,12 +9,14 @@
   "license": "ISC",
   "dependencies": {
     "graphql": "^14.2.1",
-    "he": "^1.2.0"
+    "he": "^1.2.0",
+    "jsdom": "^16.6.0"
   },
   "devDependencies": {
     "@types/he": "^1.1.0",
+    "@types/jsdom": "^16.2.10",
     "@types/sanitize-html": "^1.20.2",
-    "@vtex/api": "6.41.0",
+    "@vtex/api": "6.42.1",
     "vtex.blog-interfaces": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.blog-interfaces@0.2.0/public/@types/vtex.blog-interfaces",
     "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles",
     "vtex.product-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-context@0.9.9/public/@types/vtex.product-context",
