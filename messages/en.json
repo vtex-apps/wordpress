@@ -72,8 +72,8 @@
   "admin/editor.wordpressBreadcrumb.description": "Displays a breadcrumb specific to your VTEX blog pages, i.e. 'Blog Home / (category) / (title of post)' ",
   "store/wordpress-integration.wordpressPostNavigation.next": "Next Article >",
   "store/wordpress-integration.wordpressPostNavigation.previous": "< Previous Article",
-  "store/wordpress-integration.wordpressPost.postedIn": "Posted {formattedDate} by",
-  "store/wordpress-integration.wordpressPost.byAuthor": "by {name}",
-  "store/wordpress-integration.wordpressPage.posted": "Posted {formattedDate}",
-  "store/wordpress-integration.wordpressPage.byAuthor": "by {name}"
+  "store/wordpress-integration.wordpressPost.postedIn": "Posted {formattedDate} in ",
+  "store/wordpress-integration.wordpressPost.byAuthor": " by {name}",
+  "store/wordpress-integration.wordpressPage.posted": "Posted {formattedDate} ",
+  "store/wordpress-integration.wordpressPage.byAuthor": " by {name}"
 }

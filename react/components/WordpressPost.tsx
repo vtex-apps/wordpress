@@ -216,7 +216,7 @@ const WordpressPostInner: FunctionComponent<{
           <span>
             <FormattedMessage
               id="store/wordpress-integration.wordpressPost.postedIn"
-              defaultMessage="Posted {formattedDate} by"
+              defaultMessage="Posted {formattedDate} in "
               values={{
                 formattedDate
               }}
@@ -242,7 +242,7 @@ const WordpressPostInner: FunctionComponent<{
             <span>
               <FormattedMessage
                 id="store/wordpress-integration.wordpressPost.byAuthor"
-                defaultMessage="by {name}"
+                defaultMessage=" by {name}"
                 values={{
                   name:author.name
                 }}

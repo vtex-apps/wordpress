@@ -2,7 +2,7 @@
 import { Container } from 'vtex.store-components'
 import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
-import { defineMessages } from 'react-intl'
+import { defineMessages, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
@@ -205,9 +205,9 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
         />
         <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
           <span>
-            <formattedMessage                   
+            <FormattedMessage                   
               id="store/wordpress-integration.wordpressPage.posted"
-              defaultMessage= "Posted {formattedDate}"
+              defaultMessage= "Posted {formattedDate} "
               values={{
                 formattedDate
               }}
@@ -215,9 +215,9 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
           </span>
           {author && 
           <span> 
-            <formattedMessage 
+            <FormattedMessage 
               id="store/wordpress-integration.wordpressPage.byAuthor"
-              defaultMessage="by {name}" 
+              defaultMessage=" by {name}" 
               values={{
                 name: author.name
               }}
