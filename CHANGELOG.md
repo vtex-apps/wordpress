@@ -6,7 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add additional post content CSS handles
+
 ## [2.7.1] - 2021-06-04
+
+### Added
+
+- Add additional translations in post content meta header
 
 ## [2.7.0] - 2021-05-07
 

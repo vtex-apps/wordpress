@@ -109,14 +109,13 @@ const sanitizerConfigStripAll = {
   allowedSchemes: [],
 }
 
-const classRegex = /(class=")([^"]*)(")/g
-
 const CSS_HANDLES = [
   'postFlex',
   'postContainer',
   'postTitle',
   'postMeta',
   'postFeaturedImage',
+  'postFeaturedImageContainer',
   'postBody',
   'postChildrenContainer',
   'postCategoryLink',
@@ -169,16 +168,7 @@ const WordpressPostInner: FunctionComponent<{
       : null
   }, [featured_media?.caption?.rendered, sanitizerConfigStripAll])
   const bodyHtml = useMemo(() => {
-    let html = insane(content.rendered, sanitizerConfig)
-    // eslint-disable-next-line max-params
-    html = html.replace(classRegex, (_, $1, $2, $3) => {
-      const classArray = $2.split(' ')
-      const newClasses = classArray.map(
-        (item: string) => `vtex-wordpress-integration-2-x-${item}`
-      )
-      return `${$1}${newClasses.join(' ')}${$3}`
-    })
-    return html
+    return insane(content.rendered, sanitizerConfig)
   }, [content.rendered, sanitizerConfig])
 
   if (loadingS)
@@ -218,7 +208,7 @@ const WordpressPostInner: FunctionComponent<{
               id="store/wordpress-integration.wordpressPost.postedIn"
               defaultMessage="Posted {formattedDate} in "
               values={{
-                formattedDate
+                formattedDate,
               }}
             />
           </span>
@@ -238,19 +228,20 @@ const WordpressPostInner: FunctionComponent<{
               {index + 1 === categories.length ? '' : ', '}
             </span>
           ))}
-          {author && 
+          {author && (
             <span>
               <FormattedMessage
                 id="store/wordpress-integration.wordpressPost.byAuthor"
                 defaultMessage=" by {name}"
                 values={{
-                  name:author.name
+                  name: author.name,
                 }}
               />
-            </span>}
+            </span>
+          )}
         </p>
         {featured_media && featured_media.media_type === 'image' && (
-          <div className="mw9 pb8">
+          <div className={`${handles.postFeaturedImageContainer} mw9 pb8`}>
             <img
               className={`${handles.postFeaturedImage}`}
               src={featured_media.source_url}

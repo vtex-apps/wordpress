@@ -116,6 +116,7 @@ const CSS_HANDLES = [
   'postTitle',
   'postMeta',
   'postFeaturedImage',
+  'postFeaturedImageContainer',
   'postBody',
   'postChildrenContainer',
 ] as const
@@ -205,27 +206,28 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
         />
         <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
           <span>
-            <FormattedMessage                   
+            <FormattedMessage
               id="store/wordpress-integration.wordpressPage.posted"
-              defaultMessage= "Posted {formattedDate} "
+              defaultMessage="Posted {formattedDate} "
               values={{
-                formattedDate
-              }}
-            /> 
-          </span>
-          {author && 
-          <span> 
-            <FormattedMessage 
-              id="store/wordpress-integration.wordpressPage.byAuthor"
-              defaultMessage=" by {name}" 
-              values={{
-                name: author.name
+                formattedDate,
               }}
             />
-          </span>}
+          </span>
+          {author && (
+            <span>
+              <FormattedMessage
+                id="store/wordpress-integration.wordpressPage.byAuthor"
+                defaultMessage=" by {name}"
+                values={{
+                  name: author.name,
+                }}
+              />
+            </span>
+          )}
         </p>
         {featured_media && featured_media.media_type === 'image' && (
-          <div className="mw9 pb8">
+          <div className={`${handles.postFeaturedImageContainer} mw9 pb8`}>
             <img
               className={`${handles.postFeaturedImage}`}
               src={featured_media.source_url}
