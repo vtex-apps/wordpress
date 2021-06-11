@@ -16,6 +16,7 @@ query SinglePostBySlug($slug: String!, $customDomain: String) {
       categories(customDomain: $customDomain) {
         name
         id
+        parent
         slug
       }
       date

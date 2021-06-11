@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Support subcategory use in blog URLs
+
 ## [2.8.0] - 2021-06-04
 
 ### Added

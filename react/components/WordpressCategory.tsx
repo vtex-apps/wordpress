@@ -58,7 +58,10 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
   const [page, setPage] = useState(parseInt(initialPage, 10))
   const [perPage, setPerPage] = useState(postsPerPage)
   const categoryVariable = {
-    categorySlug: params.categoryslug || params.categoryslug_id,
+    categorySlug:
+      params.subcategoryslug_id ||
+      params.categoryslug ||
+      params.categoryslug_id,
   }
   const handles = useCssHandles(CSS_HANDLES)
   const { loading: loadingS, data: dataS } = useQuery(Settings)

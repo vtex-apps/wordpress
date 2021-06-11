@@ -20,6 +20,7 @@ interface Props {
   searchQuery: any
   customDomain: string
   customDomainSlug: string
+  subcategoryUrls: boolean
   postsPerPage: number
 }
 
@@ -38,6 +39,7 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
   searchQuery,
   customDomain,
   customDomainSlug,
+  subcategoryUrls,
   postsPerPage,
 }) => {
   const [page, setPage] = useState(1)
@@ -176,9 +178,8 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
                   <WordpressTeaser
                     title={post.title.rendered}
                     author={post.author.name}
-                    category={post.categories[0]?.name ?? ''}
-                    categoryId={post.categories[0]?.id ?? undefined}
-                    categorySlug={post.categories[0]?.slug ?? ''}
+                    categories={post.categories}
+                    subcategoryUrls={subcategoryUrls}
                     customDomainSlug={customDomainSlug}
                     excerpt={post.excerpt.rendered}
                     date={post.date}
@@ -235,11 +236,20 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomainSlug.description',
   },
+  subcategoryUrlsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.title',
+  },
+  subcategoryUrlsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.description',
+  },
 })
 
 WordpressSearchResult.defaultProps = {
   customDomain: undefined,
   customDomainSlug: undefined,
+  subcategoryUrls: false,
   postsPerPage: 10,
 }
 
@@ -259,6 +269,13 @@ WordpressSearchResult.schema = {
       title: messages.customDomainSlugTitle.id,
       description: messages.customDomainSlugDescription.id,
       type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    subcategoryUrls: {
+      title: messages.subcategoryUrlsTitle.id,
+      description: messages.subcategoryUrlsDescription.id,
+      type: 'boolean',
       isLayout: false,
       default: '',
     },

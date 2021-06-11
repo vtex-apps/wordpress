@@ -6,7 +6,7 @@ interface Window extends Window {
   }
 }
 
-type PostData = {
+interface PostData {
   title: WPTitle
   author: WPUser
   content: WPContent
@@ -19,16 +19,17 @@ type PostData = {
   featured_media: WPMedia
   tags: [WPTag]
 }
-type WPTitle = {
+
+interface WPTitle {
   raw: string
   rendered: string
 }
-type WPContent = {
+interface WPContent {
   raw: string
   rendered: string
   protected: bool
 }
-type WPUser = {
+interface WPUser {
   id: number
   username: string
   name: string
@@ -49,7 +50,7 @@ type WPUser = {
   avatar_urls: WPAvatarObject
   meta: string
 }
-type WPCategory = {
+interface WPCategory {
   id: number
   slug: string
   count: number
@@ -60,7 +61,7 @@ type WPCategory = {
   parent: number
   meta: string
 }
-type WPExcerpt = {
+interface WPExcerpt {
   raw: string
   rendered: string
   protected: bool
@@ -72,12 +73,12 @@ enum WPTaxonomyType {
   link_category,
   post_format,
 }
-type WPAvatarObject = {
+interface WPAvatarObject {
   size24: string
   size48: string
   size96: string
 }
-type WPMedia = {
+interface WPMedia {
   date: string
   date_gmt: string
   guid: WPGuid
@@ -103,14 +104,14 @@ type WPMedia = {
   post: number
   source_url: string
 }
-type WPMediaDetails = {
+interface WPMediaDetails {
   file: string
   height: number
   image_meta: WPImageMeta
   sizes: [WPMediaSize]
   width: number
 }
-type WPImageMeta = {
+interface WPImageMeta {
   aperture: string
   camera: string
   caption: string
@@ -124,7 +125,7 @@ type WPImageMeta = {
   shutter_speed: string
   title: string
 }
-type WPMediaSize = {
+interface WPMediaSize {
   file: string
   height: number
   mime_type: string
@@ -132,7 +133,7 @@ type WPMediaSize = {
   source_url: string
   width: number
 }
-type WPContentDescriptor = {
+interface WPContentDescriptor {
   raw: string
   rendered: string
   protected: bool
@@ -141,7 +142,7 @@ enum WPOpenClosed {
   open,
   closed,
 }
-type WPGuid = {
+interface WPGuid {
   raw: string
   rendered: string
 }
@@ -152,7 +153,7 @@ enum WPStatus {
   pending,
   private,
 }
-type WPTag = {
+interface WPTag {
   id: number
   count: number
   description: string

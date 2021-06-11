@@ -115,6 +115,8 @@ const CSS_HANDLES = [
   'postContainer',
   'postTitle',
   'postMeta',
+  'postMetaDate',
+  'postMetaAuthor',
   'postFeaturedImage',
   'postFeaturedImageContainer',
   'postBody',
@@ -205,7 +207,7 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
           dangerouslySetInnerHTML={{ __html: titleHtml }}
         />
         <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
-          <span>
+          <span className={`${handles.postMetaDate}`}>
             <FormattedMessage
               id="store/wordpress-integration.wordpressPage.posted"
               defaultMessage="Posted {formattedDate} "
@@ -215,7 +217,7 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
             />
           </span>
           {author && (
-            <span>
+            <span className={`${handles.postMetaAuthor}`}>
               <FormattedMessage
                 id="store/wordpress-integration.wordpressPage.byAuthor"
                 defaultMessage=" by {name}"

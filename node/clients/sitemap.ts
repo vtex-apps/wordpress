@@ -1,5 +1,4 @@
-import { InstanceOptions, IOContext } from '@vtex/api'
-import { AppGraphQLClient } from '@vtex/api'
+import { InstanceOptions, IOContext, AppGraphQLClient } from '@vtex/api'
 
 const saveIndexMutation = `mutation SaveIndex($index: String!) {
     saveIndex(index: $index)

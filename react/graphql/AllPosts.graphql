@@ -13,6 +13,7 @@ query AllPosts($wp_page: Int, $wp_per_page: Int, $customDomain: String) {
       categories(customDomain: $customDomain) {
         name
         id
+        parent
         slug
       }
       featured_media(customDomain: $customDomain) {

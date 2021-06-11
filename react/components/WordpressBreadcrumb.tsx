@@ -11,17 +11,21 @@ import CategorySimpleBySlug from '../graphql/CategorySimpleBySlug.graphql'
 interface Props {
   params: any
   customDomains: string
+  subcategoryUrls: boolean
 }
 
 interface CategoryProps {
   categorySlug?: string
   customDomain?: string
+  customDomainSlug?: string
+  withSubcategory: boolean
 }
 
 interface SinglePostProps {
   slug?: string
   customDomain?: string
   customDomainSlug?: string
+  withSubcategory: boolean
 }
 
 const CSS_HANDLES = [
@@ -35,6 +39,8 @@ const CSS_HANDLES = [
 const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = ({
   categorySlug,
   customDomain,
+  customDomainSlug,
+  withSubcategory,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { data, loading, error } = useQuery(CategorySimpleBySlug, {
@@ -42,7 +48,13 @@ const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = ({
     skip: !categorySlug,
   })
   if (loading || error) return <Fragment></Fragment>
-  if (data?.wpCategories?.categories?.length)
+  if (data?.wpCategories?.categories?.length) {
+    const [{ categories }] = data.wpPosts?.posts || [data.wpCategories]
+    const category = categories.find((c: any) => c.parent === 0)
+    const subcategory =
+      withSubcategory &&
+      categories.find((sub: any) => sub.parent === category.id)
+
     return (
       <Container className={`${handles.breadcrumbContainer} pt2 pb8`}>
         <Link
@@ -51,12 +63,31 @@ const WordpressCategoryBreadcrumb: FunctionComponent<CategoryProps> = ({
         >
           Blog Home
         </Link>
+        {subcategory?.slug && (
+          <Fragment>
+            <span className={`${handles.breadcrumbSeparator}`}>
+              &nbsp;/&nbsp;
+            </span>
+            <Link
+              page="store.blog-category#subcategory"
+              params={{
+                categoryslug: category.slug,
+                subcategoryslug_id: subcategory.slug,
+                customdomainslug: customDomainSlug,
+              }}
+              className={`${handles.breadcrumbLink}`}
+            >
+              {subcategory.name}
+            </Link>
+          </Fragment>
+        )}
         <span className={`${handles.breadcrumbSeparator}`}>&nbsp;/&nbsp;</span>
         <span className={`${handles.breadcrumbCurrentPage}`}>
           {data.wpCategories.categories[0].name}
         </span>
       </Container>
     )
+  }
   return null
 }
 
@@ -64,6 +95,7 @@ const WordpressSinglePostBreadcrumb: FunctionComponent<SinglePostProps> = ({
   slug,
   customDomain,
   customDomainSlug,
+  withSubcategory,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { data, loading, error } = useQuery(PostSimpleBySlug, {
@@ -71,7 +103,14 @@ const WordpressSinglePostBreadcrumb: FunctionComponent<SinglePostProps> = ({
   })
 
   if (loading || error) return <Fragment></Fragment>
-  if (data?.wpPosts?.posts?.length)
+
+  if (data?.wpPosts?.posts?.length) {
+    const [{ categories }] = data.wpPosts.posts
+    const category = categories.find((c: any) => c.parent === 0)
+    const subcategory =
+      withSubcategory &&
+      categories.find((sub: any) => sub.parent === category.id)
+
     return (
       <Container className={`${handles.breadcrumbContainer} pt2 pb8`}>
         <Link
@@ -84,26 +123,47 @@ const WordpressSinglePostBreadcrumb: FunctionComponent<SinglePostProps> = ({
         <Link
           page="store.blog-category"
           params={{
-            categoryslug: data.wpPosts.posts[0].categories[0].slug,
-            categoryslug_id: data.wpPosts.posts[0].categories[0].slug,
+            categoryslug: category.slug,
+            categoryslug_id: category.slug,
             customdomainslug: customDomainSlug,
           }}
           className={`${handles.breadcrumbLink}`}
         >
-          {data.wpPosts.posts[0].categories[0].name}
+          {category.name}
         </Link>
+        {subcategory?.slug && (
+          <Fragment>
+            <span className={`${handles.breadcrumbSeparator}`}>
+              &nbsp;/&nbsp;
+            </span>
+            <Link
+              page="store.blog-category#subcategory"
+              params={{
+                categoryslug: category.slug,
+                subcategoryslug_id: subcategory.slug,
+                customdomainslug: customDomainSlug,
+              }}
+              className={`${handles.breadcrumbLink}`}
+            >
+              {subcategory.name}
+            </Link>
+          </Fragment>
+        )}
         <span className={`${handles.breadcrumbSeparator}`}>&nbsp;/&nbsp;</span>
         <span className={`${handles.breadcrumbCurrentPage}`}>
           {data.wpPosts.posts[0].title.rendered}
         </span>
       </Container>
     )
+  }
+
   return null
 }
 
 const WordpressBreadcrumb: StorefrontFunctionComponent<Props> = ({
   customDomains,
   params,
+  subcategoryUrls,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -125,6 +185,8 @@ const WordpressBreadcrumb: StorefrontFunctionComponent<Props> = ({
       <WordpressCategoryBreadcrumb
         categorySlug={params.categoryslug}
         customDomain={customDomain}
+        customDomainSlug={params.customdomainslug}
+        withSubcategory={subcategoryUrls}
       />
     )
   }
@@ -160,6 +222,7 @@ const WordpressBreadcrumb: StorefrontFunctionComponent<Props> = ({
         slug={params.slug || params.slug_id}
         customDomain={customDomain}
         customDomainSlug={params.customdomainslug}
+        withSubcategory={subcategoryUrls}
       />
     )
   }
@@ -191,10 +254,19 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomains.description',
   },
+  subcategoryUrlsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.title',
+  },
+  subcategoryUrlsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.description',
+  },
 })
 
 WordpressBreadcrumb.defaultProps = {
   customDomains: undefined,
+  subcategoryUrls: false,
 }
 
 WordpressBreadcrumb.schema = {
@@ -206,6 +278,13 @@ WordpressBreadcrumb.schema = {
       title: messages.customDomainsTitle.id,
       description: messages.customDomainsDescription.id,
       type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    subcategoryUrls: {
+      title: messages.subcategoryUrlsTitle.id,
+      description: messages.subcategoryUrlsDescription.id,
+      type: 'boolean',
       isLayout: false,
       default: '',
     },

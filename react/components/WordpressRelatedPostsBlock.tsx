@@ -22,6 +22,7 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
   showDates,
   showAuthors,
   showExcerpts,
+  subcategoryUrls,
   absoluteLinks,
   numberOfPosts,
   customDomain,
@@ -65,9 +66,8 @@ const WordpressRelatedPostsBlock: StorefrontFunctionComponent<WPRelatedPostsBloc
                     link={post.link}
                     author={post.author ? post.author.name : ''}
                     excerpt={post.excerpt.rendered}
-                    category={post.categories[0]?.name ?? ''}
-                    categoryId={post.categories[0]?.id ?? undefined}
-                    categorySlug={post.categories[0]?.slug ?? ''}
+                    categories={post.categories}
+                    subcategoryUrls={subcategoryUrls}
                     customDomainSlug={customDomainSlug}
                     image={post.featured_media?.source_url ?? ''}
                     altText={post.featured_media?.alt_text ?? ''}
@@ -99,6 +99,7 @@ interface WPRelatedPostsBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
+  subcategoryUrls: boolean
   absoluteLinks: boolean
   productQuery: ProductQuery
   customDomain: string
@@ -169,6 +170,7 @@ WordpressRelatedPostsBlock.defaultProps = {
   showDates: true,
   showAuthors: false,
   showExcerpts: false,
+  subcategoryUrls: false,
   absoluteLinks: false,
   customDomain: undefined,
   customDomainSlug: undefined,
@@ -263,6 +265,14 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomainSlug.description',
   },
+  subcategoryUrlsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.title',
+  },
+  subcategoryUrlsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.description',
+  },
 })
 
 WordpressRelatedPostsBlock.schema = {
@@ -337,6 +347,13 @@ WordpressRelatedPostsBlock.schema = {
       title: messages.customDomainSlugTitle.id,
       description: messages.customDomainSlugDescription.id,
       type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    subcategoryUrls: {
+      title: messages.subcategoryUrlsTitle.id,
+      description: messages.subcategoryUrlsDescription.id,
+      type: 'boolean',
       isLayout: false,
       default: '',
     },

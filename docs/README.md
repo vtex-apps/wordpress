@@ -200,7 +200,9 @@ These blocks include:
 | -------------- | ------------------------------------------------------ | ------ | ------------- |
 | `postsPerPage` | Number of posts to be displayed in the paginated list. | Number | `10`          |
 
-### Advanced configuration
+## Advanced configuration
+
+### Multiple WordPress installations
 
 Starting with version 1.6.0 of this app, blog content from **multiple WordPress installations** is supported.
 
@@ -314,6 +316,53 @@ Continuing the example from above, any block that shows content from the "defaul
 
 :information_source: _Make sure to follow the format of the example value, including the brackets and escaped double quotes._
 
+### Adding Subcategories to blog URLs
+
+To have subcategories included in your blog URLs (`/blog/category/subcategory`), you will need to update your store's `routes.json`, as well as the theme's blocks that display category-related URLs.
+
+Add an additional category route including the `:categoryslug` and `:subcategoryslug_id` parameter:
+
+```json
+"store.blog-category": {
+	"path": "/blog/category/:categoryslug_id"
+},
+"store.blog-category#subcategory": {
+	"path": "/blog/category/:categoryslug/:subcategoryslug_id"
+},
+```
+
+Declare the subcategory block:
+
+```json
+"store.blog-category#subcategory": {
+  "blocks": [
+      "blog-category-list.wordpress-category-list"
+  ]
+},
+```
+
+Add the prop `subcategoryUrls` with a value of `true` to the blocks below:
+
+- 'blog-all-posts.wordpress-all-posts'
+- `blog-breadcrumb.wordpress-breadcrumb`
+- 'blog-category-list.wordpress-category-list'
+- 'blog-category-preview.wordpress-category-preview'
+- 'blog-latest-posts-preview.wordpress-latest-posts-preview'
+- `blog-post-details.wordpress-post-details`
+- 'blog-related-products.wordpress-related-products'
+- 'search-blog-articles-list.wordpress'
+- 'search-blog-articles-preview.wordpress'
+
+For example:
+
+```json
+"blog-all-posts.wordpress-all-posts": {
+  "props": {
+    "subcategoryUrls": true
+  }
+},
+```
+
 ## Customization
 
 In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
@@ -346,6 +395,9 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `postContainer`                        |
 | `postTitle`                            |
 | `postMeta`                             |
+| `postMetaDate`                         |
+| `postMetaAuthor`                       |
+| `postMetaCategory`                     |
 | `postFeaturedImage`                    |
 | `postFeaturedImageContainer`           |
 | `postBody`                             |
