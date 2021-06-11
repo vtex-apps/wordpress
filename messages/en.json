@@ -70,6 +70,8 @@
   "admin/editor.wordpressCustomDomainSlug.description": "Enter the URL slug that will represent this Wordpress domain",
   "admin/editor.wordpressBreadcrumb.title": "Wordpress Breadcrumb",
   "admin/editor.wordpressBreadcrumb.description": "Displays a breadcrumb specific to your VTEX blog pages, i.e. 'Blog Home / (category) / (title of post)' ",
+  "admin/editor.wordpressSubcategoryUrls.title": "Subcategory URLs (optional)",
+  "admin/editor.wordpressSubcategoryUrls.description": "Include both category and subcategory in your blog URLs",
   "store/wordpress-integration.wordpressPostNavigation.next": "Next Article >",
   "store/wordpress-integration.wordpressPostNavigation.previous": "< Previous Article",
   "store/wordpress-integration.wordpressPost.postedIn": "Posted {formattedDate} in ",

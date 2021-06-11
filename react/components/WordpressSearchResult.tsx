@@ -20,6 +20,7 @@ import Settings from '../graphql/Settings.graphql'
 
 interface SearchProps {
   customDomains: string
+  subcategoryUrls: boolean
   postsPerPage: number
 }
 
@@ -36,6 +37,7 @@ const CSS_HANDLES = [
 
 const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
   customDomains,
+  subcategoryUrls,
   postsPerPage,
 }) => {
   const {
@@ -237,9 +239,8 @@ const WordpressSearchResult: StorefrontFunctionComponent<SearchProps> = ({
                   <WordpressTeaser
                     title={post.title.rendered}
                     author={post.author.name}
-                    category={post.categories[0]?.name ?? ''}
-                    categoryId={post.categories[0]?.id ?? undefined}
-                    categorySlug={post.categories[0]?.slug ?? ''}
+                    categories={post.categories}
+                    subcategoryUrls={subcategoryUrls}
                     customDomainSlug={params.customdomainslug}
                     excerpt={post.excerpt.rendered}
                     date={post.date}
@@ -288,10 +289,19 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomains.description',
   },
+  subcategoryUrlsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.title',
+  },
+  subcategoryUrlsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.description',
+  },
 })
 
 WordpressSearchResult.defaultProps = {
   customDomains: undefined,
+  subcategoryUrls: false,
   postsPerPage: 10,
 }
 
@@ -304,6 +314,13 @@ WordpressSearchResult.schema = {
       title: messages.customDomainsTitle.id,
       description: messages.customDomainsDescription.id,
       type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    subcategoryUrls: {
+      title: messages.subcategoryUrlsTitle.id,
+      description: messages.subcategoryUrlsDescription.id,
+      type: 'boolean',
       isLayout: false,
       default: '',
     },

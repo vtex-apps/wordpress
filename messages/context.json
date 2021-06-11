@@ -68,6 +68,8 @@
   "admin/editor.wordpressCustomDomains.description": "admin/editor.wordpressCustomDomains.description",
   "admin/editor.wordpressCustomDomainSlug.title": "admin/editor.wordpressCustomDomainSlug.title",
   "admin/editor.wordpressCustomDomainSlug.description": "admin/editor.wordpressCustomDomainSlug.description",
+  "admin/editor.wordpressSubcategoryUrls.title": "admin/editor.wordpressSubcategoryUrls.title",
+  "admin/editor.wordpressSubcategoryUrls.description": "admin/editor.wordpressSubcategoryUrls.description",
   "admin/editor.wordpressBreadcrumb.title": "admin/editor.wordpressBreadcrumb.title",
   "admin/editor.wordpressBreadcrumb.description": "admin/editor.wordpressBreadcrumb.description",
   "store/wordpress-integration.wordpressPostNavigation.next": "store/wordpress-integration.wordpressPostNavigation.next",

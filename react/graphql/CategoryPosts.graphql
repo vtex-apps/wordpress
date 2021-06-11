@@ -25,6 +25,7 @@ query CategoryPosts(
         categories(customDomain: $customDomain) {
           name
           id
+          parent
           slug
         }
         featured_media(customDomain: $customDomain) {

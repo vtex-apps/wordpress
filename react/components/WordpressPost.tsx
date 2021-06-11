@@ -4,7 +4,7 @@ import React, { FunctionComponent, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
-import { useRuntime, Link } from 'vtex.render-runtime'
+import { Link, useRuntime } from 'vtex.render-runtime'
 import { Spinner } from 'vtex.styleguide'
 import insane from 'insane'
 import { useCssHandles } from 'vtex.css-handles'
@@ -12,9 +12,11 @@ import { useCssHandles } from 'vtex.css-handles'
 import { WPRelatedProductsContext } from '../contexts/WordpressRelatedProducts'
 import SinglePostBySlug from '../graphql/SinglePostBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
+import linkParams from '../utils/categoryLinkParams'
 
 interface PostProps {
   customDomains: string
+  subcategoryUrls: boolean
 }
 
 const allowClass = ['class']
@@ -114,6 +116,9 @@ const CSS_HANDLES = [
   'postContainer',
   'postTitle',
   'postMeta',
+  'postMetaDate',
+  'postMetaCategory',
+  'postMetaAuthor',
   'postFeaturedImage',
   'postFeaturedImageContainer',
   'postBody',
@@ -121,10 +126,53 @@ const CSS_HANDLES = [
   'postCategoryLink',
 ] as const
 
-const WordpressPostInner: FunctionComponent<{
-  postData: any
+interface PostCategoryLinkProps {
+  props: WordpressPostInnerProps
+  classNames: string
+  category: WPCategory
+  categories: WPCategory[]
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const PostCategoryLink: FunctionComponent<PostCategoryLinkProps> = ({
+  props,
+  classNames,
+  category,
+  categories,
+}: PostCategoryLinkProps) => {
+  const { subcategoryUrls, customDomainSlug } = props
+  const parentCategory =
+    subcategoryUrls &&
+    category.parent !== 0 &&
+    categories.find(c => c.id === category.parent)
+
+  return (
+    <Link
+      className={classNames}
+      page={
+        parentCategory
+          ? 'store.blog-category#subcategory'
+          : 'store.blog-category'
+      }
+      params={
+        parentCategory
+          ? linkParams(customDomainSlug, parentCategory, category)
+          : linkParams(customDomainSlug, category)
+      }
+    >
+      {category.name}
+    </Link>
+  )
+}
+
+export interface WordpressPostInnerProps {
+  postData: PostData
   customDomainSlug?: string
-}> = props => {
+  subcategoryUrls?: boolean
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const WordpressPostInner: FunctionComponent<WordpressPostInnerProps> = props => {
   const handles = useCssHandles(CSS_HANDLES)
   const {
     culture: { locale },
@@ -203,7 +251,7 @@ const WordpressPostInner: FunctionComponent<{
           dangerouslySetInnerHTML={{ __html: titleHtml }}
         />
         <p className={`${handles.postMeta} t-small mw9 c-muted-1`}>
-          <span>
+          <span className={`${handles.postMetaDate}`}>
             <FormattedMessage
               id="store/wordpress-integration.wordpressPost.postedIn"
               defaultMessage="Posted {formattedDate} in "
@@ -212,24 +260,21 @@ const WordpressPostInner: FunctionComponent<{
               }}
             />
           </span>
-          {categories.map((cat: any, index: number) => (
-            <span key={index}>
-              <Link
-                className={handles.postCategoryLink}
-                page="store.blog-category"
-                params={{
-                  categoryslug: cat.slug,
-                  categoryslug_id: cat.slug,
-                  customdomainslug: props.customDomainSlug,
-                }}
-              >
-                {cat.name}
-              </Link>
-              {index + 1 === categories.length ? '' : ', '}
-            </span>
-          ))}
+          {categories
+            .sort((a, b) => b.parent - a.parent)
+            .map((category, index) => (
+              <span className={`${handles.postMetaCategory}`} key={index}>
+                <PostCategoryLink
+                  props={props}
+                  classNames={handles.postCategoryLink}
+                  category={category}
+                  categories={categories}
+                />
+                {index + 1 === categories.length ? '' : ', '}
+              </span>
+            ))}
           {author && (
-            <span>
+            <span className={`${handles.postMetaAuthor}`}>
               <FormattedMessage
                 id="store/wordpress-integration.wordpressPost.byAuthor"
                 defaultMessage=" by {name}"
@@ -270,6 +315,7 @@ const WordpressPostInner: FunctionComponent<{
 const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
   children,
   customDomains,
+  subcategoryUrls,
 }) => {
   const {
     route: { params },
@@ -311,6 +357,7 @@ const WordpressPost: StorefrontFunctionComponent<PostProps> = ({
         children={children}
         postData={data.wpPosts.posts[0]}
         customDomainSlug={params.customdomainslug}
+        subcategoryUrls={subcategoryUrls}
       />
     )
   }
@@ -338,10 +385,19 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomains.description',
   },
+  subcategoryUrlsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.title',
+  },
+  subcategoryUrlsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.description',
+  },
 })
 
 WordpressPost.defaultProps = {
   customDomains: undefined,
+  subcategoryUrls: false,
 }
 
 WordpressPost.schema = {
@@ -353,6 +409,13 @@ WordpressPost.schema = {
       title: messages.customDomainsTitle.id,
       description: messages.customDomainsDescription.id,
       type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    subcategoryUrls: {
+      title: messages.subcategoryUrlsTitle.id,
+      description: messages.subcategoryUrlsDescription.id,
+      type: 'boolean',
       isLayout: false,
       default: '',
     },

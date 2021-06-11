@@ -25,6 +25,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
   showDates,
   showAuthors,
   showExcerpts,
+  subcategoryUrls,
   absoluteLinks,
   numberOfPosts,
   customDomain,
@@ -62,13 +63,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     customDomainSlug={customDomainSlug}
                     author={data.wpPosts.posts[0].author?.name ?? ''}
                     excerpt={data.wpPosts.posts[0].excerpt.rendered}
-                    category={data.wpPosts.posts[0].categories[0]?.name ?? ''}
-                    categoryId={
-                      data.wpPosts.posts[0].categories[0]?.id ?? undefined
-                    }
-                    categorySlug={
-                      data.wpPosts.posts[0].categories[0]?.slug ?? ''
-                    }
+                    categories={data.wpPosts.posts[0].categories}
+                    subcategoryUrls={subcategoryUrls}
                     image={
                       data.wpPosts.posts[0].featured_media?.source_url ?? ''
                     }
@@ -105,9 +101,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                           customDomainSlug={customDomainSlug}
                           author={post.author ? post.author.name : ''}
                           excerpt={post.excerpt.rendered}
-                          category={post.categories[0]?.name ?? ''}
-                          categoryId={post.categories[0]?.id ?? undefined}
-                          categorySlug={post.categories[0]?.slug ?? ''}
+                          categories={data.wpPosts.posts[0].categories}
+                          subcategoryUrls={subcategoryUrls}
                           image={post.featured_media?.source_url ?? ''}
                           altText={post.featured_media?.alt_text ?? ''}
                           mediaType={post.featured_media?.media_type ?? ''}
@@ -137,9 +132,8 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     customDomainSlug={customDomainSlug}
                     author={post.author?.name ?? ''}
                     excerpt={post.excerpt.rendered}
-                    category={post.categories[0]?.name ?? ''}
-                    categoryId={post.categories[0]?.id ?? undefined}
-                    categorySlug={post.categories[0]?.slug ?? ''}
+                    categories={data.wpPosts.posts[0].categories}
+                    subcategoryUrls={subcategoryUrls}
                     image={post.featured_media?.source_url ?? ''}
                     altText={post.featured_media?.alt_text ?? ''}
                     mediaType={post.featured_media?.media_type ?? ''}
@@ -176,6 +170,7 @@ interface WPLatestPostsBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
+  subcategoryUrls: boolean
   absoluteLinks: boolean
   customDomain: string
   customDomainSlug: string
@@ -191,6 +186,7 @@ WordpressLatestPostsBlock.defaultProps = {
   showAuthors: false,
   showExcerpts: false,
   customDomain: undefined,
+  subcategoryUrls: false,
   absoluteLinks: false,
   customDomainSlug: undefined,
 }
@@ -292,6 +288,14 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomainSlug.description',
   },
+  subcategoryUrlsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.title',
+  },
+  subcategoryUrlsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.description',
+  },
 })
 
 WordpressLatestPostsBlock.schema = {
@@ -373,6 +377,13 @@ WordpressLatestPostsBlock.schema = {
       title: messages.customDomainSlugTitle.id,
       description: messages.customDomainSlugDescription.id,
       type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    subcategoryUrls: {
+      title: messages.subcategoryUrlsTitle.id,
+      description: messages.subcategoryUrlsDescription.id,
+      type: 'boolean',
       isLayout: false,
       default: '',
     },

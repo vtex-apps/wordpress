@@ -28,12 +28,14 @@ const CSS_HANDLES = [
 interface AllPostsProps {
   customDomain: string
   customDomainSlug: string
+  subcategoryUrls: boolean
   postsPerPage: number
 }
 
 const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
   customDomain,
   customDomainSlug,
+  subcategoryUrls,
   postsPerPage,
 }) => {
   const {
@@ -202,9 +204,8 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
                 <WordpressTeaser
                   title={post.title.rendered}
                   author={post.author ? post.author.name : ''}
-                  category={post.categories[0]?.name ?? ''}
-                  categoryId={post.categories[0]?.id ?? undefined}
-                  categorySlug={post.categories[0]?.slug ?? ''}
+                  categories={data.wpPosts.posts[0].categories}
+                  subcategoryUrls={subcategoryUrls}
                   excerpt={post.excerpt.rendered}
                   date={post.date}
                   id={post.id}
@@ -263,11 +264,20 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomainSlug.description',
   },
+  subcategoryUrlsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.title',
+  },
+  subcategoryUrlsDescription: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressSubcategoryUrls.description',
+  },
 })
 
 WordpressAllPosts.defaultProps = {
   customDomain: undefined,
   customDomainSlug: undefined,
+  subcategoryUrls: false,
   postsPerPage: 10,
 }
 
@@ -287,6 +297,13 @@ WordpressAllPosts.schema = {
       title: messages.customDomainSlugTitle.id,
       description: messages.customDomainSlugDescription.id,
       type: 'string',
+      isLayout: false,
+      default: '',
+    },
+    subcategoryUrls: {
+      title: messages.subcategoryUrlsTitle.id,
+      description: messages.subcategoryUrlsDescription.id,
+      type: 'boolean',
       isLayout: false,
       default: '',
     },
