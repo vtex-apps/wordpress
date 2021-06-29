@@ -316,6 +316,7 @@ export const queries = {
     const pages = data
     if (data.length) {
       pages[0].content.rendered = addCSShandles(data[0].content.rendered)
+      pages[0].headerTags = addHeaderTags(data[0])
     }
     const total_count = headers['x-wp-total']
     const result = { pages, total_count }

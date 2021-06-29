@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { Helmet } from 'react-helmet'
 
-interface WordpressPostHeaderProps {
+interface WordpressHeaderProps {
   postData: PostData
   dataS: any
 }
@@ -12,10 +12,16 @@ const buildMetaTag = ({ name, property, content }: MetaTags) => {
   return <meta property={property} content={content} />
 }
 
-const WordpressPostHeader: FunctionComponent<WordpressPostHeaderProps> = props => {
+const WordpressHeader: FunctionComponent<WordpressHeaderProps> = props => {
   const { postData, dataS } = props
+  const {
+    type,
+    title,
+    featured_media: featuredMedia,
+    excerpt,
+    headerTags,
+  } = postData
 
-  const { title, featured_media: featuredMedia, excerpt, headerTags } = postData
   const headerTitle = dataS?.appSettings?.titleTag
     ? `${title.rendered} | ${dataS?.appSettings?.titleTag}`
     : title.rendered
@@ -30,6 +36,14 @@ const WordpressPostHeader: FunctionComponent<WordpressPostHeaderProps> = props =
     )
   }
 
+  const description =
+    type === 'page'
+      ? excerpt?.rendered
+          ?.replace(/<p>/gi, '')
+          .replace(/<\/p>/gi, '')
+          .trim()
+      : excerpt?.rendered?.replace(/(<([^>]+)>)/gi, '').trim()
+
   return (
     <Helmet>
       <title>{headerTitle}</title>
@@ -38,12 +52,9 @@ const WordpressPostHeader: FunctionComponent<WordpressPostHeaderProps> = props =
       ) : (
         ''
       )}
-      <meta
-        name="description"
-        content={excerpt?.rendered?.replace(/(<([^>]+)>)/gi, '').trim()}
-      />
+      <meta name="description" content={description} />
     </Helmet>
   )
 }
 
-export default WordpressPostHeader
+export default WordpressHeader

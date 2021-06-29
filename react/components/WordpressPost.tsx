@@ -12,7 +12,7 @@ import { WPRelatedProductsContext } from '../contexts/WordpressRelatedProducts'
 import SinglePostBySlug from '../graphql/SinglePostBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
 import linkParams from '../utils/categoryLinkParams'
-import WordpressPostHeader from './WordpressPostHeader'
+import WordpressHeader from './WordpressHeader'
 
 interface PostProps {
   customDomains: string
@@ -227,7 +227,7 @@ const WordpressPostInner: FunctionComponent<WordpressPostInnerProps> = props => 
 
   return (
     <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
-      <WordpressPostHeader postData={props.postData} dataS={dataS} />
+      <WordpressHeader postData={props.postData} dataS={dataS} />
       <div className={`${handles.postContainer} ph3`}>
         <h1
           className={`${handles.postTitle} t-heading-1`}

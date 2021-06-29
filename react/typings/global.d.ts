@@ -11,6 +11,7 @@ interface PostData {
   author: WPUser
   content: WPContent
   date: string
+  type: string
   id: number
   slug: string
   link: string

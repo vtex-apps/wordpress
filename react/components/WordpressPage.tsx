@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
 import React, { FunctionComponent, useMemo } from 'react'
-import { Helmet } from 'react-helmet'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -11,6 +10,7 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import SinglePageBySlug from '../graphql/SinglePageBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
+import WordpressHeader from './WordpressHeader'
 
 interface PageProps {
   customDomains: string
@@ -138,14 +138,7 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
     )
   }
 
-  const {
-    date,
-    title,
-    content,
-    author,
-    excerpt,
-    featured_media,
-  } = props.pageData
+  const { date, title, content, author, featured_media } = props.pageData
 
   const dateObj = new Date(date)
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -181,26 +174,7 @@ const WordpressPageInner: FunctionComponent<{ pageData: any }> = props => {
   }
   return (
     <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
-      <Helmet>
-        <title>
-          {dataS?.appSettings?.titleTag
-            ? `${title.rendered} | ${dataS.appSettings.titleTag}`
-            : title.rendered}
-        </title>
-        {featured_media?.media_type === 'image' &&
-        featured_media?.source_url ? (
-          <meta property="og:image" content={featured_media?.source_url} />
-        ) : (
-          ''
-        )}
-        <meta
-          name="description"
-          content={excerpt?.rendered
-            ?.replace(/<p>/gi, '')
-            .replace(/<\/p>/gi, '')
-            .trim()}
-        />
-      </Helmet>
+      <WordpressHeader postData={props.pageData} dataS={dataS} />
       <div className={`${handles.postContainer} ph3`}>
         <h1
           className={`${handles.postTitle} t-heading-1`}
