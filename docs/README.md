@@ -363,6 +363,12 @@ For example:
 },
 ```
 
+## WordPress Plugins Support
+
+### Yoast SEO
+
+The [Yoast SEO plugin](https://yoast.com/wordpress/plugins/seo/) provides meta tags and structured data for your WordPress content. If your WordPress installation has this plugin, the app will include this data on your posts or pages.
+
 ## Customization
 
 In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).

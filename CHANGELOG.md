@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add support for Yoast SEO plugin
+
 ## [2.9.0] - 2021-06-11
 
 ### Added

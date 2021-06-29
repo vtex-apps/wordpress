@@ -20,6 +20,14 @@ query SinglePostBySlug($slug: String!, $customDomain: String) {
         slug
       }
       date
+      headerTags {
+        metaTags {
+          name
+          property
+          content
+        }
+        ldJson
+      }
       featured_media(customDomain: $customDomain) {
         source_url
         alt_text

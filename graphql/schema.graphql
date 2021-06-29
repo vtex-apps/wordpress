@@ -18,6 +18,7 @@ type WPPost {
   ping_status: WPOpenClosed
   format: WPFormat
   meta: String
+  headerTags: HeaderTags
   sticky: Boolean
   template: String
   categories(customDomain: String): [WPCategory]
@@ -510,6 +511,17 @@ type WPUsersResult {
 type Settings {
   titleTag: String
   blogRoute: String
+}
+
+type HeaderTags {
+  metaTags: [MetaTag]
+  ldJson: String
+}
+
+type MetaTag {
+  name: String
+  property: String
+  content: String
 }
 
 type Query {
