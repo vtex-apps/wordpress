@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Container } from 'vtex.store-components'
 import React, { FunctionComponent, useMemo } from 'react'
-import { Helmet } from 'react-helmet'
 import { defineMessages, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { Link, useRuntime } from 'vtex.render-runtime'
@@ -13,6 +12,7 @@ import { WPRelatedProductsContext } from '../contexts/WordpressRelatedProducts'
 import SinglePostBySlug from '../graphql/SinglePostBySlug.graphql'
 import Settings from '../graphql/Settings.graphql'
 import linkParams from '../utils/categoryLinkParams'
+import WordpressHeader from './WordpressHeader'
 
 interface PostProps {
   customDomains: string
@@ -195,7 +195,6 @@ const WordpressPostInner: FunctionComponent<WordpressPostInnerProps> = props => 
     categories,
     content,
     featured_media,
-    excerpt,
     tags,
   } = props.postData
 
@@ -228,23 +227,7 @@ const WordpressPostInner: FunctionComponent<WordpressPostInnerProps> = props => 
 
   return (
     <Container className={`${handles.postFlex} pt6 pb8 ph3`}>
-      <Helmet>
-        <title>
-          {dataS?.appSettings?.titleTag
-            ? `${title.rendered} | ${dataS.appSettings.titleTag}`
-            : title.rendered}
-        </title>
-        {featured_media?.media_type === 'image' &&
-        featured_media?.source_url ? (
-          <meta property="og:image" content={featured_media?.source_url} />
-        ) : (
-          ''
-        )}
-        <meta
-          name="description"
-          content={excerpt?.rendered?.replace(/(<([^>]+)>)/gi, '').trim()}
-        />
-      </Helmet>
+      <WordpressHeader postData={props.postData} dataS={dataS} />
       <div className={`${handles.postContainer} ph3`}>
         <h1
           className={`${handles.postTitle} t-heading-1`}

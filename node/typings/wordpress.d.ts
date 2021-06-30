@@ -9,7 +9,7 @@ interface WpPost {
   status: 'publish'
   type: 'post'
   link: string
-  title: any
+  title: Title
   content: Content
   excerpt: any
   author: number
@@ -22,7 +22,14 @@ interface WpPost {
   meta: string[]
   categories: string[]
   tags: string[]
+  yoast_head?: string
+  headerTags?: HeaderTags | null
   _links: any
+}
+
+interface Title {
+  rendered: string
+  protected: boolean
 }
 
 interface Content {
@@ -47,4 +54,15 @@ interface WpCategory extends WpTag {
 
 interface Meta {
   [key: string]: string
+}
+
+interface HeaderTags {
+  metaTags: MetaTag[]
+  ldJson: string
+}
+
+interface MetaTag {
+  name: string
+  property: string
+  content: string
 }

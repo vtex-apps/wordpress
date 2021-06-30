@@ -11,12 +11,14 @@ interface PostData {
   author: WPUser
   content: WPContent
   date: string
+  type: string
   id: number
   slug: string
   link: string
   excerpt: WPExcerpt
   categories: [WPCategory]
   featured_media: WPMedia
+  headerTags: HeaderTags
   tags: [WPTag]
 }
 
@@ -162,4 +164,15 @@ interface WPTag {
   slug: string
   taxonomy: WPTaxonomyType
   meta: string
+}
+
+interface HeaderTags {
+  metaTags: MetaTags[]
+  ldJson: string
+}
+
+interface MetaTags {
+  name: string
+  property: string
+  content: string
 }

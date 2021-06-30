@@ -184,10 +184,10 @@
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-4.0.0.tgz#fef1904e4668b6e5ecee60c52cc6a078ffa6697d"
   integrity sha512-I99sngh224D0M7XgW1s120zxCt3VYQ3IQsuw3P3jbq5GG4yc79+ZjyKznyOGIQrflfylLgcfekeZW/vk0yng6A==
 
-"@vtex/api@6.42.1":
-  version "6.42.1"
-  resolved "https://registry.yarnpkg.com/@vtex/api/-/api-6.42.1.tgz#b0030afa16750f995bf8296bdc8b22ce2fa5907b"
-  integrity sha512-b9U+G1ZuZ6MOsbiLn+/FEW/XnTIGnsKam1YxUf7OHJhPY+ebupkxIhFeAWub/Mf8xELaNl+0EdrwUbuq4dNFxQ==
+"@vtex/api@6.43.0":
+  version "6.43.0"
+  resolved "https://registry.yarnpkg.com/@vtex/api/-/api-6.43.0.tgz#f84ce6dcfcc96e3be5d6917437e21b66a1a7d267"
+  integrity sha512-NF2+x7XFE9D31oUb3U2i9UIZtakUKGAZKfRPYwdSpMQZits4wpL4jBcnjwX7Bufl9lZx3GfnLm0LabLI7vjAOw==
   dependencies:
     "@types/koa" "^2.11.0"
     "@types/koa-compose" "^3.2.3"
