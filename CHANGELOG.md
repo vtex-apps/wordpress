@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.10.1] - 2021-07-02
+
 ### Fixed
 
 - Displaying wrong categories in post teasers
