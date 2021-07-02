@@ -204,7 +204,7 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
                 <WordpressTeaser
                   title={post.title.rendered}
                   author={post.author ? post.author.name : ''}
-                  categories={data.wpPosts.posts[0].categories}
+                  categories={post.categories}
                   subcategoryUrls={subcategoryUrls}
                   excerpt={post.excerpt.rendered}
                   date={post.date}
