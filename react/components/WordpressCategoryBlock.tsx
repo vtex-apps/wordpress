@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { Fragment } from 'react'
-import { Link } from 'vtex.render-runtime'
+import { Link, useRuntime } from 'vtex.render-runtime'
 import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { Spinner, Button } from 'vtex.styleguide'
@@ -35,10 +35,11 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
   customDomain,
   customDomainSlug,
 }) => {
+  const { route } = useRuntime()
   const { loading, error, data } = useQuery(CategoryPosts, {
     variables: {
       category: categoryId,
-      wp_per_page: numberOfPosts,
+      wp_per_page: numberOfPosts + 1,
       customDomain,
     },
   })
@@ -52,6 +53,17 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
   const parentCategory = postCategories
     ? postCategories?.find((cat: WPCategory) => cat.id === category.parent)
     : null
+
+  const filteredPosts =
+    data?.wpCategory?.wpPosts?.posts &&
+    (data.wpCategory.wpPosts.posts as PostData[]).filter(post => {
+      return post.slug !== route?.params?.slug
+    })
+
+  const posts =
+    filteredPosts && filteredPosts.length > numberOfPosts
+      ? filteredPosts.slice(0, numberOfPosts)
+      : filteredPosts
 
   return (
     <div className={`${handles.categoryBlockContainer} pv4 pb9`}>
@@ -72,7 +84,7 @@ const WordpressCategoryBlock: StorefrontFunctionComponent<WPCategoryBlockProps> 
           <div
             className={`${handles.categoryBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
           >
-            {category?.wpPosts?.posts.map((post: PostData, index: number) => (
+            {posts?.map((post: PostData, index: number) => (
               <div
                 key={index}
                 className={`${handles.categoryBlockFlexItem} mv3 w-33-l ph2 w-100-s`}

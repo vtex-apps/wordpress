@@ -3,6 +3,7 @@ import { useQuery } from 'react-apollo'
 import { defineMessages } from 'react-intl'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
+import { useRuntime } from 'vtex.render-runtime'
 
 import WordpressTeaser from './WordpressTeaser'
 import AllPosts from '../graphql/AllPosts.graphql'
@@ -28,19 +29,43 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
   subcategoryUrls,
   absoluteLinks,
   numberOfPosts,
+  tags,
+  excludeTags,
+  excludeCategories,
   customDomain,
   customDomainSlug,
 }) => {
+  const { route } = useRuntime()
   const { loading, error, data } = useQuery(AllPosts, {
     // eslint-disable-next-line @typescript-eslint/camelcase
-    variables: { wp_per_page: numberOfPosts, customDomain },
+    variables: {
+      wp_per_page: numberOfPosts + 1,
+      tags: tags?.length ? tags : undefined,
+      tags_exclude: excludeTags?.length ? excludeTags : undefined,
+      categories_exclude: excludeCategories?.length
+        ? excludeCategories
+        : undefined,
+      customDomain,
+    },
   })
   const handles = useCssHandles(CSS_HANDLES)
+
+  const filteredPosts =
+    data?.wpPosts?.posts &&
+    (data.wpPosts.posts as PostData[]).filter(
+      post => post.slug !== route.params.slug
+    )
+
+  const posts =
+    filteredPosts && filteredPosts.length > numberOfPosts
+      ? filteredPosts.slice(0, numberOfPosts)
+      : filteredPosts
+
   return (
     <div className={`${handles.latestPostsBlockContainer} pv4 pb9`}>
       {loading && <Spinner />}
       {error && <span>Error: {error.message}</span>}
-      {data?.wpPosts ? (
+      {posts ? (
         <Fragment>
           <h2 className={`${handles.latestPostsBlockTitle} tc t-heading-2`}>
             {title}
@@ -55,25 +80,19 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                   className={`${handles.latestPostsBlockFlexFirstColumnItem} w-two-thirds mv3 ph2 w-100-s`}
                 >
                   <WordpressTeaser
-                    title={data.wpPosts.posts[0].title.rendered}
-                    date={data.wpPosts.posts[0].date}
-                    id={data.wpPosts.posts[0].id}
-                    slug={data.wpPosts.posts[0].slug}
-                    link={data.wpPosts.posts[0].link}
+                    title={posts[0].title.rendered}
+                    date={posts[0].date}
+                    id={posts[0].id}
+                    slug={posts[0].slug}
+                    link={posts[0].link}
                     customDomainSlug={customDomainSlug}
-                    author={data.wpPosts.posts[0].author?.name ?? ''}
-                    excerpt={data.wpPosts.posts[0].excerpt.rendered}
-                    categories={data.wpPosts.posts[0].categories}
+                    author={posts[0].author?.name ?? ''}
+                    excerpt={posts[0].excerpt.rendered}
+                    categories={posts[0].categories}
                     subcategoryUrls={subcategoryUrls}
-                    image={
-                      data.wpPosts.posts[0].featured_media?.source_url ?? ''
-                    }
-                    altText={
-                      data.wpPosts.posts[0].featured_media?.alt_text ?? ''
-                    }
-                    mediaType={
-                      data.wpPosts.posts[0].featured_media?.media_type ?? ''
-                    }
+                    image={posts[0].featured_media?.source_url ?? ''}
+                    altText={posts[0].featured_media?.alt_text ?? ''}
+                    mediaType={posts[0].featured_media?.media_type ?? ''}
                     showCategory={showCategories}
                     showDate={showDates}
                     showAuthor={showAuthors}
@@ -85,40 +104,38 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                 <div
                   className={`${handles.latestPostsBlockFlexSecondColumn} w-third mv3 ph2 w-100-s`}
                 >
-                  {data.wpPosts.posts
-                    .slice(1)
-                    .map((post: PostData, index: number) => (
-                      <div
-                        key={index}
-                        className={`${handles.latestPostsBlockFlexSecondColumnItem} mv1 w-100-l w-100-s`}
-                      >
-                        <WordpressTeaser
-                          title={post.title.rendered}
-                          date={post.date}
-                          id={post.id}
-                          slug={post.slug}
-                          link={post.link}
-                          customDomainSlug={customDomainSlug}
-                          author={post.author ? post.author.name : ''}
-                          excerpt={post.excerpt.rendered}
-                          categories={data.wpPosts.posts[0].categories}
-                          subcategoryUrls={subcategoryUrls}
-                          image={post.featured_media?.source_url ?? ''}
-                          altText={post.featured_media?.alt_text ?? ''}
-                          mediaType={post.featured_media?.media_type ?? ''}
-                          showCategory={showCategories}
-                          showDate={showDates}
-                          showAuthor={showAuthors}
-                          showExcerpt={showExcerpts}
-                          absoluteLinks={absoluteLinks}
-                          useTextOverlay={useTextOverlays}
-                        />
-                      </div>
-                    ))}
+                  {posts.slice(1).map((post: PostData, index: number) => (
+                    <div
+                      key={index}
+                      className={`${handles.latestPostsBlockFlexSecondColumnItem} mv1 w-100-l w-100-s`}
+                    >
+                      <WordpressTeaser
+                        title={post.title.rendered}
+                        date={post.date}
+                        id={post.id}
+                        slug={post.slug}
+                        link={post.link}
+                        customDomainSlug={customDomainSlug}
+                        author={post.author ? post.author.name : ''}
+                        excerpt={post.excerpt.rendered}
+                        categories={posts[0].categories}
+                        subcategoryUrls={subcategoryUrls}
+                        image={post.featured_media?.source_url ?? ''}
+                        altText={post.featured_media?.alt_text ?? ''}
+                        mediaType={post.featured_media?.media_type ?? ''}
+                        showCategory={showCategories}
+                        showDate={showDates}
+                        showAuthor={showAuthors}
+                        showExcerpt={showExcerpts}
+                        absoluteLinks={absoluteLinks}
+                        useTextOverlay={useTextOverlays}
+                      />
+                    </div>
+                  ))}
                 </div>
               </Fragment>
             ) : (
-              data.wpPosts.posts.map((post: PostData, index: number) => (
+              posts.map((post: PostData, index: number) => (
                 <div
                   key={index}
                   className={`${handles.latestPostsBlockFlexItem} mv3 w-33-l ph2 w-100-s`}
@@ -132,7 +149,7 @@ const WordpressLatestPostsBlock: StorefrontFunctionComponent<WPLatestPostsBlockP
                     customDomainSlug={customDomainSlug}
                     author={post.author?.name ?? ''}
                     excerpt={post.excerpt.rendered}
-                    categories={data.wpPosts.posts[0].categories}
+                    categories={posts[0].categories}
                     subcategoryUrls={subcategoryUrls}
                     image={post.featured_media?.source_url ?? ''}
                     altText={post.featured_media?.alt_text ?? ''}
@@ -170,6 +187,9 @@ interface WPLatestPostsBlockProps {
   showDates: boolean
   showAuthors: boolean
   showExcerpts: boolean
+  tags: number[]
+  excludeTags: number[]
+  excludeCategories: number[]
   subcategoryUrls: boolean
   absoluteLinks: boolean
   customDomain: string
@@ -185,6 +205,9 @@ WordpressLatestPostsBlock.defaultProps = {
   showDates: true,
   showAuthors: false,
   showExcerpts: false,
+  tags: undefined,
+  excludeTags: undefined,
+  excludeCategories: undefined,
   customDomain: undefined,
   subcategoryUrls: false,
   absoluteLinks: false,
@@ -272,6 +295,22 @@ const messages = defineMessages({
     defaultMessage: '',
     id: 'admin/editor.absoluteLinks.description',
   },
+  tagsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressTags.title',
+  },
+  tagsItem: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressTagsItem.title',
+  },
+  excludeTagsTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressExcludeTags.title',
+  },
+  excludeCategoriesTitle: {
+    defaultMessage: '',
+    id: 'admin/editor.wordpressExcludeCategories.title',
+  },
   customDomainTitle: {
     defaultMessage: '',
     id: 'admin/editor.wordpressCustomDomain.title',
@@ -358,6 +397,39 @@ WordpressLatestPostsBlock.schema = {
       type: 'boolean',
       isLayout: false,
       default: false,
+    },
+    tags: {
+      title: messages.tagsTitle.id,
+      type: 'array',
+      isLayout: false,
+      items: {
+        title: messages.tagsItem.id,
+        type: 'number',
+        isLayout: false,
+        default: 0,
+      },
+    },
+    excludeTags: {
+      title: messages.excludeTagsTitle.id,
+      type: 'array',
+      isLayout: false,
+      items: {
+        title: messages.tagsItem.id,
+        type: 'number',
+        isLayout: false,
+        default: 0,
+      },
+    },
+    excludeCategories: {
+      title: messages.excludeCategoriesTitle.id,
+      type: 'array',
+      isLayout: false,
+      items: {
+        title: messages.tagsItem.id,
+        type: 'number',
+        isLayout: false,
+        default: 0,
+      },
     },
     absoluteLinks: {
       title: messages.absoluteLinksTitle.id,

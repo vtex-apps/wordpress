@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Remove active post from the Latest Posts Preview or Category Preview blocks, if it is present
+- Added required tags, exclude tags, and exclude categories filters to the Latest Posts Preview block
+- PaginationComponent CSS handle
+
 ## [2.10.1] - 2021-07-02
 
 ### Fixed
