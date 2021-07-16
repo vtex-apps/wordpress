@@ -33,6 +33,7 @@ const CSS_HANDLES = [
   'searchListFlex',
   'listFlexItem',
   'searchListFlexItem',
+  'paginationComponent',
 ] as const
 
 const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
@@ -154,7 +155,9 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
         style={{ maxWidth: '90%' }}
         ref={containerRef}
       >
-        <div className="ph3">{paginationComponent}</div>
+        <div className={`${handles.paginationComponent} ph3`}>
+          {paginationComponent}
+        </div>
         {loading && (
           <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
             <Spinner />
@@ -199,7 +202,9 @@ const WordpressSearchResult: StorefrontFunctionComponent<Props> = ({
                 </div>
               ))}
             </div>
-            <div className="ph3">{paginationComponent}</div>
+            <div className={`${handles.paginationComponent} ph3`}>
+              {paginationComponent}
+            </div>
           </Fragment>
         ) : (
           <div>
