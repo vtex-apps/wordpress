@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added required tags, exclude tags, and exclude categories filters to the Latest Posts Preview block
 - PaginationComponent CSS handle
 
+### Fixed
+
+- Search Result Block not displaying posts on store product search page
+
 ## [2.10.1] - 2021-07-02
 
 ### Fixed

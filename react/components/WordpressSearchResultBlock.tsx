@@ -35,7 +35,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
     variables: {
       // eslint-disable-next-line @typescript-eslint/camelcase
       wp_per_page: numberOfPosts,
-      terms: searchQuery?.productSearch?.titleTag ?? null,
+      terms: searchQuery?.data?.searchMetadata?.titleTag ?? null,
       customDomain,
     },
   })
@@ -44,11 +44,11 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
     <div className={`${handles.searchResultBlockContainer} pv4 pb9`}>
       {loading && <Spinner />}
       {error && <span>Error: {error.message}</span>}
-      {searchQuery?.productSearch && data?.wpPosts ? (
+      {searchQuery?.data && data?.wpPosts ? (
         <Fragment>
           <h4 className={`${handles.searchResultBlockTitle} tc t-heading-2`}>
             {data.wpPosts.total_count} articles found for &quot;
-            {searchQuery.productSearch.titleTag}&quot;:
+            {searchQuery?.data.searchMetadata.titleTag}&quot;:
           </h4>
           <div
             className={`${handles.searchResultBlockFlex} mv4 flex flex-row flex-wrap justify-between`}
@@ -85,8 +85,8 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
           <Link
             page="store.blog-search-result"
             params={{
-              term: searchQuery.productSearch.titleTag,
-              term_id: searchQuery.productSearch.titleTag,
+              term: searchQuery.data.searchMetadata.titleTag,
+              term_id: searchQuery.data.searchMetadata.titleTag,
               page: '1',
               customdomainslug: customDomainSlug,
             }}
@@ -94,7 +94,7 @@ const WordpressSearchResultBlock: StorefrontFunctionComponent<WPSearchResultBloc
           >
             <Button variation="secondary" block>
               View all article results for &quot;
-              {searchQuery.productSearch.titleTag}
+              {searchQuery.data.searchMetadata.titleTag}
               &quot; &gt;
             </Button>
           </Link>
