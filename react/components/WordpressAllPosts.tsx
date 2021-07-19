@@ -23,6 +23,7 @@ const CSS_HANDLES = [
   'listContainer',
   'listFlex',
   'listFlexItem',
+  'paginationComponent',
 ] as const
 
 interface AllPostsProps {
@@ -182,7 +183,9 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
           <title>{dataS.appSettings.titleTag}</title>
         </Helmet>
       )}
-      <div className="ph3">{PaginationComponent}</div>
+      <div className={`${handles.paginationComponent} ph3`}>
+        {PaginationComponent}
+      </div>
       {(loading || loadingS) && (
         <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
           <Spinner />
@@ -225,7 +228,9 @@ const WordpressAllPosts: StorefrontFunctionComponent<AllPostsProps> = ({
               </div>
             ))}
           </div>
-          <div className="ph3 mb7">{PaginationComponent}</div>
+          <div className={`${handles.paginationComponent} ph3 mb7`}>
+            {PaginationComponent}
+          </div>
         </Fragment>
       ) : (
         !loading &&

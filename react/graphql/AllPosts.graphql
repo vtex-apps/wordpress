@@ -1,5 +1,19 @@
-query AllPosts($wp_page: Int, $wp_per_page: Int, $customDomain: String) {
-  wpPosts(page: $wp_page, per_page: $wp_per_page, customDomain: $customDomain) {
+query AllPosts(
+  $wp_page: Int
+  $wp_per_page: Int
+  $tags: [Int]
+  $tags_exclude: [Int]
+  $categories_exclude: [Int]
+  $customDomain: String
+) {
+  wpPosts(
+    page: $wp_page
+    per_page: $wp_per_page
+    tags: $tags
+    tags_exclude: $tags_exclude
+    categories_exclude: $categories_exclude
+    customDomain: $customDomain
+  ) {
     posts {
       title {
         rendered
@@ -9,6 +23,9 @@ query AllPosts($wp_page: Int, $wp_per_page: Int, $customDomain: String) {
       }
       excerpt {
         rendered
+      }
+      tags {
+        id
       }
       categories(customDomain: $customDomain) {
         name

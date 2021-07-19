@@ -28,7 +28,9 @@ In your VTEX account's admin, perform the following actions:
 6. Enter the **Store blog home path** which is used to include Wordpress posts in the sitemap and be indexed by search engines. For example, the path to your store's blog is www.my-store.com/blog, you would enter 'blog'.
 7. Save your changes.
 
-:information_source: _The settings option `Create Sitemap Entries` will likely not need to be modified. This setting tells the app to create the initial sitemap entries. Once this is done, the app programmatically updates this setting to prevent duplicate sitemap entires._
+⚠️ If you have a security plugin installed on your WordPress installation (such as WordFence), ensure it is not blocking requests to `/users` or `/?author=N` queries.
+
+ℹ️ _The settings option `Create Sitemap Entries` will likely not need to be modified. This setting tells the app to create the initial sitemap entries. Once this is done, the app programmatically updates this setting to prevent duplicate sitemap entires._
 
 ### Step 3 - Creating the blog pages
 
@@ -60,7 +62,7 @@ It is time to create the store pages that will host the blog content. Before per
 }
 ```
 
-:information_source: _You may change `blog` in each route to another string of your choosing._
+ℹ️ _You may change `blog` in each route to another string of your choosing._
 
 | Blog page                  | Description                                                                                                                             |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,16 +122,19 @@ The Wordpress Integration app provides the following blocks for your use:
 
 #### `blog-latest-posts-preview.wordpress-latest-posts-preview` props
 
-| Prop Name         | Type      | Description                                                                                                                                                                                                                                  | Default value |
-| ----------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `title`           | `string`  | Title to be displayed above the block.                                                                                                                                                                                                       | `null`        |
-| `numberOfPosts`   | `number`  | The number of posts to be displayed.                                                                                                                                                                                                         | `3`           |
-| `useTextOverlays` | `boolean` | Whether each blog post data (title, category, etc) should be overlaid on the post's featured image (`true`) or not (`false`). If `false`, date of publication and category are shown above the image, title and excerpts are shown below it. | `false`       |
-| `showCategories`  | `boolean` | Whether the post category should be shown (`true`) or not (`false`).                                                                                                                                                                         | `true`        |
-| `showDates`       | `boolean` | Whether the date of publication should be shown (`true`) or not (`false`).                                                                                                                                                                   | `true`        |
-| `showAuthors`     | `boolean` | Whether the post author should be shown (`true`) or not (`false`).                                                                                                                                                                           | `false`       |
-| `showExcerpts`    | `boolean` | Whether the post excerpts should be shown (`true`) or not (`false`).                                                                                                                                                                         | `false`       |
-| `absoluteLinks`   | `boolean` | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`).                                                                                                                              | `false`       |
+| Prop Name           | Type      | Description                                                                                                                                                                                                                                  | Default value |
+| ------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `title`             | `string`  | Title to be displayed above the block.                                                                                                                                                                                                       | `null`        |
+| `numberOfPosts`     | `number`  | The number of posts to be displayed.                                                                                                                                                                                                         | `3`           |
+| `tags`              | `array`   | Array of tag IDs allowed. When this property is included, only posts that contain all the listed tags will be displayed.                                                                                                                     | `undefined`   |
+| `excludeTags`       | `array`   | Array of tag IDs to be excluded. Posts containing any of the excluded tags will not be displayed.                                                                                                                                            | `undefined`   |
+| `excludeCategories` | `array`   | Array of category IDs to be excluded. Posts containing any of the excluded categories will not be displayed.                                                                                                                                 | `undefined`   |
+| `useTextOverlays`   | `boolean` | Whether each blog post data (title, category, etc) should be overlaid on the post's featured image (`true`) or not (`false`). If `false`, date of publication and category are shown above the image, title and excerpts are shown below it. | `false`       |
+| `showCategories`    | `boolean` | Whether the post category should be shown (`true`) or not (`false`).                                                                                                                                                                         | `true`        |
+| `showDates`         | `boolean` | Whether the date of publication should be shown (`true`) or not (`false`).                                                                                                                                                                   | `true`        |
+| `showAuthors`       | `boolean` | Whether the post author should be shown (`true`) or not (`false`).                                                                                                                                                                           | `false`       |
+| `showExcerpts`      | `boolean` | Whether the post excerpts should be shown (`true`) or not (`false`).                                                                                                                                                                         | `false`       |
+| `absoluteLinks`     | `boolean` | Whether the links from each blog post should point to the external blog in a new tab (`true`) or not (`false`).                                                                                                                              | `false`       |
 
 #### `blog-category-preview.wordpress-category-preview` props
 
@@ -208,7 +213,7 @@ Starting with version 1.6.0 of this app, blog content from **multiple WordPress 
 
 To accomplish this, a `customdomainslug` parameter must be added to your blog routes, and your WordPress blocks must be updated with various props.
 
-:information_source: _This configuration is not required if you only wish to display blog content from a single WordPress domain._
+ℹ️ _This configuration is not required if you only wish to display blog content from a single WordPress domain._
 
 #### Step 1 - Adding the `customdomainslug` parameter
 
@@ -234,7 +239,7 @@ It is time to create the store pages that will host the blog content. Before per
 }
 ```
 
-:warning: **\*Note that the blog homepage should continue to use a specific path**. It can be `blog` as in the example, or a different string of your choice. All other routes should use the `:customdomainslug` dynamic parameter.\*
+⚠️ **\*Note that the blog homepage should continue to use a specific path**. It can be `blog` as in the example, or a different string of your choice. All other routes should use the `:customdomainslug` dynamic parameter.\*
 
 #### Step 2 - Updating the blocks' props
 
@@ -260,7 +265,7 @@ For example, if you wanted URLs with the slug `blog` to load content from `http:
 }
 ```
 
-:information_source: _Make sure to follow the format of the example value, including the brackets and escaped double quotes._
+ℹ️ _Make sure to follow the format of the example value, including the brackets and escaped double quotes._
 
 Blocks that do not use URL params should be given a different set of props, namely `customDomainSlug` and `customDomain`. These blocks are:
 
@@ -314,7 +319,7 @@ Continuing the example from above, any block that shows content from the "defaul
   },
 ```
 
-:information_source: _Make sure to follow the format of the example value, including the brackets and escaped double quotes._
+ℹ️ _Make sure to follow the format of the example value, including the brackets and escaped double quotes._
 
 ### Adding Subcategories to blog URLs
 
@@ -397,6 +402,7 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `listContainer`                        |
 | `listFlex`                             |
 | `listFlexItem`                         |
+| `paginationComponent`                  |
 | `postFlex`                             |
 | `postContainer`                        |
 | `postTitle`                            |

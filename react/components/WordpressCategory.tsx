@@ -28,6 +28,7 @@ const CSS_HANDLES = [
   'listContainer',
   'listFlex',
   'listFlexItem',
+  'paginationComponent',
 ] as const
 
 const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
@@ -210,7 +211,9 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
         style={{ maxWidth: '90%' }}
         ref={containerRef}
       >
-        <div className="ph3">{PaginationComponent}</div>
+        <div className={`${handles.paginationComponent} ph3`}>
+          {PaginationComponent}
+        </div>
         {(loading || loadingS) && (
           <div className="mv5 flex justify-center" style={{ minHeight: 800 }}>
             <Spinner />
@@ -253,7 +256,9 @@ const WordpressCategory: StorefrontFunctionComponent<CategoryProps> = ({
                 )
               )}
             </div>
-            <div className="ph3 mb7">{PaginationComponent}</div>
+            <div className={`${handles.paginationComponent} ph3 mb7`}>
+              {PaginationComponent}
+            </div>
           </Fragment>
         ) : (
           !loading &&
