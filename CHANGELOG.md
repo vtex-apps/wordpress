@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.11.0] - 2021-07-19
+
 ### Added
 
 - Remove active post from the Latest Posts Preview or Category Preview blocks, if it is present
